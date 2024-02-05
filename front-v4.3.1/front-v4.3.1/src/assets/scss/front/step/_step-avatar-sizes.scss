@@ -1,0 +1,69 @@
+/*------------------------------------
+  Step Avatar
+------------------------------------*/
+
+.step-avatar-xs {
+  .step-avatar,
+  &.step-avatar {
+    font-size: $step-avatar-font-size-xs;
+    width: $step-avatar-width-xs;
+    height: $step-avatar-height-xs;
+
+    &::after {
+      top: calc($step-avatar-height-xs + calc($step-padding-x / 2));
+      left: calc(calc($step-avatar-width-xs / 2) - calc($step-border-width / 2));
+      width: calc($step-border-width + $step-padding-x);
+      height: calc(100% - #{$step-avatar-height-xs + calc(($step-padding-x / 2)) - $step-padding-x});
+    }
+  }
+
+  .step-divider {
+    &::after {
+      left: calc($step-icon-width-xs / 2);
+    }
+  }
+}
+
+.step-avatar-sm {
+  .step-avatar,
+  &.step-avatar {
+    font-size: $step-avatar-font-size-sm;
+    width: $step-avatar-width-sm;
+    height: $step-avatar-height-sm;
+
+    &::after {
+      top: calc($step-avatar-height-sm + calc($step-padding-x / 2));
+      left: calc(($step-avatar-width-sm / 2) - calc($step-border-width / 2));
+      width: calc($step-border-width + $step-padding-x);
+      height: calc(100% - #{$step-avatar-height-sm + calc(($step-padding-x / 2)) - $step-padding-x});
+    }
+  }
+
+  .step-divider {
+    &::after {
+      left: calc($step-icon-width-sm / 2);
+    }
+  }
+}
+
+.step-avatar-lg {
+  .step-avatar,
+  &.step-avatar {
+    font-size: $step-avatar-font-size-lg;
+    width: $step-avatar-width-lg;
+    height: $step-avatar-height-lg;
+
+    &::after {
+      top: calc($step-avatar-height-lg + calc($step-padding-x / 2));
+      left: calc(($step-avatar-width-lg / 2) - calc($step-border-width / 2));
+      width: calc($step-border-width + $step-padding-x);
+      height: calc(100% - #{$step-avatar-height-lg + calc(($step-padding-x / 2)) - $step-padding-x});
+    }
+  }
+
+  .step-divider {
+    &::after {
+      left: calc($step-icon-width-lg / 2);
+    }
+  }
+}

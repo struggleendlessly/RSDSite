@@ -1,6 +1,9 @@
 ﻿@page "/weather"
 @attribute [StreamRendering]
-<h1>Weather</h1>
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather123</h1>
 
 <p>This component demonstrates showing data.</p>
 
@@ -38,7 +41,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate a loading indicator
+        // Simulate asynchronous loading to demonstrate streaming rendering
         await Task.Delay(500);
 
         var startDate = DateOnly.FromDateTime(DateTime.Now);
