@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shared", "shared\shared.csproj", "{DEBDA510-A7F5-4218-86E8-411A38776A8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clean-noChanges", "clean-noChanges\clean-noChanges\clean-noChanges.csproj", "{E9F1B1A7-BCA4-4E9F-A8A3-E3CD476537B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges", "clean-noChanges\clean-noChanges\clean-noChanges.csproj", "{E9F1B1A7-BCA4-4E9F-A8A3-E3CD476537B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clean-noChanges.Client", "clean-noChanges\clean-noChanges.Client\clean-noChanges.Client.csproj", "{ADB3A464-13D2-48BA-9EA0-234A8197ACED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges.Client", "clean-noChanges\clean-noChanges.Client\clean-noChanges.Client.csproj", "{ADB3A464-13D2-48BA-9EA0-234A8197ACED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rcl", "rcl\rcl.csproj", "{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
