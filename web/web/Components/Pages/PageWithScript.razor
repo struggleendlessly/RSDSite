@@ -1,8 +1,9 @@
 ﻿@page "/page-with-script"
 @using rcl
 
-<PageTitle>Enhanced Load Script Example</PageTitle>
+@attribute [StreamRendering]
 
+<PageTitle>Enhanced Load Script Example</PageTitle>
 <PageScript Src="./Components/Pages/PageWithScript.razor.js" />
 
 Welcome to my page.
