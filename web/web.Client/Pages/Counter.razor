@@ -6,6 +6,15 @@
 
 <h1>Counter</h1>
 
+<div>
+    <textarea id="tiny"></textarea>
+</div>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#tiny'
+    });
+</script>
 @* <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
