@@ -1,3 +1,5 @@
+
+
 window.js_onLoad = () => {
     // INITIALIZATION OF HEADER
     // =======================================================
@@ -67,6 +69,8 @@ window.js_onLoad = () => {
    
 
 }
+
+
 
 //window.js_onLoadNouislider = () => {
 //    // INITIALIZATION OF NOUISLIDER

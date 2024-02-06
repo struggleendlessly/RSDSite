@@ -15,15 +15,6 @@ namespace web.Components.Pages
             //throw new NotImplementedException();
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
 
-
-            if (firstRender)
-            {
-                //objRef = DotNetObjectReference.Create(this); onLoadJsNavScroller
-                await JS.InvokeVoidAsync(JSInvokeMethodList.onLoad);
-            }
-        }
     }
 }
