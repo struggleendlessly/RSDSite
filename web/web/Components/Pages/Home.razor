@@ -1,9 +1,9 @@
 ﻿@page "/"
 @using rcl
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@rendermode @(new InteractiveServerRenderMode(prerender: true))
 @attribute [StreamRendering]
-<PageScript Src="./Components/Pages/Home.razor.js" />
-
+@* <PageScript Src="./Components/Pages/Home.razor.js" />
+ *@
 
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">

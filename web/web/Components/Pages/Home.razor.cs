@@ -20,9 +20,6 @@ namespace web.Components.Pages
         protected override async Task OnInitializedAsync()
         {
 
-            dotNetHelper = DotNetObjectReference.Create(this);
-            await JS.InvokeVoidAsync("DotNetHelpers.setDotNetHelper", dotNetHelper);
-
             Model = new Model
             {
                 Title = ""
@@ -30,6 +27,18 @@ namespace web.Components.Pages
         }
 
         private DotNetObjectReference<Home>? dotNetHelper;
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+
+
+            if (firstRender)
+            {
+                dotNetHelper = DotNetObjectReference.Create(this);
+                await JS.InvokeVoidAsync("DotNetHelpers.setDotNetHelper", dotNetHelper);
+
+            }
+        }
 
         public void Dispose()
         {

@@ -39,7 +39,7 @@ class DotNetHelpers {
     static async sayHello(val) {
         const msg =
             await DotNetHelpers.dotNetHelper.invokeMethodAsync('returnTinyMceContent', val);
-        alert(`Message from .NET: "${msg}"`);
+        //alert(`Message from .NET: "${msg}"`);
     }
 }
 
