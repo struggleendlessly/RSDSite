@@ -9,14 +9,13 @@
     URL.revokeObjectURL(url);
 }
 
-function triggerFileDownload(fileName, url) {
-    const anchorElement = document.createElement('a');
-    anchorElement.href = url;
-
-    if (fileName) {
-        anchorElement.download = fileName;
-    }
-
-    anchorElement.click();
-    anchorElement.remove();
+function js_tinymceActivate() {
+    tinymce.init({
+        selector: 'textarea#tiny'
+    });
 }
+function js_tinymceGetContent() {
+    var myContent = tinymce.activeEditor.getContent();
+    DotNetHelpers.sayHello(myContent);
+}
+

@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using rcl
-
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@attribute [StreamRendering]
 <PageScript Src="./Components/Pages/Home.razor.js" />
 
 
@@ -9,6 +10,9 @@
     <!-- Hero -->
     <div class="container content-space-t-4 content-space-b-1 content-space-b-sm-2">
         <div class="w-lg-75">
+            <button class="badge bg-primary" style="display:@BtnEdit" @onclick="TinyMceActivate">Edit</button>
+            <button class="badge bg-success" style="display:@BtnSave" @onclick="TinyMceSave">Save</button>
+            <button class="badge bg-secondary" style="display:@BtnCancel" @onclick="TinyMceCancel">Cancel</button>
             <h1 class="display-3 mb-5">
                 We are a
                 <span class="text-primary text-highlight-warning">
@@ -24,7 +28,11 @@
                 <br>
                 full stack web agency
             </h1>
-
+            <div style="display:@ShowTinyMCE">
+                <EditForm Model="@Model" OnValidSubmit="@Submit" FormName="Starship3">
+                    <InputTextArea @bind-Value="Model!.Title" id="tiny"></InputTextArea>
+                </EditForm>
+            </div>
             <p class="lead">As well as being game-changers when it comes to theme innovation, HS has some of the bestselling themes in its locker.</p>
         </div>
     </div>
@@ -472,5 +480,3 @@
     <!-- End Contacts -->
 </main>
 <!-- ========== END MAIN CONTENT ========== -->
-
-                            
