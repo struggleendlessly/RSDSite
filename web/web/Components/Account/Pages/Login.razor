@@ -1,9 +1,10 @@
-﻿@page "/Account/Login"
-
-@using System.ComponentModel.DataAnnotations
+﻿@using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using web.Data
+@using shared
+
+@attribute [Route(StaticRoutesStrings.LoginPageRoute)]
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ILogger<Login> Logger
@@ -12,57 +13,64 @@
 
 <PageTitle>Log in</PageTitle>
 
-<h1>Log in</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    <!-- Form -->
+    <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
+        <div class="flex-grow-1 mx-auto" style="max-width: 28rem;">
+            <!-- Heading -->
+            <div class="text-center mb-5 mb-md-7">
+                <h1 class="h2">Welcome back</h1>
+                <p>Login to manage your account.</p>
+            </div>
+            <!-- End Heading -->
+            <!-- Form -->
             <StatusMessage Message="@errorMessage" />
             <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
                 <DataAnnotationsValidator />
-                <h2>Use a local account to log in.</h2>
-                <hr />
                 <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-floating mb-3">
-                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label">Email</label>
-                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                <!-- Form -->
+                <div class="mb-4">
+                    <label class="form-label" for="signupSimpleLoginEmail">Your email</label>
+                    <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg" id="signupSimpleLoginEmail" placeholder="email@site.com" aria-label="email@site.com" required />
+                    <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
                 </div>
-                <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label for="password" class="form-label">Password</label>
-                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                <!-- End Form -->
+                <!-- Form -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label" for="signupSimpleLoginPassword">Password</label>
+
+                        <a class="form-label-link" href="@(StaticRoutesStrings.ForgotPasswordPageRoute)">Forgot Password?</a>
+                    </div>
+
+                    <InputText @bind-Value="Input.Password" type="password" class="form-control form-control-lg" id="signupSimpleLoginPassword" placeholder="**********" aria-label="**********" required />
+
+                    <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
                 </div>
-                <div class="checkbox mb-3">
-                    <label class="form-label">
-                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
-                        Remember me
-                    </label>
+                <!-- End Form -->
+
+                <!-- Checkbox -->
+                <div class="form-check mb-3">
+                    <InputCheckbox @bind-Value="Input.RememberMe" type="checkbox" id="signupSimpleLoginRememberMe" class="form-check-input" />
+                    <label class="form-check-label" for="signupSimpleLoginRememberMe">Remember me</label>
                 </div>
-                <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                <!-- End Checkbox -->
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Log in</button>
                 </div>
-                <div>
-                    <p>
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+
+                <div class="text-center">
+                    <p>Don't have an account yet? <a class="link" href="@(NavigationManager.GetUriWithQueryParameters(StaticRoutesStrings.RegisterPageRoute, new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Sign up here</a></p>
                 </div>
             </EditForm>
-        </section>
+            <!-- End Form -->
+        </div>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
-    </div>
-</div>
+    <!-- End Form -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
 
 @code {
     private string? errorMessage;

@@ -1,11 +1,12 @@
-﻿@page "/Account/Register"
-
-@using System.ComponentModel.DataAnnotations
+﻿@using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using web.Data
+@using shared
+
+@attribute [Route(StaticRoutesStrings.RegisterPageRoute)]
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -17,42 +18,58 @@
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    <!-- Form -->
+    <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
+        <div class="flex-grow-1 mx-auto" style="max-width: 28rem;">
+            <!-- Heading -->
+            <div class="text-center mb-5 mb-md-7">
+                <h1 class="h2">Welcome to Front</h1>
+                <p>Fill out the form to get started.</p>
+            </div>
+            <!-- End Heading -->
+            <!-- Form -->
+            <StatusMessage Message="@Message" />
+            <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <!-- Form -->
+                <div class="mb-3">
+                    <label class="form-label" for="signupSimpleSignupEmail">Your email</label>
+                    <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg" id="signupSimpleSignupEmail" placeholder="email@site.com" aria-label="email@site.com" required />
+                    <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+                </div>
+                <!-- End Form -->
+                <!-- Form -->
+                <div class="mb-3">
+                    <label class="form-label" for="signupSimpleSignupPassword">Password</label>
+                    <InputText @bind-Value="Input.Password" type="password" class="form-control form-control-lg" id="signupSimpleSignupPassword" placeholder="**********" aria-label="**********" required />
+                    <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
+                </div>
+                <!-- End Form -->
+                <!-- Form -->
+                <div class="mb-3">
+                    <label class="form-label" for="signupSimpleSignupConfirmPassword">Confirm password</label>
+                    <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control form-control-lg" id="signupSimpleSignupConfirmPassword" placeholder="**********" aria-label="**********" required />
+                    <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
+                </div>
+                <!-- End Form -->
 
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </EditForm>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+                </div>
+
+                <div class="text-center">
+                    <p>Already have an account? <a class="link" href="@(StaticRoutesStrings.LoginPageRoute)">Log in here</a></p>
+                </div>
+            </EditForm>
+            <!-- End Form -->
+        </div>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
-    </div>
-</div>
+    <!-- End Form -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
