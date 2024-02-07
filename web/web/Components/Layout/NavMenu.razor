@@ -32,22 +32,22 @@
                     <ul class="navbar-nav">
                         <!-- Main -->
                         <li class="nav-item">
-                            <a id="mainMenuLink" class="nav-link active" aria-current="page" href="/" role="button">Main</a>
+                            <a id="mainMenuLink" class="nav-link @(IsCurrentPage("") ? "active" : "")" aria-current="page" href="/" role="button">Main</a>
                         </li>
                         <!-- End Main -->
                         <!-- About Us -->
                         <li class="nav-item">
-                            <a id="aboutUsMenuLink" class="nav-link " href="/about-us" role="button">About Us</a>
+                            <a id="aboutUsMenuLink" class="nav-link @(IsCurrentPage("/about-us") ? "active" : "")" href="/about-us" role="button">About Us</a>
                         </li>
                         <!-- End About Us -->
                         <!-- Contact Us -->
                         <li class="nav-item">
-                            <a id="contactUsMenuLink" class="nav-link " href="/contact-us" role="button">Contact Us</a>
+                            <a id="contactUsMenuLink" class="nav-link @(IsCurrentPage("/contact-us") ? "active" : "")" href="/contact-us" role="button">Contact Us</a>
                         </li>
                         <!-- End Contact Us -->
                         <!-- Services -->
                         <li class="hs-has-sub-menu nav-item">
-                            <a id="servicesMenuLink" class="nav-link " href="/services" role="button">Services</a>
+                            <a id="servicesMenuLink" class="nav-link @(IsCurrentPage("/services") ? "active" : "")" href="/services" role="button">Services</a>
                         </li>
                         <!-- End Services -->
                         <!-- Button -->
@@ -155,6 +155,11 @@
     {
         currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
         StateHasChanged();
+    }
+
+    private bool IsCurrentPage(string url)
+    {
+        return currentUrl == url;
     }
 
     public void Dispose()
