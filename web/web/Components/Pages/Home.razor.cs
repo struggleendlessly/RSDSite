@@ -12,7 +12,7 @@ namespace web.Components.Pages
         IJSRuntime JS { get; set; }
 
         public Model Model { get; set; } = new Model();
-        public string ShowTinyMCE { get; set; } = "inline";
+        public string ShowTinyMCE { get; set; } = "none";
         public string BtnEdit { get; set; } = "inline";
         public string BtnSave { get; set; } = "none";
         public string BtnCancel { get; set; } = "none";
