@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 using shared;
 
-namespace web.Components.Pages
+namespace web.Client.Pages
 {
     public partial class Home : IDisposable
     {
