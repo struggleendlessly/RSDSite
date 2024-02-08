@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges", "clean-no
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges.Client", "clean-noChanges\clean-noChanges.Client\clean-noChanges.Client.csproj", "{ADB3A464-13D2-48BA-9EA0-234A8197ACED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rcl", "rcl\rcl.csproj", "{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcl", "rcl\rcl.csproj", "{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
