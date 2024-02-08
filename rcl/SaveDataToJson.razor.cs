@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using shared;
 
 namespace rcl
 {
@@ -11,7 +12,7 @@ namespace rcl
         {
             base.OnParametersSet();
             // Add your code here
-            File.WriteAllText("data.json", JsonData);
+            File.WriteAllText(StaticStrings.DataJSONFilePath, JsonData);
         }
     }
 }

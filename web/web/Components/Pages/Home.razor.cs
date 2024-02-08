@@ -12,10 +12,10 @@ namespace web.Components.Pages
         IJSRuntime JS { get; set; }
 
         public Model Model { get; set; } = new Model();
-        public string ShowTinyMCE { get; set; } = "none";
-        public string BtnEdit { get; set; } = "inline";
-        public string BtnSave { get; set; } = "none";
-        public string BtnCancel { get; set; } = "none";
+        public string ShowTinyMCE { get; set; } = StaticHtmlStrings.CSSDisplayNone;
+        public string BtnEdit { get; set; } = StaticHtmlStrings.CSSDisplayInline;
+        public string BtnSave { get; set; } = StaticHtmlStrings.CSSDisplayNone;
+        public string BtnCancel { get; set; } = StaticHtmlStrings.CSSDisplayNone;
 
         protected override async Task OnInitializedAsync()
         {
@@ -30,13 +30,10 @@ namespace web.Components.Pages
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-
-
             if (firstRender)
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
-                await JS.InvokeVoidAsync("DotNetHelpers.setDotNetHelper", dotNetHelper);
-
+                await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
             }
         }
 
@@ -50,33 +47,36 @@ namespace web.Components.Pages
         {
             Model.Title = content;
         }
+
         protected async void TinyMceActivate()
         {
-            BtnEdit = "none";
-            BtnSave = "inline";
-            BtnCancel = "inline";
+            BtnEdit = StaticHtmlStrings.CSSDisplayNone;
+            BtnSave = StaticHtmlStrings.CSSDisplayInline;
+            BtnCancel = StaticHtmlStrings.CSSDisplayInline;
 
-            ShowTinyMCE = "block";
-            await JS.InvokeVoidAsync("js_tinymceActivate");
+            ShowTinyMCE = StaticHtmlStrings.CSSDisplayBlock;
+            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate);
         }
+
         protected async void TinyMceCancel()
         {
-            BtnEdit = "inline";
-            BtnSave = "none";
-            BtnCancel = "none";
+            BtnEdit = StaticHtmlStrings.CSSDisplayInline;
+            BtnSave = StaticHtmlStrings.CSSDisplayNone;
+            BtnCancel = StaticHtmlStrings.CSSDisplayNone;
 
-            ShowTinyMCE = "none";
+            ShowTinyMCE = StaticHtmlStrings.CSSDisplayNone;
             //await JS.InvokeVoidAsync("js_tinymceActivate");
         }
+
         protected async void TinyMceSave()
         {
-            BtnEdit = "inline";
-            BtnSave = "none";
-            BtnCancel = "none";
+            BtnEdit = StaticHtmlStrings.CSSDisplayInline;
+            BtnSave = StaticHtmlStrings.CSSDisplayNone;
+            BtnCancel = StaticHtmlStrings.CSSDisplayNone;
 
-            ShowTinyMCE = "none";
+            ShowTinyMCE = StaticHtmlStrings.CSSDisplayNone;
 
-            await JS.InvokeVoidAsync("js_tinymceGetContent");
+            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceGetContent);
         }
 
         private void Submit()
@@ -93,8 +93,7 @@ namespace web.Components.Pages
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            // Add your code here
-            
+            // Add your code here      
         }
     }
 
