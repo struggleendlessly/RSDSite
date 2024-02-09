@@ -8,5 +8,7 @@ namespace shared
         public static string CSSDisplayNone = "none";
         public static string CSSDisplayInline = "inline";
         public static string CSSDisplayBlock = "block";
+
+        public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
     }
 }

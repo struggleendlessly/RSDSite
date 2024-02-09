@@ -9,13 +9,16 @@
     URL.revokeObjectURL(url);
 }
 
-function js_tinymceActivate() {
+function js_tinymceActivate(id) {
+    var selector = `textarea#${id}`;
+
     tinymce.init({
-        selector: 'textarea#tiny'
+        selector: selector
     });
 }
-function js_tinymceGetContent() {
-    var myContent = tinymce.activeEditor.getContent();
-    DotNetHelpers.sayHello(myContent);
+
+function js_tinymceGetContent(id) {
+    return tinymce.get(id).getContent({ format: 'text' });
+    //DotNetHelpers.sayHello(myContent);
 }
 

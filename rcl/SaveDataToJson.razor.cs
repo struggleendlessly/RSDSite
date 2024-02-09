@@ -12,7 +12,7 @@ namespace rcl
         {
             base.OnParametersSet();
             // Add your code here
-            File.WriteAllText(StaticStrings.DataJSONFilePath, JsonData);
+            File.WriteAllText(StaticStrings.MainPageDataJsonFilePath, JsonData);
         }
     }
 }
