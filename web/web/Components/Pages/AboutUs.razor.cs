@@ -2,15 +2,19 @@
 using Microsoft.JSInterop;
 
 using shared;
+using shared.Helpers;
 
-namespace web.Client.Pages
+namespace web.Components.Pages
 {
-    public partial class Home : IDisposable
+    public partial class AboutUs : IDisposable
     {
         [Inject]
         IJSRuntime JS { get; set; }
 
-        public Model Model { get; set; } = new Model();
+        [Inject]
+        IWebHostEnvironment hostingEnvironment { get; set; }
+
+        public AboutUsPageModel Model { get; set; } = new AboutUsPageModel();
         public string ShowTinyMCE { get; set; } = StaticHtmlStrings.CSSDisplayNone;
         public string BtnEdit { get; set; } = StaticHtmlStrings.CSSDisplayInline;
         public string BtnSave { get; set; } = StaticHtmlStrings.CSSDisplayNone;
@@ -18,14 +22,11 @@ namespace web.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-
-            Model = new Model
-            {
-                Title = ""
-            };
+            var path = Path.Combine(hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            Model = JsonFileManager.ReadFromJsonFile<AboutUsPageModel>(path);
         }
 
-        private DotNetObjectReference<Home>? dotNetHelper;
+        private DotNetObjectReference<AboutUs>? dotNetHelper;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -54,7 +55,7 @@ namespace web.Client.Pages
             BtnCancel = StaticHtmlStrings.CSSDisplayInline;
 
             ShowTinyMCE = StaticHtmlStrings.CSSDisplayBlock;
-            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate, StaticHtmlStrings.TinyAboutUsTitleId);
         }
 
         protected async void TinyMceCancel()
@@ -67,7 +68,7 @@ namespace web.Client.Pages
             //await JS.InvokeVoidAsync("js_tinymceActivate");
         }
 
-        protected async void TinyMceSave()
+        protected async void TinyMceSave(string propertyName)
         {
             BtnEdit = StaticHtmlStrings.CSSDisplayInline;
             BtnSave = StaticHtmlStrings.CSSDisplayNone;
@@ -75,7 +76,18 @@ namespace web.Client.Pages
 
             ShowTinyMCE = StaticHtmlStrings.CSSDisplayNone;
 
-            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceGetContent);
+            //await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceGetContent);
+            var content = await JS.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, StaticHtmlStrings.TinyAboutUsTitleId);
+            var property = typeof(AboutUsPageModel).GetProperty(propertyName);
+            if (property != null && property.CanWrite)
+            {
+                property.SetValue(Model, content);
+            }
+
+            var path = Path.Combine(hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            JsonFileManager.WriteToJsonFile(Model, path);
+
+            StateHasChanged();
         }
 
         private void Submit()
@@ -96,8 +108,9 @@ namespace web.Client.Pages
         }
     }
 
-    public class Model
+    public class AboutUsPageModel
     {
         public string Title { get; set; }
+        public string Subtitle { get; set; }
     }
 }

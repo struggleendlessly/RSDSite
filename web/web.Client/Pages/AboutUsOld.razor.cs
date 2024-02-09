@@ -3,13 +3,17 @@ using Microsoft.JSInterop;
 
 using shared;
 using shared.Helpers;
+using System.Net.Http.Json;
 
 namespace web.Client.Pages
 {
-    public partial class AboutUs : IDisposable
+    public partial class AboutUsOld : IDisposable
     {
         [Inject]
         IJSRuntime JS { get; set; }
+
+        [Inject]
+        NavigationManager navigationManager { get; set; }
 
         public AboutUsPageModel Model { get; set; } = new AboutUsPageModel();
         public string ShowTinyMCE { get; set; } = StaticHtmlStrings.CSSDisplayNone;
@@ -19,10 +23,11 @@ namespace web.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            //Model = JsonFileManager.ReadFromJsonFile<AboutUsPageModel>(StaticStrings.AboutUsPageDataJsonFilePath);
+            var jsonFilePath = new Uri(new Uri(navigationManager.BaseUri), StaticStrings.AboutUsPageDataJsonFilePath);
+            Model = await new HttpClient().GetFromJsonAsync<AboutUsPageModel>("https://localhost:7101/about-us.json");
         }
 
-        private DotNetObjectReference<AboutUs>? dotNetHelper;
+        private DotNetObjectReference<AboutUsOld>? dotNetHelper;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -30,8 +35,6 @@ namespace web.Client.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
-
-                Model = JsonFileManager.ReadFromJsonFile<AboutUsPageModel>(StaticStrings.AboutUsPageDataJsonFilePath);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace web.Client.Pages
 {
-    public partial class ContactUs
+    public partial class ServicesOld
     {
 
     }
