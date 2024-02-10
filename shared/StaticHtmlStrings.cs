@@ -10,5 +10,6 @@ namespace shared
         public static string CSSDisplayBlock = "block";
 
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
+        public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
     }
 }

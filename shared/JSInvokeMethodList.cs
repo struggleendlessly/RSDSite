@@ -19,6 +19,7 @@
         public static string scrollAvailableOptionsKeyboardButtons = "js_scrollAvailableOptionsKeyboardButtons";
 
         public static string tinymceActivate = "js_tinymceActivate";
+        public static string tinymceDestroy = "js_tinymceDestroy";
         public static string tinymceGetContent = "js_tinymceGetContent";
 
         public static string dotNetHelpersSetDotNetHelper = "DotNetHelpers.setDotNetHelper";

@@ -17,6 +17,10 @@ function js_tinymceActivate(id) {
     });
 }
 
+function js_tinymceDestroy(id) {
+    tinymce.get(id).remove();
+}
+
 function js_tinymceGetContent(id) {
     return tinymce.get(id).getContent({ format: 'text' });
     //DotNetHelpers.sayHello(myContent);

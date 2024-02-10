@@ -4,12 +4,12 @@ namespace shared.Helpers
 {
     public class JsonFileManager
     {
-        public static T ReadFromJsonFile<T>(string filePath)
+        public static object ReadFromJsonFile(Type modelType, string filePath)
         {
             using (StreamReader file = File.OpenText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                return (T) serializer.Deserialize(file, typeof(T));
+                return serializer.Deserialize(file, modelType);
             }
         }
 

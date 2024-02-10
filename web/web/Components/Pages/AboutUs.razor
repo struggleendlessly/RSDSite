@@ -1,5 +1,6 @@
 ﻿@using shared
 @using rcl
+@using web.Components.Shared
 @attribute [Route(StaticRoutesStrings.AboutUsPageRoute)]
 
 @rendermode InteractiveServer
@@ -22,6 +23,12 @@
                     </EditForm>
                 </div>
                 <p class="lead">Front is a web company that builds websites. Businesses of every size—from new startups to public companies—use our theme to build  and manage their businesses online.</p>
+                <Editor
+                    ElementId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)" 
+                    JsonFilePath="@(StaticStrings.AboutUsPageDataJsonFilePath)"
+                    ModelType="@(typeof(AboutUsPageModel))"
+                    PropertyName="@(nameof(Model.Subtitle))">
+                </Editor>
             </div>
             <!-- End Heading -->
         </div>

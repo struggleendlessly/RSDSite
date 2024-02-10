@@ -1,0 +1,109 @@
+﻿@using shared
+@using shared.Helpers
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+@inject IJSRuntime JSRuntime
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IWebHostEnvironment WebHostEnvironment
+
+@if (IsUserAuthenticated)
+{
+    @if (!EditMode)
+    {
+        <button class="badge bg-primary" @onclick="ToggleEditMode">Edit</button>
+    }
+    else
+    {
+        <button class="badge bg-success" @onclick="SaveChanges">Save</button>
+        <button class="badge bg-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+
+    <textarea id="@(ElementId)" class="d-none">@(PropertyValue)</textarea>
+}
+
+@code {
+
+    [Parameter]
+    public string ElementId { get; set; } = string.Empty;
+
+    [Parameter]
+    public string JsonFilePath { get; set; } = string.Empty;
+
+    [Parameter]
+    public Type ModelType { get; set; }
+
+    [Parameter]
+    public string PropertyName { get; set; } = string.Empty;
+
+    private bool EditMode { get; set; } = false;
+
+    private bool IsUserAuthenticated { get; set; } = false;
+
+    private object Model { get; set; }
+
+    private object PropertyValue { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            var path = Path.Combine(WebHostEnvironment.WebRootPath, JsonFilePath);
+            Model = JsonFileManager.ReadFromJsonFile(ModelType, path);
+
+            var propertyInfo = Model.GetType().GetProperty(PropertyName);
+            var propertyValue = propertyInfo.GetValue(Model, null);
+            PropertyValue = propertyValue;
+        }
+        else
+        {
+            IsUserAuthenticated = false;
+        }
+    }
+
+    private async Task ToggleEditMode()
+    {
+        EditMode = !EditMode;
+        if (EditMode)
+        {
+            await InitializeTinyMCE();
+        }
+        else
+        {
+            await DestroyTinyMCE();
+        }
+    }
+
+    private async Task InitializeTinyMCE()
+    {
+        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate, ElementId);
+    }
+
+    private async Task DestroyTinyMCE()
+    {
+        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceDestroy, ElementId);
+    }
+
+    private async Task SaveChanges()
+    {
+        var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, ElementId);
+        var property = Model.GetType().GetProperty(PropertyName);
+        if (property != null && property.CanWrite)
+        {
+            property.SetValue(Model, content);
+        }
+
+        var path = Path.Combine(WebHostEnvironment.WebRootPath, JsonFilePath);
+        JsonFileManager.WriteToJsonFile(Model, path);
+
+        await ToggleEditMode();
+    }
+
+    private async Task CancelEdit()
+    {
+        await ToggleEditMode();
+    }
+}

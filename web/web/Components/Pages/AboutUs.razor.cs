@@ -23,7 +23,7 @@ namespace web.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             var path = Path.Combine(hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
-            Model = JsonFileManager.ReadFromJsonFile<AboutUsPageModel>(path);
+            Model = (AboutUsPageModel) JsonFileManager.ReadFromJsonFile(typeof(AboutUsPageModel), path);
         }
 
         private DotNetObjectReference<AboutUs>? dotNetHelper;
