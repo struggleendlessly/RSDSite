@@ -1,109 +1,89 @@
 ﻿@using shared
-@using shared.Helpers
-@using Microsoft.AspNetCore.Authorization
-
-@attribute [Authorize]
+@using shared.Managers
+@using shared.Interfaces
+@using web.Components.Pages
 
 @inject IJSRuntime JSRuntime
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IWebHostEnvironment WebHostEnvironment
 
-@if (IsUserAuthenticated)
-{
-    @if (!EditMode)
-    {
-        <button class="badge bg-primary" @onclick="ToggleEditMode">Edit</button>
-    }
-    else
-    {
-        <button class="badge bg-success" @onclick="SaveChanges">Save</button>
-        <button class="badge bg-secondary" @onclick="CancelEdit">Cancel</button>
-    }
-
-    <textarea id="@(ElementId)" class="d-none">@(PropertyValue)</textarea>
-}
+<AuthorizeView>
+    <Authorized>
+        @if (!EditMode)
+        {
+            <button class="badge bg-primary" @onclick="ToggleEditModeAsync">Edit</button>
+        }
+        else
+        {
+            <button class="badge bg-success" @onclick="SaveChangesAsync">Save</button>
+            <button class="badge bg-secondary" @onclick="CancelEditAsync">Cancel</button>
+        } 
+    </Authorized>
+</AuthorizeView>
+@ChildContent
+<AuthorizeView>
+    <Authorized>
+        <textarea id="@(TinyMceId)" class="d-none">@(Value)</textarea>
+    </Authorized>
+</AuthorizeView>
 
 @code {
 
     [Parameter]
-    public string ElementId { get; set; } = string.Empty;
+    public string TinyMceId { get; set; } = string.Empty;
 
     [Parameter]
-    public string JsonFilePath { get; set; } = string.Empty;
+    public IEditable Parent { get; set; }
 
     [Parameter]
-    public Type ModelType { get; set; }
+    public string Key { get; set; } = string.Empty;
 
     [Parameter]
-    public string PropertyName { get; set; } = string.Empty;
+    public RenderFragment ChildContent { get; set; }
 
     private bool EditMode { get; set; } = false;
 
-    private bool IsUserAuthenticated { get; set; } = false;
-
-    private object Model { get; set; }
-
-    private object PropertyValue { get; set; }
+    private string Value { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        if (user.Identity.IsAuthenticated)
-        {
-            var path = Path.Combine(WebHostEnvironment.WebRootPath, JsonFilePath);
-            Model = JsonFileManager.ReadFromJsonFile(ModelType, path);
-
-            var propertyInfo = Model.GetType().GetProperty(PropertyName);
-            var propertyValue = propertyInfo.GetValue(Model, null);
-            PropertyValue = propertyValue;
-        }
-        else
-        {
-            IsUserAuthenticated = false;
-        }
+        Value = Parent.Model.Data[Key];
     }
 
-    private async Task ToggleEditMode()
+    private async Task ToggleEditModeAsync()
     {
         EditMode = !EditMode;
+
         if (EditMode)
         {
-            await InitializeTinyMCE();
+            await InitializeTinyMCEAsync();
         }
         else
         {
-            await DestroyTinyMCE();
+            await DestroyTinyMCEAsync();
         }
     }
 
-    private async Task InitializeTinyMCE()
+    private async Task InitializeTinyMCEAsync()
     {
-        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate, ElementId);
+        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate, TinyMceId);
     }
 
-    private async Task DestroyTinyMCE()
+    private async Task DestroyTinyMCEAsync()
     {
-        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceDestroy, ElementId);
+        await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceDestroy, TinyMceId);
     }
 
-    private async Task SaveChanges()
+    private async Task SaveChangesAsync()
     {
-        var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, ElementId);
-        var property = Model.GetType().GetProperty(PropertyName);
-        if (property != null && property.CanWrite)
-        {
-            property.SetValue(Model, content);
-        }
+        var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, TinyMceId);
 
-        var path = Path.Combine(WebHostEnvironment.WebRootPath, JsonFilePath);
-        JsonFileManager.WriteToJsonFile(Model, path);
+        Parent.Model.Data[Key] = content;
+        Parent.Save();
 
-        await ToggleEditMode();
+        await ToggleEditModeAsync();
     }
 
-    private async Task CancelEdit()
+    private async Task CancelEditAsync()
     {
-        await ToggleEditMode();
+        await ToggleEditModeAsync();
     }
 }

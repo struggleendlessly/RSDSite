@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 
 using shared;
-using shared.Helpers;
+using shared.Managers;
 using System.Net.Http.Json;
 
 namespace web.Client.Pages
@@ -85,7 +85,7 @@ namespace web.Client.Pages
                 property.SetValue(Model, content);
             }
 
-            JsonFileManager.WriteToJsonFile(Model, StaticStrings.AboutUsPageDataJsonFilePath);
+            //JsonFileManager.WriteToJsonFile(Model, StaticStrings.AboutUsPageDataJsonFilePath);
             StateHasChanged();
         }
 

@@ -1,20 +1,24 @@
 ﻿using Newtonsoft.Json;
 
-namespace shared.Helpers
+namespace shared.Managers
 {
     public class JsonFileManager
     {
-        public static object ReadFromJsonFile(Type modelType, string filePath)
+        public static T ReadFromJsonFile<T>(string webRootPath, string jsonPath)
         {
+            var filePath = Path.Combine(webRootPath, jsonPath);
+
             using (StreamReader file = File.OpenText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                return serializer.Deserialize(file, modelType);
+                return (T) serializer.Deserialize(file, typeof(T));
             }
         }
 
-        public static void WriteToJsonFile<T>(T data, string filePath)
+        public static void WriteToJsonFile<T>(T data, string webRootPath, string jsonPath)
         {
+            var filePath = Path.Combine(webRootPath, jsonPath);
+
             using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();

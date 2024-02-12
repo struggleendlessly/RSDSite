@@ -1,33 +1,29 @@
 ﻿@using shared
 @using rcl
 @using web.Components.Shared
+
 @attribute [Route(StaticRoutesStrings.AboutUsPageRoute)]
 
 @rendermode InteractiveServer
 
-@*<rcl.SaveDataToJson JsonData="tea"></rcl.SaveDataToJson>*@
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
     <!-- Gallery -->
     <div class="container content-space-t-3 content-space-t-lg-5">
         <div class="w-lg-75 text-center mx-lg-auto">
-            <button class="badge bg-primary" style="display:@BtnEdit" @onclick="TinyMceActivate">Edit</button>
-            <button class="badge bg-success" style="display:@BtnSave" @onclick="() => TinyMceSave(nameof(Model.Title))">Save</button>
-            <button class="badge bg-secondary" style="display:@BtnCancel" @onclick="TinyMceCancel">Cancel</button>
             <!-- Heading -->
             <div class="mb-5 mb-md-10">
-                <h1 class="display-4">@(Model.Title)</h1>
-                <div style="display:@ShowTinyMCE">
-                    <EditForm Model="@Model" OnValidSubmit="@Submit" FormName="Starship3">
-                        <InputTextArea @bind-Value="Model!.Title" id="@(StaticHtmlStrings.TinyAboutUsTitleId)"></InputTextArea>
-                    </EditForm>
-                </div>
-                <p class="lead">Front is a web company that builds websites. Businesses of every size—from new startups to public companies—use our theme to build  and manage their businesses online.</p>
+                <Editor 
+                    TinyMceId="@(StaticHtmlStrings.TinyAboutUsTitleId)"
+                    Parent="this"
+                    Key="Title">
+                        <h1 class="display-4">@(Model.Data[StaticStrings.AboutUsPageDataTitleKey])</h1>
+                </Editor>
                 <Editor
-                    ElementId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)" 
-                    JsonFilePath="@(StaticStrings.AboutUsPageDataJsonFilePath)"
-                    ModelType="@(typeof(AboutUsPageModel))"
-                    PropertyName="@(nameof(Model.Subtitle))">
+                    TinyMceId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)"
+                    Parent="this"
+                    Key="Subtitle">
+                        <p class="lead">@(Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
                 </Editor>
             </div>
             <!-- End Heading -->

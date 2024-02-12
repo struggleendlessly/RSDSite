@@ -23,6 +23,4 @@ function js_tinymceDestroy(id) {
 
 function js_tinymceGetContent(id) {
     return tinymce.get(id).getContent({ format: 'text' });
-    //DotNetHelpers.sayHello(myContent);
 }
-
