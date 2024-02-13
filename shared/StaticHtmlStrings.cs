@@ -21,5 +21,6 @@ namespace shared
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";
         public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
+        public static string TinyServicesListServiceItemId = "tinyServicesListServiceItem";
     }
 }

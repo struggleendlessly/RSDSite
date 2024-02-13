@@ -8,6 +8,7 @@ namespace shared
         public static string AboutUsPageDataJsonFilePath = "data/about-us.json";
         public static string ContactUsPageDataJsonFilePath = "data/contact-us.json";
         public static string ServicesPageDataJsonFilePath = "data/services.json";
+        public static string ServicesPageServicesListDataJsonFilePath = "data/services-list.json";
 
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
