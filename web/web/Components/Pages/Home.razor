@@ -1,44 +1,28 @@
 ﻿@using shared
 @using rcl
+@using web.Components.Shared
 
-@attribute [Route(StaticRoutesStrings.MainPageRouteOld)]
-@attribute [StreamRendering]
+@attribute [Route(StaticRoutesStrings.MainPageRoute)]
 
-@rendermode @(new InteractiveServerRenderMode(prerender: true))
+@rendermode InteractiveServer
 
-@* <PageScript Src="./Components/Pages/Home.razor.js" />
- *@
-
-<rcl.SaveDataToJson JsonData="tea"></rcl.SaveDataToJson>
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
     <!-- Hero -->
     <div class="container content-space-t-4 content-space-b-1 content-space-b-sm-2">
         <div class="w-lg-75">
-            <button class="badge bg-primary" style="display:@BtnEdit" @onclick="TinyMceActivate">Edit</button>
-            <button class="badge bg-success" style="display:@BtnSave" @onclick="TinyMceSave">Save</button>
-            <button class="badge bg-secondary" style="display:@BtnCancel" @onclick="TinyMceCancel">Cancel</button>
-            <h1 class="display-3 mb-5">
-                We are a
-                <span class="text-primary text-highlight-warning">
-                    <span class="js-typedjs"
-                          data-hs-typed-options='{
-                    "strings": ["modern", "creative", "professional"],
-                    "typeSpeed": 70,
-                    "loop": true,
-                    "backSpeed": 40,
-                    "backDelay": 2000
-                  }'></span>
-                </span>
-                <br>
-                full stack web agency
-            </h1>
-            <div style="display:@ShowTinyMCE">
-                <EditForm Model="@Model" OnValidSubmit="@Submit" FormName="Starship3">
-                    <InputTextArea @bind-Value="Model!.Title" id="tiny"></InputTextArea>
-                </EditForm>
-            </div>
-            <p class="lead">As well as being game-changers when it comes to theme innovation, HS has some of the bestselling themes in its locker.</p>
+            <TinyMceEditor 
+                TinyMceId="@(StaticHtmlStrings.TinyHomeTitleId)"
+                Parent="this"
+                Key="@(StaticStrings.HomePageDataTitleKey)">
+                    <h1 class="display-3 mb-5">@(Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+            </TinyMceEditor>
+            <TinyMceEditor 
+                TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
+                Parent="this"
+                Key="@(StaticStrings.HomePageDataSubtitleKey)">
+                    <p class="lead">@(Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+            </TinyMceEditor>
         </div>
     </div>
     <!-- End Hero -->

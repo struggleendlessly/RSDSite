@@ -2,7 +2,7 @@
 
 namespace shared.Interfaces
 {
-    public interface IEditable
+    public interface ITinyMceEditable
     {
         PageModel Model { get; set; }
         void Save();

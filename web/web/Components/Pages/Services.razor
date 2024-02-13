@@ -1,5 +1,10 @@
 ﻿@using shared
-@attribute [Route(StaticRoutesStrings.ServicesPageRouteOld)]
+@using rcl
+@using web.Components.Shared
+
+@attribute [Route(StaticRoutesStrings.ServicesPageRoute)]
+
+@rendermode InteractiveServer
 
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
@@ -7,7 +12,12 @@
     <div class="container content-space-t-3 content-space-t-lg-5">
         <!-- Heading -->
         <div class="w-lg-65 text-center mx-lg-auto mb-5 mb-md-9">
-            <h1>Design-led and user-centric strategies can impact people's life.</h1>
+            <TinyMceEditor 
+                TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
+                Parent="this"
+                Key="@(StaticStrings.ServicesPageDataTitleKey)">
+                    <h1>@(Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
+            </TinyMceEditor>
         </div>
         <!-- End Heading -->
 
@@ -31,8 +41,18 @@
     <div class="container content-space-2 content-space-lg-3">
         <!-- Heading -->
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-            <span class="text-cap">What we do</span>
-            <h2>Since 2007, we have helped 25 companies launch over 1k incredible products</h2>
+            <TinyMceEditor 
+                TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
+                Parent="this"
+                Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
+                    <span class="text-cap">@(Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])</span>
+            </TinyMceEditor>
+            <TinyMceEditor 
+                TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
+                Parent="this"
+                Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
+                    <h2>@(Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</h2>
+            </TinyMceEditor>         
         </div>
         <!-- End Heading -->
 
@@ -326,7 +346,3 @@
     <!-- End Clients -->
 </main>
 <!-- ========== END MAIN CONTENT ========== -->
-
-@code {
-
-}

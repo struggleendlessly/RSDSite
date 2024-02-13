@@ -7,7 +7,7 @@ using shared.Models;
 
 namespace web.Components.Pages
 {
-    public partial class AboutUs : ITinyMceEditable
+    public partial class Services : ITinyMceEditable
     {
         [Inject]
         IWebHostEnvironment hostingEnvironment { get; set; }
@@ -16,12 +16,12 @@ namespace web.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Model = JsonFileManager.ReadFromJsonFile<PageModel>(hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            Model = JsonFileManager.ReadFromJsonFile<PageModel>(hostingEnvironment.WebRootPath, StaticStrings.ServicesPageDataJsonFilePath);
         }
 
         public void Save()
         {
-            JsonFileManager.WriteToJsonFile(Model, hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            JsonFileManager.WriteToJsonFile(Model, hostingEnvironment.WebRootPath, StaticStrings.ServicesPageDataJsonFilePath);
         }
     }
 }

@@ -13,18 +13,18 @@
         <div class="w-lg-75 text-center mx-lg-auto">
             <!-- Heading -->
             <div class="mb-5 mb-md-10">
-                <Editor 
+                <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyAboutUsTitleId)"
                     Parent="this"
-                    Key="Title">
+                    Key="@(StaticStrings.AboutUsPageDataTitleKey)">
                         <h1 class="display-4">@(Model.Data[StaticStrings.AboutUsPageDataTitleKey])</h1>
-                </Editor>
-                <Editor
+                </TinyMceEditor>
+                <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)"
                     Parent="this"
-                    Key="Subtitle">
+                    Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
                         <p class="lead">@(Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
-                </Editor>
+                </TinyMceEditor>
             </div>
             <!-- End Heading -->
         </div>
