@@ -15,13 +15,13 @@
                 TinyMceId="@(StaticHtmlStrings.TinyHomeTitleId)"
                 Parent="this"
                 Key="@(StaticStrings.HomePageDataTitleKey)">
-                    <h1 class="display-3 mb-5">@(Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+                    @((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])
             </TinyMceEditor>
             <TinyMceEditor 
                 TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
                 Parent="this"
                 Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                    <p class="lead">@(Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+                    @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
             </TinyMceEditor>
         </div>
     </div>

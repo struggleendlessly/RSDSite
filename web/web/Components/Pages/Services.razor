@@ -16,7 +16,7 @@
                 TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
                 Parent="this"
                 Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                    <h1>@(Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
+                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])
             </TinyMceEditor>
         </div>
         <!-- End Heading -->
@@ -45,13 +45,13 @@
                 TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
                 Parent="this"
                 Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
-                    <span class="text-cap">@(Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])</span>
+                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
             </TinyMceEditor>
             <TinyMceEditor 
                 TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
                 Parent="this"
                 Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
-                    <h2>@(Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</h2>
+                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
             </TinyMceEditor>
         </div>
         <!-- End Heading -->

@@ -18,13 +18,13 @@
                         TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
                         Parent="this"
                         Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                            <h1>@(Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
+                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])
                     </TinyMceEditor>
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
                         Parent="this"
                         Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                            <p>@(Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
+                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
                     </TinyMceEditor>        
                 </div>
                 <!-- End Heading -->

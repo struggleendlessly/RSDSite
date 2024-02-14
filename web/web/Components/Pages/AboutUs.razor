@@ -17,13 +17,13 @@
                     TinyMceId="@(StaticHtmlStrings.TinyAboutUsTitleId)"
                     Parent="this"
                     Key="@(StaticStrings.AboutUsPageDataTitleKey)">
-                        <h1 class="display-4">@(Model.Data[StaticStrings.AboutUsPageDataTitleKey])</h1>
+                        @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTitleKey])
                 </TinyMceEditor>
                 <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)"
                     Parent="this"
                     Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
-                        <p class="lead">@(Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
+                        @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])
                 </TinyMceEditor>
             </div>
             <!-- End Heading -->
