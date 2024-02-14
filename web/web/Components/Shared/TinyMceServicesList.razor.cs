@@ -42,5 +42,37 @@ namespace web.Components.Shared
 
             JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
         }
+
+        public void Remove(string key)
+        {
+            if (Model.Data.ContainsKey(key))
+            {
+                Model.Data.Remove(key);
+
+                var serviceItem = ServiceItems.FirstOrDefault(x => x.ShortDesc.ContainsKey(key));
+                if (serviceItem != null)
+                {
+                    ServiceItems.Remove(serviceItem);
+                    JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                }
+            }
+        }
+
+        public void Add()
+        {
+            var dateTime = DateTime.Now;
+            var key = $"Service_{dateTime.ToString("mm_ss")}";
+            var value = "<h4>New service</h4><p>Some description for new service.</p>";
+
+            Model.Data.Add(key, value);
+
+            var serviceItem = new ServiceItem();
+            serviceItem.ShortDesc = new Dictionary<string, string> { { key, value } };
+            serviceItem.LongDesc = new Dictionary<string, string> { { key, "LongDesc" } };
+
+            ServiceItems.Add(serviceItem);
+
+            JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+        }
     }
 }

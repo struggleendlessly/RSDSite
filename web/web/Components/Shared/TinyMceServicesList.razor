@@ -19,11 +19,13 @@
                 </div>
 
                 <div class="flex-grow-1 ms-3">
+                    <button class="badge bg-success" @onclick="() => Add()">+</button>
+                    <button class="badge bg-danger" @onclick="() => Remove(item.Key)">-</button>
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemId + serviceIndex)"
                         Parent="this"
                         Key="@(item.Key)">
-                            @Model.Data[item.Key]
+                            @((MarkupString) Model.Data[item.Key])
                     </TinyMceEditor>
                 </div>
             </div>
