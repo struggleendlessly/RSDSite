@@ -61,14 +61,14 @@ namespace web.Components.Shared
         public void Add()
         {
             var dateTime = DateTime.Now;
-            var key = $"Service_{dateTime.ToString("mm_ss")}";
-            var value = "<h4>New service</h4><p>Some description for new service.</p>";
+            var key = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
+            var value = StaticHtmlStrings.ServicesListServiceShortDescDefaultValue;
 
             Model.Data.Add(key, value);
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string> { { key, value } };
-            serviceItem.LongDesc = new Dictionary<string, string> { { key, "LongDesc" } };
+            serviceItem.LongDesc = new Dictionary<string, string> { { key, StaticHtmlStrings.ServicesListServiceLongDescDefaultValue } };
 
             ServiceItems.Add(serviceItem);
 
