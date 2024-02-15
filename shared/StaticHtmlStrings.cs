@@ -22,6 +22,7 @@ namespace shared
         public static string TinyServicesListTitleId = "tinyServicesListTitle";
         public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
         public static string TinyServicesListServiceItemId = "tinyServicesListServiceItem";
+        public static string TinyServicesListServiceItemKeyId = "tinyServicesListServiceItemKey";
 
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
         public static string ServicesListServiceShortDescDefaultValue = "<h4>New service</h4><p>Some description for new service.</p>";

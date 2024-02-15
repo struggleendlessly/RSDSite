@@ -20,11 +20,17 @@ namespace web.Components.Shared
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel ModelUrls { get; set; } = new PageModel();
+
         protected override async Task OnInitializedAsync()
         {
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
+
+            ModelUrls.Data = ServiceItems
+                .SelectMany(x => x.LongDesc)
+                .ToDictionary(kv => kv.Key, kv => kv.Key);
         }
 
         public void Save()
@@ -38,6 +44,14 @@ namespace web.Components.Shared
                         serviceItem.ShortDesc[shortDesc.Key] = modelData;
                     }
                 }
+
+                //foreach (var longDesc in serviceItem.LongDesc.ToList())
+                //{
+                //    if (ModelUrls.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
+                //    {
+                //        serviceItem.LongDesc[longDesc.Key] = modelData;
+                //    }
+                //}
             }
 
             JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);

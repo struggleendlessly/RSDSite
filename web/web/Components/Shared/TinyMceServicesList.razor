@@ -19,6 +19,15 @@
                 </div>
 
                 <div class="flex-grow-1 ms-3">
+                    Here you can edit the url address of the page
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemKeyId + serviceIndex)"
+                        Parent="this"
+                        Key="@(item.Key)">
+                            @ModelUrls.Data[item.Key]
+                    </TinyMceEditor>
+                </div>
+                <div class="flex-grow-1 ms-3">
                     <button class="badge bg-success" @onclick="() => Add()">+</button>
                     <button class="badge bg-danger" @onclick="() => Remove(item.Key)">-</button>
                     <TinyMceEditor 
@@ -27,6 +36,9 @@
                         Key="@(item.Key)">
                             @((MarkupString) Model.Data[item.Key])
                     </TinyMceEditor>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <a type="button" class="btn btn-link" href="/service/@(item.Key)">Read more</a>
                 </div>
             </div>
             <!-- End Icon Blocks -->
