@@ -22,9 +22,11 @@
                     Here you can edit the url address of the page
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemKeyId + serviceIndex)"
-                        Parent="this"
-                        Key="@(item.Key)">
-                            @ModelUrls.Data[item.Key]
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                        Model="ModelUrls"
+                        FuncSave="SaveUrl"
+                        Key="@(item.Key + StaticStrings.ServicesUrlKeyEnding)">
+                            @ModelUrls.Data[item.Key + StaticStrings.ServicesUrlKeyEnding]
                     </TinyMceEditor>
                 </div>
                 <div class="flex-grow-1 ms-3">
@@ -32,7 +34,9 @@
                     <button class="badge bg-danger" @onclick="() => Remove(item.Key)">-</button>
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemId + serviceIndex)"
-                        Parent="this"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="SaveContent"
                         Key="@(item.Key)">
                             @((MarkupString) Model.Data[item.Key])
                     </TinyMceEditor>

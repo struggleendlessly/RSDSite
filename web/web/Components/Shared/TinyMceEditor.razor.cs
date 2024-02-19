@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-using shared.Interfaces;
 using shared;
+using shared.Models;
 
 namespace web.Components.Shared
 {
@@ -12,10 +12,16 @@ namespace web.Components.Shared
         public string TinyMceId { get; set; } = string.Empty;
 
         [Parameter]
-        public ITinyMceEditable Parent { get; set; }
+        public string TinyMceContentFormat { get; set; } = string.Empty;
 
         [Parameter]
-        public string Key { get; set; } = string.Empty;
+        public Func<PageModel, bool> FuncSave { get; set; }
+
+        [Parameter]
+        public PageModel Model { get; set; }
+
+        [Parameter]
+        public string Key { get; set; } = string.Empty;   
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
@@ -29,7 +35,7 @@ namespace web.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            Value = Parent.Model.Data[Key];
+            Value = Model.Data[Key];
         }
 
         private async Task ToggleEditModeAsync()
@@ -58,10 +64,10 @@ namespace web.Components.Shared
 
         private async Task SaveChangesAsync()
         {
-            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, TinyMceId);
+            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, TinyMceId, TinyMceContentFormat);
 
-            Parent.Model.Data[Key] = content;
-            Parent.Save();
+            Model.Data[Key] = content;
+            FuncSave(Model);
 
             await ToggleEditModeAsync();
         }

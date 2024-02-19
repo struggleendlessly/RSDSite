@@ -10,7 +10,9 @@
     <div class="container content-space-2 content-space-lg-3">
         <TinyMceEditor 
             TinyMceId="@(StaticHtmlStrings.TinyServicePageContentId)"
-            Parent="this"
+            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+            Model="Model"
+            FuncSave="Save"
             Key="@Key">
                 @((MarkupString) Model.Data[Key])
         </TinyMceEditor>

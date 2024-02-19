@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using shared;
-using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
 namespace web.Components.Shared
 {
-    public partial class TinyMceServicesList : ITinyMceEditable
+    public partial class TinyMceServicesList
     {
         [Inject]
         IWebHostEnvironment HostingEnvironment { get; set; }
 
         [Parameter]
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
-
-        [Parameter]
-        public ITinyMceEditable Parent { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -29,32 +25,44 @@ namespace web.Components.Shared
                 .ToDictionary();
 
             ModelUrls.Data = ServiceItems
-                .SelectMany(x => x.LongDesc)
-                .ToDictionary(kv => kv.Key, kv => kv.Key);
+                .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)))
+                .ToDictionary();
         }
 
-        public void Save()
+        public bool SaveContent(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)
             {
                 foreach (var shortDesc in serviceItem.ShortDesc.ToList())
                 {
-                    if (Model.Data.TryGetValue(shortDesc.Key, out var modelData) && modelData != shortDesc.Value)
+                    if (model.Data.TryGetValue(shortDesc.Key, out var modelData) && modelData != shortDesc.Value)
                     {
                         serviceItem.ShortDesc[shortDesc.Key] = modelData;
                     }
                 }
-
-                //foreach (var longDesc in serviceItem.LongDesc.ToList())
-                //{
-                //    if (ModelUrls.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
-                //    {
-                //        serviceItem.LongDesc[longDesc.Key] = modelData;
-                //    }
-                //}
             }
 
             JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+            return true;
+        }
+
+        public bool SaveUrl(PageModel model)
+        {
+            foreach (var serviceItem in ServiceItems)
+            {
+                foreach (var longDesc in serviceItem.LongDesc.Where(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).ToList())
+                {
+                    if (model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
+                    {
+                        serviceItem.LongDesc[longDesc.Key] = modelData;
+                    }
+                }
+            }
+
+            JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+            return true;
         }
 
         public void Remove(string key)

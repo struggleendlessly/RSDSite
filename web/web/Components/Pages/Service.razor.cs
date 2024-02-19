@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using shared;
-using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
 namespace web.Components.Pages
 {
-    public partial class Service : ITinyMceEditable
+    public partial class Service
     {
         [Parameter]
         public string Key { get; set; } = string.Empty;
@@ -28,13 +27,13 @@ namespace web.Components.Pages
                 .ToDictionary();
         }
 
-        public void Save()
+        public bool Save(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)
             {
                 foreach (var longDesc in serviceItem.LongDesc.ToList())
                 {
-                    if (Model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
+                    if (model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
                     {
                         serviceItem.LongDesc[longDesc.Key] = modelData;
                     }
@@ -42,6 +41,8 @@ namespace web.Components.Pages
             }
 
             JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+            return true;
         }
     }
 }

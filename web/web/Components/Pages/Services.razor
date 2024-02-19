@@ -14,7 +14,9 @@
         <div class="w-lg-65 text-center mx-lg-auto mb-5 mb-md-9">
             <TinyMceEditor 
                 TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
-                Parent="this"
+                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
                 Key="@(StaticStrings.ServicesPageDataTitleKey)">
                     @((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])
             </TinyMceEditor>
@@ -43,13 +45,17 @@
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
             <TinyMceEditor 
                 TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
-                Parent="this"
+                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
                 Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
                     @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
             </TinyMceEditor>
             <TinyMceEditor 
                 TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
-                Parent="this"
+                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
                 Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
                     @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
             </TinyMceEditor>
@@ -58,8 +64,7 @@
 
         <div class="row justify-content-lg-center">
             <TinyMceServicesList 
-                ServiceItems="ServiceItems"
-                Parent="this">
+                ServiceItems="ServiceItems">
             </TinyMceServicesList>
         </div>
     </div>

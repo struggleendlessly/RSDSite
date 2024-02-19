@@ -22,5 +22,11 @@ namespace shared
         public static string ServicesPageDataTitleKey = "Title";
         public static string ServicesPageDataServicesListTitleKey = "ServicesListTitle";
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
+
+        public static string ServicesUrlKeyEnding = "_Url";
+
+        public static string TinyContentFormatText = "text";
+        public static string TinyContentFormatRaw = "raw";
+        public static string TinyContentFormatHtml = "html";
     }
 }

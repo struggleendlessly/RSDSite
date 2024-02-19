@@ -21,6 +21,6 @@ function js_tinymceDestroy(id) {
     tinymce.get(id).remove();
 }
 
-function js_tinymceGetContent(id) {
-    return tinymce.get(id).getContent({ format: 'html' });
+function js_tinymceGetContent(id, format) {
+    return tinymce.get(id).getContent({ format: format });
 }

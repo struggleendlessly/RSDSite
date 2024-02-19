@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using shared;
-using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
 namespace web.Components.Pages
 {
-    public partial class AboutUs : ITinyMceEditable
+    public partial class AboutUs
     {
         [Inject]
         IWebHostEnvironment hostingEnvironment { get; set; }
@@ -19,9 +18,11 @@ namespace web.Components.Pages
             Model = JsonFileManager.ReadFromJsonFile<PageModel>(hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
         }
 
-        public void Save()
+        public bool Save(PageModel model)
         {
-            JsonFileManager.WriteToJsonFile(Model, hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            JsonFileManager.WriteToJsonFile(model, hostingEnvironment.WebRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+
+            return true;
         }
     }
 }

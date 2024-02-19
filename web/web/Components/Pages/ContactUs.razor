@@ -16,13 +16,17 @@
                 <div class="mb-5">
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
-                        Parent="this"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
                         Key="@(StaticStrings.ContactUsPageDataTitleKey)">
                             @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])
                     </TinyMceEditor>
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
-                        Parent="this"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
                         Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
                             @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
                     </TinyMceEditor>        
