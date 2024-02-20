@@ -1,20 +1,30 @@
 ﻿@using shared
 
 @{
-    var serviceIndex = 1;
-
     foreach (var item in Model.Data)
     {
+        var guid = Guid.NewGuid().ToString();
+
         <div class="col-sm-6 col-lg-4 mb-3">
             <!-- Card -->
             <div class="card card-transition h-100">
                 <div class="card-body">
                     <AuthorizeView>
                         <Authorized>
-                            <button class="badge bg-success" @onclick="() => Add()">+</button>
+                            <div class="mb-2">
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceUrlId + guid)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                    Model="ModelUrls"
+                                    FuncSave="SaveUrl"
+                                    Key="@(item.Key + StaticStrings.ServicesUrlKeyEnding)">
+                                        Page url: @(item.Key)
+                                </TinyMceEditor>
+                            </div>  
+                            <button class="badge bg-success" @onclick="() => Add(item.Key)">+</button>
                             <button class="badge bg-danger" @onclick="() => Remove(item.Key)">-</button>
                             <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemId + serviceIndex)"
+                                TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceContentId + guid)"
                                 TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="SaveContent"
@@ -32,25 +42,9 @@
                     <!-- Socials -->
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <AuthorizeView>
-                                <Authorized>
-                                    <TinyMceEditor 
-                                        TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceItemKeyId + serviceIndex)"
-                                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
-                                        Model="ModelUrls"
-                                        FuncSave="SaveUrl"
-                                        Key="@(item.Key + StaticStrings.ServicesUrlKeyEnding)">
-                                            <a class="btn btn-outline-primary btn-xs rounded" href="/service/@(item.Key)">
-                                                Read more
-                                            </a>
-                                    </TinyMceEditor>
-                                </Authorized>
-                                <NotAuthorized>
-                                    <a class="btn btn-outline-primary btn-xs rounded" href="/service/@(item.Key)">
-                                        Read more
-                                    </a>
-                                </NotAuthorized>
-                            </AuthorizeView>
+                            <a class="btn btn-outline-primary btn-xs rounded" href="/service/@(item.Key)">
+                                Read more
+                            </a>
                         </li>
                     </ul>
                     <!-- End Socials -->
@@ -58,7 +52,5 @@
             </div>
             <!-- End Card -->
         </div>
-
-        serviceIndex++;
     }
 }

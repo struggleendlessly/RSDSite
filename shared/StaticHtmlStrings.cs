@@ -21,13 +21,13 @@ namespace shared
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";
         public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
-        public static string TinyServicesListServiceItemId = "tinyServicesListServiceItem";
-        public static string TinyServicesListServiceItemKeyId = "tinyServicesListServiceItemKey";
+        public static string TinyServicesListServiceContentId = "tinyServicesListServiceContent";
+        public static string TinyServicesListServiceUrlId = "tinyServicesListServiceUrl";
 
         public static string TinyServicePageContentId = "tinyServicePageContent";
 
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
-        public static string ServicesListServiceShortDescDefaultValue = "<h4>New service</h4><p>Some description for new service.</p>";
-        public static string ServicesListServiceLongDescDefaultValue = "LongDesc";
+        public static string ServicesListServiceShortDescDefaultValue = "<h4 class=\"card-title\">New service</h4><p class=\"card-text\">Some description for new service.</p>";
+        public static string ServicesListServiceLongDescDefaultValue = "<p>LongDesc</p>";
     }
 }

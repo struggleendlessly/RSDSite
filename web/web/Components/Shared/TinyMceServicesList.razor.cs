@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using shared;
+using shared.Extensions;
 using shared.Managers;
 using shared.Models;
 
@@ -80,19 +81,24 @@ namespace web.Components.Shared
             }
         }
 
-        public void Add()
+        public void Add(string key)
         {
             var dateTime = DateTime.Now;
-            var key = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
-            var value = StaticHtmlStrings.ServicesListServiceShortDescDefaultValue;
+            var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
+            var serviceItemShortDescValue = StaticHtmlStrings.ServicesListServiceShortDescDefaultValue;
 
-            Model.Data.Add(key, value);
+            Model.Data.AddAfter(key, serviceItemKey, serviceItemShortDescValue);
 
             var serviceItem = new ServiceItem();
-            serviceItem.ShortDesc = new Dictionary<string, string> { { key, value } };
-            serviceItem.LongDesc = new Dictionary<string, string> { { key, StaticHtmlStrings.ServicesListServiceLongDescDefaultValue } };
+            serviceItem.ShortDesc = new Dictionary<string, string> { { serviceItemKey, serviceItemShortDescValue } };
+            serviceItem.LongDesc = new Dictionary<string, string> 
+            { 
+                { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
+                { serviceItemKey + StaticStrings.ServicesUrlKeyEnding, serviceItemKey }
+            };
 
-            ServiceItems.Add(serviceItem);
+            var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
+            ServiceItems.Insert(index + 1, serviceItem);
 
             JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
         }
