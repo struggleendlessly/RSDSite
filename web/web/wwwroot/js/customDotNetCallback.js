@@ -10,6 +10,10 @@
             await DotNetHelpers.dotNetHelper.invokeMethodAsync('returnTinyMceContent', val);
         //alert(`Message from .NET: "${msg}"`);
     }
+
+    static async uploadImage(image) {
+        return await DotNetHelpers.dotNetHelper.invokeMethodAsync('returnTinyMceImage', image);
+    }
 }
 
 window.DotNetHelpers = DotNetHelpers;
