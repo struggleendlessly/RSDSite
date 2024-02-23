@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-using shared;
 using shared.Models;
+using shared;
 
-namespace web.Components.Shared
+namespace rcl.Components.Shared
 {
     public partial class TinyMceEditor
     {
@@ -21,7 +21,7 @@ namespace web.Components.Shared
         public PageModel Model { get; set; }
 
         [Parameter]
-        public string Key { get; set; } = string.Empty;   
+        public string Key { get; set; } = string.Empty;
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }

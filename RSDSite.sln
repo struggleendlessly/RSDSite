@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges", "clean-no
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges.Client", "clean-noChanges\clean-noChanges.Client\clean-noChanges.Client.csproj", "{ADB3A464-13D2-48BA-9EA0-234A8197ACED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcl", "rcl\rcl.csproj", "{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcl", "rcl\rcl.csproj", "{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,10 +60,10 @@ Global
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB3A464-13D2-48BA-9EA0-234A8197ACED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F7B772E-256E-4ECB-8CE2-728CB2ECF16E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

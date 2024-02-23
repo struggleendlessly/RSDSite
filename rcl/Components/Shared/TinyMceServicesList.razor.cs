@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
 
 using shared;
 using shared.Extensions;
 using shared.Managers;
 using shared.Models;
 
-namespace web.Components.Shared
+namespace rcl.Components.Shared
 {
     public partial class TinyMceServicesList
     {
@@ -91,8 +92,8 @@ namespace web.Components.Shared
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string> { { serviceItemKey, serviceItemShortDescValue } };
-            serviceItem.LongDesc = new Dictionary<string, string> 
-            { 
+            serviceItem.LongDesc = new Dictionary<string, string>
+            {
                 { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
                 { serviceItemKey + StaticStrings.ServicesUrlKeyEnding, serviceItemKey }
             };
