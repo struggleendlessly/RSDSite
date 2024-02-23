@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Components;
 
 using shared;
-using shared.Managers;
 using shared.Models;
+using shared.Managers;
+
 using System.Text.Json;
 
-namespace web.Components.Pages
+namespace rcl.Components.Pages
 {
     public partial class AboutUs : IDisposable
     {

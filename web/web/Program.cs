@@ -63,7 +63,7 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(web.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(web.Client._Imports).Assembly, typeof(rcl._Imports).Assembly);
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Components;
 
 using shared;
-using shared.Managers;
 using shared.Models;
+using shared.Managers;
 
-namespace web.Components.Pages
+namespace rcl.Components.Pages
 {
     public partial class Service
     {
