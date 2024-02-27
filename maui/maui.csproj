@@ -65,6 +65,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\rcl\rcl.csproj" />
       <ProjectReference Include="..\shared\shared.csproj" />
     </ItemGroup>
 

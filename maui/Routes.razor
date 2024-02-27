@@ -1,6 +1,9 @@
-﻿<Router AppAssembly="@typeof(MauiProgram).Assembly">
+﻿@using rcl.Components.Layout
+@using rcl.Components.Pages
+
+<Router AppAssembly="@typeof(MauiProgram).Assembly" AdditionalAssemblies="new[] {typeof(HomeComponent).Assembly}">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Components.Layout.MainLayout)" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
 </Router>

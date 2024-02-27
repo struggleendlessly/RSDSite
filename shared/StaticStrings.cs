@@ -28,5 +28,7 @@ namespace shared
         public static string TinyContentFormatText = "text";
         public static string TinyContentFormatRaw = "raw";
         public static string TinyContentFormatHtml = "html";
+
+        public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
     }
 }

@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using shared.Interfaces;
 using shared.Managers;
+
 using web.Components;
 using web.Components.Account;
 using web.Data;
+using web.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
-builder.Services.AddScoped<AzureBlobStorageManager>();
+builder.Services.AddTransient<AzureBlobStorageManager>();
+builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -41,6 +45,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
+
+app.MapFileEndpoint();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
 
 using shared;
 using shared.Extensions;
-using shared.Managers;
+using shared.Interfaces;
 using shared.Models;
 
 namespace rcl.Components.Shared
@@ -11,7 +10,7 @@ namespace rcl.Components.Shared
     public partial class TinyMceServicesList
     {
         [Inject]
-        IWebHostEnvironment HostingEnvironment { get; set; }
+        IFileManager FileManager { get; set; }
 
         [Parameter]
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
@@ -44,7 +43,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
 
             return true;
         }
@@ -62,7 +61,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
 
             return true;
         }
@@ -77,7 +76,7 @@ namespace rcl.Components.Shared
                 if (serviceItem != null)
                 {
                     ServiceItems.Remove(serviceItem);
-                    JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                    FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
                 }
             }
         }
@@ -101,7 +100,7 @@ namespace rcl.Components.Shared
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
             ServiceItems.Insert(index + 1, serviceItem);
 
-            JsonFileManager.WriteToJsonFile(ServiceItems, HostingEnvironment.WebRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
         }
     }
 }

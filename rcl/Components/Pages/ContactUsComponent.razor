@@ -1,0 +1,157 @@
+﻿<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    <!-- Contact Form -->
+    <div class="container content-space-t-3 content-space-t-lg-5 content-space-b-2">
+        <div class="row">
+            <div class="col-lg-6 mb-9 mb-lg-0">
+                <!-- Heading -->
+                <div class="mb-5">
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.ContactUsPageDataTitleKey)">
+                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])
+                    </TinyMceEditor>
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
+                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
+                    </TinyMceEditor>        
+                </div>
+                <!-- End Heading -->
+                <!-- Leaflet -->
+                <div class="overflow-hidden">
+                    <div id="map" class="leaflet mb-5"
+                         data-hs-leaflet-options='{
+                 "map": {
+                   "scrollWheelZoom": false,
+                   "coords": [37.4040344, -122.0289704]
+                 },
+                 "marker": [
+                   {
+                     "coords": [37.4040344, -122.0289704],
+                     "icon": {
+                       "iconUrl": "_content/rcl/assets/svg/components/map-pin.svg",
+                       "iconSize": [50, 45]
+                     },
+                     "popup": {
+                       "text": "153 Williamson Plaza, Maggieberg"
+                     }
+                   }
+                 ]
+                }'></div>
+                </div>
+                <!-- End Leaflet -->
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="mb-1">Call us:</h5>
+                        <p>+1 (062) 109-9222</p>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-sm-6">
+                        <h5 class="mb-1">Email us:</h5>
+                        <p>hello@example.com</p>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-sm-6">
+                        <h5 class="mb-1">Address:</h5>
+                        <p>153 Williamson Plaza, Maggieberg</p>
+                    </div>
+                    <!-- End Col -->
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-6">
+                <div class="ps-lg-5">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-header border-bottom text-center">
+                            <h3 class="card-header-title">General inquiries</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Form -->
+                            <form>
+                                <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <!-- Form -->
+                                        <div class="mb-3">
+                                            <label class="form-label" for="hireUsFormFirstName">First name</label>
+                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNameFirstName" id="hireUsFormFirstName" placeholder="First name" aria-label="First name">
+                                        </div>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Col -->
+
+                                    <div class="col-sm-6">
+                                        <!-- Form -->
+                                        <div class="mb-3">
+                                            <label class="form-label" for="hireUsFormLasttName">Last name</label>
+                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNameLastName" id="hireUsFormLasttName" placeholder="Last name" aria-label="Last name">
+                                        </div>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Col -->
+                                </div>
+                                <!-- End Row -->
+
+                                <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <!-- Form -->
+                                        <div class="mb-3">
+                                            <label class="form-label" for="hireUsFormWorkEmail">Email address</label>
+                                            <input type="email" class="form-control form-control-lg" name="hireUsFormNameWorkEmail" id="hireUsFormWorkEmail" placeholder="email@site.com" aria-label="email@site.com">
+                                        </div>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Col -->
+
+                                    <div class="col-sm-6">
+                                        <!-- Form -->
+                                        <div class="mb-3">
+                                            <label class="form-label" for="hireUsFormPhone">Phone <span class="form-label-secondary">(Optional)</span></label>
+                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx">
+                                        </div>
+                                        <!-- End Form -->
+                                    </div>
+                                    <!-- End Col -->
+                                </div>
+                                <!-- End Row -->
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="hireUsFormDetails">Details</label>
+                                    <textarea class="form-control form-control-lg" name="hireUsFormNameDetails" id="hireUsFormDetails" placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4"></textarea>
+                                </div>
+                                <!-- End Form -->
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">Send inquiry</button>
+                                </div>
+
+                                <div class="text-center">
+                                    <p class="form-text">We'll get back to you in 1-2 business days.</p>
+                                </div>
+                            </form>
+                            <!-- End Form -->
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- End Contact Form -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->

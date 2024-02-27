@@ -1,19 +1,21 @@
-﻿<AuthorizeView>
+﻿@* <AuthorizeView>
     <Authorized>
-        @if (!EditMode)
-        {
-            <button class="badge bg-primary" @onclick="ToggleEditModeAsync">Edit</button>
-        }
-        else
-        {
-            <button class="badge bg-success" @onclick="SaveChangesAsync">Save</button>
-            <button class="badge bg-secondary" @onclick="CancelEditAsync">Cancel</button>
-        } 
+        
     </Authorized>
-</AuthorizeView>
+</AuthorizeView> *@
+@if (!EditMode)
+{
+    <button class="badge bg-primary" @onclick="ToggleEditModeAsync">Edit</button>
+}
+else
+{
+    <button class="badge bg-success" @onclick="SaveChangesAsync">Save</button>
+    <button class="badge bg-secondary" @onclick="CancelEditAsync">Cancel</button>
+}
 @ChildContent
-<AuthorizeView>
+@* <AuthorizeView>
     <Authorized>
-        <textarea id="@(TinyMceId)" class="d-none">@(Value)</textarea>
+        
     </Authorized>
-</AuthorizeView>
+</AuthorizeView> *@
+<textarea id="@(TinyMceId)" class="d-none">@(Value)</textarea>
