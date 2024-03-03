@@ -3,8 +3,10 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using shared.Managers
 @using web.Data
 @using shared
+@using System.Diagnostics;
 
 @attribute [Route(StaticRoutesStrings.RegisterPageRoute)]
 
@@ -106,6 +108,22 @@
         }
 
         Logger.LogInformation("User created a new account with password.");
+
+        string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
+        string userEmail = Input.Email;
+        string userPassword = Input.Password;
+        string siteName = Input.SiteName;
+
+        var parameters = new[]
+        {
+            ("UserEmail", userEmail),
+            ("UserPassword", userPassword),
+            ("SiteName", siteName),
+            ("PublishDirectory", @"D:\Work\RemSoftDev\RSDSite\web\web\bin\Release\net8.0")
+        };
+
+        ScriptRunner scriptRunner = new ScriptRunner();
+        scriptRunner.RunPowerShellScript(scriptFilePath, parameters);
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
