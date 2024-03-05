@@ -6,7 +6,7 @@ namespace shared
     {
         public const string MainPageRoute = "/";
         public const string MainPageRouteOld = "/main-old";
-        public const string AboutUsPageRoute = "/about-us";
+        public const string AboutUsPageRoute = "{siteName}/about-us";
         public const string ContactUsPageRoute = "/contact-us";
         public const string ServicesPageRoute = "/services";
         public const string PricingPageRoute = "/pricing";

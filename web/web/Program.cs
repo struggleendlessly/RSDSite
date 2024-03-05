@@ -9,6 +9,7 @@ using web.Components;
 using web.Components.Account;
 using web.Data;
 using web.Endpoints;
+using web.Interfaces;
 using web.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,9 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddTransient<AzureBlobStorageManager>();
 builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
-
+builder.Services.AddScoped<ISiteCreator, SiteCreator>();
+builder.Services.AddSingleton<StateManager>();
+builder.Services.AddScoped<ISiteNameSetter, SiteNameSetter>();
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;

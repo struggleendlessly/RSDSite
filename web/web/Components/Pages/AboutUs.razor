@@ -1,8 +1,20 @@
 ﻿@using rcl.Components.Pages
 @using shared
-
-@attribute [Route(StaticRoutesStrings.AboutUsPageRoute)]
-
+@using web.Managers
+@* @attribute [Route(StaticRoutesStrings.AboutUsPageRoute)] *@
+@page "/{siteName?}/about-us"
 @rendermode InteractiveServer
+@inject StateManager stateManager; 
+@inject NavigationManager NavigationManager
 
 <AboutUsComponent></AboutUsComponent>
+@code{
+    [Parameter]
+    public string? siteName { get; set; } = "default";
+    protected override void OnParametersSet()
+    {
+        siteName = stateManager.SiteName;
+
+    }
+
+}

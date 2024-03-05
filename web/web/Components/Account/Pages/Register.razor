@@ -3,6 +3,7 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using shared.Interfaces
 @using shared.Managers
 @using web.Data
 @using shared
@@ -17,7 +18,7 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-
+@inject ISiteCreator siteCreator; 
 <PageTitle>Register</PageTitle>
 
 <!-- ========== MAIN CONTENT ========== -->
@@ -36,6 +37,7 @@
             <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
                 <DataAnnotationsValidator />
                 <ValidationSummary class="text-danger" role="alert" />
+                <ValidationSummary class="text-danger" role="alert" />site
                 <!-- Form -->
                 <div class="mb-3">
                     <label class="form-label" for="signupSimpleSignupEmail">Your email</label>
@@ -133,14 +135,14 @@
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
+        siteCreator.CreateSite(siteName);
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
                 "Account/RegisterConfirmation",
                 new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
-
+       
         await SignInManager.SignInAsync(user, isPersistent: false);
         RedirectManager.RedirectTo(ReturnUrl);
     }

@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity
 @using web.Data
 @using shared
+@using web.Interfaces
 
 @attribute [Route(StaticRoutesStrings.LoginPageRoute)]
 
@@ -10,7 +11,7 @@
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-
+@inject ISiteNameSetter SiteNameSetter; 
 <PageTitle>Log in</PageTitle>
 
 <!-- ========== MAIN CONTENT ========== -->
@@ -101,6 +102,7 @@
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
+            await SiteNameSetter.SetUserSiteName(Input.Email);
             RedirectManager.RedirectTo(ReturnUrl);
         }
         else if (result.RequiresTwoFactor)
