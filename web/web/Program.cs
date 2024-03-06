@@ -28,6 +28,7 @@ builder.Services.AddTransient<AzureBlobStorageManager>();
 builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
 builder.Services.AddScoped<ISiteCreator, SiteCreator>();
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
