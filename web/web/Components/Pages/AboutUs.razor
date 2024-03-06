@@ -10,11 +10,6 @@
 <AboutUsComponent></AboutUsComponent>
 @code{
     [Parameter]
-    public string? siteName { get; set; } = "default";
-    protected override void OnParametersSet()
-    {
-        siteName = stateManager.SiteName;
-
-    }
+    public string? siteName { get; set; }
 
 }
