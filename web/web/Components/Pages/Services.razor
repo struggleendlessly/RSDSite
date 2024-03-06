@@ -2,7 +2,13 @@
 @using shared
 
 @attribute [Route(StaticRoutesStrings.ServicesPageRoute)]
+@attribute [Route(StaticRoutesStrings.ServicesPageRouteWithParameter)]
 
 @rendermode InteractiveServer
 
 <ServicesComponent></ServicesComponent>
+@code {
+    [Parameter]
+    public string? siteName { get; set; }
+}
+

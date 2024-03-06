@@ -1,10 +1,17 @@
 ﻿@using shared
 @attribute [Route(StaticRoutesStrings.MainPageRouteOld)]
+@attribute [Route(StaticRoutesStrings.MainPageRouteOldWithParameter)]
+
 @using rcl
 @rendermode @(new InteractiveServerRenderMode(prerender: true))
 @attribute [StreamRendering]
 @* <PageScript Src="./Components/Pages/Home.razor.js" />
  *@
+ @code {
+    [Parameter]
+    public string? siteName { get; set; }
+}
+
 
  <rcl.SaveDataToJson JsonData="tea"></rcl.SaveDataToJson>
 <!-- ========== MAIN CONTENT ========== -->

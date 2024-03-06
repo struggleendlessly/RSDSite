@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Routing;
 
 using shared;
+using shared.Managers;
 
 namespace rcl.Components.Layout
 {
@@ -11,7 +12,6 @@ namespace rcl.Components.Layout
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
-
         protected override void OnInitialized()
         {
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);

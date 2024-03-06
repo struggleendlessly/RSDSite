@@ -2,7 +2,13 @@
 @using shared
 
 @attribute [Route(StaticRoutesStrings.PricingPageRoute)]
+@attribute [Route(StaticRoutesStrings.PricingPageRouteWithParameter)]
 
 @rendermode InteractiveServer
 
 <PricingComponent></PricingComponent>
+@code {
+    [Parameter]
+    public string? siteName { get; set; }
+}
+

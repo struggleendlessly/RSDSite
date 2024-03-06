@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace web.Managers
+namespace web.Interfaces
 {
-    public class StateManager
+    public interface ISiteCreator
     {
-        public string SiteName {  get; set; }
+        void CreateSite(string siteName);
     }
 }

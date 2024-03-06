@@ -2,7 +2,13 @@
 @using shared
 
 @attribute [Route(StaticRoutesStrings.ContactUsPageRoute)]
+@attribute [Route(StaticRoutesStrings.ContactUsPageRouteWithParameter)]
 
 @rendermode InteractiveServer
 
 <ContactUsComponent></ContactUsComponent>
+@code {
+    [Parameter]
+    public string? siteName { get; set; }
+}
+

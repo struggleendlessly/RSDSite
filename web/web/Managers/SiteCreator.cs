@@ -1,15 +1,15 @@
-﻿using shared.Interfaces;
+﻿using shared.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using web.Interfaces;
 
-namespace shared.Managers
+namespace web.Managers
 {
     public class SiteCreator : ISiteCreator
-    {
-
+    {       
         public void CreateSite(string siteName)
         {
             string sourceDirectory = $@"..\..\web\web\wwwroot\data\example";
@@ -23,7 +23,7 @@ namespace shared.Managers
             }
             catch (Exception e)
             {
-                Console.WriteLine("The process failed: {0}", e.ToString());
+                Console.WriteLine(e.ToString());
             }
         }
         private void CopyDirectory(string sourceDirectory, string targetDirectory)
