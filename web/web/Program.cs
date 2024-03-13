@@ -26,6 +26,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddTransient<AzureBlobStorageManager>();
 builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
+builder.Services.AddTransient<ISiteCreator, SiteCreator>();
 
 builder.Services.AddAuthentication(options =>
     {

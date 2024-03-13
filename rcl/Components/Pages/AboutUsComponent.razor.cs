@@ -19,7 +19,12 @@ namespace rcl.Components.Pages
         IFileManager FileManager { get; set; }
 
         [Inject]
-        AzureBlobStorageManager blobStorageManager { get; set; }
+        AzureBlobStorageManager BlobStorageManager { get; set; }
+
+        [Parameter]
+        public string? SiteName { get; set; }
+
+        public string JsonPath { get; set; } = string.Empty;
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -36,7 +41,8 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Model = FileManager.ReadFromJsonFile<PageModel>(StaticStrings.WwwRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            JsonPath = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.AboutUsPageDataJsonFilePath : string.Format(StaticStrings.AboutUsPageWebsiteDataJsonFilePath, SiteName);
+            Model = FileManager.ReadFromJsonFile<PageModel>(StaticStrings.WwwRootPath, JsonPath);
         }
 
         [JSInvokable]
@@ -46,12 +52,12 @@ namespace rcl.Components.Pages
             var base64 = content.Replace("\"", "");
             var blobName = $"{Guid.NewGuid()}.png";
 
-            return await blobStorageManager.UploadImageAsync(base64, blobName);
+            return await BlobStorageManager.UploadImageAsync(base64, blobName);
         }
 
         public bool Save(PageModel model)
         {
-            FileManager.WriteToJsonFile(model, StaticStrings.WwwRootPath, StaticStrings.AboutUsPageDataJsonFilePath);
+            FileManager.WriteToJsonFile(model, StaticStrings.WwwRootPath, JsonPath);
 
             return true;
         }

@@ -14,13 +14,19 @@ namespace rcl.Components.Pages
         [Parameter]
         public string Key { get; set; } = string.Empty;
 
+        [Parameter]
+        public string? SiteName { get; set; }
+
+        public string JsonPath { get; set; } = string.Empty;
+
         public PageModel Model { get; set; } = new PageModel();
 
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         protected override async Task OnInitializedAsync()
         {
-            ServiceItems = FileManager.ReadFromJsonFile<List<ServiceItem>>(StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            JsonPath = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.ServicesPageServicesListDataJsonFilePath : string.Format(StaticStrings.ServicesPageWebsiteServicesListDataJsonFilePath, SiteName);
+            ServiceItems = FileManager.ReadFromJsonFile<List<ServiceItem>>(StaticStrings.WwwRootPath, JsonPath);
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
                 .Where(x => x.Key == Key)
@@ -40,7 +46,7 @@ namespace rcl.Components.Pages
                 }
             }
 
-            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, JsonPath);
 
             return true;
         }

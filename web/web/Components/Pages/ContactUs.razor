@@ -2,7 +2,8 @@
 @using shared
 
 @attribute [Route(StaticRoutesStrings.ContactUsPageRoute)]
+@attribute [Route(StaticRoutesStrings.ContactUsWebsitePageRoute)]
 
 @rendermode InteractiveServer
 
-<ContactUsComponent></ContactUsComponent>
+<ContactUsComponent SiteName="@SiteName"></ContactUsComponent>

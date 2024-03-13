@@ -1,6 +1,9 @@
 ﻿@using rcl.Components.Pages
 @using shared
 
+@attribute [Route(StaticRoutesStrings.ServicePageRoute)]
+@attribute [Route(StaticRoutesStrings.ServiceWebsitePageRoute)]
+
 @rendermode InteractiveServer
 
-<ServiceComponent></ServiceComponent>
+<ServiceComponent Key="@Key" SiteName="@SiteName"></ServiceComponent>

@@ -5,10 +5,15 @@ namespace shared
     public static class StaticStrings
     {
         public static string HomePageDataJsonFilePath = "data/home.json";
+        public static string HomePageWebsiteDataJsonFilePath = "data/{0}/home.json";
         public static string AboutUsPageDataJsonFilePath = "data/about-us.json";
+        public static string AboutUsPageWebsiteDataJsonFilePath = "data/{0}/about-us.json";
         public static string ContactUsPageDataJsonFilePath = "data/contact-us.json";
+        public static string ContactUsPageWebsiteDataJsonFilePath = "data/{0}/contact-us.json";
         public static string ServicesPageDataJsonFilePath = "data/services.json";
+        public static string ServicesPageWebsiteDataJsonFilePath = "data/{0}/services.json";
         public static string ServicesPageServicesListDataJsonFilePath = "data/services-list.json";
+        public static string ServicesPageWebsiteServicesListDataJsonFilePath = "data/{0}/services-list.json";
 
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
