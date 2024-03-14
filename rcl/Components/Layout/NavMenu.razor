@@ -52,10 +52,7 @@
                         </li>
                         <!-- End Pricing -->
                         <!-- Button -->
-                        <li class="nav-item">
-                            <a class="btn btn-primary btn-transition" href="/Account/Login" target="_blank">Login</a>
-                        </li>
-                        @* <AuthorizeView>
+                        <AuthorizeView>
                             <Authorized>
                                 <li class="nav-item">
                                     <a class="btn btn-primary btn-transition" href="/Account/Logout" target="_blank">Logout</a>
@@ -66,7 +63,7 @@
                                     <a class="btn btn-primary btn-transition" href="/Account/Login" target="_blank">Login</a>
                                 </li>
                             </NotAuthorized>
-                        </AuthorizeView> *@
+                        </AuthorizeView>
                         <!-- End Button -->
                     </ul>
                 </div>

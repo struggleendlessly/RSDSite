@@ -7,8 +7,8 @@
             <!-- Card -->
             <div class="card card-transition h-100">
                 <div class="card-body">
-                    @*<AuthorizeView>
-                        <Authorized>*@
+                    <AuthorizeView>
+                        <Authorized>
                             <div class="mb-2">
                                 <TinyMceEditor 
                                     TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceUrlId + guid)"
@@ -29,11 +29,11 @@
                                 Key="@(item.Key)">
                                     @((MarkupString) Model.Data[item.Key])
                             </TinyMceEditor>
-                        @*</Authorized>
+                        </Authorized>
                         <NotAuthorized>
                             @((MarkupString) Model.Data[item.Key])
                         </NotAuthorized>
-                    </AuthorizeView>*@
+                    </AuthorizeView>
                 </div>
 
                 <div class="card-footer pt-0">
