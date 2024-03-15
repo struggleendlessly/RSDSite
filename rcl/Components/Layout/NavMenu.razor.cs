@@ -49,13 +49,14 @@ namespace rcl.Components.Layout
 
         private void SetSiteName(string baseRelativePath)
         {
-            if (Pages.Contains(baseRelativePath)) 
+            string[] parts = baseRelativePath.Split('/');
+
+            if (Pages.Contains(parts[0])) 
             {  
                 SiteName = string.Empty; 
             }
             else
             {
-                string[] parts = baseRelativePath.Split('/');
                 SiteName = parts.Length > 0 ? parts[0] : string.Empty;
             }          
         }

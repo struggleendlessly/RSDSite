@@ -46,11 +46,14 @@
                             <a id="servicesMenuLink" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ServicesPageRoute))" href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" role="button">Services</a>
                         </li>
                         <!-- End Services -->
-                        <!-- Pricing -->
-                        <li class="hs-has-sub-menu nav-item">
-                            <a id="pricingMenuLink" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.PricingPageRoute))" href="@(SiteName + StaticRoutesStrings.PricingPageRoute)" role="button">Pricing</a>
-                        </li>
-                        <!-- End Pricing -->
+                        @if (SiteName == string.Empty)
+                        {
+                            <!-- Pricing -->
+                            <li class="hs-has-sub-menu nav-item">
+                                <a id="pricingMenuLink" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.PricingPageRoute))" href="@(SiteName + StaticRoutesStrings.PricingPageRoute)" role="button">Pricing</a>
+                            </li>
+                            <!-- End Pricing -->
+                        }
                         <!-- Button -->
                         <AuthorizeView>
                             <Authorized>

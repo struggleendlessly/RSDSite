@@ -29,7 +29,8 @@ namespace shared
                 AboutUsPageRoute.Substring(1),
                 ContactUsPageRoute.Substring(1),
                 ServicesPageRoute.Substring(1),
-                PricingPageRoute.Substring(1)
+                PricingPageRoute.Substring(1),
+                LoginPageRoute.Split("/")[1]
             ];
         }
     }
