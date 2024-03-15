@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 using shared.Interfaces;
 using shared.Managers;
@@ -18,6 +19,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddHubOptions(options => options.MaximumReceiveMessageSize = 10 * 1024 * 1024)
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();

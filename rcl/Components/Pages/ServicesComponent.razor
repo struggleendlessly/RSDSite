@@ -4,14 +4,17 @@
     <div class="container content-space-t-3 content-space-t-lg-5">
         <!-- Heading -->
         <div class="w-lg-65 text-center mx-lg-auto mb-5 mb-md-9">
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])
-            </TinyMceEditor>
+            @if (Model.Data != null)
+            {
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataTitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])
+                </TinyMceEditor>
+            }
         </div>
         <!-- End Heading -->
 
@@ -35,27 +38,31 @@
     <div class="container content-space-2 content-space-lg-3">
         <!-- Heading -->
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
-                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
-            </TinyMceEditor>
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
-                    @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
-            </TinyMceEditor>
+            @if (Model.Data != null)
+            {
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
+                </TinyMceEditor>
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
+                </TinyMceEditor>
+            }
         </div>
         <!-- End Heading -->
 
         <div class="row gx-3 mb-5">
-            <TinyMceServicesList 
+            <TinyMceServicesList
+                SiteName="@SiteNameLower"
                 ServiceItems="ServiceItems">
             </TinyMceServicesList>
         </div>

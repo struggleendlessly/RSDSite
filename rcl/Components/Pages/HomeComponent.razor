@@ -3,22 +3,25 @@
     <!-- Hero -->
     <div class="container content-space-t-4 content-space-b-1 content-space-b-sm-2">
         <div class="w-lg-75">
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyHomeTitleId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.HomePageDataTitleKey)">
-                    @((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])
-            </TinyMceEditor>
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                    @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
-            </TinyMceEditor>
+            @if (Model.Data != null)
+            {
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyHomeTitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataTitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])
+                </TinyMceEditor>
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataSubtitleKey)">
+                        @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
+                </TinyMceEditor>
+            }
         </div>
     </div>
     <!-- End Hero -->

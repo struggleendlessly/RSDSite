@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace shared.Managers
@@ -6,32 +7,58 @@ namespace shared.Managers
     public class AzureBlobStorageManager
     {
         private readonly string _connectionString;
-        private readonly string _containerName;
-        private readonly string _blobEndpointUrl;
 
         public AzureBlobStorageManager(IConfiguration configuration)
         {
             _connectionString = configuration["AzureBlobStorage:ConnectionString"];
-            _containerName = configuration["AzureBlobStorage:ContainerName"];
-            _blobEndpointUrl = configuration["AzureBlobStorage:BlobEndpointUrl"];
         }
 
-        public async Task<string> UploadImageAsync(string base64Image, string blobName)
+        public async Task<string> DownloadFile(string blobContainerName, string blobName)
         {
-            byte[] imageBytes = Convert.FromBase64String(base64Image);
-
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
 
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
 
             BlobClient blobClient = containerClient.GetBlobClient(blobName);
 
-            using (MemoryStream memoryStream = new MemoryStream(imageBytes))
-            {
-                await blobClient.UploadAsync(memoryStream, true);
-            }
+            await EnsureContainerPublicAccessAsync(containerClient);
 
-            return $"{_blobEndpointUrl}/{_containerName}/{blobName}";
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await blobClient.DownloadToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                using (StreamReader reader = new StreamReader(memoryStream))
+                {
+                    return await reader.ReadToEndAsync();
+                }
+            }
+        }
+
+        public async Task<string> UploadFile(string blobContainerName, string blobName, Stream fileStream)
+        {          
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
+
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+
+            await containerClient.CreateIfNotExistsAsync();
+
+            await EnsureContainerPublicAccessAsync(containerClient);
+
+            BlobClient blobClient = containerClient.GetBlobClient(blobName);
+
+            await blobClient.UploadAsync(fileStream, overwrite: true);
+
+            return blobClient.Uri.AbsoluteUri;
+        }
+
+        private async Task EnsureContainerPublicAccessAsync(BlobContainerClient containerClient)
+        {
+            BlobContainerAccessPolicy accessPolicy = await containerClient.GetAccessPolicyAsync();
+            if (accessPolicy.BlobPublicAccess == PublicAccessType.None)
+            {
+                await containerClient.SetAccessPolicyAsync(PublicAccessType.BlobContainer);
+            }
         }
     }
 }

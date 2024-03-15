@@ -1,15 +1,27 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Caching.Memory;
 
 using shared;
 using shared.Models;
-using shared.Interfaces;
+using shared.Managers;
+
+using System.Text;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace rcl.Components.Pages
 {
     public partial class ServiceComponent
     {
         [Inject]
-        IFileManager FileManager { get; set; }
+        IJSRuntime JS { get; set; }
+
+        [Inject]
+        AzureBlobStorageManager BlobStorageManager { get; set; }
+
+        [Inject]
+        protected IMemoryCache MemoryCache { get; set; }
 
         [Parameter]
         public string Key { get; set; } = string.Empty;
@@ -17,23 +29,44 @@ namespace rcl.Components.Pages
         [Parameter]
         public string? SiteName { get; set; }
 
-        public string JsonPath { get; set; } = string.Empty;
+        public string SiteNameLower { get; set; } = string.Empty;
 
         public PageModel Model { get; set; } = new PageModel();
 
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
+        DotNetObjectReference<ServiceComponent>? dotNetHelper { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                dotNetHelper = DotNetObjectReference.Create(this);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+            }
+        }
+
         protected override async Task OnInitializedAsync()
         {
-            JsonPath = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.ServicesPageServicesListDataJsonFilePath : string.Format(StaticStrings.ServicesPageWebsiteServicesListDataJsonFilePath, SiteName);
-            ServiceItems = FileManager.ReadFromJsonFile<List<ServiceItem>>(StaticStrings.WwwRootPath, JsonPath);
+            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
+
+                MemoryCache.Set(serviceItemsKey, serviceItems);
+            }
+
+            ServiceItems = serviceItems;
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
                 .Where(x => x.Key == Key)
                 .ToDictionary();
         }
 
-        public bool Save(PageModel model)
+        public async Task Save(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)
             {
@@ -46,9 +79,30 @@ namespace rcl.Components.Pages
                 }
             }
 
-            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, JsonPath);
+            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
 
-            return true;
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath, stream);
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(serviceItemsKey);
+        }
+
+        [JSInvokable]
+        public async Task<string> returnTinyMceImage(JsonElement image)
+        {
+            var content = image.GetRawText();
+            var base64 = content.Replace("\"", "");
+            byte[] bytes = Convert.FromBase64String(base64);
+            var blobName = $"images/{Guid.NewGuid()}.png";
+
+            using (MemoryStream stream = new MemoryStream(bytes))
+            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+        }
+
+        public void Dispose()
+        {
+            dotNetHelper?.Dispose();
         }
     }
 }

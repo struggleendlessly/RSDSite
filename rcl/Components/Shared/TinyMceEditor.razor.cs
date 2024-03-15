@@ -15,10 +15,10 @@ namespace rcl.Components.Shared
         public string TinyMceContentFormat { get; set; } = string.Empty;
 
         [Parameter]
-        public Func<PageModel, bool> FuncSave { get; set; }
+        public Func<PageModel, Task> FuncSave { get; set; }
 
         [Parameter]
-        public PageModel Model { get; set; }
+        public PageModel Model { get; set; } = new PageModel();
 
         [Parameter]
         public string Key { get; set; } = string.Empty;
@@ -67,7 +67,7 @@ namespace rcl.Components.Shared
             var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, TinyMceId, TinyMceContentFormat);
 
             Model.Data[Key] = content;
-            FuncSave(Model);
+            await FuncSave(Model);
 
             await ToggleEditModeAsync();
         }

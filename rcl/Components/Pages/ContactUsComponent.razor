@@ -6,22 +6,25 @@
             <div class="col-lg-6 mb-9 mb-lg-0">
                 <!-- Heading -->
                 <div class="mb-5">
-                    <TinyMceEditor 
-                        TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
-                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])
-                    </TinyMceEditor>
-                    <TinyMceEditor 
-                        TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
-                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
-                    </TinyMceEditor>        
+                    @if (Model.Data != null)
+                    {
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataTitleKey)">
+                                @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])
+                        </TinyMceEditor>
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
+                                @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
+                        </TinyMceEditor>
+                    }                    
                 </div>
                 <!-- End Heading -->
                 <!-- Leaflet -->

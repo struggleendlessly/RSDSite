@@ -1,12 +1,14 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Caching.Memory;
 
 using shared;
 using shared.Models;
 using shared.Managers;
 
+using System.Text;
+using Newtonsoft.Json;
 using System.Text.Json;
-using shared.Interfaces;
 
 namespace rcl.Components.Pages
 {
@@ -16,15 +18,15 @@ namespace rcl.Components.Pages
         IJSRuntime JS { get; set; }
 
         [Inject]
-        IFileManager FileManager { get; set; }
+        AzureBlobStorageManager BlobStorageManager { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
+        protected IMemoryCache MemoryCache { get; set; }
 
         [Parameter]
         public string? SiteName { get; set; }
 
-        public string JsonPath { get; set; } = string.Empty;
+        public string SiteNameLower { get; set; } = string.Empty;
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -41,8 +43,17 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            JsonPath = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.AboutUsPageDataJsonFilePath : string.Format(StaticStrings.AboutUsPageWebsiteDataJsonFilePath, SiteName);
-            Model = FileManager.ReadFromJsonFile<PageModel>(StaticStrings.WwwRootPath, JsonPath);
+            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
+            var key = string.Format(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, SiteNameLower);
+            if (!MemoryCache.TryGetValue(key, out PageModel model))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AboutUsPageDataJsonFilePath);
+                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
+
+                MemoryCache.Set(key, model);
+            }
+
+            Model = model;
         }
 
         [JSInvokable]
@@ -50,16 +61,22 @@ namespace rcl.Components.Pages
         {
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
-            var blobName = $"{Guid.NewGuid()}.png";
+            byte[] bytes = Convert.FromBase64String(base64);
+            var blobName = $"images/{Guid.NewGuid()}.png";
 
-            return await BlobStorageManager.UploadImageAsync(base64, blobName);
+            using (MemoryStream stream = new MemoryStream(bytes))
+            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
         }
 
-        public bool Save(PageModel model)
+        public async Task Save(PageModel model)
         {
-            FileManager.WriteToJsonFile(model, StaticStrings.WwwRootPath, JsonPath);
+            var jsonModel = JsonConvert.SerializeObject(model);
+            
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.AboutUsPageDataJsonFilePath, stream);
 
-            return true;
+            var key = string.Format(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(key);
         }
 
         public void Dispose()

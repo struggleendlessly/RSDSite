@@ -111,7 +111,7 @@
 
         Logger.LogInformation("User created a new account with password.");
 
-        SiteCreator.CreateSite(Input.SiteName);
+        await SiteCreator.CreateSite(Input.SiteName);
 
         Logger.LogInformation($"A website named {Input.SiteName} has been created.");
 

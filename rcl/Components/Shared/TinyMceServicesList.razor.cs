@@ -1,16 +1,33 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Caching.Memory;
 
 using shared;
-using shared.Extensions;
-using shared.Interfaces;
 using shared.Models;
+using shared.Managers;
+using shared.Extensions;
+
+using System.Text;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace rcl.Components.Shared
 {
-    public partial class TinyMceServicesList
+    public partial class TinyMceServicesList : IDisposable
     {
         [Inject]
-        IFileManager FileManager { get; set; }
+        IJSRuntime JS { get; set; }
+
+        [Inject]
+        AzureBlobStorageManager BlobStorageManager { get; set; }
+
+        [Inject]
+        protected IMemoryCache MemoryCache { get; set; }
+
+        [Parameter]
+        public string? SiteName { get; set; }
+
+        public string SiteNameLower { get; set; } = string.Empty;
 
         [Parameter]
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
@@ -19,8 +36,21 @@ namespace rcl.Components.Shared
 
         public PageModel ModelUrls { get; set; } = new PageModel();
 
+        DotNetObjectReference<TinyMceServicesList>? dotNetHelper { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                dotNetHelper = DotNetObjectReference.Create(this);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+            }
+        }
+
         protected override async Task OnInitializedAsync()
         {
+            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
+
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
@@ -30,7 +60,7 @@ namespace rcl.Components.Shared
                 .ToDictionary();
         }
 
-        public bool SaveContent(PageModel model)
+        public async Task SaveContent(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)
             {
@@ -43,12 +73,16 @@ namespace rcl.Components.Shared
                 }
             }
 
-            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
 
-            return true;
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath, stream);
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(serviceItemsKey);
         }
 
-        public bool SaveUrl(PageModel model)
+        public async Task SaveUrl(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)
             {
@@ -61,12 +95,16 @@ namespace rcl.Components.Shared
                 }
             }
 
-            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
 
-            return true;
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath, stream);
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(serviceItemsKey);
         }
 
-        public void Remove(string key)
+        public async Task Remove(string key)
         {
             if (Model.Data.ContainsKey(key))
             {
@@ -76,12 +114,19 @@ namespace rcl.Components.Shared
                 if (serviceItem != null)
                 {
                     ServiceItems.Remove(serviceItem);
-                    FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+                    var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+
+                    using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+                    await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath, stream);
+
+                    var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+                    MemoryCache.Remove(serviceItemsKey);
                 }
             }
         }
 
-        public void Add(string key)
+        public async Task Add(string key)
         {
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
@@ -100,7 +145,30 @@ namespace rcl.Components.Shared
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
             ServiceItems.Insert(index + 1, serviceItem);
 
-            FileManager.WriteToJsonFile(ServiceItems, StaticStrings.WwwRootPath, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath, stream);
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(serviceItemsKey);
+        }
+
+        [JSInvokable]
+        public async Task<string> returnTinyMceImage(JsonElement image)
+        {
+            var content = image.GetRawText();
+            var base64 = content.Replace("\"", "");
+            byte[] bytes = Convert.FromBase64String(base64);
+            var blobName = $"images/{Guid.NewGuid()}.png";
+
+            using (MemoryStream stream = new MemoryStream(bytes))
+            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+        }
+
+        public void Dispose()
+        {
+            dotNetHelper?.Dispose();
         }
     }
 }

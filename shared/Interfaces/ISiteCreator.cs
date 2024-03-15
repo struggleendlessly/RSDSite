@@ -4,6 +4,6 @@ namespace shared.Interfaces
 {
     public interface ISiteCreator
     {
-        void CreateSite(string siteName);
+        Task CreateSite(string siteName);
     }
 }
