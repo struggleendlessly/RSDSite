@@ -32,8 +32,25 @@
     <div class="container content-space-2 content-space-lg-3">
         <!-- Heading -->
         <div class="w-md-65 mb-5 mb-md-9">
-            <span class="text-cap">Featured case studies</span>
-            <h2 class="lh-base">We help businesses bring ideas to life in the digital world, by designing and implementing the technology tools that they need to win.</h2>
+            @if (Model.Data != null)
+            {
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyHomeFeaturedCaseStudiesTitleId)"
+                               TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])
+                </TinyMceEditor>
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyHomeFeaturedCaseStudiesSubtitleId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
+                        @((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])
+                </TinyMceEditor>
+            }
         </div>
         <!-- End Heading -->
 
@@ -127,7 +144,19 @@
         </div>
 
         <div class="text-center">
-            <a class="btn btn-outline-primary btn-transition" href="https://htmlstream.com/" target="_blank">View all works</a>
+            @if (Model.Data != null)
+            {
+                <TinyMceEditor 
+                    TinyMceId="@(StaticHtmlStrings.TinyHomeViewAllWorksButtonTextId)"
+                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
+                        <a class="btn btn-outline-primary btn-transition" href="https://htmlstream.com/" target="_blank">
+                            @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
+                        </a>
+                </TinyMceEditor>
+            }
         </div>
     </div>
     <!-- End Card Grid -->

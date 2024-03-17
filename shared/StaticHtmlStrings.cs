@@ -11,6 +11,9 @@ namespace shared
 
         public static string TinyHomeTitleId = "tinyHomeTitle";
         public static string TinyHomeSubtitleId = "tinyHomeSubtitle";
+        public static string TinyHomeFeaturedCaseStudiesTitleId = "tinyHomeFeaturedCaseStudiesTitle";
+        public static string TinyHomeFeaturedCaseStudiesSubtitleId = "tinyHomeFeaturedCaseStudiesSubtitle";
+        public static string TinyHomeViewAllWorksButtonTextId = "tinyHomeViewAllWorksButtonText";
 
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
         public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";

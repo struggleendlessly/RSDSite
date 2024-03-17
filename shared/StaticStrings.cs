@@ -12,6 +12,9 @@ namespace shared
 
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
+        public static string HomePageDataFeaturedCaseStudiesTitleKey = "FeaturedCaseStudiesTitle";
+        public static string HomePageDataFeaturedCaseStudiesSubtitleKey = "FeaturedCaseStudiesSubtitle";
+        public static string HomePageDataViewAllWorksButtonTextKey = "ViewAllWorksButtonText";
 
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
