@@ -18,6 +18,10 @@ namespace shared
 
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
+        public static string AboutUsPageDataInfoLeftKey = "InfoLeft";
+        public static string AboutUsPageDataInfoRightKey = "InfoRight";
+        public static string AboutUsPageDataTeamTitleKey = "TeamTitle";
+        public static string AboutUsPageDataTeamSubtitleKey = "TeamSubtitle";
 
         public static string ContactUsPageDataTitleKey = "Title";
         public static string ContactUsPageDataSubtitleKey = "Subtitle";

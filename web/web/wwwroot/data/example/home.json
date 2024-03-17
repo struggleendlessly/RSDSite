@@ -1,1 +1,9 @@
-{"Data":{"Title":"<h1 class=\"display-3 mb-5\">We are a modern full stack web agency</h1>","Subtitle":"<p class=\"lead\">As well as being game-changers when it comes to theme innovation, HS has some of the bestselling themes in its locker.</p>","FeaturedCaseStudiesTitle":"<span class=\"text-cap\">Featured case studies</span>","FeaturedCaseStudiesSubtitle":"<h2 class=\"lh-base\">We help businesses bring ideas to life in the digital world, by designing and implementing the technology tools that they need to win.</h2>","ViewAllWorksButtonText":"View all works"}}
+{
+    "Data": {
+        "Title": "<h1 class=\"display-3 mb-5\">We are a modern full stack web agency</h1>",
+        "Subtitle": "<p class=\"lead\">As well as being game-changers when it comes to theme innovation, HS has some of the bestselling themes in its locker.</p>",
+        "FeaturedCaseStudiesTitle": "<span class=\"text-cap\">Featured case studies</span>",
+        "FeaturedCaseStudiesSubtitle": "<h2 class=\"lh-base\">We help businesses bring ideas to life in the digital world, by designing and implementing the technology tools that they need to win.</h2>",
+        "ViewAllWorksButtonText": "View all works"
+    }
+}

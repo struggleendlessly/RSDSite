@@ -17,6 +17,10 @@ namespace shared
 
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
         public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
+        public static string TinyAboutUsInfoLeftId = "tinyAboutUsInfoLeft";
+        public static string TinyAboutUsInfoRightId = "tinyAboutUsInfoRigth";
+        public static string TinyAboutUsTeamTitleId = "tinyAboutUsTeamTitle";
+        public static string TinyAboutUsTeamSubtitleId = "tinyAboutUsTeamSubtitle";
 
         public static string TinyContactUsTitleId = "tinyContactUsTitle";
         public static string TinyContactUsSubtitleId = "tinyContactUsSubtitle";
