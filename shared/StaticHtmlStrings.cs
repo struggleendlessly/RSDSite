@@ -24,6 +24,12 @@ namespace shared
 
         public static string TinyContactUsTitleId = "tinyContactUsTitle";
         public static string TinyContactUsSubtitleId = "tinyContactUsSubtitle";
+        public static string TinyContactUsFormTitleId = "tinyContactUsFormTitle";
+        public static string TinyContactUsFormButtonTextId = "tinyContactUsFormButtonText";
+        public static string TinyContactUsFormTextUnderButtonKey = "tinyContactUsFormTextUnderButton";
+        public static string TinyContactUsCallUsId = "tinyContactUsCallUs";
+        public static string TinyContactUsEmailUsId = "tinyContactUsEmailUs";
+        public static string TinyContactUsAddressId = "tinyContactUsAddress";
 
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";

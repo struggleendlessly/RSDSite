@@ -25,6 +25,12 @@ namespace shared
 
         public static string ContactUsPageDataTitleKey = "Title";
         public static string ContactUsPageDataSubtitleKey = "Subtitle";
+        public static string ContactUsPageDataFormTitleKey = "FormTitle";
+        public static string ContactUsPageDataFormButtonTextKey = "FormButtonText";
+        public static string ContactUsPageDataFormTextUnderButtonKey = "FormTextUnderButton";
+        public static string ContactUsPageDataCallUsKey = "CallUs";
+        public static string ContactUsPageDataEmailUsKey = "EmailUs";
+        public static string ContactUsPageDataAddressKey = "Address";
 
         public static string ServicesPageDataTitleKey = "Title";
         public static string ServicesPageDataServicesListTitleKey = "ServicesListTitle";

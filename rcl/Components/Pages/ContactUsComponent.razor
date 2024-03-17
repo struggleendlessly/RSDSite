@@ -53,20 +53,47 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <h5 class="mb-1">Call us:</h5>
-                        <p>+1 (062) 109-9222</p>
+                        @if (Model.Data != null)
+                        {
+                            <TinyMceEditor 
+                                TinyMceId="@(StaticHtmlStrings.TinyContactUsCallUsId)"
+                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@(StaticStrings.ContactUsPageDataCallUsKey)">
+                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataCallUsKey])
+                            </TinyMceEditor>
+                        }
                     </div>
                     <!-- End Col -->
 
                     <div class="col-sm-6">
-                        <h5 class="mb-1">Email us:</h5>
-                        <p>hello@example.com</p>
+                        @if (Model.Data != null)
+                        {
+                            <TinyMceEditor 
+                                TinyMceId="@(StaticHtmlStrings.TinyContactUsEmailUsId)"
+                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@(StaticStrings.ContactUsPageDataEmailUsKey)">
+                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataEmailUsKey])
+                            </TinyMceEditor>
+                        }
                     </div>
                     <!-- End Col -->
 
                     <div class="col-sm-6">
-                        <h5 class="mb-1">Address:</h5>
-                        <p>153 Williamson Plaza, Maggieberg</p>
+                        @if (Model.Data != null)
+                        {
+                            <TinyMceEditor 
+                                TinyMceId="@(StaticHtmlStrings.TinyContactUsAddressId)"
+                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@(StaticStrings.ContactUsPageDataAddressKey)">
+                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataAddressKey])
+                            </TinyMceEditor>
+                        }
                     </div>
                     <!-- End Col -->
                 </div>
@@ -79,12 +106,22 @@
                     <!-- Card -->
                     <div class="card">
                         <div class="card-header border-bottom text-center">
-                            <h3 class="card-header-title">General inquiries</h3>
+                            @if (Model.Data != null)
+                            {
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsFormTitleId)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataFormTitleKey)">
+                                        @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])
+                                </TinyMceEditor>
+                            }
                         </div>
 
                         <div class="card-body">
                             <!-- Form -->
-                            <form>
+                            <div> <!-- <form> -->
                                 <div class="row gx-3">
                                     <div class="col-sm-6">
                                         <!-- Form -->
@@ -138,13 +175,35 @@
                                 <!-- End Form -->
 
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">Send inquiry</button>
+                                    @if (Model.Data != null)
+                                    {
+                                        <TinyMceEditor 
+                                            TinyMceId="@(StaticHtmlStrings.TinyContactUsFormButtonTextId)"
+                                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                            Model="Model"
+                                            FuncSave="Save"
+                                            Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
+                                                </button>
+                                        </TinyMceEditor>
+                                    }
                                 </div>
 
                                 <div class="text-center">
-                                    <p class="form-text">We'll get back to you in 1-2 business days.</p>
+                                    @if (Model.Data != null)
+                                    {
+                                        <TinyMceEditor 
+                                            TinyMceId="@(StaticHtmlStrings.TinyContactUsFormTextUnderButtonKey)"
+                                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="Save"
+                                            Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)">
+                                                @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
+                                        </TinyMceEditor>
+                                    }
                                 </div>
-                            </form>
+                            </div> <!-- </form> -->
                             <!-- End Form -->
                         </div>
                     </div>
