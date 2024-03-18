@@ -12,7 +12,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])
+                        <h1>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
                 </TinyMceEditor>
             }
         </div>
@@ -46,7 +46,9 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
+                        <span class="text-cap">
+                            @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
+                        </span>
                 </TinyMceEditor>
                 <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
@@ -54,7 +56,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
+                        <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</h2>                    
                 </TinyMceEditor>
             }
         </div>
@@ -80,7 +82,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])
+                        <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])</h2>
                 </TinyMceEditor>
             }
         </div>

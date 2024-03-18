@@ -11,7 +11,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])
+                        <h1 class="display-3 mb-5">@((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
                 </TinyMceEditor>
                 <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
@@ -19,7 +19,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.HomePageDataSubtitleKey])
+                        <p class="lead">@((MarkupString) Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
                 </TinyMceEditor>
             }
         </div>
@@ -40,7 +40,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])
+                        <span class="text-cap">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</span>
                 </TinyMceEditor>
                 <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyHomeFeaturedCaseStudiesSubtitleId)"
@@ -48,7 +48,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])
+                        <h2 class="lh-base">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</h2>
                 </TinyMceEditor>
             }
         </div>

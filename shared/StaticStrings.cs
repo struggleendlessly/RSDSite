@@ -19,7 +19,8 @@ namespace shared
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
         public static string AboutUsPageDataInfoLeftKey = "InfoLeft";
-        public static string AboutUsPageDataInfoRightKey = "InfoRight";
+        public static string AboutUsPageDataInfoRightFirstKey = "InfoRightFirst";
+        public static string AboutUsPageDataInfoRightSecondKey = "InfoRightSecond";
         public static string AboutUsPageDataTeamTitleKey = "TeamTitle";
         public static string AboutUsPageDataTeamSubtitleKey = "TeamSubtitle";
 
@@ -28,9 +29,12 @@ namespace shared
         public static string ContactUsPageDataFormTitleKey = "FormTitle";
         public static string ContactUsPageDataFormButtonTextKey = "FormButtonText";
         public static string ContactUsPageDataFormTextUnderButtonKey = "FormTextUnderButton";
-        public static string ContactUsPageDataCallUsKey = "CallUs";
-        public static string ContactUsPageDataEmailUsKey = "EmailUs";
-        public static string ContactUsPageDataAddressKey = "Address";
+        public static string ContactUsPageDataCallUsTitleKey = "CallUsTitle";
+        public static string ContactUsPageDataCallUsSubtitleKey = "CallUsSubtitle";
+        public static string ContactUsPageDataEmailUsTitleKey = "EmailUsTitle";
+        public static string ContactUsPageDataEmailUsSubtitleKey = "EmailUsSubtitle";
+        public static string ContactUsPageDataAddressTitleKey = "AddressTitle";
+        public static string ContactUsPageDataAddressSubtitleKey = "AddressSubtitle";
 
         public static string ServicesPageDataTitleKey = "Title";
         public static string ServicesPageDataServicesListTitleKey = "ServicesListTitle";

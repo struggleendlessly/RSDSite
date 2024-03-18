@@ -18,7 +18,8 @@ namespace shared
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
         public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
         public static string TinyAboutUsInfoLeftId = "tinyAboutUsInfoLeft";
-        public static string TinyAboutUsInfoRightId = "tinyAboutUsInfoRigth";
+        public static string TinyAboutUsInfoRightFirstId = "tinyAboutUsInfoRightFirst";
+        public static string TinyAboutUsInfoRightSecondtId = "tinyAboutUsInfoRightSecond";
         public static string TinyAboutUsTeamTitleId = "tinyAboutUsTeamTitle";
         public static string TinyAboutUsTeamSubtitleId = "tinyAboutUsTeamSubtitle";
 
@@ -27,9 +28,12 @@ namespace shared
         public static string TinyContactUsFormTitleId = "tinyContactUsFormTitle";
         public static string TinyContactUsFormButtonTextId = "tinyContactUsFormButtonText";
         public static string TinyContactUsFormTextUnderButtonKey = "tinyContactUsFormTextUnderButton";
-        public static string TinyContactUsCallUsId = "tinyContactUsCallUs";
-        public static string TinyContactUsEmailUsId = "tinyContactUsEmailUs";
-        public static string TinyContactUsAddressId = "tinyContactUsAddress";
+        public static string TinyContactUsCallUsTitleId = "tinyContactUsCallUsTitle";
+        public static string TinyContactUsCallUsSubtitleId = "tinyContactUsCallUsSubtitle";
+        public static string TinyContactUsEmailUsTitleId = "tinyContactUsEmailUsTitle";
+        public static string TinyContactUsEmailUsSubtitleId = "tinyContactUsEmailUsSubtitle";
+        public static string TinyContactUsAddressTitleId = "tinyContactUsAddressTitle";
+        public static string TinyContactUsAddressSubtitleId = "tinyContactUsAddressSubtitle";
 
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";

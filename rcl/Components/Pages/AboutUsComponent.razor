@@ -13,7 +13,7 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataTitleKey)">
-                            @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTitleKey])
+                            <h1 class="display-4">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTitleKey])</h1>
                     </TinyMceEditor>
                     <TinyMceEditor 
                         TinyMceId="@(StaticHtmlStrings.TinyAboutUsSubtitleId)"
@@ -21,7 +21,7 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
-                            @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])
+                            <p class="lead">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
                     </TinyMceEditor>
                 }            
             </div>
@@ -109,7 +109,7 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)">
-                            @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
+                            <h2>@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])</h2>
                     </TinyMceEditor>
                 }
             </div>
@@ -119,12 +119,20 @@
                 @if (Model.Data != null)
                 {
                     <TinyMceEditor 
-                        TinyMceId="@(StaticHtmlStrings.TinyAboutUsInfoRightId)"
+                        TinyMceId="@(StaticHtmlStrings.TinyAboutUsInfoRightFirstId)"
                         TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.AboutUsPageDataInfoRightKey)">
-                            @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataInfoRightKey])
+                        Key="@(StaticStrings.AboutUsPageDataInfoRightFirstKey)">
+                            <p>@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataInfoRightFirstKey])</p>
+                    </TinyMceEditor>
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyAboutUsInfoRightSecondtId)"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataInfoRightSecondKey)">
+                            <p>@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])</p>
                     </TinyMceEditor>
                 }
             </div>
@@ -148,7 +156,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.AboutUsPageDataTeamTitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTeamTitleKey])
+                        <span class="text-cap">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTeamTitleKey])</span>                        
                 </TinyMceEditor>
                 <TinyMceEditor 
                     TinyMceId="@(StaticHtmlStrings.TinyAboutUsTeamSubtitleId)"
@@ -156,7 +164,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.AboutUsPageDataTeamSubtitleKey)">
-                        @((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])
+                        <h2>@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])</h2>
                 </TinyMceEditor>
             }
         </div>
