@@ -1,54 +1,81 @@
 ﻿@{
-    foreach (var item in Model.Data)
+    if (Model.Data.Count > 0 && ModelUrls.Data.Count > 0)
     {
-        var guid = Guid.NewGuid().ToString();
+        for (int i = 0; i < ServiceItems.Count; i++)
+        {
+            var serviceKeyIndex = i * 3;
+            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceUrlKey = serviceKey + StaticStrings.ServicesUrlKeyEnding;
+            var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
+            var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
+            var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
 
-        <div class="col-sm-6 col-lg-4 mb-3">
-            <!-- Card -->
-            <div class="card card-transition h-100">
-                <div class="card-body">
-                    <AuthorizeView>
-                        <Authorized>
-                            <div class="mb-2">
+            <div class="col-sm-6 col-lg-4 mb-3">
+                <!-- Card -->
+                <div class="card card-transition h-100">
+                    <div class="card-body">
+                        <AuthorizeView>
+                            <Authorized>
+                                <div class="mb-2">
+                                    <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                                    <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                                </div>
+                                <div class="mb-2">
+                                    <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceUrlId + serviceKeyIndex)"
+                                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                        Model="ModelUrls"
+                                        FuncSave="SaveUrl"
+                                        Key="@serviceUrlKey">
+                                            <p>Page url: @(ModelUrls.Data[serviceUrlKey])</p>
+                                    </TinyMceEditor>
+                                </div>
                                 <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceUrlId + guid)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
-                                    Model="ModelUrls"
-                                    FuncSave="SaveUrl"
-                                    Key="@(item.Key + StaticStrings.ServicesUrlKeyEnding)">
-                                        Page url: @(item.Key)
+                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceTitleId + serviceKeyIndex)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTitleKey">
+                                        <h4 class="card-title">
+                                            @((MarkupString) Model.Data[serviceTitleKey])
+                                        </h4>
                                 </TinyMceEditor>
-                            </div>  
-                            <button class="badge bg-success" @onclick="() => Add(item.Key)">+</button>
-                            <button class="badge bg-danger" @onclick="() => Remove(item.Key)">-</button>
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceContentId + guid)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@(item.Key)">
-                                    @((MarkupString) Model.Data[item.Key])
-                            </TinyMceEditor>
-                        </Authorized>
-                        <NotAuthorized>
-                            @((MarkupString) Model.Data[item.Key])
-                        </NotAuthorized>
-                    </AuthorizeView>
-                </div>
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceSubtitleId + serviceKeyIndex)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceSubtitleKey">
+                                        <p class="card-text">
+                                            @((MarkupString) Model.Data[serviceSubtitleKey])
+                                        </p>
+                                </TinyMceEditor>
+                            </Authorized>
+                            <NotAuthorized>
+                                <h4 class="card-title">
+                                    @((MarkupString) Model.Data[serviceTitleKey])
+                                </h4>
+                                <p class="card-text">
+                                    @((MarkupString) Model.Data[serviceSubtitleKey])
+                                </p>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                    </div>
 
-                <div class="card-footer pt-0">
-                    <!-- Socials -->
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-primary btn-xs rounded" href="@(SiteNameLower)/service/@(item.Key)">
-                                Read more
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- End Socials -->
+                    <div class="card-footer pt-0">
+                        <!-- Socials -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-primary btn-xs rounded" href="@(SiteNameLower)/service/@(serviceUrlValue)">
+                                    Read more
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- End Socials -->
+                    </div>
                 </div>
+                <!-- End Card -->
             </div>
-            <!-- End Card -->
-        </div>
+        }
     }
 }

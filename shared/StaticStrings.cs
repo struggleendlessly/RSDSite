@@ -41,6 +41,8 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
+        public static string ServicesTitleKeyEnding = "_Title";
+        public static string ServicesSubtitleKeyEnding = "_Subtitle";
         public static string ServicesUrlKeyEnding = "_Url";
 
         public static string TinyContentFormatText = "text";

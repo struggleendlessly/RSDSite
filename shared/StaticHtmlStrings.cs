@@ -38,14 +38,16 @@ namespace shared
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";
         public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
-        public static string TinyServicesListServiceContentId = "tinyServicesListServiceContent";
+        public static string TinyServicesListServiceTitleId = "tinyServicesListServiceTitle";
+        public static string TinyServicesListServiceSubtitleId = "tinyServicesListServiceSubtitle";
         public static string TinyServicesListServiceUrlId = "tinyServicesListServiceUrl";
         public static string TinyServicesFAQTitleId = "tinyServicesFAQTitle";
 
         public static string TinyServicePageContentId = "tinyServicePageContent";
 
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
-        public static string ServicesListServiceShortDescDefaultValue = "<h4 class=\"card-title\">New service</h4><p class=\"card-text\">Some description for new service.</p>";
-        public static string ServicesListServiceLongDescDefaultValue = "<p>LongDesc</p>";
+        public static string ServicesListServiceShortDescDefaultTitleValue = "Service title";
+        public static string ServicesListServiceShortDescDefaultSubtitleValue = "Service subtitle";
+        public static string ServicesListServiceLongDescDefaultValue = "Service content";
     }
 }
