@@ -77,7 +77,7 @@
             @if (Model.Data != null)
             {
                 <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyServicesFAQTitleId)"
+                    TinyMceId="@(StaticHtmlStrings.TinyFAQTitleId)"
                     TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
@@ -91,62 +91,9 @@
         <div class="w-lg-65 mx-lg-auto">
             <!-- Accordion -->
             <div class="accordion accordion-flush accordion-lg" id="accordionFAQ">
-                <!-- Accordion Item -->
-                <div class="accordion-item">
-                    <div class="accordion-header" id="headingBasicsOne">
-                        <a class="accordion-button" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What methods of payments are supported?
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingBasicsOne" data-bs-parent="#accordionFAQ">
-                        <div class="accordion-body">
-                            You can purchase the themes on Bootstrap Themes via any major credit/debit card (via Stripe) or with your Paypal account. We don't support cryptocurrencies or invoicing at this time.
-                        </div>
-                    </div>
-                </div>
-                <!-- End Accordion Item -->
-                <!-- Accordion Item -->
-                <div class="accordion-item">
-                    <div class="accordion-header" id="headingBasicsTwo">
-                        <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Can I cancel at anytime?
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingBasicsTwo" data-bs-parent="#accordionFAQ">
-                        <div class="accordion-body">
-                            If you'd like a refund please reach out to us at <a href="#">themes@getbootstrap.com</a>. If you need technical help with the theme before a refund please reach out to the seller first and they can get in touch with us if they're unable to resolve the issue.
-                        </div>
-                    </div>
-                </div>
-                <!-- End Accordion Item -->
-                <!-- Accordion Item -->
-                <div class="accordion-item">
-                    <div class="accordion-header" id="headingBasicsThree">
-                        <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            How do I get a receipt for my purchase?
-                        </a>
-                    </div>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingBasicsThree" data-bs-parent="#accordionFAQ">
-                        <div class="accordion-body">
-                            You'll receive an email from Bootstrap themes once your purchase is complete.
-                        </div>
-                    </div>
-                </div>
-                <!-- End Accordion Item -->
-                <!-- Accordion Item -->
-                <div class="accordion-item">
-                    <div class="accordion-header" id="headingBasicsFour">
-                        <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Which license do I need?
-                        </a>
-                    </div>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingBasicsFour" data-bs-parent="#accordionFAQ">
-                        <div class="accordion-body">
-                            There are three license types - <a href="#">Standard</a>, <a href="#">Multisite</a>, and <a href="#">Extended</a>. We've provided the table below for a quick look at the difference between the them, as well as a few examples of ways each license could be used. If you'd like more of the nitty-gritty details you can find them below and always feel free to reach out with any questions you have at <a href="#">themes@getbootstrap.com</a>.
-                        </div>
-                    </div>
-                </div>
-                <!-- End Accordion Item -->
+                <FAQList 
+                    SiteName="@SiteNameLower">
+                </FAQList>
             </div>
             <!-- End Accordion -->
         </div>

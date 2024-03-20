@@ -1,0 +1,49 @@
+﻿@{
+    if (Model.Data != null && Model.Data.Count > 0)
+    {
+        for (int i = 0; i < ServiceItems.Count; i++)
+        {
+            var serviceKeyIndex = i * 3;
+            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
+            var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
+
+            <!-- Accordion Item -->
+            <div class="accordion-item">
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="mb-2 mt-2">
+                            <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                            <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+                <div class="accordion-header" id="headingBasics-@serviceKeyIndex">
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyFAQListTitleId + serviceKeyIndex)"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="SaveContent"
+                        Key="@serviceTitleKey">
+                            <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="collapse-@serviceKeyIndex">
+                                @Model.Data[serviceTitleKey]
+                            </a>
+                    </TinyMceEditor>
+                </div>
+                <div id="collapse-@serviceKeyIndex" class="accordion-collapse collapse" aria-labelledby="headingBasics-@serviceKeyIndex" data-bs-parent="#accordionFAQ">
+                    <TinyMceEditor 
+                        TinyMceId="@(StaticHtmlStrings.TinyFAQListSubtitleId + serviceKeyIndex)"
+                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="SaveContent"
+                        Key="@serviceSubtitleKey">
+                            <div class="accordion-body">
+                                @Model.Data[serviceSubtitleKey]
+                            </div>
+                    </TinyMceEditor>
+                </div>
+            </div>
+            <!-- End Accordion Item -->
+        }
+    }
+}

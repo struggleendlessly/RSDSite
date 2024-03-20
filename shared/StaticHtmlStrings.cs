@@ -43,13 +43,15 @@ namespace shared
         public static string TinyServicesListServiceTitleId = "tinyServicesListServiceTitle";
         public static string TinyServicesListServiceSubtitleId = "tinyServicesListServiceSubtitle";
         public static string TinyServicesListServiceUrlId = "tinyServicesListServiceUrl";
-        public static string TinyServicesFAQTitleId = "tinyServicesFAQTitle";
+        public static string TinyFAQTitleId = "tinyFAQTitle";
+        public static string TinyFAQListTitleId = "tinyFAQListTitle";
+        public static string TinyFAQListSubtitleId = "tinyFAQListSubtitle";
 
         public static string TinyServicePageContentId = "tinyServicePageContent";
 
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
-        public static string ServicesListServiceShortDescDefaultTitleValue = "Service title";
-        public static string ServicesListServiceShortDescDefaultSubtitleValue = "Service subtitle";
-        public static string ServicesListServiceLongDescDefaultValue = "Service content";
+        public static string ServicesListServiceShortDescDefaultTitleValue = "Title";
+        public static string ServicesListServiceShortDescDefaultSubtitleValue = "Subtitle";
+        public static string ServicesListServiceLongDescDefaultValue = "Content";
     }
 }
