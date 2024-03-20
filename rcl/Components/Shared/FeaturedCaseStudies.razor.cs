@@ -1,0 +1,15 @@
+﻿using shared.Models;
+
+using Microsoft.AspNetCore.Components;
+
+namespace rcl.Components.Shared
+{
+    public partial class FeaturedCaseStudies
+    {
+        [Parameter]
+        public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
+
+        [Parameter]
+        public string SiteName { get; set; } = string.Empty;
+    }
+}

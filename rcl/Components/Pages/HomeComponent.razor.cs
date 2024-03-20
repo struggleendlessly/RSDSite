@@ -30,6 +30,8 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
+
         DotNetObjectReference<HomeComponent>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -54,6 +56,15 @@ namespace rcl.Components.Pages
             }
 
             Model = model;
+
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
+            }
+
+            ServiceItems = serviceItems.Take(4).ToList();
         }
 
         [JSInvokable]

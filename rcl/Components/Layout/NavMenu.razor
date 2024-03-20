@@ -46,7 +46,7 @@
                             <a id="servicesMenuLink" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ServicesPageRoute))" href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" role="button">Services</a>
                         </li>
                         <!-- End Services -->
-                        @if (SiteName == string.Empty)
+                        @if (SiteName == string.Empty || SiteName == StaticStrings.DefaultSiteName)
                         {
                             <!-- Pricing -->
                             <li class="hs-has-sub-menu nav-item">

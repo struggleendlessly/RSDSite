@@ -53,95 +53,11 @@
             }
         </div>
         <!-- End Heading -->
-
-        <div class="overflow-hidden">
-            <div class="row justify-content-md-center gx-sm-3 gx-lg-8 pt-md-8 mb-7">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="d-grid gap-3 gap-lg-8 mt-md-n8">
-                        <!-- Card -->
-                        <a class="card card-transition bg-soft-primary shadow-none" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">
-                            <div class="card-body">
-                                <div class="mb-5">
-                                    <img class="img-fluid rounded-2" src="_content/rcl/assets/img/1200x900/img1.jpg" alt="Image Description">
-                                </div>
-
-                                <span class="badge bg-primary rounded-pill mb-2">Front-end</span>
-                                <h3 class="card-title text-inherit">Front - Multipurpose Responsive Template</h3>
-                                <span class="d-block text-body mb-3">Landing &amp; Corporate</span>
-                                <p class="card-text text-dark">Super clean, minimalistic, stylized mockup collection with awesome customization features and huge resolution.</p>
-                            </div>
-                        </a>
-                        <!-- End Card -->
-                        <!-- Card -->
-                        <a class="card card-transition bg-soft-info shadow-none" href="https://themes.getbootstrap.com/product/space-multipurpose-responsive-template/" target="_blank">
-                            <div class="card-body">
-                                <div class="mb-5">
-                                    <img class="img-fluid rounded-2" src="_content/rcl/assets/img/1200x900/img3.jpg" alt="Image Description">
-                                </div>
-
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="avatar avatar-xs" src="_content/rcl/assets/svg/brands/figma-icon.svg" alt="Logo">
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <span class="text-body">Compatible with Figma</span>
-                                    </div>
-                                </div>
-
-                                <h3 class="card-title text-inherit mb-1">Space – Multipurpose Responsive Template</h3>
-                                <span class="d-block text-body mb-3">Landing &amp; Corporate</span>
-                                <p class="card-text text-dark">Space – Multipurpose Responsive Template is a fully responsive and yet modern premium Bootstrap theme.</p>
-                            </div>
-                        </a>
-                        <!-- End Card -->
-                    </div>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm-6">
-                    <div class="d-grid gap-3 gap-lg-8">
-                        <!-- Card -->
-                        <a class="card card-transition bg-soft-dark shadow-none" href="https://themes.getbootstrap.com/product/front-admin-dashboard-template/" target="_blank">
-                            <div class="card-body">
-                                <div class="mb-5">
-                                    <img class="img-fluid rounded-2" src="_content/rcl/assets/img/1200x900/img2.jpg" alt="Image Description">
-                                </div>
-
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="avatar avatar-xs" src="_content/rcl/assets/svg/brands/figma-icon.svg" alt="Logo">
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <span class="text-body">Figma coming soon</span>
-                                    </div>
-                                </div>
-
-                                <h3 class="card-title text-inherit mb-0">Front – Admin &amp; Dashboard Template</h3>
-                                <span class="d-block text-body mb-3">Admin &amp; Dashboard</span>
-                                <p class="card-text text-dark">Whether you’re creating a web application, dashboard, admin panels, or SASS based interface — Front’s feature-rich components and designed demo pages help you create the best possible web application projects.</p>
-                            </div>
-                        </a>
-                        <!-- End Card -->
-                        <!-- Card -->
-                        <a class="card card-transition bg-soft-dark shadow-none" href="https://themes.getbootstrap.com/product/nova-responsive-webapp-ui-kit/" target="_blank">
-                            <div class="card-body">
-                                <div class="mb-5">
-                                    <img class="img-fluid rounded-2" src="_content/rcl/assets/img/1200x900/img4.jpg" alt="Image Description">
-                                </div>
-
-                                <span class="badge bg-primary rounded-pill mb-2">Admin</span>
-                                <h3 class="card-title text-inherit mb-1">Nova – Responsive WebApp UI Kit</h3>
-                                <span class="d-block text-body mb-3">Admin &amp; Dashboard</span>
-                                <p class="card-text text-dark">Nova is a modern and fully responsive WebApp UI Kit – it is the perfect starting point for any type of Web Applications.</p>
-                            </div>
-                        </a>
-                        <!-- End Card -->
-                    </div>
-                </div>
-                <!-- End Col -->
-            </div>
-            <!-- End Row -->
-        </div>
+        
+        <FeaturedCaseStudies 
+            SiteName="@SiteNameLower"
+            ServiceItems="ServiceItems">
+        </FeaturedCaseStudies>
 
         <div class="text-center">
             @if (Model.Data != null)
