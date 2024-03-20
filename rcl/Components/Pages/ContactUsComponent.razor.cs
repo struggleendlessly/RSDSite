@@ -1,5 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 
 using shared;
@@ -23,6 +24,9 @@ namespace rcl.Components.Pages
         [Inject]
         protected IMemoryCache MemoryCache { get; set; }
 
+        [Inject]
+        private IConfiguration Configuration { get; set; }
+
         [Parameter]
         public string? SiteName { get; set; }
 
@@ -39,6 +43,8 @@ namespace rcl.Components.Pages
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
             }
+
+            await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, Configuration["Leaflet:AccessToken"]);
         }
 
         protected override async Task OnInitializedAsync()

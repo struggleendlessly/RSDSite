@@ -26,6 +26,8 @@ namespace shared
 
         public static string ContactUsPageDataTitleKey = "Title";
         public static string ContactUsPageDataSubtitleKey = "Subtitle";
+        public static string ContactUsPageDatMapCoordinatesKey = "MapCoordinates";
+        public static string ContactUsPageDataMapMarkerTextKey = "MapMarkerText";
         public static string ContactUsPageDataFormTitleKey = "FormTitle";
         public static string ContactUsPageDataFormButtonTextKey = "FormButtonText";
         public static string ContactUsPageDataFormTextUnderButtonKey = "FormTextUnderButton";

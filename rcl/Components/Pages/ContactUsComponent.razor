@@ -29,25 +29,49 @@
                 <!-- End Heading -->
                 <!-- Leaflet -->
                 <div class="overflow-hidden">
-                    <div id="map" class="leaflet mb-5"
-                         data-hs-leaflet-options='{
-                 "map": {
-                   "scrollWheelZoom": false,
-                   "coords": [37.4040344, -122.0289704]
-                 },
-                 "marker": [
-                   {
-                     "coords": [37.4040344, -122.0289704],
-                     "icon": {
-                       "iconUrl": "_content/rcl/assets/svg/components/map-pin.svg",
-                       "iconSize": [50, 45]
-                     },
-                     "popup": {
-                       "text": "153 Williamson Plaza, Maggieberg"
-                     }
-                   }
-                 ]
-                }'></div>
+                    @if (Model.Data != null)
+                    {
+                        <AuthorizeView>
+                            <Authorized>
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsMapCoordinatesId)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
+                                        <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
+                                </TinyMceEditor>
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsMapMarkerTextId)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
+                                        <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
+                                </TinyMceEditor>
+                            </Authorized>
+                        </AuthorizeView>
+
+                        <div id="map" class="leaflet mb-5"
+                             data-hs-leaflet-options='{
+                                "map": {
+                                    "scrollWheelZoom": false,
+                                    "coords": [@(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])]
+                                },
+                                "marker": [
+                                    {
+                                        "coords": [@(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])],
+                                        "icon": {
+                                            "iconUrl": "_content/rcl/assets/svg/components/map-pin.svg",
+                                            "iconSize": [50, 45]
+                                        },
+                                        "popup": {
+                                            "text": "@(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])"
+                                        }
+                                    }
+                                ]
+                            }'></div>
+                    }
                 </div>
                 <!-- End Leaflet -->
 

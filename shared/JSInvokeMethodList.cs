@@ -22,6 +22,8 @@
         public static string tinymceDestroy = "js_tinymceDestroy";
         public static string tinymceGetContent = "js_tinymceGetContent";
 
+        public static string leafletActivate = "js_leafletActivate";
+
         public static string dotNetHelpersSetDotNetHelper = "DotNetHelpers.setDotNetHelper";
     }
 }

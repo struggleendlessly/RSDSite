@@ -52,6 +52,14 @@ function js_tinymceGetContent(id, format) {
     return tinymce.get(id).getContent({ format: format });
 }
 
+function js_leafletActivate(accessToken) {
+    const leaflet = HSCore.components.HSLeaflet.init(document.getElementById('map'));
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + accessToken, {
+        id: 'mapbox/light-v9'
+    }).addTo(leaflet);
+}
+
 function scaleImageToFullHD(base64Image) {
     return new Promise((resolve, reject) => {
         const img = new Image();
