@@ -1,0 +1,35 @@
+[
+    {
+        "ShortDesc": {
+            "Service_01_01": "Service_01_01",
+            "Service_01_01_Avatar": "_content/rcl/assets/img/160x160/img10.jpg",
+            "Service_01_01_Title": "Lida Reidy",
+            "Service_01_01_Subtitle": "Project Manager",
+            "Service_01_01_Text": "“It has many landing page variations to choose from, which one is always a big advantage.”",
+            "Service_01_01_Image": "_content/rcl/assets/svg/brands/mailchimp-primary.svg"
+        },
+        "LongDesc": null
+    },
+    {
+        "ShortDesc": {
+            "Service_02_02": "Service_02_02",
+            "Service_02_02_Avatar": "_content/rcl/assets/img/160x160/img4.jpg",
+            "Service_02_02_Title": "Philip",
+            "Service_02_02_Subtitle": "Product Manager",
+            "Service_02_02_Text": "“I just wanted to say that I'm very happy with my purchase of Front so far. The documentation is outstanding - clear and detailed.”",
+            "Service_02_02_Image": "_content/rcl/assets/svg/brands/mailchimp-primary.svg"
+        },
+        "LongDesc": null
+    },
+    {
+        "ShortDesc": {
+            "Service_03_03": "Service_03_03",
+            "Service_03_03_Avatar": "_content/rcl/assets/img/160x160/img9.jpg",
+            "Service_03_03_Title": "Christina Kray",
+            "Service_03_03_Subtitle": "HR Director",
+            "Service_03_03_Text": "“This is a beautiful template with exciting components and endless features.”",
+            "Service_03_03_Image": "_content/rcl/assets/svg/brands/capsule-primary.svg"
+        },
+        "LongDesc": null
+    }
+]

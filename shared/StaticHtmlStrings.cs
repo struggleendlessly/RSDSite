@@ -18,6 +18,11 @@ namespace shared
         public static string TinyHomeFeaturedCaseStudiesTitleId = "tinyHomeFeaturedCaseStudiesTitle";
         public static string TinyHomeFeaturedCaseStudiesSubtitleId = "tinyHomeFeaturedCaseStudiesSubtitle";
         public static string TinyHomeViewAllWorksButtonTextId = "tinyHomeViewAllWorksButtonText";
+        public static string TinyHomeTestimonialsListAvatarId = "tinyHomeTestimonialsListAvatar";
+        public static string TinyHomeTestimonialsListTitleId = "tinyHomeTestimonialsListTitle";
+        public static string TinyHomeTestimonialsListSubtitleId = "tinyHomeTestimonialsListSubtitle";
+        public static string TinyHomeTestimonialsListTextId = "tinyHomeTestimonialsListText";
+        public static string TinyHomeTestimonialsListImageId = "tinyHomeTestimonialsListImage";
 
         /* About-Us */
 
@@ -80,5 +85,11 @@ namespace shared
         public static string AboutUsTeamListServiceShortDescDefaultTitleValue = "Christina Kray";
         public static string AboutUsTeamListServiceShortDescDefaultSubtitleValue = "Founder / CEO";
         public static string AboutUsTeamListServiceShortDescDefaultTextValue = "I am an ambitious workaholic, but apart from that, pretty simple person.";
+
+        public static string HomeTestimonialsListServiceShortDescDefaultAvatarValue = "_content/rcl/assets/img/160x160/img10.jpg";
+        public static string HomeTestimonialsListServiceShortDescDefaultTitleValue = "Lida Reidy";
+        public static string HomeTestimonialsListServiceShortDescDefaultSubtitleValue = "Project Manager";
+        public static string HomeTestimonialsListServiceShortDescDefaultTextValue = "“It has many landing page variations to choose from, which one is always a big advantage.”";
+        public static string HomeTestimonialsListServiceShortDescDefaultImageValue = "_content/rcl/assets/svg/brands/mailchimp-primary.svg";
     }
 }

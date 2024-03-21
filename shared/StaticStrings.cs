@@ -5,6 +5,7 @@ namespace shared
     public static class StaticStrings
     {
         public static string HomePageDataJsonFilePath = "data/home.json";
+        public static string HomePageTestimonialsListDataJsonFilePath = "data/testimonials-list.json";
         public static string AboutUsPageDataJsonFilePath = "data/about-us.json";
         public static string AboutUsPageTeamListDataJsonFilePath = "data/team-list.json";
         public static string ContactUsPageDataJsonFilePath = "data/contact-us.json";
@@ -51,6 +52,7 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
+        public static string ServicesAvatarKeyEnding = "_Avatar";
         public static string ServicesImageKeyEnding = "_Image";
         public static string ServicesTitleKeyEnding = "_Title";
         public static string ServicesSubtitleKeyEnding = "_Subtitle";
@@ -68,6 +70,7 @@ namespace shared
         /* Memory Cache */
 
         public static string HomePageDataJsonMemoryCacheKey = "{0}_HomePageModel";
+        public static string HomePageTestimonialsListDataJsonMemoryCacheKey = "{0}_HomePageTestimonialsListModel";
         public static string AboutUsPageDataJsonMemoryCacheKey = "{0}_AboutUsPageModel";
         public static string ContactUsPageDataJsonMemoryCacheKey = "{0}_ContactUsPageModel";
         public static string ContactUsPageTeamListDataJsonMemoryCacheKey = "{0}_ContactUsPageTeamListModel";

@@ -1,0 +1,84 @@
+﻿@{
+    if (Model.Data != null && Model.Data.Count > 0)
+    {
+        <!-- Testimonials -->
+        <div class="container content-space-1 content-space-md-3">
+            <!-- Swiper Slider -->
+            <div class="js-swiper-single-testimonials swiper">
+                <div class="swiper-wrapper">
+                    @for (int i = 0; i < ServiceItems.Count; i++)
+                    {
+                        var serviceKeyIndex = i * 6;
+                        var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+                        var serviceAvatarKey = serviceKey + StaticStrings.ServicesAvatarKeyEnding;
+                        var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
+                        var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
+                        var serviceTextKey = serviceKey + StaticStrings.ServicesTextKeyEnding;
+                        var serviceImageKey = serviceKey + StaticStrings.ServicesImageKeyEnding;
+
+                        <!-- Slide -->
+                        <div class="swiper-slide">
+                            <!-- Blockquote -->
+                            <figure class="w-md-65 text-center mx-md-auto">
+                                <AuthorizeView>
+                                    <Authorized>
+                                        <div class="mb-2 mt-2">
+                                            <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                                            <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                                        </div>
+                                    </Authorized>
+                                </AuthorizeView>
+                                <div class="mb-3">
+                                    <img class="avatar avatar-xl avatar-circle" src="@Model.Data[serviceAvatarKey]" alt="Image Description">
+                                </div>
+
+                                <TinyMceEditor 
+                                    TinyMceId="@(StaticHtmlStrings.TinyHomeTestimonialsListTextId + serviceKeyIndex)"
+                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTextKey">
+                                        <blockquote class="blockquote">
+                                            @((MarkupString) Model.Data[serviceTextKey])
+                                        </blockquote>
+                                </TinyMceEditor>
+
+                                <figcaption class="blockquote-footer mb-5">
+                                    <TinyMceEditor 
+                                        TinyMceId="@(StaticHtmlStrings.TinyHomeTestimonialsListTitleId + serviceKeyIndex)"
+                                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                        Model="Model"
+                                        FuncSave="SaveContent"
+                                        Key="@serviceTitleKey">
+                                            <div>
+                                                @((MarkupString) Model.Data[serviceTitleKey])
+                                            </div>          
+                                    </TinyMceEditor>
+                                    <TinyMceEditor 
+                                        TinyMceId="@(StaticHtmlStrings.TinyHomeTestimonialsListSubtitleId + serviceKeyIndex)"
+                                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                        Model="Model"
+                                        FuncSave="SaveContent"
+                                        Key="@serviceSubtitleKey">
+                                            <span class="blockquote-footer-source">
+                                                @((MarkupString) Model.Data[serviceSubtitleKey])
+                                            </span>
+                                    </TinyMceEditor>
+                                </figcaption>
+
+                                <img class="avatar avatar-xl avatar-4x3" src="@Model.Data[serviceImageKey]" alt="Logo">
+                            </figure>
+                            <!-- End Blockquote -->
+                        </div>
+                        <!-- End Slide --> 
+                    }
+                </div>
+
+                <!-- Pagination -->
+                <div class="js-swiper-single-testimonials-pagination swiper-pagination"></div>
+            </div>
+            <!-- End Swiper Slider -->
+        </div>
+        <!-- End Testimonials -->
+    }
+}
