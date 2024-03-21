@@ -6,6 +6,7 @@ namespace shared
     {
         public static string HomePageDataJsonFilePath = "data/home.json";
         public static string AboutUsPageDataJsonFilePath = "data/about-us.json";
+        public static string AboutUsPageTeamListDataJsonFilePath = "data/team-list.json";
         public static string ContactUsPageDataJsonFilePath = "data/contact-us.json";
         public static string ServicesPageDataJsonFilePath = "data/services.json";
         public static string ServicesPageServicesListDataJsonFilePath = "data/services-list.json";
@@ -44,9 +45,11 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
+        public static string ServicesImageKeyEnding = "_Image";
         public static string ServicesTitleKeyEnding = "_Title";
         public static string ServicesSubtitleKeyEnding = "_Subtitle";
         public static string ServicesUrlKeyEnding = "_Url";
+        public static string ServicesTextKeyEnding = "_Text";
 
         public static string TinyContentFormatText = "text";
         public static string TinyContentFormatRaw = "raw";
@@ -56,9 +59,12 @@ namespace shared
 
         public static string DefaultSiteName = "main";
 
+        /* Memory Cache */
+
         public static string HomePageDataJsonMemoryCacheKey = "{0}_HomePageModel";
         public static string AboutUsPageDataJsonMemoryCacheKey = "{0}_AboutUsPageModel";
         public static string ContactUsPageDataJsonMemoryCacheKey = "{0}_ContactUsPageModel";
+        public static string ContactUsPageTeamListDataJsonMemoryCacheKey = "{0}_ContactUsPageTeamListModel";
         public static string ServicesPageDataJsonMemoryCacheKey = "{0}_ServicesPageModel";
         public static string ServicesPageServicesListDataJsonMemoryCacheKey = "{0}_ServicesPageServicesListModel";
         public static string ServicesPageFAQListDataJsonMemoryCacheKey = "{0}_ServicesPageFAQListModel";

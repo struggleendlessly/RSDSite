@@ -15,6 +15,8 @@ namespace shared
         public static string TinyHomeFeaturedCaseStudiesSubtitleId = "tinyHomeFeaturedCaseStudiesSubtitle";
         public static string TinyHomeViewAllWorksButtonTextId = "tinyHomeViewAllWorksButtonText";
 
+        /* About-Us */
+
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
         public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
         public static string TinyAboutUsInfoLeftId = "tinyAboutUsInfoLeft";
@@ -22,6 +24,10 @@ namespace shared
         public static string TinyAboutUsInfoRightSecondtId = "tinyAboutUsInfoRightSecond";
         public static string TinyAboutUsTeamTitleId = "tinyAboutUsTeamTitle";
         public static string TinyAboutUsTeamSubtitleId = "tinyAboutUsTeamSubtitle";
+        public static string TinyAboutUsTeamListImageId = "tinyAboutUsTeamListImage";
+        public static string TinyAboutUsTeamListTitleId = "tinyAboutUsTeamListTitle";
+        public static string TinyAboutUsTeamListSubtitleId = "tinyAboutUsTeamListSubtitle";
+        public static string TinyAboutUsTeamListTextId = "tinyAboutUsTeamListText";
 
         public static string TinyContactUsTitleId = "tinyContactUsTitle";
         public static string TinyContactUsSubtitleId = "tinyContactUsSubtitle";
@@ -53,5 +59,10 @@ namespace shared
         public static string ServicesListServiceShortDescDefaultTitleValue = "Title";
         public static string ServicesListServiceShortDescDefaultSubtitleValue = "Subtitle";
         public static string ServicesListServiceLongDescDefaultValue = "Content";
+
+        public static string AboutUsTeamListServiceShortDescDefaultImageValue = "_content/rcl/assets/img/160x160/img7.jpg";
+        public static string AboutUsTeamListServiceShortDescDefaultTitleValue = "Christina Kray";
+        public static string AboutUsTeamListServiceShortDescDefaultSubtitleValue = "Founder / CEO";
+        public static string AboutUsTeamListServiceShortDescDefaultTextValue = "I am an ambitious workaholic, but apart from that, pretty simple person.";
     }
 }
