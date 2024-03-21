@@ -23,7 +23,7 @@
                         Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
                             <p class="lead">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
                     </TinyMceEditor>
-                }            
+                }
             </div>
             <!-- End Heading -->
         </div>
@@ -67,29 +67,74 @@
     <!-- Feature Stats -->
     <div class="container content-space-2 content-space-lg-3">
         <div class="row justify-content-lg-center">
-            <div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
-                <div class="text-center">
-                    <h2 class="display-4">7</h2>
-                    <p class="small">years in business</p>
+            @if (Model.Data != null)
+            {
+                <div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
+                    <div class="text-center">
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsFirstTitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey)">
+                                <h2 class="display-4">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey])</h2>
+                        </TinyMceEditor>
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsFirstSubtitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey)">
+                                <p class="small">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey])</p>
+                        </TinyMceEditor>
+                    </div>
                 </div>
-            </div>
-            <!-- End Col -->
+                <!-- End Col -->
 
-            <div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
-                <div class="text-center">
-                    <h2 class="display-4">3,5k+</h2>
-                    <p class="small">copies sold</p>
+                <div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
+                    <div class="text-center">
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsSecondTitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey)">
+                                <h2 class="display-4">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey])</h2>
+                        </TinyMceEditor>
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsSecondSubtitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey)">
+                                <p class="small">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey])</p>
+                        </TinyMceEditor>
+                    </div>
                 </div>
-            </div>
-            <!-- End Col -->
+                <!-- End Col -->
 
-            <div class="col-sm-4 col-lg-3">
-                <div class="text-center">
-                    <h2 class="display-4">85%</h2>
-                    <p class="small">happy customers</p>
+                <div class="col-sm-4 col-lg-3">
+                    <div class="text-center">
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsThirdTitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey)">
+                                <h2 class="display-4">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey])</h2>
+                        </TinyMceEditor>
+                        <TinyMceEditor 
+                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsFeatureStatsThirdSubtitleId)"
+                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey)">
+                                <p class="small">@((MarkupString) Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey])</p>
+                        </TinyMceEditor>
+                    </div>
                 </div>
-            </div>
-            <!-- End Col -->
+                <!-- End Col -->
+            }
         </div>
         <!-- End Row -->
     </div>

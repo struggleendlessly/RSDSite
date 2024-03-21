@@ -20,6 +20,12 @@ namespace shared
 
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
+        public static string AboutUsPageDataFeatureStatsFirstTitleKey = "FeatureStatsFirstTitle";
+        public static string AboutUsPageDataFeatureStatsFirstSubtitleKey = "FeatureStatsFirstSubtitle";
+        public static string AboutUsPageDataFeatureStatsSecondTitleKey = "FeatureStatsSecondTitle";
+        public static string AboutUsPageDataFeatureStatsSecondSubtitleKey = "FeatureStatsSecondSubtitle";
+        public static string AboutUsPageDataFeatureStatsThirdTitleKey = "FeatureStatsThirdTitle";
+        public static string AboutUsPageDataFeatureStatsThirdSubtitleKey = "FeatureStatsThirdSubtitle";
         public static string AboutUsPageDataInfoLeftKey = "InfoLeft";
         public static string AboutUsPageDataInfoRightFirstKey = "InfoRightFirst";
         public static string AboutUsPageDataInfoRightSecondKey = "InfoRightSecond";

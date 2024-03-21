@@ -4,10 +4,14 @@ namespace shared
 {
     public static class StaticHtmlStrings
     {
+        /* CSS */
+
         public static string СSSActiveClass = "active";
         public static string CSSDisplayNone = "none";
         public static string CSSDisplayInline = "inline";
         public static string CSSDisplayBlock = "block";
+
+        /* Home */
 
         public static string TinyHomeTitleId = "tinyHomeTitle";
         public static string TinyHomeSubtitleId = "tinyHomeSubtitle";
@@ -19,6 +23,12 @@ namespace shared
 
         public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
         public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
+        public static string TinyAboutUsFeatureStatsFirstTitleId = "tinyAboutUsFeatureStatsFirstTitle";
+        public static string TinyAboutUsFeatureStatsFirstSubtitleId = "tinyAboutUsFeatureStatsFirstSubtitle";
+        public static string TinyAboutUsFeatureStatsSecondTitleId = "tinyAboutUsFeatureStatsSecondTitle";
+        public static string TinyAboutUsFeatureStatsSecondSubtitleId = "tinyAboutUsFeatureStatsSecondSubtitle";
+        public static string TinyAboutUsFeatureStatsThirdTitleId = "tinyAboutUsFeatureStatsThirdTitle";
+        public static string TinyAboutUsFeatureStatsThirdSubtitleId = "tinyAboutUsFeatureStatsThirdSubtitle";
         public static string TinyAboutUsInfoLeftId = "tinyAboutUsInfoLeft";
         public static string TinyAboutUsInfoRightFirstId = "tinyAboutUsInfoRightFirst";
         public static string TinyAboutUsInfoRightSecondtId = "tinyAboutUsInfoRightSecond";
@@ -28,6 +38,8 @@ namespace shared
         public static string TinyAboutUsTeamListTitleId = "tinyAboutUsTeamListTitle";
         public static string TinyAboutUsTeamListSubtitleId = "tinyAboutUsTeamListSubtitle";
         public static string TinyAboutUsTeamListTextId = "tinyAboutUsTeamListText";
+
+        /* Contact-Us */
 
         public static string TinyContactUsTitleId = "tinyContactUsTitle";
         public static string TinyContactUsSubtitleId = "tinyContactUsSubtitle";
@@ -43,6 +55,8 @@ namespace shared
         public static string TinyContactUsAddressTitleId = "tinyContactUsAddressTitle";
         public static string TinyContactUsAddressSubtitleId = "tinyContactUsAddressSubtitle";
 
+        /* Services */
+
         public static string TinyServicesTitleId = "tinyServicesTitle";
         public static string TinyServicesListTitleId = "tinyServicesListTitle";
         public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
@@ -52,6 +66,8 @@ namespace shared
         public static string TinyFAQTitleId = "tinyFAQTitle";
         public static string TinyFAQListTitleId = "tinyFAQListTitle";
         public static string TinyFAQListSubtitleId = "tinyFAQListSubtitle";
+
+        /* Service */
 
         public static string TinyServicePageContentId = "tinyServicePageContent";
 
