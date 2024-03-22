@@ -20,6 +20,7 @@ namespace shared
         public const string LoginPageRoute = "/Account/Login";
         public const string ForgotPasswordPageRoute = "/Account/ForgotPassword";
         public const string RegisterPageRoute = "/Account/Register";
+        public const string LogoutPageRoute = "/Account/Logout";
 
         public static string[] GetPagesRoutes()
         {
