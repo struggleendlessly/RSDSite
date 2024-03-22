@@ -1,6 +1,9 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
+
+using Microsoft.Extensions.Options;
+
+using shared.ConfigurationOptions;
 
 namespace shared.Managers
 {
@@ -8,9 +11,9 @@ namespace shared.Managers
     {
         private readonly string _connectionString;
 
-        public AzureBlobStorageManager(IConfiguration configuration)
+        public AzureBlobStorageManager(IOptions<AzureBlobStorageOptions> _azureBlobStorageOptions)
         {
-            _connectionString = configuration["AzureBlobStorage:ConnectionString"];
+            _connectionString = _azureBlobStorageOptions.Value.ConnectionString;
         }
 
         public async Task<string> DownloadFile(string blobContainerName, string blobName)

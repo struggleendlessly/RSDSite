@@ -1,19 +1,26 @@
-﻿using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.JSInterop;
+
+using Newtonsoft.Json;
 
 using shared;
-using shared.Models;
+using shared.Emails;
 using shared.Managers;
+using shared.Models;
 
 using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
 {
     public partial class HomeComponent : IDisposable
     {
+        [Inject]
+        EmailService EmailService { get; set; }
+        [Inject]
+        EmailSenders EmailSenders { get; set; }
+        
         [Inject]
         IJSRuntime JS { get; set; }
 
@@ -45,6 +52,16 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            //var emailModel = new EmailModel
+            //{
+            //    Subject = "Hello from the Home Page",
+            //    HtmlContent = "This is a test email from the Home Page",
+            //    Recipient = "struggleendlessly@hotmail.com",
+            //    Sender = EmailSenders.DoNotReply
+            //};
+
+            //await EmailService.Send(emailModel);
+
             SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
             var key = string.Format(StaticStrings.HomePageDataJsonMemoryCacheKey, SiteNameLower);
             if (!MemoryCache.TryGetValue(key, out PageModel model))

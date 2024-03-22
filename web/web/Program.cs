@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
+using shared.ConfigurationOptions;
+using shared.Emails;
 using shared.Interfaces;
 using shared.Managers;
 
@@ -22,7 +25,12 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddMemoryCache();
 
+builder.Services.Configure<ArureEmailCummunicationOptions>(builder.Configuration.GetSection(ArureEmailCummunicationOptions.SectionName));
+builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
+
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<EmailSenders>();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
