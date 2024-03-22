@@ -192,6 +192,7 @@
         public string ConfirmPassword { get; set; } = "";
 
         [Required]
+        [StringLength(63, MinimumLength = 3)]
         [Display(Name = "Site name")]
         public string SiteName { get; set; } = "";
     }
