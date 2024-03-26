@@ -5,22 +5,22 @@
         <div class="w-lg-75">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyHomeTitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
                         <h1 class="display-3 mb-5">@((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
-                </TinyMceEditor>
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyHomeSubtitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                </HTMLEditor>
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeSubtitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataSubtitleKey)">
                         <p class="lead">@((MarkupString) Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
     </div>
@@ -34,22 +34,22 @@
         <div class="w-md-65 mb-5 mb-md-9">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyHomeFeaturedCaseStudiesTitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
                         <span class="text-cap">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</span>
-                </TinyMceEditor>
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyHomeFeaturedCaseStudiesSubtitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                </HTMLEditor>
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesSubtitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
                         <h2 class="lh-base">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</h2>
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
         <!-- End Heading -->
@@ -62,16 +62,16 @@
         <div class="text-center">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyHomeViewAllWorksButtonTextId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
                         <a class="btn btn-outline-primary btn-transition" href="https://htmlstream.com/" target="_blank">
                             @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                         </a>
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
     </div>

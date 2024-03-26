@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
 
-using shared.Models;
 using shared;
+using shared.Models;
 
 namespace rcl.Components.Shared
 {
-    public partial class TinyMceEditor
+    public partial class HTMLEditor
     {
         [Parameter]
-        public string TinyMceId { get; set; } = string.Empty;
+        public string EditorId { get; set; } = string.Empty;
 
         [Parameter]
-        public string TinyMceContentFormat { get; set; } = string.Empty;
+        public string EditorContentFormat { get; set; } = string.Empty;
 
         [Parameter]
         public Func<PageModel, Task> FuncSave { get; set; }
@@ -30,6 +30,8 @@ namespace rcl.Components.Shared
 
         private string Value { get; set; } = string.Empty;
 
+        private bool IsFirstRender { get; set; } = true;
+
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
@@ -42,29 +44,33 @@ namespace rcl.Components.Shared
         {
             EditMode = !EditMode;
 
+            if (EditMode && IsFirstRender)
+            {
+                await InitializeEditorAsync();
+                IsFirstRender = false;
+            }
+        }
+
+        private async Task InitializeEditorAsync()
+        {
+            await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.editorActivate, EditorId);
+        }
+
+        private string GetVisibilityClass()
+        {
             if (EditMode)
             {
-                await InitializeTinyMCEAsync();
+                return StaticHtmlStrings.CSSDisplayBlock;
             }
             else
             {
-                await DestroyTinyMCEAsync();
+                return StaticHtmlStrings.CSSDisplayNone;
             }
-        }
-
-        private async Task InitializeTinyMCEAsync()
-        {
-            await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate, TinyMceId);
-        }
-
-        private async Task DestroyTinyMCEAsync()
-        {
-            await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.tinymceDestroy, TinyMceId);
         }
 
         private async Task SaveChangesAsync()
         {
-            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.tinymceGetContent, TinyMceId, TinyMceContentFormat);
+            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.editorGetContent, EditorId, EditorContentFormat);
 
             Model.Data[Key] = content;
             await FuncSave(Model);

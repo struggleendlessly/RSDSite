@@ -6,14 +6,14 @@
         <div class="w-lg-65 text-center mx-lg-auto mb-5 mb-md-9">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyServicesTitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataTitleKey)">
                         <h1>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
         <!-- End Heading -->
@@ -40,24 +40,24 @@
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyServicesListTitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
                         <span class="text-cap">
                             @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
                         </span>
-                </TinyMceEditor>
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyServicesListSubtitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                </HTMLEditor>
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListSubtitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
                         <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</h2>                    
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
         <!-- End Heading -->
@@ -76,14 +76,14 @@
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
             @if (Model.Data != null)
             {
-                <TinyMceEditor 
-                    TinyMceId="@(StaticHtmlStrings.TinyFAQTitleId)"
-                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                <HTMLEditor 
+                    EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
                         <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])</h2>
-                </TinyMceEditor>
+                </HTMLEditor>
             }
         </div>
         <!-- End Heading -->

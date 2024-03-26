@@ -7,74 +7,74 @@ namespace shared
         /* CSS */
 
         public static string СSSActiveClass = "active";
-        public static string CSSDisplayNone = "none";
+        public static string CSSDisplayNone = "d-none";
         public static string CSSDisplayInline = "inline";
-        public static string CSSDisplayBlock = "block";
+        public static string CSSDisplayBlock = "d-block";
 
         /* Home */
 
-        public static string TinyHomeTitleId = "tinyHomeTitle";
-        public static string TinyHomeSubtitleId = "tinyHomeSubtitle";
-        public static string TinyHomeFeaturedCaseStudiesTitleId = "tinyHomeFeaturedCaseStudiesTitle";
-        public static string TinyHomeFeaturedCaseStudiesSubtitleId = "tinyHomeFeaturedCaseStudiesSubtitle";
-        public static string TinyHomeViewAllWorksButtonTextId = "tinyHomeViewAllWorksButtonText";
-        public static string TinyHomeTestimonialsListAvatarId = "tinyHomeTestimonialsListAvatar";
-        public static string TinyHomeTestimonialsListTitleId = "tinyHomeTestimonialsListTitle";
-        public static string TinyHomeTestimonialsListSubtitleId = "tinyHomeTestimonialsListSubtitle";
-        public static string TinyHomeTestimonialsListTextId = "tinyHomeTestimonialsListText";
-        public static string TinyHomeTestimonialsListImageId = "tinyHomeTestimonialsListImage";
+        public static string HTMLEditorHomeTitleId = "htmlEditorHomeTitle";
+        public static string HTMLEditorHomeSubtitleId = "htmlEditorHomeSubtitle";
+        public static string HTMLEditorHomeFeaturedCaseStudiesTitleId = "htmlEditorHomeFeaturedCaseStudiesTitle";
+        public static string HTMLEditorHomeFeaturedCaseStudiesSubtitleId = "htmlEditorHomeFeaturedCaseStudiesSubtitle";
+        public static string HTMLEditorHomeViewAllWorksButtonTextId = "htmlEditorHomeViewAllWorksButtonText";
+        public static string HTMLEditorHomeTestimonialsListAvatarId = "htmlEditorHomeTestimonialsListAvatar";
+        public static string HTMLEditorHomeTestimonialsListTitleId = "htmlEditorHomeTestimonialsListTitle";
+        public static string HTMLEditorHomeTestimonialsListSubtitleId = "htmlEditorHomeTestimonialsListSubtitle";
+        public static string HTMLEditorHomeTestimonialsListTextId = "htmlEditorHomeTestimonialsListText";
+        public static string HTMLEditorHomeTestimonialsListImageId = "htmlEditorHomeTestimonialsListImage";
 
         /* About-Us */
 
-        public static string TinyAboutUsTitleId = "tinyAboutUsTitle";
-        public static string TinyAboutUsSubtitleId = "tinyAboutUsSubtitle";
-        public static string TinyAboutUsFeatureStatsFirstTitleId = "tinyAboutUsFeatureStatsFirstTitle";
-        public static string TinyAboutUsFeatureStatsFirstSubtitleId = "tinyAboutUsFeatureStatsFirstSubtitle";
-        public static string TinyAboutUsFeatureStatsSecondTitleId = "tinyAboutUsFeatureStatsSecondTitle";
-        public static string TinyAboutUsFeatureStatsSecondSubtitleId = "tinyAboutUsFeatureStatsSecondSubtitle";
-        public static string TinyAboutUsFeatureStatsThirdTitleId = "tinyAboutUsFeatureStatsThirdTitle";
-        public static string TinyAboutUsFeatureStatsThirdSubtitleId = "tinyAboutUsFeatureStatsThirdSubtitle";
-        public static string TinyAboutUsInfoLeftId = "tinyAboutUsInfoLeft";
-        public static string TinyAboutUsInfoRightFirstId = "tinyAboutUsInfoRightFirst";
-        public static string TinyAboutUsInfoRightSecondtId = "tinyAboutUsInfoRightSecond";
-        public static string TinyAboutUsTeamTitleId = "tinyAboutUsTeamTitle";
-        public static string TinyAboutUsTeamSubtitleId = "tinyAboutUsTeamSubtitle";
-        public static string TinyAboutUsTeamListImageId = "tinyAboutUsTeamListImage";
-        public static string TinyAboutUsTeamListTitleId = "tinyAboutUsTeamListTitle";
-        public static string TinyAboutUsTeamListSubtitleId = "tinyAboutUsTeamListSubtitle";
-        public static string TinyAboutUsTeamListTextId = "tinyAboutUsTeamListText";
+        public static string HTMLEditorAboutUsTitleId = "htmlEditorAboutUsTitle";
+        public static string HTMLEditorAboutUsSubtitleId = "htmlEditorAboutUsSubtitle";
+        public static string HTMLEditorAboutUsFeatureStatsFirstTitleId = "htmlEditorAboutUsFeatureStatsFirstTitle";
+        public static string HTMLEditorAboutUsFeatureStatsFirstSubtitleId = "htmlEditorAboutUsFeatureStatsFirstSubtitle";
+        public static string HTMLEditorAboutUsFeatureStatsSecondTitleId = "htmlEditorAboutUsFeatureStatsSecondTitle";
+        public static string HTMLEditorAboutUsFeatureStatsSecondSubtitleId = "htmlEditorAboutUsFeatureStatsSecondSubtitle";
+        public static string HTMLEditorAboutUsFeatureStatsThirdTitleId = "htmlEditorAboutUsFeatureStatsThirdTitle";
+        public static string HTMLEditorAboutUsFeatureStatsThirdSubtitleId = "htmlEditorAboutUsFeatureStatsThirdSubtitle";
+        public static string HTMLEditorAboutUsInfoLeftId = "htmlEditorAboutUsInfoLeft";
+        public static string HTMLEditorAboutUsInfoRightFirstId = "htmlEditorAboutUsInfoRightFirst";
+        public static string HTMLEditorAboutUsInfoRightSecondtId = "htmlEditorAboutUsInfoRightSecond";
+        public static string HTMLEditorAboutUsTeamTitleId = "htmlEditorAboutUsTeamTitle";
+        public static string HTMLEditorAboutUsTeamSubtitleId = "htmlEditorAboutUsTeamSubtitle";
+        public static string HTMLEditorAboutUsTeamListImageId = "htmlEditorAboutUsTeamListImage";
+        public static string HTMLEditorAboutUsTeamListTitleId = "htmlEditorAboutUsTeamListTitle";
+        public static string HTMLEditorAboutUsTeamListSubtitleId = "htmlEditorAboutUsTeamListSubtitle";
+        public static string HTMLEditorAboutUsTeamListTextId = "htmlEditorAboutUsTeamListText";
 
         /* Contact-Us */
 
-        public static string TinyContactUsTitleId = "tinyContactUsTitle";
-        public static string TinyContactUsSubtitleId = "tinyContactUsSubtitle";
-        public static string TinyContactUsMapCoordinatesId = "tinyContactUsMapCoordinates";
-        public static string TinyContactUsMapMarkerTextId = "tinyContactUsMapMarkerText";
-        public static string TinyContactUsFormTitleId = "tinyContactUsFormTitle";
-        public static string TinyContactUsFormButtonTextId = "tinyContactUsFormButtonText";
-        public static string TinyContactUsFormTextUnderButtonKey = "tinyContactUsFormTextUnderButton";
-        public static string TinyContactUsCallUsTitleId = "tinyContactUsCallUsTitle";
-        public static string TinyContactUsCallUsSubtitleId = "tinyContactUsCallUsSubtitle";
-        public static string TinyContactUsEmailUsTitleId = "tinyContactUsEmailUsTitle";
-        public static string TinyContactUsEmailUsSubtitleId = "tinyContactUsEmailUsSubtitle";
-        public static string TinyContactUsAddressTitleId = "tinyContactUsAddressTitle";
-        public static string TinyContactUsAddressSubtitleId = "tinyContactUsAddressSubtitle";
+        public static string HTMLEditorContactUsTitleId = "htmlEditorContactUsTitle";
+        public static string HTMLEditorContactUsSubtitleId = "htmlEditorContactUsSubtitle";
+        public static string HTMLEditorContactUsMapCoordinatesId = "htmlEditorContactUsMapCoordinates";
+        public static string HTMLEditorContactUsMapMarkerTextId = "htmlEditorContactUsMapMarkerText";
+        public static string HTMLEditorContactUsFormTitleId = "htmlEditorContactUsFormTitle";
+        public static string HTMLEditorContactUsFormButtonTextId = "htmlEditorContactUsFormButtonText";
+        public static string HTMLEditorContactUsFormTextUnderButtonKey = "htmlEditorContactUsFormTextUnderButton";
+        public static string HTMLEditorContactUsCallUsTitleId = "htmlEditorContactUsCallUsTitle";
+        public static string HTMLEditorContactUsCallUsSubtitleId = "htmlEditorContactUsCallUsSubtitle";
+        public static string HTMLEditorContactUsEmailUsTitleId = "htmlEditorContactUsEmailUsTitle";
+        public static string HTMLEditorContactUsEmailUsSubtitleId = "htmlEditorContactUsEmailUsSubtitle";
+        public static string HTMLEditorContactUsAddressTitleId = "htmlEditorContactUsAddressTitle";
+        public static string HTMLEditorContactUsAddressSubtitleId = "htmlEditorContactUsAddressSubtitle";
 
         /* Services */
 
-        public static string TinyServicesTitleId = "tinyServicesTitle";
-        public static string TinyServicesListTitleId = "tinyServicesListTitle";
-        public static string TinyServicesListSubtitleId = "tinyServicesListSubtitle";
-        public static string TinyServicesListServiceTitleId = "tinyServicesListServiceTitle";
-        public static string TinyServicesListServiceSubtitleId = "tinyServicesListServiceSubtitle";
-        public static string TinyServicesListServiceUrlId = "tinyServicesListServiceUrl";
-        public static string TinyFAQTitleId = "tinyFAQTitle";
-        public static string TinyFAQListTitleId = "tinyFAQListTitle";
-        public static string TinyFAQListSubtitleId = "tinyFAQListSubtitle";
+        public static string HTMLEditorServicesTitleId = "htmlEditorServicesTitle";
+        public static string HTMLEditorServicesListTitleId = "htmlEditorServicesListTitle";
+        public static string HTMLEditorServicesListSubtitleId = "htmlEditorServicesListSubtitle";
+        public static string HTMLEditorServicesListServiceTitleId = "htmlEditorServicesListServiceTitle";
+        public static string HTMLEditorServicesListServiceSubtitleId = "htmlEditorServicesListServiceSubtitle";
+        public static string HTMLEditorServicesListServiceUrlId = "htmlEditorServicesListServiceUrl";
+        public static string HTMLEditorFAQTitleId = "htmlEditorFAQTitle";
+        public static string HTMLEditorFAQListTitleId = "htmlEditorFAQListTitle";
+        public static string HTMLEditorFAQListSubtitleId = "htmlEditorFAQListSubtitle";
 
         /* Service */
 
-        public static string TinyServicePageContentId = "tinyServicePageContent";
+        public static string HTMLEditorServicePageContentId = "htmlEditorServicePageContent";
 
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
         public static string ServicesListServiceShortDescDefaultTitleValue = "Title";

@@ -13,7 +13,7 @@ using System.Text.Json;
 
 namespace rcl.Components.Shared
 {
-    public partial class TinyMceServicesList : IDisposable
+    public partial class ServicesList : IDisposable
     {
         [Inject]
         IJSRuntime JS { get; set; }
@@ -36,7 +36,7 @@ namespace rcl.Components.Shared
 
         public PageModel ModelUrls { get; set; } = new PageModel();
 
-        DotNetObjectReference<TinyMceServicesList>? dotNetHelper { get; set; }
+        DotNetObjectReference<ServicesList>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

@@ -9,47 +9,38 @@
     URL.revokeObjectURL(url);
 }
 
-function js_tinymceActivate(id) {
-    var selector = `textarea#${id}`;
+function js_editorActivate(id) {
+    var selector = `#${id}`;
 
-    tinymce.init({
-        selector: selector,
-        images_upload_handler: js_tinymceImageUploadHandler,
-        paste_data_images: true,
-        block_unsupported_drop: false
+    const quill = new Quill(selector, {
+        theme: 'snow'
     });
 }
 
-const js_tinymceImageUploadHandler = (blobInfo, progress) => new Promise((resolve, reject) => {
-    try {
-        const blobInfoBase64 = blobInfo.base64();
+async function js_editorGetContent(id, format) {
+    var quillContainer = document.getElementById(id);
+    var childElement = quillContainer.querySelector('.ql-editor');
+    var content = childElement.innerHTML;
 
-        scaleImageToFullHD(blobInfoBase64)
-            .then(resizedBase64 => {
-
-                DotNetHelpers.uploadImage(resizedBase64).then(result => {
-                    resolve(result);
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
-                });
-
-            })
-            .catch(error => {
-                console.error('Error scaling image: ', error);
-            });
-    } catch (error) {
-        console.error('Error: ', error);
-        reject(error);
+    // Check if content starts with <p> and ends with </p>
+    if (content.startsWith('<p>') && content.endsWith('</p>')) {
+        content = content.substring(3, content.length - 4);
     }
-});
 
-function js_tinymceDestroy(id) {
-    tinymce.get(id).remove();
-}
+    // Find and replace base64 images
+    var base64Images = content.match(/<img[^>]+src="data:image\/(.*?);base64,([^"]+)"[^>]*>/g);
+    if (base64Images) {
+        for (let i = 0; i < base64Images.length; i++) {
+            var base64Data = base64Images[i].match(/data:image\/(.*?);base64,([^"]+)/)[2];
 
-function js_tinymceGetContent(id, format) {
-    return tinymce.get(id).getContent({ format: format });
+            var resizedBase64 = await scaleImageToFullHD(base64Data);
+            var azureBlobLink = await DotNetHelpers.uploadImage(resizedBase64);
+
+            content = content.replace(base64Images[i], `<img src="${azureBlobLink}" alt="Uploaded Image">`);
+        }
+    }
+
+    return content;
 }
 
 function js_leafletActivate(accessToken) {
@@ -60,7 +51,7 @@ function js_leafletActivate(accessToken) {
     }).addTo(leaflet);
 }
 
-function scaleImageToFullHD(base64Image) {
+async function scaleImageToFullHD(base64Image) {
     return new Promise((resolve, reject) => {
         const img = new Image();
         const dataUriScheme = "data:image/png;base64,";

@@ -19,28 +19,28 @@
                     </Authorized>
                 </AuthorizeView>
                 <div class="accordion-header" id="headingBasics-@serviceKeyIndex">
-                    <TinyMceEditor 
-                        TinyMceId="@(StaticHtmlStrings.TinyFAQListTitleId + serviceKeyIndex)"
-                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    <HTMLEditor 
+                        EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="SaveContent"
                         Key="@serviceTitleKey">
                             <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="collapse-@serviceKeyIndex">
                                 @Model.Data[serviceTitleKey]
                             </a>
-                    </TinyMceEditor>
+                    </HTMLEditor>
                 </div>
                 <div id="collapse-@serviceKeyIndex" class="accordion-collapse collapse" aria-labelledby="headingBasics-@serviceKeyIndex" data-bs-parent="#accordionFAQ">
-                    <TinyMceEditor 
-                        TinyMceId="@(StaticHtmlStrings.TinyFAQListSubtitleId + serviceKeyIndex)"
-                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                    <HTMLEditor 
+                        EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKeyIndex)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="SaveContent"
                         Key="@serviceSubtitleKey">
                             <div class="accordion-body">
                                 @Model.Data[serviceSubtitleKey]
                             </div>
-                    </TinyMceEditor>
+                    </HTMLEditor>
                 </div>
             </div>
             <!-- End Accordion Item -->

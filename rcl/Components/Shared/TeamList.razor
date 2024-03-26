@@ -25,36 +25,36 @@
                         <div class="avatar avatar-lg avatar-circle d-block mb-4">
                             <img class="avatar-img" src="@Model.Data[serviceImageKey]" alt="Image Description">
                         </div>
-                        <TinyMceEditor 
-                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsTeamListSubtitleId + serviceKeyIndex)"
-                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                        <HTMLEditor 
+                            EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListSubtitleId + serviceKeyIndex)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                             Model="Model"
                             FuncSave="SaveContent"
                             Key="@serviceSubtitleKey">
                                 <span class="card-subtitle">
                                     @Model.Data[serviceSubtitleKey]
                                 </span>
-                        </TinyMceEditor>
-                        <TinyMceEditor 
-                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsTeamListTitleId + serviceKeyIndex)"
-                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                        </HTMLEditor>
+                        <HTMLEditor 
+                            EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTitleId + serviceKeyIndex)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                             Model="Model"
                             FuncSave="SaveContent"
                             Key="@serviceTitleKey">
                                 <h4 class="card-title">
                                     @Model.Data[serviceTitleKey]
                                 </h4>
-                        </TinyMceEditor>
-                        <TinyMceEditor 
-                            TinyMceId="@(StaticHtmlStrings.TinyAboutUsTeamListTextId + serviceKeyIndex)"
-                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                        </HTMLEditor>
+                        <HTMLEditor 
+                            EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTextId + serviceKeyIndex)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                             Model="Model"
                             FuncSave="SaveContent"
                             Key="@serviceTextKey">
                                 <p class="card-text">
                                     @Model.Data[serviceTextKey]
                                 </p>
-                        </TinyMceEditor>
+                        </HTMLEditor>
                     </div>
                 </div>
                 <!-- End Card -->

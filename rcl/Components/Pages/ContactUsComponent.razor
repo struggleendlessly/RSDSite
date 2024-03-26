@@ -8,22 +8,22 @@
                 <div class="mb-5">
                     @if (Model.Data != null)
                     {
-                        <TinyMceEditor 
-                            TinyMceId="@(StaticHtmlStrings.TinyContactUsTitleId)"
-                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        <HTMLEditor 
+                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.ContactUsPageDataTitleKey)">
                                 <h1>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
-                        </TinyMceEditor>
-                        <TinyMceEditor 
-                            TinyMceId="@(StaticHtmlStrings.TinyContactUsSubtitleId)"
-                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                        </HTMLEditor>
+                        <HTMLEditor 
+                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
                                 <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
-                        </TinyMceEditor>
+                        </HTMLEditor>
                     }                    
                 </div>
                 <!-- End Heading -->
@@ -33,22 +33,22 @@
                     {
                         <AuthorizeView>
                             <Authorized>
-                                <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsMapCoordinatesId)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                <HTMLEditor 
+                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
                                         <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
-                                </TinyMceEditor>
-                                <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsMapMarkerTextId)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                </HTMLEditor>
+                                <HTMLEditor 
+                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
                                         <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
-                                </TinyMceEditor>
+                                </HTMLEditor>
                             </Authorized>
                         </AuthorizeView>
 
@@ -79,24 +79,24 @@
                     <div class="col-sm-6">
                         @if (Model.Data != null)
                         {
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsCallUsTitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
                                     <h5 class="mb-1">
                                         @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
                                     </h5>
-                            </TinyMceEditor>
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsCallUsSubtitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            </HTMLEditor>
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
                                     <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])</p>
-                            </TinyMceEditor>
+                            </HTMLEditor>
                         }
                     </div>
                     <!-- End Col -->
@@ -104,24 +104,24 @@
                     <div class="col-sm-6">
                         @if (Model.Data != null)
                         {
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsEmailUsTitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
                                     <h5 class="mb-1">
                                         @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
                                     </h5>
-                            </TinyMceEditor>
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsEmailUsSubtitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            </HTMLEditor>
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
                                     <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
-                            </TinyMceEditor>
+                            </HTMLEditor>
                         }
                     </div>
                     <!-- End Col -->
@@ -129,24 +129,24 @@
                     <div class="col-sm-6">
                         @if (Model.Data != null)
                         {
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsAddressTitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
                                 <h5 class="mb-1">
                                     @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
                                 </h5>
-                            </TinyMceEditor>
-                            <TinyMceEditor 
-                                TinyMceId="@(StaticHtmlStrings.TinyContactUsAddressSubtitleId)"
-                                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                            </HTMLEditor>
+                            <HTMLEditor 
+                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressSubtitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
                                     <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
-                            </TinyMceEditor>
+                            </HTMLEditor>
                         }
                     </div>
                     <!-- End Col -->
@@ -162,16 +162,16 @@
                         <div class="card-header border-bottom text-center">
                             @if (Model.Data != null)
                             {
-                                <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyContactUsFormTitleId)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                <HTMLEditor 
+                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDataFormTitleKey)">
                                         <h3 class="card-header-title">
                                             @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])
                                         </h3>
-                                </TinyMceEditor>
+                                </HTMLEditor>
                             }
                         </div>
 
@@ -233,32 +233,32 @@
                                 <div class="d-grid">
                                     @if (Model.Data != null)
                                     {
-                                        <TinyMceEditor 
-                                            TinyMceId="@(StaticHtmlStrings.TinyContactUsFormButtonTextId)"
-                                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                        <HTMLEditor 
+                                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormButtonTextId)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                             Model="Model"
                                             FuncSave="Save"
                                             Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
                                                 <button type="submit" class="btn btn-primary btn-lg">
                                                     @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
                                                 </button>
-                                        </TinyMceEditor>
+                                        </HTMLEditor>
                                     }
                                 </div>
 
                                 <div class="text-center">
                                     @if (Model.Data != null)
                                     {
-                                        <TinyMceEditor 
-                                            TinyMceId="@(StaticHtmlStrings.TinyContactUsFormTextUnderButtonKey)"
-                                            TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                        <HTMLEditor 
+                                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTextUnderButtonKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                             Model="Model"
                                             FuncSave="Save"
                                             Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)">
                                                 <p class="form-text">
                                                     @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
                                                 </p>
-                                        </TinyMceEditor>
+                                        </HTMLEditor>
                                     }
                                 </div>
                             </div> <!-- </form> -->

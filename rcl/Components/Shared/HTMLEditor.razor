@@ -1,0 +1,24 @@
+﻿<AuthorizeView>
+    <Authorized>
+        @if (!EditMode)
+        {
+            <button class="badge bg-primary mb-2" @onclick="ToggleEditModeAsync">Edit</button>
+        }
+        else
+        {
+            <button class="badge bg-success mb-2" @onclick="SaveChangesAsync">Save</button>
+            <button class="badge bg-secondary mb-2" @onclick="CancelEditAsync">Cancel</button>
+        }
+    </Authorized>
+</AuthorizeView>
+@if (!EditMode)
+{
+    @ChildContent
+}
+<AuthorizeView>
+    <Authorized>
+        <div class="@GetVisibilityClass() mb-2">
+            <div id="@(EditorId)">@((MarkupString) Value)</div>
+        </div>
+    </Authorized>
+</AuthorizeView>

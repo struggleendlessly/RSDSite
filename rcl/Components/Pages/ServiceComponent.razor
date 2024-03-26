@@ -3,14 +3,14 @@
     <div class="container content-space-2 content-space-lg-3">
         @if (Model.Data != null)
         {
-            <TinyMceEditor 
-                TinyMceId="@(StaticHtmlStrings.TinyServicePageContentId)"
-                TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+            <HTMLEditor 
+                EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
+                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                 Model="Model"
                 FuncSave="Save"
                 Key="@Key">
                     @((MarkupString) Model.Data[Key])
-            </TinyMceEditor>
+            </HTMLEditor>
         }
     </div>
 </main>

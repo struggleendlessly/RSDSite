@@ -59,9 +59,9 @@ namespace shared
         public static string ServicesUrlKeyEnding = "_Url";
         public static string ServicesTextKeyEnding = "_Text";
 
-        public static string TinyContentFormatText = "text";
-        public static string TinyContentFormatRaw = "raw";
-        public static string TinyContentFormatHtml = "html";
+        public static string EditorContentFormatText = "text";
+        public static string EditorContentFormatRaw = "raw";
+        public static string EditorContentFormatHtml = "html";
 
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
 

@@ -21,35 +21,35 @@
                                     <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
                                 </div>
                                 <div class="mb-2">
-                                    <TinyMceEditor 
-                                        TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceUrlId + serviceKeyIndex)"
-                                        TinyMceContentFormat="@(StaticStrings.TinyContentFormatText)"
+                                    <HTMLEditor 
+                                        EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
+                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                         Model="ModelUrls"
                                         FuncSave="SaveUrl"
                                         Key="@serviceUrlKey">
                                             <p>Page url: @(ModelUrls.Data[serviceUrlKey])</p>
-                                    </TinyMceEditor>
+                                    </HTMLEditor>
                                 </div>
-                                <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceTitleId + serviceKeyIndex)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                <HTMLEditor 
+                                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceTitleKey">
                                         <h4 class="card-title">
                                             @((MarkupString) Model.Data[serviceTitleKey])
                                         </h4>
-                                </TinyMceEditor>
-                                <TinyMceEditor 
-                                    TinyMceId="@(StaticHtmlStrings.TinyServicesListServiceSubtitleId + serviceKeyIndex)"
-                                    TinyMceContentFormat="@(StaticStrings.TinyContentFormatHtml)"
+                                </HTMLEditor>
+                                <HTMLEditor 
+                                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceSubtitleKey">
                                         <p class="card-text">
                                             @((MarkupString) Model.Data[serviceSubtitleKey])
                                         </p>
-                                </TinyMceEditor>
+                                </HTMLEditor>
                             </Authorized>
                             <NotAuthorized>
                                 <h4 class="card-title">

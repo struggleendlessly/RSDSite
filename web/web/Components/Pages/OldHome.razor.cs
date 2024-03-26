@@ -55,7 +55,7 @@ namespace web.Components.Pages
             BtnCancel = StaticHtmlStrings.CSSDisplayInline;
 
             ShowTinyMCE = StaticHtmlStrings.CSSDisplayBlock;
-            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceActivate);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.editorActivate);
         }
 
         protected async void TinyMceCancel()
@@ -76,7 +76,7 @@ namespace web.Components.Pages
 
             ShowTinyMCE = StaticHtmlStrings.CSSDisplayNone;
 
-            await JS.InvokeVoidAsync(JSInvokeMethodList.tinymceGetContent);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.editorGetContent);
         }
 
         private void Submit()
