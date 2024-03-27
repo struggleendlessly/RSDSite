@@ -20,6 +20,7 @@
 
         public static string editorActivate = "js_editorActivate";
         public static string editorGetContent = "js_editorGetContent";
+        public static string imageEditorGetContent = "js_imageEditorGetContent";
 
         public static string leafletActivate = "js_leafletActivate";
 

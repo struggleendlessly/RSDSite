@@ -2,6 +2,12 @@
     "Data": {
         "Title": "About Us",
         "Subtitle": "Front is a web company that builds websites. Businesses of every size—from new startups to public companies—use our theme to build and manage their businesses online.",
+        "GalleryImage1": "_content/rcl/assets/img/480x320/img17.jpg",
+        "GalleryImage2": "_content/rcl/assets/img/480x320/img6.jpg",
+        "GalleryImage3": "_content/rcl/assets/img/480x320/img14.jpg",
+        "GalleryImage4": "_content/rcl/assets/img/480x320/img25.jpg",
+        "GalleryImage5": "_content/rcl/assets/img/480x320/img16.jpg",
+        "GalleryImage6": "_content/rcl/assets/img/480x320/img12.jpg",
         "FeatureStatsFirstTitle": "7",
         "FeatureStatsFirstSubtitle": "years in business",
         "FeatureStatsSecondTitle": "3,5k+",

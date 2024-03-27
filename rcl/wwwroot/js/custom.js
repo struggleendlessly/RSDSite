@@ -43,6 +43,40 @@ async function js_editorGetContent(id, format) {
     return content;
 }
 
+async function js_imageEditorGetContent(id) {
+    return new Promise(async (resolve, reject) => {
+        var fileInput = document.getElementById(id);
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function (event) {
+                const base64Image = event.target.result;
+                var base64Data = base64Image.match(/data:image\/(.*?);base64,([^"]+)/)[2];
+
+                var resizedBase64 = await scaleImageToFullHD(base64Data);
+                var azureBlobLink = await DotNetHelpers.uploadImage(resizedBase64);
+
+                fileInput.value = '';
+
+                resolve(azureBlobLink);
+            };
+
+            reader.onerror = function (error) {
+                console.error('Error reading file: ', error);
+                alert('Error reading file: ' + error);
+                resolve(null);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            console.error('No file selected');
+            alert('No file selected');
+            resolve(null);
+        }
+    });
+}
+
 function js_leafletActivate(accessToken) {
     const leaflet = HSCore.components.HSLeaflet.init(document.getElementById('map'));
 
@@ -58,7 +92,7 @@ async function scaleImageToFullHD(base64Image) {
 
         img.src = dataUriScheme + base64Image;
 
-        img.onload = function () {
+        img.onload = async function () {
             const maxWidth = 1920;
             const maxHeight = 1080;
             let width = img.width;
@@ -91,7 +125,7 @@ async function scaleImageToFullHD(base64Image) {
             resolve(resizedBase64WithoutDataUriScheme);
         };
 
-        img.onerror = function (error) {
+        img.onerror = async function (error) {
             reject(error);
         };
     });

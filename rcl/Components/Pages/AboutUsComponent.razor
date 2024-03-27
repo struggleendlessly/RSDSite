@@ -29,37 +29,76 @@
         </div>
 
         <div class="row gx-3">
-            <div class="col mb-3">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img17.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+            @if (Model.Data != null)
+            {
+                <div class="col mb-3">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage1Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage1Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage1Key]); height: 15rem;"></div>
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
 
-            <div class="col-3 d-none d-md-block mb-3">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img6.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+                <div class="col-3 d-none d-md-block mb-3">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage2Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage2Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage2Key]); height: 15rem;"></div>     
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
 
-            <div class="col mb-3">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img14.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+                <div class="col mb-3">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage3Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage3Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage3Key]); height: 15rem;"></div>   
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
 
-            <div class="w-100"></div>
+                <div class="w-100"></div>
 
-            <div class="col mb-3 mb-md-0">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img25.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+                <div class="col mb-3 mb-md-0">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage4Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage4Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage4Key]); height: 15rem;"></div>
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
 
-            <div class="col-4 d-none d-md-block mb-3 mb-md-0">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img16.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+                <div class="col-4 d-none d-md-block mb-3 mb-md-0">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage5Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage5Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage5Key]); height: 15rem;"></div>
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
 
-            <div class="col">
-                <div class="bg-img-start" style="background-image: url(_content/rcl/assets/img/480x320/img12.jpg); height: 15rem;"></div>
-            </div>
-            <!-- End Col -->
+                <div class="col">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorAboutUsGalleryImage6Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.AboutUsPageDataGalleryImage6Key)">
+                            <div class="bg-img-start" style="background-image: url(@Model.Data[StaticStrings.AboutUsPageDataGalleryImage6Key]); height: 15rem;"></div>
+                    </ImageEditor>
+                </div>
+                <!-- End Col -->
+            }
         </div>
         <!-- End Row -->
     </div>
