@@ -16,6 +16,8 @@ namespace shared
         public const string ServiceWebsitePageRoute = "/{SiteName}/service/{Key}";
         public const string PricingPageRoute = "/pricing";
         public const string PricingWebsitePageRoute = "/{SiteName}/pricing";
+        public const string AdminPageRoute = "/admin";
+        public const string AdminWebsitePageRoute = "/{SiteName}/admin";
 
         public const string LoginPageRoute = "/Account/Login";
         public const string ForgotPasswordPageRoute = "/Account/ForgotPassword";
@@ -31,6 +33,7 @@ namespace shared
                 ContactUsPageRoute.Substring(1),
                 ServicesPageRoute.Substring(1),
                 PricingPageRoute.Substring(1),
+                AdminPageRoute.Substring(1),
                 LoginPageRoute.Split("/")[1]
             ];
         }

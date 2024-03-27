@@ -1,0 +1,9 @@
+﻿@using rcl.Components.Pages
+@using shared
+
+@attribute [Route(StaticRoutesStrings.AdminPageRoute)]
+@attribute [Route(StaticRoutesStrings.AdminWebsitePageRoute)]
+
+@rendermode InteractiveServer
+
+<AdminComponent SiteName="@SiteName"></AdminComponent>
