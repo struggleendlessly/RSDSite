@@ -54,6 +54,8 @@ namespace shared
         public static string ContactUsPageDataAddressSubtitleKey = "AddressSubtitle";
 
         public static string ServicesPageDataTitleKey = "Title";
+        public static string ServicesPageDataGalleryImage1Key = "GalleryImage1";
+        public static string ServicesPageDataGalleryImage2Key = "GalleryImage2";
         public static string ServicesPageDataServicesListTitleKey = "ServicesListTitle";
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";

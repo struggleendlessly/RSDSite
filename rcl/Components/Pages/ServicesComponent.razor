@@ -19,17 +19,32 @@
         <!-- End Heading -->
 
         <div class="row gx-3 gx-lg-4">
-            <div class="col-5 align-self-end">
-                <img class="img-fluid rounded-2" src="_content/rcl/assets/img/750x750/img6.jpg" alt="Image Description">
-            </div>
-            <!-- End Col -->
-
-            <div class="col-7">
-                <div class="ms-lg-4">
-                    <img class="img-fluid rounded-2" src="_content/rcl/assets/img/750x750/img1.jpg" alt="Image Description">
+            @if (Model.Data != null)
+            {
+                <div class="col-5 align-self-end">
+                    <ImageEditor 
+                        EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
+                            <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description">
+                    </ImageEditor>
                 </div>
-            </div>
-            <!-- End Col -->
+                <!-- End Col -->
+
+                <div class="col-7">
+                    <div class="ms-lg-4">
+                        <ImageEditor 
+                            EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
+                                <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description">
+                        </ImageEditor>
+                    </div>
+                </div>
+                <!-- End Col -->
+            }
         </div>
         <!-- End Row -->
     </div>
