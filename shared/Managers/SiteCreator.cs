@@ -13,21 +13,16 @@ namespace shared.Managers
 
         public async Task CreateSite(string siteName)
         {
-            string sourceDirectory = Path.Combine(StaticStrings.WwwRootPath, @"data\example");
             siteName = siteName.ToLower();
+
+            string sourceContainerName = "example";
+            string sourceFolderPath = "data";
+            string destinationContainerName = siteName;
+            string destinationFolderPath = "data";
 
             try
             {
-                string[] jsonFiles = Directory.GetFiles(sourceDirectory, "*.json");
-                foreach (string jsonFile in jsonFiles)
-                {
-                    string fileName = Path.GetFileName(jsonFile);
-
-                    using (FileStream fileStream = File.OpenRead(jsonFile))
-                    {
-                        await _azureBlobStorageManager.UploadFile(siteName, $"data/{fileName}", fileStream);
-                    }
-                }
+                await _azureBlobStorageManager.CopyFilesFromFolderAsync(sourceContainerName, sourceFolderPath, destinationContainerName, destinationFolderPath);
             }
             catch (Exception e)
             {

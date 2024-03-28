@@ -55,6 +55,35 @@ namespace shared.Managers
             return blobClient.Uri.AbsoluteUri;
         }
 
+        public async Task CopyFilesFromFolderAsync(string sourceContainerName, string sourceFolderPath, string destinationContainerName, string destinationFolderPath)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
+
+            BlobContainerClient sourceContainerClient = blobServiceClient.GetBlobContainerClient(sourceContainerName);
+            BlobContainerClient destinationContainerClient = blobServiceClient.GetBlobContainerClient(destinationContainerName);
+
+            await destinationContainerClient.CreateIfNotExistsAsync();
+
+            await EnsureContainerPublicAccessAsync(sourceContainerClient);
+            await EnsureContainerPublicAccessAsync(destinationContainerClient);
+
+            await foreach (BlobItem blobItem in sourceContainerClient.GetBlobsAsync(prefix: sourceFolderPath))
+            {
+                if (blobItem is BlobItem blob)
+                {
+                    BlobClient sourceBlobClient = sourceContainerClient.GetBlobClient(blob.Name);
+
+                    string fileName = blob.Name.Substring(blob.Name.LastIndexOf('/') + 1);
+
+                    string destinationBlobName = destinationFolderPath.TrimEnd('/') + "/" + fileName;
+
+                    BlobClient destinationBlobClient = destinationContainerClient.GetBlobClient(destinationBlobName);
+
+                    await destinationBlobClient.StartCopyFromUriAsync(sourceBlobClient.Uri);
+                }
+            }
+        }
+
         private async Task EnsureContainerPublicAccessAsync(BlobContainerClient containerClient)
         {
             BlobContainerAccessPolicy accessPolicy = await containerClient.GetAccessPolicyAsync();
