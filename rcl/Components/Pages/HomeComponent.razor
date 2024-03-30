@@ -1,88 +1,79 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Hero -->
-    <div class="container content-space-t-4 content-space-b-1 content-space-b-sm-2">
-        <div class="w-lg-75">
-            @if (Model.Data != null)
-            {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
+﻿<div class="px-4 my-5 text-center border-bottom">
+    @if (Model.Data != null)
+    {
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
-                        <h1 class="display-3 mb-5">@((MarkupString) Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
-                </HTMLEditor>
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeSubtitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                        <p class="lead">@((MarkupString) Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
-                </HTMLEditor>
-            }
+            <h1 class="display-4 fw-bold">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+        </HTMLEditor>
+    }
+    <div class="col-lg-6 mx-auto">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeSubtitleId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.HomePageDataSubtitleKey)">
+                <p class="lead mb-4">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+            </HTMLEditor>
+        }
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+        <div class="container px-5">
+            <img src="https://cdn.pixabay.com/photo/2017/02/13/23/03/planet-2064152_640.jpg" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+                 width="700" height="500" loading="lazy">
         </div>
     </div>
-    <!-- End Hero -->
+</div>
 
-    <div class="border-top mx-auto" style="max-width: 25rem;"></div>
-
-    <!-- Card Grid -->
-    <div class="container content-space-2 content-space-lg-3">
-        <!-- Heading -->
-        <div class="w-md-65 mb-5 mb-md-9">
-            @if (Model.Data != null)
-            {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
-                        <span class="text-cap">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</span>
-                </HTMLEditor>
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesSubtitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
-                        <h2 class="lh-base">@((MarkupString) Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</h2>
-                </HTMLEditor>
-            }
-        </div>
-        <!-- End Heading -->
-        
-        <FeaturedCaseStudies 
-            SiteName="@SiteNameLower"
-            ServiceItems="ServiceItems">
-        </FeaturedCaseStudies>
-
-        <div class="text-center">
-            @if (Model.Data != null)
-            {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
-                        <a class="btn btn-outline-primary btn-transition" href="https://htmlstream.com/" target="_blank">
-                            @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
-                        </a>
-                </HTMLEditor>
-            }
-        </div>
+<div class="container">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
+                <h1 class="display-6 fw-normal">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h1>
+            </HTMLEditor>
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesSubtitleId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
+                <p class="fs-5 text-muted">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
+            </HTMLEditor>
+        }
     </div>
-    <!-- End Card Grid -->
 
-    <div class="border-top mx-auto" style="max-width: 25rem;"></div>
+    <FeaturedCaseStudies 
+        SiteName="@SiteNameLower"
+        ServiceItems="ServiceItems">
+    </FeaturedCaseStudies>
+
+    <div class=" p-3 pb-md-4 mx-auto text-center">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
+                <a class="btn btn-outline-primary" href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" target="_blank">
+                    @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
+                </a>
+            </HTMLEditor>
+        }
+    </div>
+    <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
 
     <TestimonialsList
         SiteName="@SiteNameLower">
     </TestimonialsList>
 
-    <div class="border-top mx-auto" style="max-width: 25rem;"></div>
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+    <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
+</div>

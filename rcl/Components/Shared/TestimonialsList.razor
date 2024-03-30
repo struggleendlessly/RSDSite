@@ -1,84 +1,58 @@
 ﻿@{
     if (Model.Data != null && Model.Data.Count > 0)
     {
-        <!-- Testimonials -->
-        <div class="container content-space-1 content-space-md-3">
-            <!-- Swiper Slider -->
-            <div class="js-swiper-single-testimonials swiper">
-                <div class="swiper-wrapper">
-                    @for (int i = 0; i < ServiceItems.Count; i++)
-                    {
-                        var serviceKeyIndex = i * 6;
-                        var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
-                        var serviceAvatarKey = serviceKey + StaticStrings.ServicesAvatarKeyEnding;
-                        var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
-                        var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
-                        var serviceTextKey = serviceKey + StaticStrings.ServicesTextKeyEnding;
-                        var serviceImageKey = serviceKey + StaticStrings.ServicesImageKeyEnding;
+        <div class="row justify-content-center">
+            @for (int i = 0; i < ServiceItems.Count; i++)
+            {
+                var serviceKeyIndex = i * 6;
+                var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+                var serviceAvatarKey = serviceKey + StaticStrings.ServicesAvatarKeyEnding;
+                var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
+                var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
+                var serviceTextKey = serviceKey + StaticStrings.ServicesTextKeyEnding;
+                var serviceImageKey = serviceKey + StaticStrings.ServicesImageKeyEnding;
 
-                        <!-- Slide -->
-                        <div class="swiper-slide">
-                            <!-- Blockquote -->
-                            <figure class="w-md-65 text-center mx-md-auto">
-                                <AuthorizeView>
-                                    <Authorized>
-                                        <div class="mb-2 mt-2">
-                                            <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
-                                            <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
-                                        </div>
-                                    </Authorized>
-                                </AuthorizeView>
-                                <div class="mb-3">
-                                    <img class="avatar avatar-xl avatar-circle" src="@Model.Data[serviceAvatarKey]" alt="Image Description">
-                                </div>
-
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTextId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceTextKey">
-                                        <blockquote class="blockquote">
-                                            @((MarkupString) Model.Data[serviceTextKey])
-                                        </blockquote>
-                                </HTMLEditor>
-
-                                <figcaption class="blockquote-footer mb-5">
-                                    <HTMLEditor 
-                                        EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
-                                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                        Model="Model"
-                                        FuncSave="SaveContent"
-                                        Key="@serviceTitleKey">
-                                            <div>
-                                                @((MarkupString) Model.Data[serviceTitleKey])
-                                            </div>          
-                                    </HTMLEditor>
-                                    <HTMLEditor 
-                                        EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListSubtitleId + serviceKeyIndex)"
-                                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                        Model="Model"
-                                        FuncSave="SaveContent"
-                                        Key="@serviceSubtitleKey">
-                                            <span class="blockquote-footer-source">
-                                                @((MarkupString) Model.Data[serviceSubtitleKey])
-                                            </span>
-                                    </HTMLEditor>
-                                </figcaption>
-
-                                <img class="avatar avatar-xl avatar-4x3" src="@Model.Data[serviceImageKey]" alt="Logo">
-                            </figure>
-                            <!-- End Blockquote -->
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="mb-2 mt-2">
+                            <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                            <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
                         </div>
-                        <!-- End Slide --> 
-                    }
-                </div>
+                    </Authorized>
+                </AuthorizeView>
+                <div class="col-lg-4 mx-auto text-center">
 
-                <!-- Pagination -->
-                <div class="js-swiper-single-testimonials-pagination swiper-pagination"></div>
-            </div>
-            <!-- End Swiper Slider -->
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+                         role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777"></rect>
+                        <text x="50%" y="50%" fill="#777"
+                              dy=".3em">140x140</text>
+                    </svg>
+
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="SaveContent"
+                                Key="@serviceTitleKey">
+                        <h2>@((MarkupString)Model.Data[serviceTitleKey])</h2>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListSubtitleId + serviceKeyIndex)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="SaveContent"
+                                Key="@serviceSubtitleKey">
+                        <h6 class="text-muted">@((MarkupString)Model.Data[serviceSubtitleKey])</h6>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTextId + serviceKeyIndex)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="SaveContent"
+                                Key="@serviceTextKey">
+                        <p>@((MarkupString)Model.Data[serviceTextKey])</p>
+                    </HTMLEditor>
+                </div>
+            }      
         </div>
-        <!-- End Testimonials -->
     }
 }

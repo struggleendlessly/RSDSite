@@ -1,277 +1,239 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Contact Form -->
-    <div class="container content-space-t-3 content-space-t-lg-5 content-space-b-2">
-        <div class="row">
-            <div class="col-lg-6 mb-9 mb-lg-0">
-                <!-- Heading -->
-                <div class="mb-5">
-                    @if (Model.Data != null)
-                    {
-                        <HTMLEditor 
-                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
-                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                            Model="Model"
-                            FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                                <h1>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
-                        </HTMLEditor>
-                        <HTMLEditor 
-                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
-                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                            Model="Model"
-                            FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                                <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
-                        </HTMLEditor>
-                    }                    
-                </div>
-                <!-- End Heading -->
-                <!-- Leaflet -->
-                <div class="overflow-hidden">
-                    @if (Model.Data != null)
-                    {
-                        <AuthorizeView>
-                            <Authorized>
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
-                                        <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
-                                </HTMLEditor>
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
-                                        <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
-                                </HTMLEditor>
-                            </Authorized>
-                        </AuthorizeView>
+﻿<div class="container">
 
-                        <div id="map" class="leaflet mb-5"
-                             data-hs-leaflet-options='{
+    <div class="row pb-4">
+        <div class="col-lg-6 text-center">
+
+            <div class="mb-5">
+                @if (Model.Data != null)
+                {
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@(StaticStrings.ContactUsPageDataTitleKey)">
+                        <h1>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
+                        <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
+                    </HTMLEditor>
+                }
+            </div>
+
+
+            <!-- MAP HERE -->
+            <div id="map" class="leaflet mb-5"
+                 data-hs-leaflet-options='{
                                 "map": {
                                     "scrollWheelZoom": false,
-                                    "coords": [@(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])]
+                                    "coords": [37.4040344, -122.0289704]
                                 },
                                 "marker": [
                                     {
-                                        "coords": [@(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])],
+                                        "coords": [37.4040344, -122.0289704],
                                         "icon": {
                                             "iconUrl": "_content/rcl/assets/svg/components/map-pin.svg",
                                             "iconSize": [50, 45]
                                         },
                                         "popup": {
-                                            "text": "@(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])"
+                                            "text": "153 Williamson Plaza, Maggieberg"
                                         }
                                     }
                                 ]
                             }'></div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    @if (Model.Data != null)
+                    {
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
+                            <h5 class="mb-1">
+                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
+                            </h5>
+                        </HTMLEditor>
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
+                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])</p>
+                        </HTMLEditor>
                     }
                 </div>
-                <!-- End Leaflet -->
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        @if (Model.Data != null)
-                        {
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
-                                    <h5 class="mb-1">
-                                        @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
-                                    </h5>
-                            </HTMLEditor>
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
-                                    <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])</p>
-                            </HTMLEditor>
-                        }
-                    </div>
-                    <!-- End Col -->
 
-                    <div class="col-sm-6">
-                        @if (Model.Data != null)
-                        {
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
-                                    <h5 class="mb-1">
-                                        @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
-                                    </h5>
-                            </HTMLEditor>
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
-                                    <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
-                            </HTMLEditor>
-                        }
-                    </div>
-                    <!-- End Col -->
-
-                    <div class="col-sm-6">
-                        @if (Model.Data != null)
-                        {
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
-                                <h5 class="mb-1">
-                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
-                                </h5>
-                            </HTMLEditor>
-                            <HTMLEditor 
-                                EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressSubtitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
-                                    <p>@((MarkupString) Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
-                            </HTMLEditor>
-                        }
-                    </div>
-                    <!-- End Col -->
+                <div class="col-sm-6">
+                    @if (Model.Data != null)
+                    {
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
+                            <h5 class="mb-1">
+                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
+                            </h5>
+                        </HTMLEditor>
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
+                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
+                        </HTMLEditor>
+                    }
                 </div>
-                <!-- End Row -->
-            </div>
-            <!-- End Col -->
 
-            <div class="col-lg-6">
-                <div class="ps-lg-5">
-                    <!-- Card -->
-                    <div class="card">
-                        <div class="card-header border-bottom text-center">
-                            @if (Model.Data != null)
-                            {
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTitleId)"
+
+                <div class="col-sm-6">
+                    @if (Model.Data != null)
+                    {
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
+                            <h5 class="mb-1">
+                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
+                            </h5>
+                        </HTMLEditor>
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressSubtitleId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
+                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
+                        </HTMLEditor>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <div class="card h-100">
+                <div class="card-body">
+                    @if (Model.Data != null)
+                    {
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTitleId)"
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDataFormTitleKey)">
-                                        <h3 class="card-header-title">
-                                            @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])
-                                        </h3>
-                                </HTMLEditor>
-                            }
+                            <h5 class="card-title">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])</h5>
+                        </HTMLEditor>
+                    }
+                    <p class="card-text">
+                        <div>
+                            <!--!-->
+                            <div class="row gx-3">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="hireUsFormFirstName">
+                                            First
+                                            name
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg"
+                                               name="hireUsFormNameFirstName" id="hireUsFormFirstName"
+                                               placeholder="First name" aria-label="First name">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="hireUsFormLasttName">
+                                            Last
+                                            name
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg"
+                                               name="hireUsFormNameLastName" id="hireUsFormLasttName"
+                                               placeholder="Last name" aria-label="Last name">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--!-->
+                            <div class="row gx-3">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="hireUsFormWorkEmail">
+                                            Email
+                                            address
+                                        </label>
+                                        <input type="email" class="form-control form-control-lg"
+                                               name="hireUsFormNameWorkEmail" id="hireUsFormWorkEmail"
+                                               placeholder="email@site.com" aria-label="email@site.com">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="hireUsFormPhone">
+                                            Phone <span class="form-label-secondary">(Optional)</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg"
+                                               name="hireUsFormNamePhone" id="hireUsFormPhone"
+                                               placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--!-->
+                            <div class="mb-3">
+                                <label class="form-label" for="hireUsFormDetails">Details</label>
+                                <textarea class="form-control form-control-lg" name="hireUsFormNameDetails"
+                                          id="hireUsFormDetails" placeholder="Tell us about your ..."
+                                          aria-label="Tell us about your ..." rows="4"></textarea>
+                            </div>
+
+
+                            <div class="d-grid">
+                                @if (Model.Data != null)
+                                {
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormButtonTextId)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                                Model="Model"
+                                                FuncSave="Save"
+                                                Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
+                                        </button>
+                                    </HTMLEditor>
+                                }
+                            </div>
+                            <!--!-->
+
+                            <div class="text-center">
+                                @if (Model.Data != null)
+                                {
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTextUnderButtonKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                                Model="Model"
+                                                FuncSave="Save"
+                                                Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)">
+                                        <p class="form-text">
+                                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
+                                        </p>
+                                    </HTMLEditor>
+                                }
+                            </div>
                         </div>
-
-                        <div class="card-body">
-                            <!-- Form -->
-                            <div> <!-- <form> -->
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <!-- Form -->
-                                        <div class="mb-3">
-                                            <label class="form-label" for="hireUsFormFirstName">First name</label>
-                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNameFirstName" id="hireUsFormFirstName" placeholder="First name" aria-label="First name">
-                                        </div>
-                                        <!-- End Form -->
-                                    </div>
-                                    <!-- End Col -->
-
-                                    <div class="col-sm-6">
-                                        <!-- Form -->
-                                        <div class="mb-3">
-                                            <label class="form-label" for="hireUsFormLasttName">Last name</label>
-                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNameLastName" id="hireUsFormLasttName" placeholder="Last name" aria-label="Last name">
-                                        </div>
-                                        <!-- End Form -->
-                                    </div>
-                                    <!-- End Col -->
-                                </div>
-                                <!-- End Row -->
-
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <!-- Form -->
-                                        <div class="mb-3">
-                                            <label class="form-label" for="hireUsFormWorkEmail">Email address</label>
-                                            <input type="email" class="form-control form-control-lg" name="hireUsFormNameWorkEmail" id="hireUsFormWorkEmail" placeholder="email@site.com" aria-label="email@site.com">
-                                        </div>
-                                        <!-- End Form -->
-                                    </div>
-                                    <!-- End Col -->
-
-                                    <div class="col-sm-6">
-                                        <!-- Form -->
-                                        <div class="mb-3">
-                                            <label class="form-label" for="hireUsFormPhone">Phone <span class="form-label-secondary">(Optional)</span></label>
-                                            <input type="text" class="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx">
-                                        </div>
-                                        <!-- End Form -->
-                                    </div>
-                                    <!-- End Col -->
-                                </div>
-                                <!-- End Row -->
-                                <!-- Form -->
-                                <div class="mb-3">
-                                    <label class="form-label" for="hireUsFormDetails">Details</label>
-                                    <textarea class="form-control form-control-lg" name="hireUsFormNameDetails" id="hireUsFormDetails" placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4"></textarea>
-                                </div>
-                                <!-- End Form -->
-
-                                <div class="d-grid">
-                                    @if (Model.Data != null)
-                                    {
-                                        <HTMLEditor 
-                                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormButtonTextId)"
-                                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                            Model="Model"
-                                            FuncSave="Save"
-                                            Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
-                                                <button type="submit" class="btn btn-primary btn-lg">
-                                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
-                                                </button>
-                                        </HTMLEditor>
-                                    }
-                                </div>
-
-                                <div class="text-center">
-                                    @if (Model.Data != null)
-                                    {
-                                        <HTMLEditor 
-                                            EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTextUnderButtonKey)"
-                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                            Model="Model"
-                                            FuncSave="Save"
-                                            Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)">
-                                                <p class="form-text">
-                                                    @((MarkupString) Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
-                                                </p>
-                                        </HTMLEditor>
-                                    }
-                                </div>
-                            </div> <!-- </form> -->
-                            <!-- End Form -->
-                        </div>
-                    </div>
-                    <!-- End Card -->
+                    </p>
                 </div>
             </div>
-            <!-- End Col -->
         </div>
-        <!-- End Row -->
     </div>
-    <!-- End Contact Form -->
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+
+
+</div>
+
+<div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>

@@ -1,118 +1,94 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Gallery -->
-    <div class="container content-space-t-3 content-space-t-lg-5">
-        <!-- Heading -->
-        <div class="w-lg-65 text-center mx-lg-auto mb-5 mb-md-9">
+﻿<div class="container pb-4">
+    <div class="px-4 my-5 text-center">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor 
+                EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
+                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
+                Key="@(StaticStrings.ServicesPageDataTitleKey)">
+                    <h1 class="display-4 fw-bold">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
+            </HTMLEditor>
+        }
+    </div>
+
+    <div class="row gx-3 gx-lg-4">
+        <div class="col-5 align-self-end">
             @if (Model.Data != null)
             {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                <ImageEditor 
+                    EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                        <h1>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
-                </HTMLEditor>
+                    Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
+                        <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description" />
+                </ImageEditor>
             }
         </div>
-        <!-- End Heading -->
 
-        <div class="row gx-3 gx-lg-4">
-            @if (Model.Data != null)
-            {
-                <div class="col-5 align-self-end">
+        <div class="col-7">
+            <div class="ms-lg-4">
+                @if (Model.Data != null)
+                {
                     <ImageEditor 
-                        EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
+                        EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
-                            <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description">
+                        Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
+                            <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description" />
                     </ImageEditor>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-7">
-                    <div class="ms-lg-4">
-                        <ImageEditor 
-                            EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
-                            Model="Model"
-                            FuncSave="Save"
-                            Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
-                                <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description">
-                        </ImageEditor>
-                    </div>
-                </div>
-                <!-- End Col -->
-            }
-        </div>
-        <!-- End Row -->
-    </div>
-    <!-- End Gallery -->
-    <!-- Icon Blocks -->
-    <div class="container content-space-2 content-space-lg-3">
-        <!-- Heading -->
-        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-            @if (Model.Data != null)
-            {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
-                        <span class="text-cap">
-                            @((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
-                        </span>
-                </HTMLEditor>
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListSubtitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
-                        <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</h2>                    
-                </HTMLEditor>
-            }
-        </div>
-        <!-- End Heading -->
-
-        <div class="row gx-3 mb-5">
-            <TinyMceServicesList
-                SiteName="@SiteNameLower"
-                ServiceItems="ServiceItems">
-            </TinyMceServicesList>
-        </div>
-    </div>
-    <!-- End Icon Blocks -->
-    <!-- FAQ -->
-    <div class="container content-space-2 content-space-lg-3">
-        <!-- Heading -->
-        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-            @if (Model.Data != null)
-            {
-                <HTMLEditor 
-                    EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
-                        <h2>@((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])</h2>
-                </HTMLEditor>
-            }
-        </div>
-        <!-- End Heading -->
-
-        <div class="w-lg-65 mx-lg-auto">
-            <!-- Accordion -->
-            <div class="accordion accordion-flush accordion-lg" id="accordionFAQ">
-                <FAQList 
-                    SiteName="@SiteNameLower">
-                </FAQList>
+                }
             </div>
-            <!-- End Accordion -->
         </div>
     </div>
-    <!-- End FAQ -->
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor 
+                EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
+                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
+                Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
+                    <h1 class="display-6 fw-normal">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])</h1>
+            </HTMLEditor>
+            <HTMLEditor 
+                EditorId="@(StaticHtmlStrings.HTMLEditorServicesListSubtitleId)"
+                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
+                Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
+                    <p class="fs-5 text-muted">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</p>
+            </HTMLEditor>
+        }
+    </div>
+
+    <div class="row gx-3 mb-5">
+        <ServicesList 
+            SiteName="@SiteNameLower"
+            ServiceItems="ServiceItems">
+        </ServicesList>
+    </div>
+
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        @if (Model.Data != null)
+        {
+            <HTMLEditor 
+                EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
+                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                Model="Model"
+                FuncSave="Save"
+                Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
+                    <h1 class="display-6 fw-normal pb-md-4">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])</h1>
+            </HTMLEditor>
+        }
+        <div class="accordion" id="accordionFAQ">
+            <FAQList 
+                SiteName="@SiteNameLower">
+            </FAQList>
+        </div>
+    </div>
+</div>
+
+<div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>

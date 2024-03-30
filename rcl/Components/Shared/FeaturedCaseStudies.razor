@@ -1,83 +1,75 @@
 ﻿@{
     @if (ServiceItems.Count > 0)
     {
-        <div class="overflow-hidden">
-            <div class="row justify-content-md-center gx-sm-3 gx-lg-8 pt-md-8 mb-7">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="d-grid gap-3 gap-lg-8 mt-md-n8">
-                        @if (ServiceItems[0] != null)
-                        {
-                            var url = ServiceItems[0].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
-                            var title = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
-                            var subtitle = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
+        <div class="row justify-content-start">
+            @if (ServiceItems[0] != null)
+            {
+                var url = ServiceItems[0].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
+                var title = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
+                var subtitle = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
 
-                            <!-- Card -->
-                            <a class="card card-transition bg-soft-primary shadow-none" href="@(SiteName)/service/@(url)" target="_blank">
-                                <div class="card-body">
-                                    <h3 class="card-title text-inherit">@title</h3>
-                                    <p class="card-text text-dark">@subtitle</p>
-                                </div>
-                            </a>
-                            <!-- End Card -->
-                        }
+                <div class="col-md-6">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-light rounded">
+                            <h4 class="fst-italic">@title</h4>
+                            <p class="mb-0">@subtitle</p>
+                        </div>
 
-                        @if (ServiceItems[1] != null)
-                        {
-                            var url = ServiceItems[1].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
-                            var title = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
-                            var subtitle = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
-
-                            <!-- Card -->
-                            <a class="card card-transition bg-soft-info shadow-none" href="@(SiteName)/service/@(url)" target="_blank">
-                                <div class="card-body">
-                                    <h3 class="card-title text-inherit mb-1">@title</h3>
-                                    <p class="card-text text-dark">@subtitle</p>
-                                </div>
-                            </a>
-                            <!-- End Card -->
-                        }
                     </div>
                 </div>
-                <!-- End Col -->
+            }
 
-                <div class="col-sm-6">
-                    <div class="d-grid gap-3 gap-lg-8">
-                        @if (ServiceItems[2] != null)
-                        {
-                            var url = ServiceItems[2].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
-                            var title = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
-                            var subtitle = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
+            @if (ServiceItems[1] != null)
+            {
+                var url = ServiceItems[1].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
+                var title = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
+                var subtitle = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
 
-                            <!-- Card -->
-                            <a class="card card-transition bg-soft-warning shadow-none" href="@(SiteName)/service/@(url)" target="_blank">
-                                <div class="card-body">
-                                    <h3 class="card-title text-inherit mb-0">@title</h3>
-                                    <p class="card-text text-dark">@subtitle</p>
-                                </div>
-                            </a>
-                            <!-- End Card -->
-                        }
+                <div class="col-md-6">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-light rounded">
+                            <h4 class="fst-italic">@title</h4>
+                            <p class="mb-0">@subtitle</p>
+                        </div>
 
-                        @if (ServiceItems[3] != null)
-                        {
-                            var url = ServiceItems[3].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
-                            var title = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
-                            var subtitle = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
-
-                            <!-- Card -->
-                            <a class="card card-transition bg-soft-dark shadow-none" href="@(SiteName)/service/@(url)" target="_blank">
-                                <div class="card-body">
-                                    <h3 class="card-title text-inherit mb-1">@title</h3>
-                                    <p class="card-text text-dark">@subtitle</p>
-                                </div>
-                            </a>
-                            <!-- End Card -->
-                        }
                     </div>
                 </div>
-                <!-- End Col -->
-            </div>
-            <!-- End Row -->
+            }
+        </div>
+        <div class="row justify-content-start">
+            @if (ServiceItems[2] != null)
+            {
+                var url = ServiceItems[2].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
+                var title = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
+                var subtitle = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
+
+                <div class="col-md-6">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-light rounded">
+                            <h4 class="fst-italic">@title</h4>
+                            <p class="mb-0">@subtitle</p>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+            @if (ServiceItems[3] != null)
+            {
+                var url = ServiceItems[3].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).Value;
+                var title = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesTitleKeyEnding)).Value;
+                var subtitle = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.ServicesSubtitleKeyEnding)).Value;
+
+                <div class="col-md-6">
+                    <div class="position-sticky" style="top: 2rem;">
+                        <div class="p-4 mb-3 bg-light rounded">
+                            <h4 class="fst-italic">@title</h4>
+                            <p class="mb-0">@subtitle</p>
+                        </div>
+
+                    </div>
+                </div>
+            }
         </div>
     }
 }

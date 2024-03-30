@@ -1,17 +1,14 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <div class="container content-space-2 content-space-lg-3">
-        @if (Model.Data != null)
-        {
-            <HTMLEditor 
-                EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
-                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@Key">
-                    @((MarkupString) Model.Data[Key])
-            </HTMLEditor>
-        }
-    </div>
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+﻿<div class="container pb-4">
+    @if (Model.Data != null)
+    {
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@Key">
+            @((MarkupString)Model.Data[Key])
+        </HTMLEditor>
+    }
+</div>
+
+<div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>

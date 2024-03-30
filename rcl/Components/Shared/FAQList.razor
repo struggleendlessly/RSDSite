@@ -18,19 +18,19 @@
                         </div>
                     </Authorized>
                 </AuthorizeView>
-                <div class="accordion-header" id="headingBasics-@serviceKeyIndex">
+                <h2 class="accordion-header" id="panelsStayOpen-heading-@serviceKeyIndex">
                     <HTMLEditor 
                         EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="SaveContent"
                         Key="@serviceTitleKey">
-                            <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="collapse-@serviceKeyIndex">
+                            <butoon class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
                                 @Model.Data[serviceTitleKey]
-                            </a>
+                            </butoon>
                     </HTMLEditor>
-                </div>
-                <div id="collapse-@serviceKeyIndex" class="accordion-collapse collapse" aria-labelledby="headingBasics-@serviceKeyIndex" data-bs-parent="#accordionFAQ">
+                </h2>
+                <div id="panelsStayOpen-collapse-@serviceKeyIndex" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading-@serviceKeyIndex" data-bs-parent="#accordionFAQ">
                     <HTMLEditor 
                         EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKeyIndex)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
