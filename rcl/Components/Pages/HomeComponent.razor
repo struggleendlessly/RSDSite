@@ -23,8 +23,16 @@
     </div>
     <div class="overflow-hidden" style="max-height: 30vh;">
         <div class="container px-5">
-            <img src="https://cdn.pixabay.com/photo/2017/02/13/23/03/planet-2064152_640.jpg" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
-                 width="700" height="500" loading="lazy">
+            @if (Model.Data != null)
+            {
+                <ImageEditor 
+                    EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataImageKey)">
+                        <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy" />
+                </ImageEditor>
+            }
         </div>
     </div>
 </div>

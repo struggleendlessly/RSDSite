@@ -15,6 +15,7 @@ namespace shared
 
         public static string HTMLEditorHomeTitleId = "htmlEditorHomeTitle";
         public static string HTMLEditorHomeSubtitleId = "htmlEditorHomeSubtitle";
+        public static string ImageEditorHomeImageId = "imageEditorHomeImage";
         public static string HTMLEditorHomeFeaturedCaseStudiesTitleId = "htmlEditorHomeFeaturedCaseStudiesTitle";
         public static string HTMLEditorHomeFeaturedCaseStudiesSubtitleId = "htmlEditorHomeFeaturedCaseStudiesSubtitle";
         public static string HTMLEditorHomeViewAllWorksButtonTextId = "htmlEditorHomeViewAllWorksButtonText";
