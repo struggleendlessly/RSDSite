@@ -19,7 +19,7 @@ namespace shared
         public static string HTMLEditorHomeFeaturedCaseStudiesTitleId = "htmlEditorHomeFeaturedCaseStudiesTitle";
         public static string HTMLEditorHomeFeaturedCaseStudiesSubtitleId = "htmlEditorHomeFeaturedCaseStudiesSubtitle";
         public static string HTMLEditorHomeViewAllWorksButtonTextId = "htmlEditorHomeViewAllWorksButtonText";
-        public static string HTMLEditorHomeTestimonialsListAvatarId = "htmlEditorHomeTestimonialsListAvatar";
+        public static string ImageEditorHomeTestimonialsListAvatarId = "imageEditorHomeTestimonialsListAvatar";
         public static string HTMLEditorHomeTestimonialsListTitleId = "htmlEditorHomeTestimonialsListTitle";
         public static string HTMLEditorHomeTestimonialsListSubtitleId = "htmlEditorHomeTestimonialsListSubtitle";
         public static string HTMLEditorHomeTestimonialsListTextId = "htmlEditorHomeTestimonialsListText";
