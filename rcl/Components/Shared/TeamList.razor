@@ -20,7 +20,13 @@
                             </div>
                         </Authorized>
                     </AuthorizeView>
-                    <img src="@Model.Data[serviceImageKey]" class="card-img-top" alt="...">
+                    <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAboutUsTeamListImageId + serviceKeyIndex)"
+                                 Model="Model"
+                                 FuncSave="SaveContent"
+                                 Key="@serviceImageKey">
+                        <img src="@Model.Data[serviceImageKey]" class="card-img-top" alt="..." />
+                    </ImageEditor>
+                    
                     <div class="card-body">
                         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListSubtitleId + serviceKeyIndex)"
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatText)"

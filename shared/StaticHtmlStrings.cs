@@ -46,7 +46,7 @@ namespace shared
         public static string HTMLEditorAboutUsInfoRightSecondtId = "htmlEditorAboutUsInfoRightSecond";
         public static string HTMLEditorAboutUsTeamTitleId = "htmlEditorAboutUsTeamTitle";
         public static string HTMLEditorAboutUsTeamSubtitleId = "htmlEditorAboutUsTeamSubtitle";
-        public static string HTMLEditorAboutUsTeamListImageId = "htmlEditorAboutUsTeamListImage";
+        public static string ImageEditorAboutUsTeamListImageId = "imageEditorAboutUsTeamListImage";
         public static string HTMLEditorAboutUsTeamListTitleId = "htmlEditorAboutUsTeamListTitle";
         public static string HTMLEditorAboutUsTeamListSubtitleId = "htmlEditorAboutUsTeamListSubtitle";
         public static string HTMLEditorAboutUsTeamListTextId = "htmlEditorAboutUsTeamListText";
