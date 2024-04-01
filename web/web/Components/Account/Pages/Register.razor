@@ -1,199 +1,41 @@
-﻿@using System.ComponentModel.DataAnnotations
-@using System.Text
-@using System.Text.Encodings.Web
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.WebUtilities
-@using shared.Managers
-@using web.Data
-@using shared
-@using System.Diagnostics;
-@using shared.Interfaces;
+﻿@using shared
 
 @attribute [Route(StaticRoutesStrings.RegisterPageRoute)]
 
-@inject UserManager<ApplicationUser> UserManager
-@inject IUserStore<ApplicationUser> UserStore
-@inject SignInManager<ApplicationUser> SignInManager
-@inject IEmailSender<ApplicationUser> EmailSender
-@inject ILogger<Register> Logger
-@inject NavigationManager NavigationManager
-@inject IdentityRedirectManager RedirectManager
-@inject ISiteCreator SiteCreator
-
 <PageTitle>Register</PageTitle>
 
-<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Form -->
-    <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
-        <div class="flex-grow-1 mx-auto" style="max-width: 28rem;">
-            <!-- Heading -->
-            <div class="text-center mb-5 mb-md-7">
-                <h1 class="h2">Welcome to Front</h1>
-                <p>Fill out the form to get started.</p>
+<div class="text-center mb-5">
+    <div class="form-signin">
+        <StatusMessage Message="@Message" />
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+            <h1 class="h3 mb-3 fw-normal">Welcome to MEP</h1>
+            <p>Fill out the form to get started</p>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating">
+                <label for="registerEmail">Your email</label>
+                <InputText @bind-Value="Input.Email" type="email" class="form-control" id="registerEmail" placeholder="name@example.com" aria-label="name@example.com" required />
+                <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
             </div>
-            <!-- End Heading -->
-            <!-- Form -->
-            <StatusMessage Message="@Message" />
-            <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="text-danger" role="alert" />
-                <!-- Form -->
-                <div class="mb-3">
-                    <label class="form-label" for="signupSimpleSignupEmail">Your email</label>
-                    <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg" id="signupSimpleSignupEmail" placeholder="email@site.com" aria-label="email@site.com" required />
-                    <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
-                </div>
-                <!-- End Form -->
-                <!-- Form -->
-                <div class="mb-3">
-                    <label class="form-label" for="signupSimpleSignupPassword">Password</label>
-                    <InputText @bind-Value="Input.Password" type="password" class="form-control form-control-lg" id="signupSimpleSignupPassword" placeholder="**********" aria-label="**********" required />
-                    <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
-                </div>
-                <!-- End Form -->
-                <!-- Form -->
-                <div class="mb-3">
-                    <label class="form-label" for="signupSimpleSignupConfirmPassword">Confirm password</label>
-                    <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control form-control-lg" id="signupSimpleSignupConfirmPassword" placeholder="**********" aria-label="**********" required />
-                    <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
-                </div>
-                <!-- End Form -->
-                <!-- Form -->
-                <div class="mb-3">
-                    <label class="form-label" for="signupSimpleSignupSiteName">Your site name</label>
-                    <InputText @bind-Value="Input.SiteName" type="text" class="form-control form-control-lg" id="signupSimpleSignupSiteName" placeholder="My Website" aria-label="My Website" required />
-                    <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
-                </div>
-                <!-- End Form -->
-
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
-                </div>
-
-                <div class="text-center">
-                    <p>Already have an account? <a class="link" href="@(StaticRoutesStrings.LoginPageRoute)">Log in here</a></p>
-                </div>
-            </EditForm>
-            <!-- End Form -->
-        </div>
+            <div class="form-floating">
+                <label for="registerPassword">Password</label>
+                <InputText @bind-Value="Input.Password" type="password" class="form-control" id="registerPassword" placeholder="Password" aria-label="Password" required />
+                <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
+            </div>
+            <div class="form-floating">
+                <label for="registerConfirmPassword">Confirm password</label>
+                <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" required />
+                <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
+            </div>
+            <div class="form-floating">
+                <label for="registerSiteName">Your site name</label>
+                <InputText @bind-Value="Input.SiteName" type="text" class="form-control" id="registerSiteName" placeholder="mywebsite" aria-label="mywebsite" required />
+                <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+            <div class="text-center mt-3">
+                <p>Already have an account? <a class="link text-decoration-none" href="@(StaticRoutesStrings.LoginPageRoute)">Log in here</a></p>
+            </div>
+        </EditForm>
     </div>
-    <!-- End Form -->
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
-
-@code {
-    private IEnumerable<IdentityError>? identityErrors;
-
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
-
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
-
-    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
-
-    public async Task RegisterUser(EditContext editContext)
-    {
-        var user = CreateUser();
-
-        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-        var emailStore = GetEmailStore();
-        await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-        user.SiteName = Input.SiteName;
-        var result = await UserManager.CreateAsync(user, Input.Password);
-
-        if (!result.Succeeded)
-        {
-            identityErrors = result.Errors;
-            return;
-        }
-
-        Logger.LogInformation("User created a new account with password.");
-
-        await SiteCreator.CreateSite(Input.SiteName);
-
-        Logger.LogInformation($"A website named {Input.SiteName} has been created.");
-
-        // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
-        // string userEmail = Input.Email;
-        // string userPassword = Input.Password;
-        // string siteName = Input.SiteName;
-
-        // var parameters = new[]
-        // {
-        //     ("UserEmail", userEmail),
-        //     ("UserPassword", userPassword),
-        //     ("SiteName", siteName),
-        //     ("PublishDirectory", @"D:\Work\RemSoftDev\RSDSite\web\web\bin\Release\net8.0")
-        // };
-
-        // ScriptRunner scriptRunner = new ScriptRunner();
-        // scriptRunner.RunPowerShellScript(scriptFilePath, parameters);
-
-        var userId = await UserManager.GetUserIdAsync(user);
-        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
-
-        await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
-        if (UserManager.Options.SignIn.RequireConfirmedAccount)
-        {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
-        }
-
-        await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
-    }
-
-    private ApplicationUser CreateUser()
-    {
-        try
-        {
-            return Activator.CreateInstance<ApplicationUser>();
-        }
-        catch
-        {
-            throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
-        }
-    }
-
-    private IUserEmailStore<ApplicationUser> GetEmailStore()
-    {
-        if (!UserManager.SupportsUserEmail)
-        {
-            throw new NotSupportedException("The default UI requires a user store with email support.");
-        }
-        return (IUserEmailStore<ApplicationUser>)UserStore;
-    }
-
-    private sealed class InputModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; } = "";
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; } = "";
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; } = "";
-
-        [Required]
-        [StringLength(63, MinimumLength = 3)]
-        [Display(Name = "Site name")]
-        public string SiteName { get; set; } = "";
-    }
-}
+</div>
