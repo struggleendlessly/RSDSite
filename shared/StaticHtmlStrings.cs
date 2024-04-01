@@ -29,12 +29,9 @@ namespace shared
 
         public static string HTMLEditorAboutUsTitleId = "htmlEditorAboutUsTitle";
         public static string HTMLEditorAboutUsSubtitleId = "htmlEditorAboutUsSubtitle";
-        public static string ImageEditorAboutUsGalleryImage1Id = "imageEditorAboutUsGalleryImage1";
-        public static string ImageEditorAboutUsGalleryImage2Id = "imageEditorAboutUsGalleryImage2";
-        public static string ImageEditorAboutUsGalleryImage3Id = "imageEditorAboutUsGalleryImage3";
-        public static string ImageEditorAboutUsGalleryImage4Id = "imageEditorAboutUsGalleryImage4";
-        public static string ImageEditorAboutUsGalleryImage5Id = "imageEditorAboutUsGalleryImage5";
-        public static string ImageEditorAboutUsGalleryImage6Id = "imageEditorAboutUsGalleryImage6";
+        public static string ImageEditorAboutUsCarouselImage1Id = "imageEditorAboutUsCarouselImage1";
+        public static string ImageEditorAboutUsCarouselImage2Id = "imageEditorAboutUsCarouselImage2";
+        public static string ImageEditorAboutUsCarouselImage3Id = "imageEditorAboutUsCarouselImage3";
         public static string HTMLEditorAboutUsFeatureStatsFirstTitleId = "htmlEditorAboutUsFeatureStatsFirstTitle";
         public static string HTMLEditorAboutUsFeatureStatsFirstSubtitleId = "htmlEditorAboutUsFeatureStatsFirstSubtitle";
         public static string HTMLEditorAboutUsFeatureStatsSecondTitleId = "htmlEditorAboutUsFeatureStatsSecondTitle";

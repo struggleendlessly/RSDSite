@@ -22,12 +22,9 @@ namespace shared
 
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
-        public static string AboutUsPageDataGalleryImage1Key = "GalleryImage1";
-        public static string AboutUsPageDataGalleryImage2Key = "GalleryImage2";
-        public static string AboutUsPageDataGalleryImage3Key = "GalleryImage3";
-        public static string AboutUsPageDataGalleryImage4Key = "GalleryImage4";
-        public static string AboutUsPageDataGalleryImage5Key = "GalleryImage5";
-        public static string AboutUsPageDataGalleryImage6Key = "GalleryImage6";
+        public static string AboutUsPageDataCarouselImage1Key = "CarouselImage1";
+        public static string AboutUsPageDataCarouselImage2Key = "CarouselImage2";
+        public static string AboutUsPageDataCarouselImage3Key = "CarouselImage3";
         public static string AboutUsPageDataFeatureStatsFirstTitleKey = "FeatureStatsFirstTitle";
         public static string AboutUsPageDataFeatureStatsFirstSubtitleKey = "FeatureStatsFirstSubtitle";
         public static string AboutUsPageDataFeatureStatsSecondTitleKey = "FeatureStatsSecondTitle";
