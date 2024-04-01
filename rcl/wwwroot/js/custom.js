@@ -77,12 +77,21 @@ async function js_imageEditorGetContent(id) {
     });
 }
 
-function js_leafletActivate(accessToken) {
-    const leaflet = HSCore.components.HSLeaflet.init(document.getElementById('map'));
+function js_leafletActivate(accessToken, coordinates, markerText) {
+
+    var coordinatesParts = coordinates.split(',');
+    let latitude = coordinatesParts[0].trim();
+    let longitude = coordinatesParts[1].trim();
+
+    var map = L.map('map').setView([latitude, longitude], 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + accessToken, {
         id: 'mapbox/light-v9'
-    }).addTo(leaflet);
+    }).addTo(map);
+
+    var marker = L.marker([latitude, longitude]).addTo(map);
+
+    marker.bindPopup(markerText);
 }
 
 async function scaleImageToFullHD(base64Image) {

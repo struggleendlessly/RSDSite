@@ -23,28 +23,31 @@
                 }
             </div>
 
+            @if (Model.Data != null)
+            {
+                <AuthorizeView>
+                    <Authorized>
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
+                            <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
+                        </HTMLEditor>
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                    Model="Model"
+                                    FuncSave="Save"
+                                    Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
+                            <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
+                        </HTMLEditor>
+                    </Authorized>
+                </AuthorizeView>
+            }
 
             <!-- MAP HERE -->
-            <div id="map" class="leaflet mb-5"
-                 data-hs-leaflet-options='{
-                                "map": {
-                                    "scrollWheelZoom": false,
-                                    "coords": [37.4040344, -122.0289704]
-                                },
-                                "marker": [
-                                    {
-                                        "coords": [37.4040344, -122.0289704],
-                                        "icon": {
-                                            "iconUrl": "_content/rcl/assets/svg/components/map-pin.svg",
-                                            "iconSize": [50, 45]
-                                        },
-                                        "popup": {
-                                            "text": "153 Williamson Plaza, Maggieberg"
-                                        }
-                                    }
-                                ]
-                            }'></div>
-
+            <div id="map" class="mb-5" style="height: 350px;"></div>
+            
             <div class="row">
                 <div class="col-sm-6">
                     @if (Model.Data != null)

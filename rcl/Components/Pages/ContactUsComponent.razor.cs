@@ -44,7 +44,7 @@ namespace rcl.Components.Pages
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
             }
 
-            await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, Configuration["Leaflet:AccessToken"]);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, Configuration["Leaflet:AccessToken"], Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey], Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]);
         }
 
         protected override async Task OnInitializedAsync()
