@@ -1,7 +1,16 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <div class="container content-space-2 content-space-lg-3">
-        <h2>Admin page</h2>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Logo</h4>
+            @if (Model.Data != null)
+            {
+                <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
+                             Model="Model"
+                             FuncSave="Save"
+                             Key="@(StaticStrings.AdminPageDataLogoKey)">
+                    <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
+                </ImageEditor>
+            }
+        </div>
     </div>
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+</div>

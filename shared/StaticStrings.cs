@@ -12,6 +12,7 @@ namespace shared
         public static string ServicesPageDataJsonFilePath = "data/services.json";
         public static string ServicesPageServicesListDataJsonFilePath = "data/services-list.json";
         public static string ServicesPageFAQListDataJsonFilePath = "data/faq-list.json";
+        public static string AdminPageSettingsDataJsonFilePath = "data/settings.json";
 
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
@@ -58,6 +59,9 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
+        /* Admin */
+        public static string AdminPageDataLogoKey = "Logo";
+
         public static string AvatarKeyEnding = "_Avatar";
         public static string TitleKeyEnding = "_Title";
         public static string SubtitleKeyEnding = "_Subtitle";
@@ -83,5 +87,6 @@ namespace shared
         public static string ServicesPageDataJsonMemoryCacheKey = "{0}_ServicesPageModel";
         public static string ServicesPageServicesListDataJsonMemoryCacheKey = "{0}_ServicesPageServicesListModel";
         public static string ServicesPageFAQListDataJsonMemoryCacheKey = "{0}_ServicesPageFAQListModel";
+        public static string AdminPageDataJsonMemoryCacheKey = "{0}_AdminPageModel";
     }
 }
