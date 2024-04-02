@@ -6,31 +6,22 @@
         </a>
         <p class="fs-6">@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
     }
-    <ul class="list-inline pb-md-4">
-        <li class="list-inline-item">
-            <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="#">
-                <img src="_content/rcl/assets/icons/icons8-facebook-48.png">
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="#">
-                <img src="_content/rcl/assets/icons/icons8-instagram-48.png">
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="#">
-                <img src="_content/rcl/assets/icons/icons8-linkedin-48.png">
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="#">
-                <img src="_content/rcl/assets/icons/icons8-telegram-app-48.png">
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="#">
-                <img src="_content/rcl/assets/icons/icons8-youtube-48.png">
-            </a>
-        </li>
-    </ul>
+    @if (SocialNetworksModel.Data != null && SocialNetworksModel.Data.Count > 0)
+    {
+        <ul class="list-inline pb-md-4">
+            @for (int i = 0; i < SocialNetworks.Count; i++)
+            {
+                var serviceKeyIndex = i * 3;
+                var serviceKey = SocialNetworksModel.Data.ElementAt(serviceKeyIndex).Value;
+                var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
+                var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+
+                <li class="list-inline-item">
+                    <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@SocialNetworksModel.Data[serviceUrlKey]">
+                        <img src="@SocialNetworksModel.Data[serviceImageKey]" />
+                    </a>
+                </li>
+            }
+        </ul>
+    }
 </footer>

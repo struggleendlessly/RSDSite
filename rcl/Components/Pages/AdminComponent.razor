@@ -12,6 +12,7 @@
                 </ImageEditor>
             }
         </div>
+        <hr />
         <div class="col-12 mt-5">
             <h5>Footer text</h5>
             @if (Model.Data != null)
@@ -23,6 +24,11 @@
                     <p>@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
                 </HTMLEditor>
             }
+        </div>
+        <hr />
+        <div class="col-12 mt-5">
+            <h5>Footer social networks</h5>
+            <SocialNetworks></SocialNetworks>
         </div>
     </div>
 </div>

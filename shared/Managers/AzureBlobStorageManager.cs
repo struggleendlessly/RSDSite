@@ -16,6 +16,8 @@ namespace shared.Managers
             _connectionString = _azureBlobStorageOptions.Value.ConnectionString;
         }
 
+
+        // TODO: Send string to UI
         public async Task<string> DownloadFile(string blobContainerName, string blobName)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);

@@ -97,8 +97,13 @@ namespace shared
         public static string HomeTestimonialsListServiceShortDescDefaultSubtitleValue = "Project Manager";
         public static string HomeTestimonialsListServiceShortDescDefaultTextValue = "“It has many landing page variations to choose from, which one is always a big advantage.”";
 
+        public static string AdminSocialNetworksServiceShortDescDefaultImageValue = "_content/rcl/assets/icons/icons8-facebook-48.png";
+        public static string AdminSocialNetworksServiceShortDescDefaultUrlValue = "#";
+
         /* Admin */
         public static string ImageEditorAdminLogoId = "imageEditorAdminLogo";
         public static string HTMLEditorAdminFooterTextId = "htmlEditorAdminFooterText";
+        public static string ImageEditorAdminSocialNetworksImageId = "imageEditorAdminSocialNetworksImage";
+        public static string HTMLEditorAdminSocialNetworksUrlId = "htmlEditorAdminSocialNetworksUrl";
     }
 }

@@ -1,0 +1,36 @@
+﻿@{
+    if (Model.Data != null && Model.Data.Count > 0) 
+    {
+        <div class="list-inline pb-md-4">
+            @for (int i = 0; i < ServiceItems.Count; i++)
+            {
+                var serviceKeyIndex = i * 3;
+                var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+                var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
+                var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+
+                <div class="mb-2 mt-2">
+                    <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                    <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                </div>
+                <div class="list-inline-item">
+                    <button class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle">
+                        <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAdminSocialNetworksImageId + serviceKeyIndex)"
+                                     Model="Model"
+                                     FuncSave="SaveContent"
+                                     Key="@serviceImageKey">
+                            <img src="@Model.Data[serviceImageKey]" />
+                        </ImageEditor>
+                    </button>
+                </div>
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                            Model="Model"
+                            FuncSave="SaveContent"
+                            Key="@serviceUrlKey">
+                    <p>Url: @Model.Data[serviceUrlKey]</p>
+                </HTMLEditor>
+            }
+        </div>
+    }
+}

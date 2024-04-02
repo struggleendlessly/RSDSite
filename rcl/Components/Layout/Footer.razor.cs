@@ -21,6 +21,10 @@ namespace rcl.Components.Layout
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public List<ServiceItem> SocialNetworks { get; set; } = new List<ServiceItem>();
+
+        public PageModel SocialNetworksModel { get; set; } = new PageModel();
+
         protected override async Task OnInitializedAsync()
         {
             var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName);
@@ -33,6 +37,20 @@ namespace rcl.Components.Layout
             }
 
             Model = model;
+
+            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);
+                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
+
+                MemoryCache.Set(serviceItemsKey, serviceItems);
+            }
+
+            SocialNetworks = serviceItems;
+            SocialNetworksModel.Data = SocialNetworks
+                .SelectMany(x => x.ShortDesc)
+                .ToDictionary();
         }
     }
 }
