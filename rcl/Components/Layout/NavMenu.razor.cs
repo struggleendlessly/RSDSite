@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using shared;
+using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
@@ -20,6 +21,9 @@ namespace rcl.Components.Layout
 
         [Inject]
         AzureBlobStorageManager BlobStorageManager { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         public string SiteName { get; set; } = string.Empty;
 
@@ -78,11 +82,13 @@ namespace rcl.Components.Layout
 
             if (Pages.Contains(parts[0])) 
             {  
-                SiteName = string.Empty; 
+                SiteName = string.Empty;
+                StateManager.SiteName = SiteName;
             }
             else
             {
                 SiteName = parts.Length > 0 ? parts[0] : string.Empty;
+                StateManager.SiteName = SiteName;
             }          
         }
 

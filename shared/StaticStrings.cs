@@ -61,6 +61,7 @@ namespace shared
 
         /* Admin */
         public static string AdminPageDataLogoKey = "Logo";
+        public static string AdminPageDataFooterTextKey = "FooterText";
 
         public static string AvatarKeyEnding = "_Avatar";
         public static string TitleKeyEnding = "_Title";

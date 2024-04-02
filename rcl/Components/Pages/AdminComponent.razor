@@ -1,15 +1,27 @@
 ﻿<div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Logo</h4>
+            <h5>Logo</h5>
             @if (Model.Data != null)
             {
                 <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
                              Model="Model"
                              FuncSave="Save"
-                             Key="@(StaticStrings.AdminPageDataLogoKey)">
+                             Key="@StaticStrings.AdminPageDataLogoKey">
                     <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
                 </ImageEditor>
+            }
+        </div>
+        <div class="col-12 mt-5">
+            <h5>Footer text</h5>
+            @if (Model.Data != null)
+            {
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
+                             Model="Model"
+                             FuncSave="Save"
+                             Key="@StaticStrings.AdminPageDataFooterTextKey">
+                    <p>@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
+                </HTMLEditor>
             }
         </div>
     </div>

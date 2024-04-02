@@ -99,5 +99,6 @@ namespace shared
 
         /* Admin */
         public static string ImageEditorAdminLogoId = "imageEditorAdminLogo";
+        public static string HTMLEditorAdminFooterTextId = "htmlEditorAdminFooterText";
     }
 }
