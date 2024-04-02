@@ -90,10 +90,10 @@ namespace rcl.Components.Shared
         {
             if (Model.Data.ContainsKey(key))
             {
-                var serviceImageKey = key + StaticStrings.ServicesImageKeyEnding;
-                var serviceTitleKey = key + StaticStrings.ServicesTitleKeyEnding;
-                var serviceSubtitleKey = key + StaticStrings.ServicesSubtitleKeyEnding;
-                var serviceTextKey = key + StaticStrings.ServicesTextKeyEnding;
+                var serviceImageKey = key + StaticStrings.ImageKeyEnding;
+                var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
+                var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
+                var serviceTextKey = key + StaticStrings.TextKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceImageKey);
@@ -121,12 +121,12 @@ namespace rcl.Components.Shared
         {
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
-            var serviceImageKey = serviceItemKey + StaticStrings.ServicesImageKeyEnding;
-            var serviceTitleKey = serviceItemKey + StaticStrings.ServicesTitleKeyEnding;
-            var serviceSubtitleKey = serviceItemKey + StaticStrings.ServicesSubtitleKeyEnding;
-            var serviceTextKey = serviceItemKey + StaticStrings.ServicesTextKeyEnding;
+            var serviceImageKey = serviceItemKey + StaticStrings.ImageKeyEnding;
+            var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
+            var serviceTextKey = serviceItemKey + StaticStrings.TextKeyEnding;
 
-            Model.Data.AddAfter(key + StaticStrings.ServicesTextKeyEnding, serviceItemKey, serviceItemKey);
+            Model.Data.AddAfter(key + StaticStrings.TextKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceImageKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultImageValue);
             Model.Data.AddAfter(serviceImageKey, serviceTitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultSubtitleValue);

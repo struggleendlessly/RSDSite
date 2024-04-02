@@ -58,12 +58,12 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
-        public static string ServicesAvatarKeyEnding = "_Avatar";
-        public static string ServicesImageKeyEnding = "_Image";
-        public static string ServicesTitleKeyEnding = "_Title";
-        public static string ServicesSubtitleKeyEnding = "_Subtitle";
-        public static string ServicesUrlKeyEnding = "_Url";
-        public static string ServicesTextKeyEnding = "_Text";
+        public static string AvatarKeyEnding = "_Avatar";
+        public static string TitleKeyEnding = "_Title";
+        public static string SubtitleKeyEnding = "_Subtitle";
+        public static string UrlKeyEnding = "_Url";
+        public static string TextKeyEnding = "_Text";
+        public static string ImageKeyEnding = "_Image";
 
         public static string EditorContentFormatText = "text";
         public static string EditorContentFormatRaw = "raw";

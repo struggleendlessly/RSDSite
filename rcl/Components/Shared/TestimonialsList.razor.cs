@@ -90,18 +90,16 @@ namespace rcl.Components.Shared
         {
             if (Model.Data.ContainsKey(key))
             {
-                var serviceAvatarKey = key + StaticStrings.ServicesAvatarKeyEnding;
-                var serviceTitleKey = key + StaticStrings.ServicesTitleKeyEnding;
-                var serviceSubtitleKey = key + StaticStrings.ServicesSubtitleKeyEnding;
-                var serviceTextKey = key + StaticStrings.ServicesTextKeyEnding;
-                var serviceImageKey = key + StaticStrings.ServicesImageKeyEnding;
+                var serviceAvatarKey = key + StaticStrings.AvatarKeyEnding;
+                var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
+                var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
+                var serviceTextKey = key + StaticStrings.TextKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceAvatarKey);
                 Model.Data.Remove(serviceTitleKey);
                 Model.Data.Remove(serviceSubtitleKey);
                 Model.Data.Remove(serviceTextKey);
-                Model.Data.Remove(serviceImageKey);
 
                 var serviceItem = ServiceItems.FirstOrDefault(x => x.ShortDesc.ContainsKey(key));
                 if (serviceItem != null)
@@ -123,18 +121,16 @@ namespace rcl.Components.Shared
         {
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
-            var serviceAvatarKey = serviceItemKey + StaticStrings.ServicesAvatarKeyEnding;
-            var serviceTitleKey = serviceItemKey + StaticStrings.ServicesTitleKeyEnding;
-            var serviceSubtitleKey = serviceItemKey + StaticStrings.ServicesSubtitleKeyEnding;
-            var serviceTextKey = serviceItemKey + StaticStrings.ServicesTextKeyEnding;
-            var serviceImageKey = serviceItemKey + StaticStrings.ServicesImageKeyEnding;
+            var serviceAvatarKey = serviceItemKey + StaticStrings.AvatarKeyEnding;
+            var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
+            var serviceTextKey = serviceItemKey + StaticStrings.TextKeyEnding;
 
-            Model.Data.AddAfter(key + StaticStrings.ServicesImageKeyEnding, serviceItemKey, serviceItemKey);
+            Model.Data.AddAfter(key + StaticStrings.ImageKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceAvatarKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultAvatarValue);
             Model.Data.AddAfter(serviceAvatarKey, serviceTitleKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultSubtitleValue);
             Model.Data.AddAfter(serviceSubtitleKey, serviceTextKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultTextValue);
-            Model.Data.AddAfter(serviceTextKey, serviceImageKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultImageValue);
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string>
@@ -143,8 +139,7 @@ namespace rcl.Components.Shared
                 { serviceAvatarKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultAvatarValue },
                 { serviceTitleKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultTitleValue },
                 { serviceSubtitleKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultSubtitleValue },
-                { serviceTextKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultTextValue },
-                { serviceImageKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultImageValue },
+                { serviceTextKey, StaticHtmlStrings.HomeTestimonialsListServiceShortDescDefaultTextValue }
             };
 
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));

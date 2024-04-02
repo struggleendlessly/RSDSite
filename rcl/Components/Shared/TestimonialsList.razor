@@ -6,11 +6,10 @@
             {
                 var serviceKeyIndex = i * 6;
                 var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
-                var serviceAvatarKey = serviceKey + StaticStrings.ServicesAvatarKeyEnding;
-                var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
-                var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
-                var serviceTextKey = serviceKey + StaticStrings.ServicesTextKeyEnding;
-                var serviceImageKey = serviceKey + StaticStrings.ServicesImageKeyEnding;
+                var serviceAvatarKey = serviceKey + StaticStrings.AvatarKeyEnding;
+                var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
+                var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
+                var serviceTextKey = serviceKey + StaticStrings.TextKeyEnding;
 
                 <AuthorizeView>
                     <Authorized>

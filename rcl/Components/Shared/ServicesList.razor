@@ -5,9 +5,9 @@
         {
             var serviceKeyIndex = i * 3;
             var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
-            var serviceUrlKey = serviceKey + StaticStrings.ServicesUrlKeyEnding;
-            var serviceTitleKey = serviceKey + StaticStrings.ServicesTitleKeyEnding;
-            var serviceSubtitleKey = serviceKey + StaticStrings.ServicesSubtitleKeyEnding;
+            var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+            var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
             var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
 
             <div class="col-sm-6 col-lg-4 mb-3">

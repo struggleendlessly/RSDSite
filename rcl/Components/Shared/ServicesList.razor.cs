@@ -56,7 +56,7 @@ namespace rcl.Components.Shared
                 .ToDictionary();
 
             ModelUrls.Data = ServiceItems
-                .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)))
+                .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
         }
 
@@ -86,7 +86,7 @@ namespace rcl.Components.Shared
         {
             foreach (var serviceItem in ServiceItems)
             {
-                foreach (var longDesc in serviceItem.LongDesc.Where(x => x.Key.Contains(StaticStrings.ServicesUrlKeyEnding)).ToList())
+                foreach (var longDesc in serviceItem.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).ToList())
                 {
                     if (model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
                     {
@@ -108,8 +108,8 @@ namespace rcl.Components.Shared
         {
             if (Model.Data.ContainsKey(key))
             {
-                var serviceTitleKey = key + StaticStrings.ServicesTitleKeyEnding;
-                var serviceSubtitleKey = key + StaticStrings.ServicesSubtitleKeyEnding;
+                var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
+                var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceTitleKey);
@@ -135,10 +135,10 @@ namespace rcl.Components.Shared
         {
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
-            var serviceTitleKey = serviceItemKey + StaticStrings.ServicesTitleKeyEnding;
-            var serviceSubtitleKey = serviceItemKey + StaticStrings.ServicesSubtitleKeyEnding;
+            var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
 
-            Model.Data.AddAfter(key + StaticStrings.ServicesSubtitleKeyEnding, serviceItemKey, serviceItemKey);
+            Model.Data.AddAfter(key + StaticStrings.SubtitleKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceTitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultSubtitleValue);
 
@@ -152,10 +152,10 @@ namespace rcl.Components.Shared
             serviceItem.LongDesc = new Dictionary<string, string>
             {
                 { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
-                { serviceItemKey + StaticStrings.ServicesUrlKeyEnding, serviceItemKey }
+                { serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey }
             };
 
-            ModelUrls.Data.Add(serviceItemKey + StaticStrings.ServicesUrlKeyEnding, serviceItemKey);
+            ModelUrls.Data.Add(serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey);
 
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
             ServiceItems.Insert(index + 1, serviceItem);

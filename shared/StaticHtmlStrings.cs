@@ -96,6 +96,5 @@ namespace shared
         public static string HomeTestimonialsListServiceShortDescDefaultTitleValue = "Lida Reidy";
         public static string HomeTestimonialsListServiceShortDescDefaultSubtitleValue = "Project Manager";
         public static string HomeTestimonialsListServiceShortDescDefaultTextValue = "“It has many landing page variations to choose from, which one is always a big advantage.”";
-        public static string HomeTestimonialsListServiceShortDescDefaultImageValue = "_content/rcl/assets/svg/brands/mailchimp-primary.svg";
     }
 }

@@ -91,8 +91,8 @@ namespace rcl.Components.Shared
         {
             if (Model.Data.ContainsKey(key))
             {
-                var serviceTitleKey = key + StaticStrings.ServicesTitleKeyEnding;
-                var serviceSubtitleKey = key + StaticStrings.ServicesSubtitleKeyEnding;
+                var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
+                var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceTitleKey);
@@ -118,10 +118,10 @@ namespace rcl.Components.Shared
         {
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
-            var serviceTitleKey = serviceItemKey + StaticStrings.ServicesTitleKeyEnding;
-            var serviceSubtitleKey = serviceItemKey + StaticStrings.ServicesSubtitleKeyEnding;
+            var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
 
-            Model.Data.AddAfter(key + StaticStrings.ServicesSubtitleKeyEnding, serviceItemKey, serviceItemKey);
+            Model.Data.AddAfter(key + StaticStrings.SubtitleKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceTitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultSubtitleValue);
 
