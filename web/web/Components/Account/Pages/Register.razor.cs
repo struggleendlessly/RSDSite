@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Components.Forms;
 
 using web.Data;
+using web.Interfaces;
 
 using shared.Interfaces;
 
@@ -39,6 +40,9 @@ namespace web.Components.Account.Pages
         [Inject]
         ISiteCreator SiteCreator { get; set; }
 
+        [Inject]
+        IWebsiteService WebsiteService { get; set; }
+
         private IEnumerable<IdentityError>? identityErrors;
 
         [SupplyParameterFromForm]
@@ -51,12 +55,32 @@ namespace web.Components.Account.Pages
 
         public async Task RegisterUser(EditContext editContext)
         {
-            var user = CreateUser();
+            var existingWebsite = await WebsiteService.GetWebsiteByName(Input.SiteName);
+            if (existingWebsite != null)
+            {
+                identityErrors = new List<IdentityError>
+                {
+                    new IdentityError
+                    {
+                        Code = "DuplicateSiteName",
+                        Description = "The site name is already taken. Please choose a different one."
+                    }
+                };
+                
+                return;
+            }
 
+            var newWebsite = new Website { Name = Input.SiteName };
+            await WebsiteService.CreateWebsite(newWebsite);
+
+            Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
+
+            var user = CreateUser();
+            user.WebsiteId = newWebsite.Id;
             await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             var emailStore = GetEmailStore();
             await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-            user.SiteName = Input.SiteName;
+
             var result = await UserManager.CreateAsync(user, Input.Password);
 
             if (!result.Succeeded)
@@ -67,9 +91,7 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
-            await SiteCreator.CreateSite(Input.SiteName);
-
-            Logger.LogInformation($"A website named {Input.SiteName} has been created.");
+            await SiteCreator.CreateSite(newWebsite.Name);
 
             // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
             // string userEmail = Input.Email;

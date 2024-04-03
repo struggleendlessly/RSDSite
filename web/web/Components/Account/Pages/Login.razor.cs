@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using web.Data;
 
@@ -51,15 +52,12 @@ namespace web.Components.Account.Pages
             if (result.Succeeded)
             {
                 Logger.LogInformation("User logged in.");
-                var userSiteName = string.Empty;
 
-                var user = await UserManager.FindByEmailAsync(Input.Email);
-                if (user != null)
-                {
-                    userSiteName = user.SiteName;
-                }
+                var user = await UserManager.Users
+                    .Include(u => u.Website)
+                    .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
-                RedirectManager.RedirectTo(ReturnUrl + userSiteName);
+                RedirectManager.RedirectTo(ReturnUrl + user.Website.Name);
             }
             else if (result.RequiresTwoFactor)
             {
