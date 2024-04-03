@@ -30,5 +30,36 @@
             <h5>Footer social networks</h5>
             <SocialNetworks></SocialNetworks>
         </div>
+        <hr />
+        <div class="col-12 mt-5">
+            <h5>Header menu</h5>
+            @if (MenuModel.Data != null)
+            {
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                            Model="MenuModel"
+                            FuncSave="SaveMenu"
+                            Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
+                    <p>Main page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]</p>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                            Model="MenuModel"
+                            FuncSave="SaveMenu"
+                            Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
+                    <p>About us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]</p>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                            Model="MenuModel"
+                            FuncSave="SaveMenu"
+                            Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
+                    <p>Contact us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]</p>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                            Model="MenuModel"
+                            FuncSave="SaveMenu"
+                            Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
+                    <p>Services page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]</p>
+                </HTMLEditor>
+            }
+        </div>
     </div>
 </div>

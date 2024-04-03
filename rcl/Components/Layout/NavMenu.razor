@@ -7,22 +7,32 @@
             {
                 <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
             }
-            <span class="fs-4">Simple header</span>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a href="@(SiteName + StaticRoutesStrings.MainPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.MainPageRoute))" aria-current="page">Main</a>
-            </li>
-            <li class="nav-item">
-                <a href="@(SiteName + StaticRoutesStrings.AboutUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.AboutUsPageRoute))">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="@(SiteName + StaticRoutesStrings.ContactUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ContactUsPageRoute))">Contact Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ServicesPageRoute))">Services</a>
-            </li>
+            @if (MenuModel.Data != null)
+            {
+                <li class="nav-item">
+                    <a href="@(SiteName + StaticRoutesStrings.MainPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.MainPageRoute))" aria-current="page">
+                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@(SiteName + StaticRoutesStrings.AboutUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.AboutUsPageRoute))">
+                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@(SiteName + StaticRoutesStrings.ContactUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ContactUsPageRoute))">
+                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ServicesPageRoute))">
+                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
+                    </a>
+                </li>
+            }
             @if (SiteName == string.Empty || SiteName == StaticStrings.DefaultSiteName)
             {
                 <li class="nav-item">

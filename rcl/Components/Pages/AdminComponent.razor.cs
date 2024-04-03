@@ -30,6 +30,8 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel MenuModel { get; set; } = new PageModel();
+
         DotNetObjectReference<AdminComponent>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -54,6 +56,17 @@ namespace rcl.Components.Pages
             }
 
             Model = model;
+
+            var menuKey = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, SiteNameLower);
+            if (!MemoryCache.TryGetValue(menuKey, out PageModel menuModel))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+                menuModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
+
+                MemoryCache.Set(menuKey, menuModel);
+            }
+
+            MenuModel = menuModel;
         }
 
         [JSInvokable]
@@ -76,6 +89,17 @@ namespace rcl.Components.Pages
             await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.AdminPageSettingsDataJsonFilePath, stream);
 
             var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, SiteNameLower);
+            MemoryCache.Remove(key);
+        }
+
+        public async Task SaveMenu(PageModel model)
+        {
+            var jsonModel = JsonConvert.SerializeObject(model);
+
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.AdminPageSettingsMenuDataJsonFilePath, stream);
+
+            var key = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, SiteNameLower);
             MemoryCache.Remove(key);
         }
 

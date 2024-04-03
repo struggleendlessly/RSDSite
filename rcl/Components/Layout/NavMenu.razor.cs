@@ -33,6 +33,8 @@ namespace rcl.Components.Layout
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel MenuModel { get; set; } = new PageModel();
+
         protected override async Task OnInitializedAsync()
         {
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
@@ -51,6 +53,17 @@ namespace rcl.Components.Layout
             }
 
             Model = model;
+
+            var menuKey = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, SiteNameLower);
+            if (!MemoryCache.TryGetValue(menuKey, out PageModel menuModel))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+                menuModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
+
+                MemoryCache.Set(menuKey, menuModel);
+            }
+
+            MenuModel = menuModel;
         }
 
         private void OnLocationChanged(object? sender, LocationChangedEventArgs e)

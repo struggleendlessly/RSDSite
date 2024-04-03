@@ -105,5 +105,10 @@ namespace shared
         public static string HTMLEditorAdminFooterTextId = "htmlEditorAdminFooterText";
         public static string ImageEditorAdminSocialNetworksImageId = "imageEditorAdminSocialNetworksImage";
         public static string HTMLEditorAdminSocialNetworksUrlId = "htmlEditorAdminSocialNetworksUrl";
+
+        public static string HTMLEditorAdminSettingsMenuMainId = "htmlEditorAdminSettingsMenuMain";
+        public static string HTMLEditorAdminSettingsMenuAboutUsId = "htmlEditorAdminSettingsMenuAboutUs";
+        public static string HTMLEditorAdminSettingsMenuContactUsId = "htmlEditorAdminSettingsMenuContactUs";
+        public static string HTMLEditorAdminSettingsMenuServicesId = "htmlEditorAdminSettingsMenuServices";
     }
 }
