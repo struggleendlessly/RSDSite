@@ -36,6 +36,8 @@ namespace rcl.Components.Shared
 
         public PageModel ModelUrls { get; set; } = new PageModel();
 
+        public PageModel SettingsModel { get; set; } = new PageModel();
+
         DotNetObjectReference<ServicesList>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -58,6 +60,17 @@ namespace rcl.Components.Shared
             ModelUrls.Data = ServiceItems
                 .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
+
+            var settingsKey = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, SiteNameLower);
+            if (!MemoryCache.TryGetValue(settingsKey, out PageModel settingsModel))
+            {
+                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AdminPageSettingsDataJsonFilePath);
+                settingsModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
+
+                MemoryCache.Set(settingsKey, settingsModel);
+            }
+
+            SettingsModel = settingsModel;
         }
 
         public async Task SaveContent(PageModel model)

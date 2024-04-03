@@ -61,5 +61,18 @@
                 </HTMLEditor>
             }
         </div>
+        <hr />
+        <div class="col-12 mt-5">
+            <h5>Services button text</h5>
+            @if (Model.Data != null)
+            {
+                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
+                    <p>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]</p>
+                </HTMLEditor>
+            }
+        </div>
     </div>
 </div>

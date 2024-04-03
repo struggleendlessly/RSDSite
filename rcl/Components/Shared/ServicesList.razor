@@ -1,5 +1,5 @@
 ﻿@{
-    if (Model.Data.Count > 0 && ModelUrls.Data.Count > 0)
+    if (Model.Data.Count > 0 && ModelUrls.Data.Count > 0 && SettingsModel.Data.Count > 0)
     {
         for (int i = 0; i < ServiceItems.Count; i++)
         {
@@ -9,6 +9,7 @@
             var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
             var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
+            var serviceButtonTextValue = SettingsModel.Data[StaticStrings.AdminPageDataServicesButtonTextKey];
 
             <div class="col-sm-6 col-lg-4 mb-3">
                 <!-- Card -->
@@ -67,7 +68,7 @@
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
                                 <a class="btn btn-outline-primary btn-xs rounded" href="@(SiteNameLower)/service/@(serviceUrlValue)">
-                                    Read more
+                                    @serviceButtonTextValue
                                 </a>
                             </li>
                         </ul>

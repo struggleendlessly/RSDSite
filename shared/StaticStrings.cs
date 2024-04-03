@@ -64,6 +64,7 @@ namespace shared
         /* Admin */
         public static string AdminPageDataLogoKey = "Logo";
         public static string AdminPageDataFooterTextKey = "FooterText";
+        public static string AdminPageDataServicesButtonTextKey = "ServicesButtonText";
 
         public static string AdminPageSettingsMenuDataMainKey = "MainPageText";
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";
