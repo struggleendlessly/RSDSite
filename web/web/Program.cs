@@ -25,7 +25,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddMemoryCache();
 
-builder.Services.Configure<ArureEmailCummunicationOptions>(builder.Configuration.GetSection(ArureEmailCummunicationOptions.SectionName));
+builder.Services.Configure<AzureEmailCommunicationOptions>(builder.Configuration.GetSection(AzureEmailCommunicationOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
 
 builder.Services.AddCascadingAuthenticationState();

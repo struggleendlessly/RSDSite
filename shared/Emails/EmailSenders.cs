@@ -6,8 +6,8 @@ namespace shared.Emails
 {
     public class EmailSenders
     {
-        ArureEmailCummunicationOptions arureEmailCummunicationOptions;
-        public EmailSenders(IOptions<ArureEmailCummunicationOptions> _arureEmailCummunicationOptions)
+        AzureEmailCommunicationOptions arureEmailCummunicationOptions;
+        public EmailSenders(IOptions<AzureEmailCommunicationOptions> _arureEmailCummunicationOptions)
         {
             arureEmailCummunicationOptions = _arureEmailCummunicationOptions.Value;
             var domain = arureEmailCummunicationOptions.Domain;

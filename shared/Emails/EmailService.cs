@@ -9,8 +9,8 @@ namespace shared.Emails
 {
     public class EmailService
     {
-        ArureEmailCummunicationOptions arureEmailCummunicationOptions;
-        public EmailService(IOptions<ArureEmailCummunicationOptions> _arureEmailCummunicationOptions)
+        AzureEmailCommunicationOptions arureEmailCummunicationOptions;
+        public EmailService(IOptions<AzureEmailCommunicationOptions> _arureEmailCummunicationOptions)
         {
                 arureEmailCummunicationOptions = _arureEmailCummunicationOptions.Value;
         }
