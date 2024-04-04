@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             @for (int i = 0; i < ServiceItems.Count; i++)
             {
-                var serviceKeyIndex = i * 6;
+                var serviceKeyIndex = i * 5;
                 var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
                 var serviceAvatarKey = serviceKey + StaticStrings.AvatarKeyEnding;
                 var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
