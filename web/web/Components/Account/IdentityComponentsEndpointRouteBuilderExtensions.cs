@@ -10,7 +10,7 @@ using System.Text.Json;
 
 using web.Components.Account.Pages;
 using web.Components.Account.Pages.Manage;
-using web.Data;
+using shared.Data.Entities;
 
 namespace Microsoft.AspNetCore.Routing
 {

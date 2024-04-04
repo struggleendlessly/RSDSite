@@ -1,8 +1,8 @@
-﻿using web.Data;
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {

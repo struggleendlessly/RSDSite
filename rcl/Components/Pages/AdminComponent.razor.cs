@@ -9,6 +9,8 @@ using shared.Managers;
 using System.Text;
 using Newtonsoft.Json;
 using System.Text.Json;
+using shared.Data.Entities;
+using shared.Interfaces;
 
 namespace rcl.Components.Pages
 {
@@ -23,6 +25,9 @@ namespace rcl.Components.Pages
         [Inject]
         protected IMemoryCache MemoryCache { get; set; }
 
+        [Inject]
+        IContactUsMessageService ContactUsMessageService { get; set; }
+
         [Parameter]
         public string? SiteName { get; set; }
 
@@ -31,6 +36,8 @@ namespace rcl.Components.Pages
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
+
+        public List<ContactUsMessage> ContactUsMessages { get; set; } = new List<ContactUsMessage>();
 
         DotNetObjectReference<AdminComponent>? dotNetHelper { get; set; }
 
@@ -67,6 +74,8 @@ namespace rcl.Components.Pages
             }
 
             MenuModel = menuModel;
+
+            ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(SiteNameLower);
         }
 
         [JSInvokable]

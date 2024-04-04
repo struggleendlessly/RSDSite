@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using web.Data;
+using shared.Data;
 
 #nullable disable
 
-namespace web.Data.Migrations
+namespace shared.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403132148_AddWebsitesTable")]
-    partial class AddWebsitesTable
+    [Migration("20240403154151_AddContactUsMessagesTable")]
+    partial class AddContactUsMessagesTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,6 +228,41 @@ namespace web.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("web.Data.ContactUsMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("WebsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WebsiteId");
+
+                    b.ToTable("ContactUsMessages");
+                });
+
             modelBuilder.Entity("web.Data.Website", b =>
                 {
                     b.Property<Guid>("Id")
@@ -305,8 +340,21 @@ namespace web.Data.Migrations
                     b.Navigation("Website");
                 });
 
+            modelBuilder.Entity("web.Data.ContactUsMessage", b =>
+                {
+                    b.HasOne("web.Data.Website", "Website")
+                        .WithMany("ContactUsMessages")
+                        .HasForeignKey("WebsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Website");
+                });
+
             modelBuilder.Entity("web.Data.Website", b =>
                 {
+                    b.Navigation("ContactUsMessages");
+
                     b.Navigation("Users");
                 });
 #pragma warning restore 612, 618

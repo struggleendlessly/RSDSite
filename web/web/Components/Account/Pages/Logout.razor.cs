@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
-using web.Data;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {

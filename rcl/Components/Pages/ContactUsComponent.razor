@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div class="container">
 
     <div class="row pb-4">
         <div class="col-lg-6 text-center">
@@ -132,73 +134,58 @@
                         </HTMLEditor>
                     }
                     <p class="card-text">
-                        <div>
-                            <!--!-->
+                        <EditForm Model="Input" method="post" OnValidSubmit="SubmitForm" FormName="contact-us">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="text-danger" role="alert" />
+                            @if (!string.IsNullOrWhiteSpace(Message))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @Message
+                                </div>
+                            }
                             <div class="row gx-3">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormFirstName">
-                                            First
-                                            name
-                                        </label>
-                                        <input type="text" class="form-control form-control-lg"
-                                               name="hireUsFormNameFirstName" id="hireUsFormFirstName"
-                                               placeholder="First name" aria-label="First name">
+                                        <label class="form-label" for="contactUsFormFirstName">First name</label>
+                                        <InputText @bind-Value="Input.FirstName" type="text" class="form-control form-control-lg" 
+                                            id="contactUsFormFirstName" placeholder="First name" aria-label="First name" required />
+                                        <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
                                     </div>
                                 </div>
-
-
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormLasttName">
-                                            Last
-                                            name
-                                        </label>
-                                        <input type="text" class="form-control form-control-lg"
-                                               name="hireUsFormNameLastName" id="hireUsFormLasttName"
-                                               placeholder="Last name" aria-label="Last name">
+                                        <label class="form-label" for="contactUsFormLastName">Last name</label>
+                                        <InputText @bind-Value="Input.LastName" type="text" class="form-control form-control-lg" 
+                                            id="contactUsFormLastName" placeholder="Last name" aria-label="Last name" required />
+                                        <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
                                     </div>
                                 </div>
                             </div>
-
-
-                            <!--!-->
                             <div class="row gx-3">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormWorkEmail">
-                                            Email
-                                            address
-                                        </label>
-                                        <input type="email" class="form-control form-control-lg"
-                                               name="hireUsFormNameWorkEmail" id="hireUsFormWorkEmail"
-                                               placeholder="email@site.com" aria-label="email@site.com">
+                                        <label class="form-label" for="contactUsFormEmail">Email address</label>
+                                        <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg"
+                                            id="contactUsFormEmail" placeholder="email@site.com" aria-label="email@site.com" required />
+                                        <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
                                     </div>
                                 </div>
-
-
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormPhone">
+                                        <label class="form-label" for="contactUsFormPhone">
                                             Phone <span class="form-label-secondary">(Optional)</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-lg"
-                                               name="hireUsFormNamePhone" id="hireUsFormPhone"
-                                               placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx">
+                                        <InputText @bind-Value="Input.PhoneNumber" type="text" class="form-control form-control-lg"
+                                               id="contactUsFormPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" />
+                                        <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
                                     </div>
                                 </div>
                             </div>
-
-
-                            <!--!-->
                             <div class="mb-3">
-                                <label class="form-label" for="hireUsFormDetails">Details</label>
-                                <textarea class="form-control form-control-lg" name="hireUsFormNameDetails"
-                                          id="hireUsFormDetails" placeholder="Tell us about your ..."
-                                          aria-label="Tell us about your ..." rows="4"></textarea>
+                                <label class="form-label" for="contactUsFormDetails">Details</label>
+                                <InputText @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
+                                           placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4" required></InputText>
                             </div>
-
-
                             <div class="d-grid">
                                 @if (Model.Data != null)
                                 {
@@ -213,8 +200,6 @@
                                     </HTMLEditor>
                                 }
                             </div>
-                            <!--!-->
-
                             <div class="text-center">
                                 @if (Model.Data != null)
                                 {
@@ -229,7 +214,7 @@
                                     </HTMLEditor>
                                 }
                             </div>
-                        </div>
+                        </EditForm>
                     </p>
                 </div>
             </div>

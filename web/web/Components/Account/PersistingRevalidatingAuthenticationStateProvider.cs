@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-
+using shared.Data.Entities;
 using System.Diagnostics;
 using System.Security.Claims;
 
 using web.Client;
-using web.Data;
 
 namespace web.Components.Account
 {

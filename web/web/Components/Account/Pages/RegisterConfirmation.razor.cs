@@ -1,6 +1,6 @@
-﻿using web.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {

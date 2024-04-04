@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace web.Data.Migrations
+namespace shared.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddWebsitesTable : Migration

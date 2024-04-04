@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using web.Data;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {

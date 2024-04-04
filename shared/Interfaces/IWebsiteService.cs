@@ -1,6 +1,6 @@
-﻿using web.Data;
+﻿using shared.Data.Entities;
 
-namespace web.Interfaces
+namespace shared.Interfaces
 {
     public interface IWebsiteService
     {

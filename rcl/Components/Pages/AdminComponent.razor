@@ -1,77 +1,103 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="col-12">
-            <h5>Logo</h5>
-            @if (Model.Data != null)
-            {
-                <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
-                             Model="Model"
-                             FuncSave="Save"
-                             Key="@StaticStrings.AdminPageDataLogoKey">
-                    <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
-                </ImageEditor>
-            }
+        <div class="col-6">
+            <div class="col-12">
+                <h5>Logo</h5>
+                @if (Model.Data != null)
+                {
+                    <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
+                                 Model="Model"
+                                 FuncSave="Save"
+                                 Key="@StaticStrings.AdminPageDataLogoKey">
+                        <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
+                    </ImageEditor>
+                }
+            </div>
+            <hr />
+            <div class="col-12 mt-5">
+                <h5>Footer text</h5>
+                @if (Model.Data != null)
+                {
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@StaticStrings.AdminPageDataFooterTextKey">
+                        <p>@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
+                    </HTMLEditor>
+                }
+            </div>
+            <hr />
+            <div class="col-12 mt-5">
+                <h5>Footer social networks</h5>
+                <SocialNetworks></SocialNetworks>
+            </div>
+            <hr />
+            <div class="col-12 mt-5">
+                <h5>Header menu</h5>
+                @if (MenuModel.Data != null)
+                {
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                                Model="MenuModel"
+                                FuncSave="SaveMenu"
+                                Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
+                        <p>Main page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]</p>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                                Model="MenuModel"
+                                FuncSave="SaveMenu"
+                                Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
+                        <p>About us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]</p>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                                Model="MenuModel"
+                                FuncSave="SaveMenu"
+                                Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
+                        <p>Contact us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]</p>
+                    </HTMLEditor>
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                                Model="MenuModel"
+                                FuncSave="SaveMenu"
+                                Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
+                        <p>Services page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]</p>
+                    </HTMLEditor>
+                }
+            </div>
+            <hr />
+            <div class="col-12 mt-5">
+                <h5>Services button text</h5>
+                @if (Model.Data != null)
+                {
+                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                                Model="Model"
+                                FuncSave="Save"
+                                Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
+                        <p>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]</p>
+                    </HTMLEditor>
+                }
+            </div>
         </div>
-        <hr />
-        <div class="col-12 mt-5">
-            <h5>Footer text</h5>
-            @if (Model.Data != null)
+        <div class="col-6">
+            <h5>Contact Us Messages</h5>
+            @if (ContactUsMessages.Any())
             {
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
-                             Model="Model"
-                             FuncSave="Save"
-                             Key="@StaticStrings.AdminPageDataFooterTextKey">
-                    <p>@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
-                </HTMLEditor>
-            }
-        </div>
-        <hr />
-        <div class="col-12 mt-5">
-            <h5>Footer social networks</h5>
-            <SocialNetworks></SocialNetworks>
-        </div>
-        <hr />
-        <div class="col-12 mt-5">
-            <h5>Header menu</h5>
-            @if (MenuModel.Data != null)
-            {
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
-                            Model="MenuModel"
-                            FuncSave="SaveMenu"
-                            Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
-                    <p>Main page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]</p>
-                </HTMLEditor>
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
-                            Model="MenuModel"
-                            FuncSave="SaveMenu"
-                            Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
-                    <p>About us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]</p>
-                </HTMLEditor>
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
-                            Model="MenuModel"
-                            FuncSave="SaveMenu"
-                            Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
-                    <p>Contact us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]</p>
-                </HTMLEditor>
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
-                            Model="MenuModel"
-                            FuncSave="SaveMenu"
-                            Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
-                    <p>Services page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]</p>
-                </HTMLEditor>
-            }
-        </div>
-        <hr />
-        <div class="col-12 mt-5">
-            <h5>Services button text</h5>
-            @if (Model.Data != null)
-            {
-                <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
-                            Model="Model"
-                            FuncSave="Save"
-                            Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
-                    <p>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]</p>
-                </HTMLEditor>
+                <div class="accordion" id="accordionContactUsMessages">
+                    @for (int i = 0; i < ContactUsMessages.Count; i++)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
+                                    @($"{ContactUsMessages[i].FirstName} {ContactUsMessages[i].LastName} ({ContactUsMessages[i].Email})")
+                                </button>
+                            </h2>
+                            <div id="collapse-@i" class="accordion-collapse collapse" data-bs-parent="#accordionContactUsMessages">
+                                <div class="accordion-body">
+                                    <p>Phone: @ContactUsMessages[i].PhoneNumber</p>
+                                    <p>Details: @ContactUsMessages[i].Details</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             }
         </div>
     </div>

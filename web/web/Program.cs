@@ -11,10 +11,9 @@ using shared.Managers;
 
 using web.Components;
 using web.Components.Account;
-using web.Data;
+using shared.Data.Entities;
 using web.Endpoints;
-using web.Interfaces;
-using web.Services;
+using shared.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +40,7 @@ builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddTransient<ISiteCreator, SiteCreator>();
 builder.Services.AddSingleton<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
+builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 
 builder.Services.AddAuthentication(options =>
     {

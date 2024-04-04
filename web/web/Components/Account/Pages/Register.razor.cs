@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Components.Forms;
 
-using web.Data;
-using web.Interfaces;
-
+using shared.Data.Entities;
 using shared.Interfaces;
 
 namespace web.Components.Account.Pages

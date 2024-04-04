@@ -1,8 +1,10 @@
-﻿using web.Data;
-using web.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace web.Services
+using shared.Data;
+using shared.Interfaces;
+using shared.Data.Entities;
+
+namespace shared.Managers
 {
     public class WebsiteService : IWebsiteService
     {

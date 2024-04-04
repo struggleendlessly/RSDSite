@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using shared.Data.Entities;
 using shared.Emails;
-using web.Data;
 
 namespace web.Components.Account
 {
