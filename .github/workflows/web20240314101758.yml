@@ -40,6 +40,10 @@ jobs:
       with:
         name: webapp
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: Delete old artifacts
+      uses: actions/delete-artifact@v2
+      with:
+        name: webapp
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
