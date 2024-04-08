@@ -23,8 +23,8 @@ namespace shared.Managers
         // TODO: Send string to UI
         public async Task<string> DownloadFile(string blobContainerName, string blobName)
         {
-            _logger.LogDebug("blobContainerName -> " + blobContainerName);
-            _logger.LogDebug("blobName -> " + blobName);
+            _logger.LogInformation("blobContainerName -> " + blobContainerName);
+            _logger.LogInformation("blobName -> " + blobName);
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
 
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
