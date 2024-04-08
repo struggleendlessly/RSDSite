@@ -97,7 +97,7 @@ namespace rcl.Components.Pages
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
             await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName);
+            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(key);
         }
 
