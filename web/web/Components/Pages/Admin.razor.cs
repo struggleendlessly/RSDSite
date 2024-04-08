@@ -5,6 +5,9 @@ namespace web.Components.Pages
     public partial class Admin
     {
         [Parameter]
-        public string? SiteName { get; set; }
+        public string SiteName { get; set; }
+
+        [Parameter]
+        public string Lang { get; set; }
     }
 }

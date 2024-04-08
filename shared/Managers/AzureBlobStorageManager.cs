@@ -1,6 +1,5 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using shared.ConfigurationOptions;
@@ -11,20 +10,15 @@ namespace shared.Managers
     {
         private readonly string _connectionString;
 
-        private readonly ILogger<AzureBlobStorageManager> _logger;
-
-        public AzureBlobStorageManager(IOptions<AzureBlobStorageOptions> _azureBlobStorageOptions, ILogger<AzureBlobStorageManager> logger)
+        public AzureBlobStorageManager(IOptions<AzureBlobStorageOptions> _azureBlobStorageOptions)
         {
             _connectionString = _azureBlobStorageOptions.Value.ConnectionString;
-            _logger = logger;
         }
 
 
         // TODO: Send string to UI
         public async Task<string> DownloadFile(string blobContainerName, string blobName)
         {
-            _logger.LogInformation("blobContainerName -> " + blobContainerName);
-            _logger.LogInformation("blobName -> " + blobName);
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
 
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);

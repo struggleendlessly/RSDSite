@@ -45,10 +45,11 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
 
                 MemoryCache.Set(serviceItemsKey, serviceItems);
@@ -75,11 +76,12 @@ namespace rcl.Components.Shared
             }
 
             var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+            var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(serviceItemsKey);
         }
 
@@ -100,11 +102,12 @@ namespace rcl.Components.Shared
                     ServiceItems.Remove(serviceItem);
 
                     var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+                    var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
 
                     using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-                    await BlobStorageManager.UploadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath, stream);
+                    await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-                    var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+                    var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
                     MemoryCache.Remove(serviceItemsKey);
                 }
             }
@@ -133,11 +136,12 @@ namespace rcl.Components.Shared
             ServiceItems.Insert(index + 1, serviceItem);
 
             var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+            var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(serviceItemsKey);
         }
 
@@ -147,7 +151,7 @@ namespace rcl.Components.Shared
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"images/{Guid.NewGuid()}.png";
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
             using (MemoryStream stream = new MemoryStream(bytes))
             return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);

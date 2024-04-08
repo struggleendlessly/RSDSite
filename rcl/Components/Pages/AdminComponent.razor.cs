@@ -5,12 +5,12 @@ using Microsoft.Extensions.Caching.Memory;
 using shared;
 using shared.Models;
 using shared.Managers;
+using shared.Interfaces;
+using shared.Data.Entities;
 
 using System.Text;
 using Newtonsoft.Json;
 using System.Text.Json;
-using shared.Data.Entities;
-using shared.Interfaces;
 
 namespace rcl.Components.Pages
 {
@@ -28,10 +28,8 @@ namespace rcl.Components.Pages
         [Inject]
         IContactUsMessageService ContactUsMessageService { get; set; }
 
-        [Parameter]
-        public string? SiteName { get; set; }
-
-        public string SiteNameLower { get; set; } = string.Empty;
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -52,11 +50,11 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(key, out PageModel model))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AdminPageSettingsDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
 
                 MemoryCache.Set(key, model);
@@ -64,10 +62,11 @@ namespace rcl.Components.Pages
 
             Model = model;
 
-            var menuKey = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, SiteNameLower);
+            var menuKey = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(menuKey, out PageModel menuModel))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 menuModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
 
                 MemoryCache.Set(menuKey, menuModel);
@@ -75,7 +74,7 @@ namespace rcl.Components.Pages
 
             MenuModel = menuModel;
 
-            ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(SiteNameLower);
+            ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
         }
 
         [JSInvokable]
@@ -84,31 +83,33 @@ namespace rcl.Components.Pages
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"images/{Guid.NewGuid()}.png";
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
             using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
         }
 
         public async Task Save(PageModel model)
         {
             var jsonModel = JsonConvert.SerializeObject(model);
+            var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.AdminPageSettingsDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName);
             MemoryCache.Remove(key);
         }
 
         public async Task SaveMenu(PageModel model)
         {
             var jsonModel = JsonConvert.SerializeObject(model);
+            var blobName = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.AdminPageSettingsMenuDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var key = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(key);
         }
 

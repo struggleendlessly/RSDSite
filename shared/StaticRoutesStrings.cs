@@ -20,6 +20,7 @@ namespace shared
         public const string RegisterConfirmationPageRoute = "/{SiteName}/{Lang}/account/register-confirmation";
         public const string LogoutPageRoute = "/{SiteName}/{Lang}/account/logout";
         public const string AccountConfirmEmailPageRoute = "/{SiteName}/{Lang}/account/confirm-email";
+        public const string AccountForgotPasswordConfirmationPageRoute = "/{SiteName}/{Lang}/account/forgot-password-confirmation";
 
         public const string AboutUsPageUrl = "about-us";
         public const string ContactUsPageUrl = "contact-us";
@@ -34,5 +35,6 @@ namespace shared
         public const string RegisterConfirmationPageUrl = "account/register-confirmation";
         public const string LogoutPageUrl = "account/logout";
         public const string AccountConfirmEmailPageUrl = "account/confirm-email";
+        public const string AccountForgotPasswordConfirmationPageUrl = "account/forgot-password-confirmation";
     }
 }

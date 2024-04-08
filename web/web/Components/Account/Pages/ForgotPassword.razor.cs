@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using shared.Data.Entities;
 using shared.Interfaces;
+using shared;
 
 namespace web.Components.Account.Pages
 {
@@ -41,7 +42,7 @@ namespace web.Components.Account.Pages
             if (user is null || !(await UserManager.IsEmailConfirmedAsync(user)))
             {
                 // Don't reveal that the user does not exist or is not confirmed
-                RedirectManager.RedirectTo("Account/ForgotPasswordConfirmation");
+                RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
             }
 
             // For more information on how to enable account confirmation and password reset please
@@ -54,7 +55,12 @@ namespace web.Components.Account.Pages
 
             await EmailSender.SendPasswordResetLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-            RedirectManager.RedirectTo("Account/ForgotPasswordConfirmation");
+            RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
+        }
+
+        public string GetPageUrl(string url)
+        {
+            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
 
         private sealed class InputModel
