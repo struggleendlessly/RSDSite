@@ -5,12 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-web-4395aff3-f3c7-4d49-8d77-43a95bf85061</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/1903a202-b4c4-4fc1-a5e6-276b0eee3791/resourceGroups/rsdsite/providers/microsoft.insights/components/web20240314101758</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\rcl\rcl.csproj" />
     <ProjectReference Include="..\..\shared\shared.csproj" />
     <ProjectReference Include="..\web.Client\web.Client.csproj" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
