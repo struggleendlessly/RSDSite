@@ -30,10 +30,10 @@
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <div class="text-center mt-3">
-                <p>Don't have an account yet? <a class="link text-decoration-none" href="@(NavigationManager.GetUriWithQueryParameters(StaticRoutesStrings.RegisterPageRoute, new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Sign up here</a></p>
+                <p>Don't have an account yet? <a class="link text-decoration-none" href="@(NavigationManager.GetUriWithQueryParameters(GetPageUrl(StaticRoutesStrings.RegisterPageUrl), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Sign up here</a></p>
             </div>
             <div class="text-center">
-                <a class="link text-decoration-none" href="@(StaticRoutesStrings.ForgotPasswordPageRoute)">Forgot Password?</a>
+                <a class="link text-decoration-none" href="@GetPageUrl(StaticRoutesStrings.ForgotPasswordPageUrl)">Forgot Password?</a>
             </div>
         </EditForm>
     </div>

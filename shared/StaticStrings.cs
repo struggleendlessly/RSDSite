@@ -4,17 +4,17 @@ namespace shared
 {
     public static class StaticStrings
     {
-        public static string HomePageDataJsonFilePath = "data/home.json";
-        public static string HomePageTestimonialsListDataJsonFilePath = "data/testimonials-list.json";
-        public static string AboutUsPageDataJsonFilePath = "data/about-us.json";
-        public static string AboutUsPageTeamListDataJsonFilePath = "data/team-list.json";
-        public static string ContactUsPageDataJsonFilePath = "data/contact-us.json";
-        public static string ServicesPageDataJsonFilePath = "data/services.json";
-        public static string ServicesPageServicesListDataJsonFilePath = "data/services-list.json";
-        public static string ServicesPageFAQListDataJsonFilePath = "data/faq-list.json";
-        public static string AdminPageSettingsDataJsonFilePath = "data/settings.json";
-        public static string AdminPageSocialNetworksDataJsonFilePath = "data/social-networks.json";
-        public static string AdminPageSettingsMenuDataJsonFilePath = "data/settings-menu.json";
+        public static string HomePageDataJsonFilePath = "{0}/data/home.json";
+        public static string HomePageTestimonialsListDataJsonFilePath = "{0}/data/testimonials-list.json";
+        public static string AboutUsPageDataJsonFilePath = "{0}/data/about-us.json";
+        public static string AboutUsPageTeamListDataJsonFilePath = "{0}/data/team-list.json";
+        public static string ContactUsPageDataJsonFilePath = "{0}/data/contact-us.json";
+        public static string ServicesPageDataJsonFilePath = "{0}/data/services.json";
+        public static string ServicesPageServicesListDataJsonFilePath = "{0}/data/services-list.json";
+        public static string ServicesPageFAQListDataJsonFilePath = "{0}/data/faq-list.json";
+        public static string AdminPageSettingsDataJsonFilePath = "{0}/data/settings.json";
+        public static string AdminPageSocialNetworksDataJsonFilePath = "{0}/data/social-networks.json";
+        public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
 
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
@@ -85,19 +85,21 @@ namespace shared
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
 
         public static string DefaultSiteName = "main";
+        public static string DefaultLang = "en";
 
         /* Memory Cache */
 
-        public static string HomePageDataJsonMemoryCacheKey = "{0}_HomePageModel";
-        public static string HomePageTestimonialsListDataJsonMemoryCacheKey = "{0}_HomePageTestimonialsListModel";
-        public static string AboutUsPageDataJsonMemoryCacheKey = "{0}_AboutUsPageModel";
-        public static string ContactUsPageDataJsonMemoryCacheKey = "{0}_ContactUsPageModel";
-        public static string ContactUsPageTeamListDataJsonMemoryCacheKey = "{0}_ContactUsPageTeamListModel";
-        public static string ServicesPageDataJsonMemoryCacheKey = "{0}_ServicesPageModel";
-        public static string ServicesPageServicesListDataJsonMemoryCacheKey = "{0}_ServicesPageServicesListModel";
-        public static string ServicesPageFAQListDataJsonMemoryCacheKey = "{0}_ServicesPageFAQListModel";
-        public static string AdminPageDataJsonMemoryCacheKey = "{0}_AdminPageModel";
-        public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_AdminPageSocialNetworksModel";
-        public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_AdminPageSettingsMenuModel";
+        public static string HomePageDataJsonMemoryCacheKey = "{0}_{1}_HomePageModel";
+        public static string HomePageTestimonialsListDataJsonMemoryCacheKey = "{0}_{1}_HomePageTestimonialsListModel";
+        public static string AboutUsPageDataJsonMemoryCacheKey = "{0}_{1}_AboutUsPageModel";
+        public static string ContactUsPageDataJsonMemoryCacheKey = "{0}_{1}_ContactUsPageModel";
+        public static string AboutUsPageTeamListDataJsonMemoryCacheKey = "{0}_{1}_AboutUsPageTeamListModel";
+        public static string ServicesPageDataJsonMemoryCacheKey = "{0}_{1}_ServicesPageModel";
+        public static string ServicesPageServicesListDataJsonMemoryCacheKey = "{0}_{1}_ServicesPageServicesListModel";
+        public static string ServicesPageFAQListDataJsonMemoryCacheKey = "{0}_{1}_ServicesPageFAQListModel";
+        public static string AdminPageDataJsonMemoryCacheKey = "{0}_{1}_AdminPageModel";
+        public static string AdminPageSettingsDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsModel";
+        public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSocialNetworksModel";
+        public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
     }
 }

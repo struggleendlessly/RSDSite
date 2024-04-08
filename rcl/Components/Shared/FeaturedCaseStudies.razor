@@ -7,9 +7,10 @@
                 var url = ServiceItems[0].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
                 var title = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
                 var subtitle = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
+                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
 
                 <div class="col-md-6">
-                    <a href="@(SiteNameLower)/service/@url" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
+                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
                             <h4 class="fst-italic">@title</h4>
                             <p class="mb-0">@subtitle</p>
@@ -24,9 +25,10 @@
                 var url = ServiceItems[1].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
                 var title = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
                 var subtitle = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
+                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
 
                 <div class="col-md-6">
-                    <a href="@(SiteNameLower)/service/@url" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
+                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
                             <h4 class="fst-italic">@title</h4>
                             <p class="mb-0">@subtitle</p>
@@ -42,9 +44,10 @@
                 var url = ServiceItems[2].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
                 var title = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
                 var subtitle = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
+                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
 
                 <div class="col-md-6">
-                    <a href="@(SiteNameLower)/service/@url" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
+                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
                             <h4 class="fst-italic">@title</h4>
                             <p class="mb-0">@subtitle</p>
@@ -59,9 +62,10 @@
                 var url = ServiceItems[3].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
                 var title = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
                 var subtitle = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
+                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
 
                 <div class="col-md-6">
-                    <a href="@(SiteNameLower)/service/@url" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
+                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
                         <div class="p-4 mb-3 bg-light rounded">
                             <h4 class="fst-italic">@title</h4>
                             <p class="mb-0">@subtitle</p>

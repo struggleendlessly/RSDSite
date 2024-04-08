@@ -6,13 +6,12 @@ using Microsoft.Extensions.Caching.Memory;
 using shared;
 using shared.Models;
 using shared.Managers;
+using shared.Interfaces;
 using shared.Data.Entities;
 
 using System.Text;
 using Newtonsoft.Json;
 using System.Text.Json;
-using shared.Interfaces;
-using Microsoft.SqlServer.Server;
 
 namespace rcl.Components.Pages
 {
@@ -36,10 +35,8 @@ namespace rcl.Components.Pages
         [Inject]
         IContactUsMessageService ContactUsMessageService { get; set; }
 
-        [Parameter]
-        public string? SiteName { get; set; }
-
-        public string SiteNameLower { get; set; } = string.Empty;
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -62,11 +59,11 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
-            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(key, out PageModel model))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ContactUsPageDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.ContactUsPageDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
 
                 MemoryCache.Set(key, model);
@@ -81,31 +78,32 @@ namespace rcl.Components.Pages
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"images/{Guid.NewGuid()}.png";
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
             using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
         }
 
         public async Task Save(PageModel model)
         {
             var jsonModel = JsonConvert.SerializeObject(model);
+            var blobName = string.Format(StaticStrings.ContactUsPageDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ContactUsPageDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(key);
         }
 
         public async Task SubmitForm()
         {
-            if (SiteNameLower == StaticStrings.DefaultSiteName)
+            if (StateManager.SiteName == StaticStrings.DefaultSiteName)
             {
                 return;
             }
 
-            var currentWebsite = await WebsiteService.GetWebsiteByName(SiteNameLower);
+            var currentWebsite = await WebsiteService.GetWebsiteByName(StateManager.SiteName);
 
             var message = new ContactUsMessage
             {

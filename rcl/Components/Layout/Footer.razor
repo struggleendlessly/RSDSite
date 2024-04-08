@@ -1,7 +1,7 @@
 ﻿<footer class="container content-space-2 text-center">
     @if (Model.Data != null)
     {
-        <a class="d-inline-flex align-items-center mb-3" href="@StaticRoutesStrings.MainPageRoute" aria-label="Front">
+        <a class="d-inline-flex align-items-center mb-3" href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
             <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
         </a>
         <p class="fs-6">@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>

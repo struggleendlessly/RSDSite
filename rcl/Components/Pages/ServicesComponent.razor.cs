@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 using shared;
 using shared.Models;
 using shared.Managers;
+using shared.Interfaces;
 
 using System.Text;
 using Newtonsoft.Json;
@@ -23,10 +24,8 @@ namespace rcl.Components.Pages
         [Inject]
         protected IMemoryCache MemoryCache { get; set; }
 
-        [Parameter]
-        public string? SiteName { get; set; }
-
-        public string SiteNameLower { get; set; } = string.Empty;
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -45,11 +44,11 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
-            var key = string.Format(StaticStrings.ServicesPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(key, out PageModel model))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ServicesPageDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.ServicesPageDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
 
                 MemoryCache.Set(key, model);
@@ -57,10 +56,11 @@ namespace rcl.Components.Pages
 
             Model = model;
 
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, SiteNameLower);
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.ServicesPageServicesListDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
 
                 MemoryCache.Set(serviceItemsKey, serviceItems);
@@ -75,20 +75,21 @@ namespace rcl.Components.Pages
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"images/{Guid.NewGuid()}.png";
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
             using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
         }
 
         public async Task Save(PageModel model)
         {
             var jsonModel = JsonConvert.SerializeObject(model);
+            var blobName = string.Format(StaticStrings.ServicesPageDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var key = string.Format(StaticStrings.ServicesPageDataJsonMemoryCacheKey, SiteNameLower);
+            var key = string.Format(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(key);
         }
 

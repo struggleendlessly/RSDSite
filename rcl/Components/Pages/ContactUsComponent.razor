@@ -183,8 +183,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="contactUsFormDetails">Details</label>
-                                <InputText @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
-                                           placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4" required></InputText>
+                                <InputTextArea @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
+                                           placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4" required></InputTextArea>
                             </div>
                             <div class="d-grid">
                                 @if (Model.Data != null)

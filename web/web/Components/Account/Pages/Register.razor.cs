@@ -9,11 +9,18 @@ using Microsoft.AspNetCore.Components.Forms;
 
 using shared.Data.Entities;
 using shared.Interfaces;
+using shared;
 
 namespace web.Components.Account.Pages
 {
     public partial class Register
     {
+        [Parameter]
+        public string SiteName { get; set; }
+
+        [Parameter]
+        public string Lang { get; set; }
+
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
 
@@ -40,6 +47,9 @@ namespace web.Components.Account.Pages
 
         [Inject]
         IWebsiteService WebsiteService { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         private IEnumerable<IdentityError>? identityErrors;
 
@@ -111,7 +121,7 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(GetPageUrl(StaticRoutesStrings.AccountConfirmEmailPageUrl)).AbsoluteUri,
                 new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
             await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
@@ -119,7 +129,7 @@ namespace web.Components.Account.Pages
             if (UserManager.Options.SignIn.RequireConfirmedAccount)
             {
                 RedirectManager.RedirectTo(
-                    "Account/RegisterConfirmation",
+                    GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl),
                     new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
             }
 
@@ -147,6 +157,11 @@ namespace web.Components.Account.Pages
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
             return (IUserEmailStore<ApplicationUser>)UserStore;
+        }
+
+        public string GetPageUrl(string url)
+        {
+            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
 
         private sealed class InputModel

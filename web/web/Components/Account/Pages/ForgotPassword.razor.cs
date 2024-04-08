@@ -5,11 +5,18 @@ using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using shared.Data.Entities;
+using shared.Interfaces;
 
 namespace web.Components.Account.Pages
 {
     public partial class ForgotPassword
     {
+        [Parameter]
+        public string SiteName { get; set; }
+
+        [Parameter]
+        public string Lang {  get; set; }
+
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
 
@@ -21,6 +28,9 @@ namespace web.Components.Account.Pages
 
         [Inject]
         IdentityRedirectManager RedirectManager { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         [SupplyParameterFromForm]
         private InputModel Input { get; set; } = new();

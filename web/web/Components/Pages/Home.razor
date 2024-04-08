@@ -1,9 +1,9 @@
 ﻿@using rcl.Components.Pages
 @using shared
 
+@attribute [Route(StaticRoutesStrings.EmptyRoute)]
 @attribute [Route(StaticRoutesStrings.MainPageRoute)]
-@attribute [Route(StaticRoutesStrings.MainWebsitePageRoute)]
 
 @rendermode InteractiveServer
 
-<HomeComponent SiteName="@SiteName"></HomeComponent>
+<HomeComponent></HomeComponent>

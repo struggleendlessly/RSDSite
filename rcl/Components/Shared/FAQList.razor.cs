@@ -6,6 +6,7 @@ using shared;
 using shared.Models;
 using shared.Managers;
 using shared.Extensions;
+using shared.Interfaces;
 
 using System.Text;
 using Newtonsoft.Json;
@@ -24,10 +25,8 @@ namespace rcl.Components.Shared
         [Inject]
         protected IMemoryCache MemoryCache { get; set; }
 
-        [Parameter]
-        public string? SiteName { get; set; }
-
-        public string SiteNameLower { get; set; } = string.Empty;
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         [Parameter]
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
@@ -47,12 +46,11 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            SiteNameLower = string.IsNullOrWhiteSpace(SiteName) ? StaticStrings.DefaultSiteName : SiteName.ToLower();
-
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, SiteNameLower);
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(SiteNameLower, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
 
                 MemoryCache.Set(serviceItemsKey, serviceItems);
@@ -79,11 +77,12 @@ namespace rcl.Components.Shared
             }
 
             var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+            var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageFAQListDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, SiteNameLower);
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(serviceItemsKey);
         }
 
@@ -104,11 +103,12 @@ namespace rcl.Components.Shared
                     ServiceItems.Remove(serviceItem);
 
                     var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+                    var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
 
                     using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-                    await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageFAQListDataJsonFilePath, stream);
+                    await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-                    var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, SiteNameLower);
+                    var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
                     MemoryCache.Remove(serviceItemsKey);
                 }
             }
@@ -137,11 +137,12 @@ namespace rcl.Components.Shared
             ServiceItems.Insert(index + 1, serviceItem);
 
             var jsonModel = JsonConvert.SerializeObject(ServiceItems);
+            var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(SiteNameLower, StaticStrings.ServicesPageFAQListDataJsonFilePath, stream);
+            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
 
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, SiteNameLower);
+            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             MemoryCache.Remove(serviceItemsKey);
         }
 
@@ -151,10 +152,10 @@ namespace rcl.Components.Shared
             var content = image.GetRawText();
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"images/{Guid.NewGuid()}.png";
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
             using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(SiteNameLower, blobName, stream);
+            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
         }
 
         public void Dispose()

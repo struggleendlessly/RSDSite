@@ -59,19 +59,18 @@
     </div>
 
     <FeaturedCaseStudies 
-        SiteName="@SiteNameLower"
         ServiceItems="ServiceItems">
     </FeaturedCaseStudies>
 
     <div class=" p-3 pb-md-4 mx-auto text-center">
         @if (Model.Data != null)
         {
-            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
+           <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
-                <a class="btn btn-outline-primary" href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" target="_blank">
+                <a class="btn btn-outline-primary" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
                     @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
             </HTMLEditor>
@@ -79,9 +78,7 @@
     </div>
     <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
 
-    <TestimonialsList
-        SiteName="@SiteNameLower">
-    </TestimonialsList>
+    <TestimonialsList></TestimonialsList>
 
     <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
 </div>

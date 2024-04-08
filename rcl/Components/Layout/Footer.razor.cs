@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
+
 using shared;
-using shared.Interfaces;
-using shared.Managers;
 using shared.Models;
+using shared.Managers;
+using shared.Interfaces;
+
+using Newtonsoft.Json;
 
 namespace rcl.Components.Layout
 {
@@ -27,10 +29,11 @@ namespace rcl.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName);
+            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(key, out PageModel model))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, StaticStrings.AdminPageSettingsDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
 
                 MemoryCache.Set(key, model);
@@ -38,10 +41,11 @@ namespace rcl.Components.Layout
 
             Model = model;
 
-            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName);
+            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
             if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
             {
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);
+                var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
+                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
                 serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
 
                 MemoryCache.Set(serviceItemsKey, serviceItems);
@@ -51,6 +55,11 @@ namespace rcl.Components.Layout
             SocialNetworksModel.Data = SocialNetworks
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
+        }
+
+        public string GetPageUrl(string url)
+        {
+            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
     }
 }

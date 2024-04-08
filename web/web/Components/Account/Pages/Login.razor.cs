@@ -4,11 +4,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using shared.Data.Entities;
+using shared.Interfaces;
 
 namespace web.Components.Account.Pages
 {
     public partial class Login
     {
+        [Parameter]
+        public string SiteName { get; set; }
+
+        [Parameter]
+        public string Lang {  get; set; }
+
         [Inject]
         SignInManager<ApplicationUser> SignInManager { get; set; }
 
@@ -23,6 +30,9 @@ namespace web.Components.Account.Pages
 
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         private string? errorMessage;
 
@@ -57,7 +67,7 @@ namespace web.Components.Account.Pages
                     .Include(u => u.Website)
                     .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
-                RedirectManager.RedirectTo(ReturnUrl + user.Website.Name);
+                RedirectManager.RedirectTo(ReturnUrl + user.Website.Name + $"/{StateManager.Lang}");
             }
             else if (result.RequiresTwoFactor)
             {
@@ -74,6 +84,11 @@ namespace web.Components.Account.Pages
             {
                 errorMessage = "Error: Invalid login attempt.";
             }
+        }
+
+        public string GetPageUrl(string url)
+        {
+            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
 
         private sealed class InputModel

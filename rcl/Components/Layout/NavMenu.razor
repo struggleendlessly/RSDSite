@@ -2,7 +2,7 @@
 
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="@(SiteName + StaticRoutesStrings.MainPageRoute)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             @if (Model.Data != null)
             {
                 <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
@@ -13,44 +13,44 @@
             @if (MenuModel.Data != null)
             {
                 <li class="nav-item">
-                    <a href="@(SiteName + StaticRoutesStrings.MainPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.MainPageRoute))" aria-current="page">
+                    <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.EmptyRoute))" aria-current="page">
                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@(SiteName + StaticRoutesStrings.AboutUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.AboutUsPageRoute))">
+                    <a href="@GetPageUrl(StaticRoutesStrings.AboutUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.AboutUsPageUrl))">
                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@(SiteName + StaticRoutesStrings.ContactUsPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ContactUsPageRoute))">
+                    <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl))">
                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@(SiteName + StaticRoutesStrings.ServicesPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.ServicesPageRoute))">
+                    <a href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
                     </a>
                 </li>
             }
-            @if (SiteName == string.Empty || SiteName == StaticStrings.DefaultSiteName)
+            @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
             {
                 <li class="nav-item">
-                    <a href="@(SiteName + StaticRoutesStrings.PricingPageRoute)" class="nav-link @(HighlightActiveMenuItem(SiteName + StaticRoutesStrings.PricingPageRoute))">Pricing</a>
+                    <a href="@GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">Pricing</a>
                 </li>
             }
             <AuthorizeView>
                 <Authorized>
                     <li class="nav-item">
-                        <a href="@StaticRoutesStrings.LogoutPageRoute" class="btn btn-primary btn-transition">Logout</a>
+                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-primary btn-transition">Logout</a>
                     </li>
                     <li class="nav-item">
-                        <a href="@(SiteName + StaticRoutesStrings.AdminPageRoute)" class="btn btn-primary btn-transition">Admin</a>
+                        <a href="@GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-primary btn-transition">Admin</a>
                     </li>
                 </Authorized>
                 <NotAuthorized>
                     <li class="nav-item">
-                        <a href="@StaticRoutesStrings.LoginPageRoute" class="btn btn-primary btn-transition">Login</a>
+                        <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="btn btn-primary btn-transition">Login</a>
                     </li>
                 </NotAuthorized>
             </AuthorizeView>
