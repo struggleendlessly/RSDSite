@@ -146,45 +146,59 @@
                             <div class="row gx-3">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="contactUsFormFirstName">First name</label>
-                                        <InputText @bind-Value="Input.FirstName" type="text" class="form-control form-control-lg" 
-                                            id="contactUsFormFirstName" placeholder="First name" aria-label="First name" required />
-                                        <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
+                                        @if (Model.Data != null)
+                                        {
+                                            <label class="form-label" for="contactUsFormFirstName">@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldLabelKey]</label>
+                                            <InputText @bind-Value="Input.FirstName" type="text" class="form-control form-control-lg"
+                                                id="contactUsFormFirstName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldPlaceholderKey]" aria-label="First name" required />
+                                            <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
+                                        }
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="contactUsFormLastName">Last name</label>
-                                        <InputText @bind-Value="Input.LastName" type="text" class="form-control form-control-lg" 
-                                            id="contactUsFormLastName" placeholder="Last name" aria-label="Last name" required />
-                                        <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
+                                        @if (Model.Data != null)
+                                        {
+                                            <label class="form-label" for="contactUsFormLastName">@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldLabelKey]</label>
+                                            <InputText @bind-Value="Input.LastName" type="text" class="form-control form-control-lg"
+                                                id="contactUsFormLastName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldPlaceholderKey]" aria-label="Last name" required />
+                                            <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
+                                        }          
                                     </div>
                                 </div>
                             </div>
                             <div class="row gx-3">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="contactUsFormEmail">Email address</label>
-                                        <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg"
-                                            id="contactUsFormEmail" placeholder="email@site.com" aria-label="email@site.com" required />
-                                        <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+                                        @if (Model.Data != null)
+                                        {
+                                            <label class="form-label" for="contactUsFormEmail">@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldLabelKey]</label>
+                                            <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg"
+                                                id="contactUsFormEmail" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldPlaceholderKey]" aria-label="email@site.com" required />
+                                            <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+                                        }
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="contactUsFormPhone">
-                                            Phone <span class="form-label-secondary">(Optional)</span>
-                                        </label>
-                                        <InputText @bind-Value="Input.PhoneNumber" type="text" class="form-control form-control-lg"
-                                               id="contactUsFormPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" />
-                                        <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
+                                        @if (Model.Data != null)
+                                        {
+                                            <label class="form-label" for="contactUsFormPhone">@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldLabelKey]</label>
+                                            <InputText @bind-Value="Input.PhoneNumber" type="text" class="form-control form-control-lg"
+                                                id="contactUsFormPhone" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldPlaceholderKey]" aria-label="+x(xxx)xxx-xx-xx" />
+                                            <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
+                                        }
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="contactUsFormDetails">Details</label>
-                                <InputTextArea @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
-                                           placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4" required></InputTextArea>
+                                @if (Model.Data != null)
+                                {
+                                    <label class="form-label" for="contactUsFormDetails">@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldLabelKey]</label>
+                                    <InputTextArea @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
+                                        placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldPlaceholderKey]" aria-label="Tell us about your ..." rows="4" required>
+                                    </InputTextArea>
+                                }
                             </div>
                             <div class="d-grid">
                                 @if (Model.Data != null)

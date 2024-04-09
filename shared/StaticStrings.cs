@@ -4,6 +4,8 @@ namespace shared
 {
     public static class StaticStrings
     {
+        /* Paths to JSON files */
+
         public static string HomePageDataJsonFilePath = "{0}/data/home.json";
         public static string HomePageTestimonialsListDataJsonFilePath = "{0}/data/testimonials-list.json";
         public static string AboutUsPageDataJsonFilePath = "{0}/data/about-us.json";
@@ -16,12 +18,16 @@ namespace shared
         public static string AdminPageSocialNetworksDataJsonFilePath = "{0}/data/social-networks.json";
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
 
+        /* Home Keys */
+
         public static string HomePageDataTitleKey = "Title";
         public static string HomePageDataSubtitleKey = "Subtitle";
         public static string HomePageDataImageKey = "Image";
         public static string HomePageDataFeaturedCaseStudiesTitleKey = "FeaturedCaseStudiesTitle";
         public static string HomePageDataFeaturedCaseStudiesSubtitleKey = "FeaturedCaseStudiesSubtitle";
         public static string HomePageDataViewAllWorksButtonTextKey = "ViewAllWorksButtonText";
+
+        /* About Us Keys */
 
         public static string AboutUsPageDataTitleKey = "Title";
         public static string AboutUsPageDataSubtitleKey = "Subtitle";
@@ -40,11 +46,23 @@ namespace shared
         public static string AboutUsPageDataTeamTitleKey = "TeamTitle";
         public static string AboutUsPageDataTeamSubtitleKey = "TeamSubtitle";
 
+        /* Contact Us Keys */
+
         public static string ContactUsPageDataTitleKey = "Title";
         public static string ContactUsPageDataSubtitleKey = "Subtitle";
         public static string ContactUsPageDatMapCoordinatesKey = "MapCoordinates";
         public static string ContactUsPageDataMapMarkerTextKey = "MapMarkerText";
         public static string ContactUsPageDataFormTitleKey = "FormTitle";
+        public static string ContactUsPageDataFormFirstNameFieldLabelKey = "FormFirstNameFieldLabel";
+        public static string ContactUsPageDataFormFirstNameFieldPlaceholderKey = "FormFirstNameFieldPlaceholder";
+        public static string ContactUsPageDataFormLastNameFieldLabelKey = "FormLastNameFieldLabel";
+        public static string ContactUsPageDataFormLastNameFieldPlaceholderKey = "FormLastNameFieldPlaceholder";
+        public static string ContactUsPageDataFormEmailAddressFieldLabelKey = "FormEmailAddressFieldLabel";
+        public static string ContactUsPageDataFormEmailAddressFieldPlaceholderKey = "FormEmailAddressFieldPlaceholder";
+        public static string ContactUsPageDataFormPhoneFieldLabelKey = "FormPhoneFieldLabel";
+        public static string ContactUsPageDataFormPhoneFieldPlaceholderKey = "FormPhoneFieldPlaceholder";
+        public static string ContactUsPageDataFormDetailsFieldLabelKey = "FormDetailsFieldLabel";
+        public static string ContactUsPageDataFormDetailsFieldPlaceholderKey = "FormDetailsFieldPlaceholder";
         public static string ContactUsPageDataFormButtonTextKey = "FormButtonText";
         public static string ContactUsPageDataFormTextUnderButtonKey = "FormTextUnderButton";
         public static string ContactUsPageDataCallUsTitleKey = "CallUsTitle";
@@ -54,6 +72,8 @@ namespace shared
         public static string ContactUsPageDataAddressTitleKey = "AddressTitle";
         public static string ContactUsPageDataAddressSubtitleKey = "AddressSubtitle";
 
+        /* Services Keys */
+
         public static string ServicesPageDataTitleKey = "Title";
         public static string ServicesPageDataGalleryImage1Key = "GalleryImage1";
         public static string ServicesPageDataGalleryImage2Key = "GalleryImage2";
@@ -61,7 +81,7 @@ namespace shared
         public static string ServicesPageDataServicesListSubtitleKey = "ServicesListSubtitle";
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
-        /* Admin */
+        /* Admin Keys */
         public static string AdminPageDataLogoKey = "Logo";
         public static string AdminPageDataFooterTextKey = "FooterText";
         public static string AdminPageDataServicesButtonTextKey = "ServicesButtonText";
@@ -71,6 +91,8 @@ namespace shared
         public static string AdminPageSettingsMenuDataContactUsKey = "ContactUsPageText";
         public static string AdminPageSettingsMenuDataServicesKey = "ServicesPageText";
 
+        /* Key Endings */
+
         public static string AvatarKeyEnding = "_Avatar";
         public static string TitleKeyEnding = "_Title";
         public static string SubtitleKeyEnding = "_Subtitle";
@@ -78,16 +100,22 @@ namespace shared
         public static string TextKeyEnding = "_Text";
         public static string ImageKeyEnding = "_Image";
 
+        /* Editor Content Formats */
+
         public static string EditorContentFormatText = "text";
         public static string EditorContentFormatRaw = "raw";
         public static string EditorContentFormatHtml = "html";
 
+        /* Other */
+
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
+
+        /* Default Values */
 
         public static string DefaultSiteName = "main";
         public static string DefaultLang = "en";
 
-        /* Memory Cache */
+        /* Memory Cache Keys */
 
         public static string HomePageDataJsonMemoryCacheKey = "{0}_{1}_HomePageModel";
         public static string HomePageTestimonialsListDataJsonMemoryCacheKey = "{0}_{1}_HomePageTestimonialsListModel";
