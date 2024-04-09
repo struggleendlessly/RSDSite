@@ -82,9 +82,15 @@ namespace shared
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
         /* Admin Keys */
+        public static string AdminPageDataLogoLabelKey = "LogoLabel";
         public static string AdminPageDataLogoKey = "Logo";
+        public static string AdminPageDataFooterTextLabelKey = "FooterTextLabel";
         public static string AdminPageDataFooterTextKey = "FooterText";
+        public static string AdminPageDataFooterSocialNetworksLabelKey = "FooterSocialNetworksLabel";
+        public static string AdminPageDataHeaderMenuLabelKey = "HeaderMenuLabel";
+        public static string AdminPageDataServicesButtonTextLabelKey = "ServicesButtonTextLabel";    
         public static string AdminPageDataServicesButtonTextKey = "ServicesButtonText";
+        public static string AdminPageDataContactUsMessagesLabelKey = "ContactUsMessagesLabel";
 
         public static string AdminPageSettingsMenuDataMainKey = "MainPageText";
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";

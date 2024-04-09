@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-6">
             <div class="col-12">
-                <h5>Logo</h5>
                 @if (Model.Data != null)
                 {
+                    <h5>@Model.Data[StaticStrings.AdminPageDataLogoLabelKey]</h5>
                     <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
                                  Model="Model"
                                  FuncSave="Save"
@@ -15,9 +15,9 @@
             </div>
             <hr />
             <div class="col-12 mt-5">
-                <h5>Footer text</h5>
                 @if (Model.Data != null)
                 {
+                    <h5>@Model.Data[StaticStrings.AdminPageDataFooterTextLabelKey]</h5>
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
                                 Model="Model"
                                 FuncSave="Save"
@@ -28,12 +28,18 @@
             </div>
             <hr />
             <div class="col-12 mt-5">
-                <h5>Footer social networks</h5>
-                <SocialNetworks></SocialNetworks>
+                @if (Model.Data != null)
+                {
+                    <h5>@Model.Data[StaticStrings.AdminPageDataFooterSocialNetworksLabelKey]</h5>
+                    <SocialNetworks></SocialNetworks>
+                }
             </div>
             <hr />
             <div class="col-12 mt-5">
-                <h5>Header menu</h5>
+                @if (Model.Data != null)
+                {
+                    <h5>@Model.Data[StaticStrings.AdminPageDataHeaderMenuLabelKey]</h5>
+                }
                 @if (MenuModel.Data != null)
                 {
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
@@ -64,9 +70,9 @@
             </div>
             <hr />
             <div class="col-12 mt-5">
-                <h5>Services button text</h5>
                 @if (Model.Data != null)
                 {
+                    <h5>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextLabelKey]</h5>
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
                                 Model="Model"
                                 FuncSave="Save"
@@ -77,7 +83,10 @@
             </div>
         </div>
         <div class="col-6">
-            <h5>Contact Us Messages</h5>
+            @if (Model.Data != null)
+            {
+                <h5>@Model.Data[StaticStrings.AdminPageDataContactUsMessagesLabelKey]</h5>
+            }
             @if (ContactUsMessages.Any())
             {
                 <div class="accordion" id="accordionContactUsMessages">
