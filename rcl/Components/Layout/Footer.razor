@@ -5,6 +5,18 @@
             <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
         </a>
         <p class="fs-6">@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
+        <ul class="list-inline pb-md-2">
+            <li class="list-inline-item">
+                <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">
+                    <img src="_content/rcl/assets/icons/american-flag-32.png" />
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultUaLang)">
+                    <img src="_content/rcl/assets/icons/ukrainian-flag-32.png" />
+                </a>
+            </li>
+        </ul>
     }
     @if (SocialNetworksModel.Data != null && SocialNetworksModel.Data.Count > 0)
     {

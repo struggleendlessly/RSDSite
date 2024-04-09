@@ -99,7 +99,7 @@ namespace rcl.Components.Layout
             string[] parts = baseRelativePath.Split('/');
 
             StateManager.SiteName = parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultSiteName;
-            StateManager.Lang = parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultLang;
+            StateManager.Lang = parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
         }
 
         public void Dispose()

@@ -21,6 +21,9 @@ namespace rcl.Components.Layout
         [Inject]
         AzureBlobStorageManager BlobStorageManager { get; set; }
 
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public List<ServiceItem> SocialNetworks { get; set; } = new List<ServiceItem>();
@@ -60,6 +63,24 @@ namespace rcl.Components.Layout
         public string GetPageUrl(string url)
         {
             return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
+        }
+
+        public string GetCurrentUrlWithLanguage(string language)
+        {
+            var currentUrl = NavigationManager.Uri;
+            var siteAndLang = $"{StateManager.SiteName}/{StateManager.Lang}";
+            var newSiteAndLang = $"{StateManager.SiteName}/{language}";
+
+            if (currentUrl.Contains(siteAndLang))
+            {
+                currentUrl = currentUrl.Replace(siteAndLang, newSiteAndLang);
+            }
+            else
+            {
+                currentUrl += newSiteAndLang;
+            }
+
+            return currentUrl;
         }
     }
 }

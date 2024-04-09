@@ -16,7 +16,7 @@ namespace shared.Managers
         public string Lang
         {
             get => _lang;
-            set => _lang = string.IsNullOrWhiteSpace(value) ? StaticStrings.DefaultLang : value.ToLower();
+            set => _lang = string.IsNullOrWhiteSpace(value) ? StaticStrings.DefaultEnLang : value.ToLower();
         }
     }
 }

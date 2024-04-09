@@ -119,7 +119,8 @@ namespace shared
         /* Default Values */
 
         public static string DefaultSiteName = "main";
-        public static string DefaultLang = "en";
+        public static string DefaultEnLang = "en";
+        public static string DefaultUaLang = "ua";
 
         /* Memory Cache Keys */
 
