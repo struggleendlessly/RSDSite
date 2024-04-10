@@ -20,7 +20,7 @@
     }
     @if (SocialNetworksModel.Data != null && SocialNetworksModel.Data.Count > 0)
     {
-        <ul class="list-inline pb-md-4">
+        <ul class="list-inline pb-md-2">
             @for (int i = 0; i < SocialNetworks.Count; i++)
             {
                 var serviceKeyIndex = i * 3;
@@ -36,4 +36,9 @@
             }
         </ul>
     }
+    <AuthorizeView>
+        <NotAuthorized>
+            <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">Login</a>
+        </NotAuthorized>
+    </AuthorizeView>
 </footer>

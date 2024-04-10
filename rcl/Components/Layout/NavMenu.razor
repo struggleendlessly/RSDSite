@@ -42,17 +42,12 @@
             <AuthorizeView>
                 <Authorized>
                     <li class="nav-item">
-                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-primary btn-transition">Logout</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="@GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-primary btn-transition">Admin</a>
                     </li>
-                </Authorized>
-                <NotAuthorized>
-                    <li class="nav-item">
-                        <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="btn btn-primary btn-transition">Login</a>
+                    <li class="nav-item ms-2">
+                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-primary btn-transition">Logout</a>
                     </li>
-                </NotAuthorized>
+                </Authorized>
             </AuthorizeView>
         </ul>
     </header>
