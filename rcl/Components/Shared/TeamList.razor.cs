@@ -28,6 +28,9 @@ namespace rcl.Components.Shared
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         public PageModel Model { get; set; } = new PageModel();
@@ -45,17 +48,7 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var serviceItemsKey = string.Format(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
-            {
-                var blobName = string.Format(StaticStrings.AboutUsPageTeamListDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
-
-                MemoryCache.Set(serviceItemsKey, serviceItems);
-            }
-
-            ServiceItems = serviceItems;
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)

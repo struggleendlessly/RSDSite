@@ -28,6 +28,9 @@ namespace rcl.Components.Shared
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         [Parameter]
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
@@ -58,17 +61,7 @@ namespace rcl.Components.Shared
                 .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
 
-            var settingsKey = string.Format(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(settingsKey, out PageModel settingsModel))
-            {
-                var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                settingsModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(settingsKey, settingsModel);
-            }
-
-            SettingsModel = settingsModel;
+            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
         }
 
         public string GetPageUrl(string url)

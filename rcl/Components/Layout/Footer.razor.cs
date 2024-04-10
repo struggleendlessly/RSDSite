@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 
 using shared;
 using shared.Models;
-using shared.Managers;
 using shared.Interfaces;
-
-using Newtonsoft.Json;
 
 namespace rcl.Components.Layout
 {
@@ -16,13 +12,10 @@ namespace rcl.Components.Layout
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IMemoryCache MemoryCache { get; set; }
-
-        [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
-
-        [Inject]
         NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        IPageDataService PageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -32,29 +25,9 @@ namespace rcl.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(key, out PageModel model))
-            {
-                var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(key, model);
-            }
-
-            Model = model;
-
-            var serviceItemsKey = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
-            {
-                var blobName = string.Format(StaticStrings.AdminPageSocialNetworksDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
-
-                MemoryCache.Set(serviceItemsKey, serviceItems);
-            }
-
-            SocialNetworks = serviceItems;
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            SocialNetworks = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);
+            
             SocialNetworksModel.Data = SocialNetworks
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();

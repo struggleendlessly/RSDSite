@@ -27,6 +27,9 @@ namespace rcl.Components.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         DotNetObjectReference<AboutUsComponent>? dotNetHelper { get; set; }
@@ -42,17 +45,7 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var key = string.Format(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(key, out PageModel model))
-            {
-                var blobName = string.Format(StaticStrings.AboutUsPageDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(key, model);
-            }
-
-            Model = model;
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
         }
 
         [JSInvokable]

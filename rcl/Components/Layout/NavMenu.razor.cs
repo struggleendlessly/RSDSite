@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Components.Routing;
+
 using shared;
-using shared.Interfaces;
-using shared.Managers;
 using shared.Models;
+using shared.Interfaces;
 
 namespace rcl.Components.Layout
 {
@@ -20,10 +19,10 @@ namespace rcl.Components.Layout
         protected IMemoryCache MemoryCache { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
+        IStateManager StateManager { get; set; }
 
         [Inject]
-        IStateManager StateManager { get; set; }
+        IPageDataService PageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -36,29 +35,8 @@ namespace rcl.Components.Layout
 
             NavigationManager.LocationChanged += OnLocationChanged;
 
-            var key = string.Format(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(key, out PageModel model))
-            {
-                var blobName = string.Format(StaticStrings.AdminPageSettingsDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(key, model);
-            }
-
-            Model = model;
-
-            var menuKey = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(menuKey, out PageModel menuModel))
-            {
-                var blobName = string.Format(StaticStrings.AdminPageSettingsMenuDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                menuModel = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(menuKey, menuModel);
-            }
-
-            MenuModel = menuModel;
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
         }
 
         public string GetPageUrl(string url)

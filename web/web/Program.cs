@@ -41,6 +41,7 @@ builder.Services.AddTransient<ISiteCreator, SiteCreator>();
 builder.Services.AddSingleton<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
+builder.Services.AddScoped<IPageDataService, PageDataService>();
 
 builder.Services.AddAuthentication(options =>
     {
