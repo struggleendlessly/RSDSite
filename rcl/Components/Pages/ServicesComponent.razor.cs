@@ -7,8 +7,6 @@ using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
 
-using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
@@ -65,14 +63,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            var jsonModel = JsonConvert.SerializeObject(model);
-            var blobName = string.Format(StaticStrings.ServicesPageDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var key = string.Format(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(key);
+            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
         }
 
         public void Dispose()

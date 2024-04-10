@@ -2,15 +2,12 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.JSInterop;
 
-using Newtonsoft.Json;
-
 using shared;
 using shared.Emails;
 using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
-using System.Text;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
@@ -84,14 +81,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            var jsonModel = JsonConvert.SerializeObject(model);
-            var blobName = string.Format(StaticStrings.HomePageDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var key = string.Format(StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(key);
+            await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
         }
 
         public string GetPageUrl(string url)

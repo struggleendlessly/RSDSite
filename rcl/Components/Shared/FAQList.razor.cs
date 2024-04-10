@@ -8,8 +8,6 @@ using shared.Managers;
 using shared.Extensions;
 using shared.Interfaces;
 
-using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Shared
@@ -68,14 +66,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-            var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(serviceItemsKey);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
         }
 
         public async Task Remove(string key)
@@ -94,14 +85,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-                    var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
-
-                    using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-                    await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-                    var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-                    MemoryCache.Remove(serviceItemsKey);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
                 }
             }
         }
@@ -128,14 +112,7 @@ namespace rcl.Components.Shared
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
             ServiceItems.Insert(index + 1, serviceItem);
 
-            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-            var blobName = string.Format(StaticStrings.ServicesPageFAQListDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(serviceItemsKey);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
         }
 
         [JSInvokable]

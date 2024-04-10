@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using Newtonsoft.Json;
 using shared.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -30,6 +31,18 @@ namespace shared.Managers
             }
 
             return model;
+        }
+
+        public async Task SaveDataAsync<T>(T model, string memoryCacheKey, string filePath)
+        {
+            var jsonModel = JsonConvert.SerializeObject(model);
+            var blobName = string.Format(filePath, _stateManager.Lang);
+
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
+            await _blobStorageManager.UploadFile(_stateManager.SiteName, blobName, stream);
+
+            var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
+            _memoryCache.Remove(key);
         }
     }
 }

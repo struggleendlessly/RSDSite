@@ -5,5 +5,6 @@ namespace shared.Interfaces
     public interface IPageDataService
     {
         Task<T> GetDataAsync<T>(string memoryCacheKey, string filePath);
+        Task SaveDataAsync<T>(T model, string memoryCacheKey, string filePath);
     }
 }
