@@ -64,10 +64,12 @@ namespace web.Components.Account.Pages
                 Logger.LogInformation("User logged in.");
 
                 var user = await UserManager.Users
-                    .Include(u => u.Website)
+                    .Include(u => u.Websites)
                     .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
-                RedirectManager.RedirectTo(ReturnUrl + user.Website.Name + $"/{StateManager.Lang}");
+                var website = user.Websites.FirstOrDefault();
+
+                RedirectManager.RedirectTo(ReturnUrl + website.Name + $"/{StateManager.Lang}");
             }
             else if (result.RequiresTwoFactor)
             {

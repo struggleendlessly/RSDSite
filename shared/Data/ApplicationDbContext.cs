@@ -13,14 +13,14 @@ namespace shared.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(u => u.WebsiteId)
+            modelBuilder.Entity<Website>()
+                .Property(u => u.UserId)
                 .IsRequired();
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOne(u => u.Website)
-                .WithMany(w => w.Users)
-                .HasForeignKey(u => u.WebsiteId)
+            modelBuilder.Entity<Website>()
+                .HasOne(w => w.User)
+                .WithMany(w => w.Websites)
+                .HasForeignKey(u => u.UserId)
                 .IsRequired();
 
             modelBuilder.Entity<ContactUsMessage>()

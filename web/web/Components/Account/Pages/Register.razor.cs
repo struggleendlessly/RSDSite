@@ -78,13 +78,7 @@ namespace web.Components.Account.Pages
                 return;
             }
 
-            var newWebsite = new Website { Name = Input.SiteName };
-            await WebsiteService.CreateWebsite(newWebsite);
-
-            Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
-
             var user = CreateUser();
-            user.WebsiteId = newWebsite.Id;
             await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             var emailStore = GetEmailStore();
             await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -99,7 +93,12 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
-            await SiteCreator.CreateSite(newWebsite.Name);
+            var newWebsite = new Website { UserId = user.Id, Name = Input.SiteName };
+            await WebsiteService.CreateWebsite(newWebsite);
+
+            Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
+
+            //await SiteCreator.CreateSite(newWebsite.Name);
 
             // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
             // string userEmail = Input.Email;
