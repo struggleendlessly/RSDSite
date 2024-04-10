@@ -98,7 +98,10 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
 
-            //await SiteCreator.CreateSite(newWebsite.Name);
+            await SiteCreator.CreateSite(newWebsite.Name);
+
+            StateManager.UserEmail = user.Email;
+            StateManager.UserSites.Add(newWebsite.Name);
 
             // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
             // string userEmail = Input.Email;

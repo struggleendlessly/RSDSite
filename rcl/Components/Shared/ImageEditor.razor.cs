@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 using shared;
 using shared.Models;
+using shared.Interfaces;
 
 namespace rcl.Components.Shared
 {
@@ -25,6 +26,9 @@ namespace rcl.Components.Shared
 
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         private async Task SaveChangesAsync()
         {

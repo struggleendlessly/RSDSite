@@ -1,9 +1,12 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <div class="input-group input-group-sm mb-2">
-            <input type="file" class="form-control" id="@EditorId" aria-describedby="inputGroupFileAddon" aria-label="Save" accept="image/*" />
-            <button class="btn btn-success" type="button" id="inputGroupFileAddon" @onclick="SaveChangesAsync">Save</button>
-        </div>
+        @if (StateManager.CanEditSite())
+        {
+            <div class="input-group input-group-sm mb-2">
+                <input type="file" class="form-control" id="@EditorId" aria-describedby="inputGroupFileAddon" aria-label="Save" accept="image/*" />
+                <button class="btn btn-success" type="button" id="inputGroupFileAddon" @onclick="SaveChangesAsync">Save</button>
+            </div>
+        }
     </Authorized>
 </AuthorizeView>
 

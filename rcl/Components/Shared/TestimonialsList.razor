@@ -13,10 +13,13 @@
 
                 <AuthorizeView>
                     <Authorized>
-                        <div class="mb-2 mt-2">
-                            <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
-                            <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
-                        </div>
+                        @if (StateManager.CanEditSite())
+                        {
+                            <div class="mb-2 mt-2">
+                                <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                                <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                            </div>
+                        }
                     </Authorized>
                 </AuthorizeView>
                 <div class="col-lg-4 mx-auto text-center">

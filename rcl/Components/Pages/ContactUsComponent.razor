@@ -29,20 +29,23 @@
             {
                 <AuthorizeView>
                     <Authorized>
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
-                            <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
-                        </HTMLEditor>
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
-                            <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
-                        </HTMLEditor>
+                        @if (StateManager.CanEditSite())
+                        {
+                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
+                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                        Model="Model"
+                                        FuncSave="Save"
+                                        Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
+                                <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
+                            </HTMLEditor>
+                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
+                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                        Model="Model"
+                                        FuncSave="Save"
+                                        Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
+                                <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
+                            </HTMLEditor>
+                        }
                     </Authorized>
                 </AuthorizeView>
             }

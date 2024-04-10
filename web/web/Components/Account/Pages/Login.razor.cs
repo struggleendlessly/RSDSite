@@ -67,9 +67,10 @@ namespace web.Components.Account.Pages
                     .Include(u => u.Websites)
                     .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
-                var website = user.Websites.FirstOrDefault();
+                StateManager.UserEmail = user.Email;
+                StateManager.UserSites = user.Websites.Select(w => w.Name).ToList();
 
-                RedirectManager.RedirectTo(ReturnUrl + website.Name + $"/{StateManager.Lang}");
+                RedirectManager.RedirectTo(ReturnUrl + StateManager.UserSites.FirstOrDefault() + $"/{StateManager.Lang}");
             }
             else if (result.RequiresTwoFactor)
             {
