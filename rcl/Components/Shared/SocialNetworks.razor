@@ -9,10 +9,13 @@
                 var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
                 var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
 
-                <div class="mb-2 mt-2">
-                    <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
-                    <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
-                </div>
+                @if (StateManager.CanEditSite())
+                {
+                    <div class="mb-2 mt-2">
+                        <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                        <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                    </div>
+                }
                 <div class="list-inline-item">
                     <button class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle">
                         <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAdminSocialNetworksImageId + serviceKeyIndex)"

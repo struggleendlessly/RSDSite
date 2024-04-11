@@ -33,7 +33,11 @@ namespace web.Components.Account.Pages
             var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             if (SignInManager.IsSignedIn(authstate.User))
             {
-                await SignInManager.SignOutAsync();           
+                await SignInManager.SignOutAsync();
+
+                StateManager.UserId = null;
+                StateManager.UserEmail = null;
+                StateManager.UserSites.Clear();
             }
             else
             {

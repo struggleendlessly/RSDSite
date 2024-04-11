@@ -15,14 +15,12 @@ namespace shared.Managers
         {
             siteName = siteName.ToLower();
 
-            string sourceContainerName = "example";
-            string sourceFolderPath = "data";
+            string sourceContainerName = StaticStrings.DefaultContainerName;
             string destinationContainerName = siteName;
-            string destinationFolderPath = "data";
 
             try
             {
-                await _azureBlobStorageManager.CopyFilesFromFolderAsync(sourceContainerName, sourceFolderPath, destinationContainerName, destinationFolderPath);
+                await _azureBlobStorageManager.CopyAllFilesAsync(sourceContainerName, destinationContainerName);
             }
             catch (Exception e)
             {

@@ -27,6 +27,7 @@ builder.Services.AddMemoryCache();
 
 builder.Services.Configure<AzureEmailCommunicationOptions>(builder.Configuration.GetSection(AzureEmailCommunicationOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
+builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSection(MainSiteOwnersOptions.SectionName));
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<EmailService>();
@@ -41,6 +42,7 @@ builder.Services.AddTransient<ISiteCreator, SiteCreator>();
 builder.Services.AddSingleton<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
+builder.Services.AddScoped<IPageDataService, PageDataService>();
 
 builder.Services.AddAuthentication(options =>
     {

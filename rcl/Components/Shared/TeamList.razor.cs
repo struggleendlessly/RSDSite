@@ -8,8 +8,6 @@ using shared.Managers;
 using shared.Extensions;
 using shared.Interfaces;
 
-using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Shared
@@ -28,6 +26,9 @@ namespace rcl.Components.Shared
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         public PageModel Model { get; set; } = new PageModel();
@@ -45,17 +46,7 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var serviceItemsKey = string.Format(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
-            {
-                var blobName = string.Format(StaticStrings.AboutUsPageTeamListDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
-
-                MemoryCache.Set(serviceItemsKey, serviceItems);
-            }
-
-            ServiceItems = serviceItems;
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -75,14 +66,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-            var blobName = string.Format(StaticStrings.AboutUsPageTeamListDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var serviceItemsKey = string.Format(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(serviceItemsKey);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
         }
 
         public async Task Remove(string key)
@@ -105,14 +89,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-                    var blobName = string.Format(StaticStrings.AboutUsPageTeamListDataJsonFilePath, StateManager.Lang);
-
-                    using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-                    await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-                    var serviceItemsKey = string.Format(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-                    MemoryCache.Remove(serviceItemsKey);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
                 }
             }
         }
@@ -145,14 +122,7 @@ namespace rcl.Components.Shared
             var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
             ServiceItems.Insert(index + 1, serviceItem);
 
-            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-            var blobName = string.Format(StaticStrings.AboutUsPageTeamListDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var serviceItemsKey = string.Format(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(serviceItemsKey);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
         }
 
         [JSInvokable]

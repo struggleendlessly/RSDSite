@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div class="container">
     <div class="row">
         <div class="col-6">
             <div class="col-12">
@@ -110,6 +112,28 @@
                     }
                 </div>
             }
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <h5>Create site</h5>
+                    <EditForm Model="CreateSiteModel" method="post" OnValidSubmit="CreateSite" FormName="createSite">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger" role="alert" />
+                        @if (!string.IsNullOrWhiteSpace(CreateSiteMessage))
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @CreateSiteMessage
+                            </div>
+                        }
+                        <div class="form-floating">
+                            <label for="createSiteName">Name</label>
+                            <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
+                            <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
+                        </div>
+                        <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">Create</button>
+                    </EditForm>
+                </div>
+            </div>
         </div>
     </div>
 </div>

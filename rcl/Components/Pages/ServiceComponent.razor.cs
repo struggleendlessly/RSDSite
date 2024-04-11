@@ -7,8 +7,6 @@ using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
 
-using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
@@ -30,6 +28,9 @@ namespace rcl.Components.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
@@ -47,17 +48,7 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
-            {
-                var blobName = string.Format(StaticStrings.ServicesPageServicesListDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
-
-                MemoryCache.Set(serviceItemsKey, serviceItems);
-            }
-
-            ServiceItems = serviceItems;
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
                 .Where(x => x.Key == Key)
@@ -77,14 +68,7 @@ namespace rcl.Components.Pages
                 }
             }
 
-            var jsonModel = JsonConvert.SerializeObject(ServiceItems);
-            var blobName = string.Format(StaticStrings.ServicesPageServicesListDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(serviceItemsKey);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
         }
 
         [JSInvokable]

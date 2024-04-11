@@ -2,15 +2,12 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.JSInterop;
 
-using Newtonsoft.Json;
-
 using shared;
 using shared.Emails;
 using shared.Interfaces;
 using shared.Managers;
 using shared.Models;
 
-using System.Text;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
@@ -33,6 +30,9 @@ namespace rcl.Components.Pages
 
         [Inject]
         IStateManager StateManager { get; set; }
+
+        [Inject]
+        IPageDataService PageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -61,26 +61,9 @@ namespace rcl.Components.Pages
 
             //await EmailService.Send(emailModel);
 
-            var key = string.Format(StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(key, out PageModel model))
-            {
-                var blobName = string.Format(StaticStrings.HomePageDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
 
-                MemoryCache.Set(key, model);
-            }
-
-            Model = model;
-
-            var serviceItemsKey = string.Format(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(serviceItemsKey, out List<ServiceItem> serviceItems))
-            {
-                var blobName = string.Format(StaticStrings.ServicesPageServicesListDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                serviceItems = JsonConvert.DeserializeObject<List<ServiceItem>>(jsonContent);
-            }
-
+            var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             ServiceItems = serviceItems.Take(4).ToList();
         }
 
@@ -98,14 +81,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            var jsonModel = JsonConvert.SerializeObject(model);
-            var blobName = string.Format(StaticStrings.HomePageDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var key = string.Format(StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(key);
+            await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
         }
 
         public string GetPageUrl(string url)

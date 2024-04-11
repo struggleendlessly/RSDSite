@@ -17,20 +17,23 @@
                     <div class="card-body">
                         <AuthorizeView>
                             <Authorized>
-                                <div class="mb-2">
-                                    <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
-                                    <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
-                                </div>
-                                <div class="mb-2">
-                                    <HTMLEditor 
-                                        EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
-                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                        Model="ModelUrls"
-                                        FuncSave="SaveUrl"
-                                        Key="@serviceUrlKey">
-                                            <p>Page url: @(ModelUrls.Data[serviceUrlKey])</p>
-                                    </HTMLEditor>
-                                </div>
+                                @if (StateManager.CanEditSite())
+                                {
+                                    <div class="mb-2">
+                                        <button class="badge bg-success" @onclick="() => Add(serviceKey)">+</button>
+                                        <button class="badge bg-danger" @onclick="() => Remove(serviceKey)">-</button>
+                                    </div>
+                                    <div class="mb-2">
+                                        <HTMLEditor 
+                                            EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                            Model="ModelUrls"
+                                            FuncSave="SaveUrl"
+                                            Key="@serviceUrlKey">
+                                                <p>Page url: @(ModelUrls.Data[serviceUrlKey])</p>
+                                        </HTMLEditor>
+                                    </div>
+                                }
                                 <HTMLEditor 
                                     EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKeyIndex)"
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"

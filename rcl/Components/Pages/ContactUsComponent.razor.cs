@@ -9,8 +9,6 @@ using shared.Managers;
 using shared.Interfaces;
 using shared.Data.Entities;
 
-using System.Text;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace rcl.Components.Pages
@@ -38,6 +36,9 @@ namespace rcl.Components.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         [SupplyParameterFromForm]
@@ -59,17 +60,7 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            if (!MemoryCache.TryGetValue(key, out PageModel model))
-            {
-                var blobName = string.Format(StaticStrings.ContactUsPageDataJsonFilePath, StateManager.Lang);
-                var jsonContent = await BlobStorageManager.DownloadFile(StateManager.SiteName, blobName);
-                model = JsonConvert.DeserializeObject<PageModel>(jsonContent);
-
-                MemoryCache.Set(key, model);
-            }
-
-            Model = model;
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
         }
 
         [JSInvokable]
@@ -86,14 +77,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            var jsonModel = JsonConvert.SerializeObject(model);
-            var blobName = string.Format(StaticStrings.ContactUsPageDataJsonFilePath, StateManager.Lang);
-
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-
-            var key = string.Format(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang);
-            MemoryCache.Remove(key);
+            await PageDataService.SaveDataAsync(model, StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
         }
 
         public async Task SubmitForm()

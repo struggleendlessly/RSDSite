@@ -41,9 +41,12 @@
             }
             <AuthorizeView>
                 <Authorized>
-                    <li class="nav-item">
-                        <a href="@GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-primary btn-transition">Admin</a>
-                    </li>
+                    @if (StateManager.CanEditSite())
+                    {
+                        <li class="nav-item">
+                            <a href="@GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-primary btn-transition">Admin</a>
+                        </li>
+                    }
                     <li class="nav-item ms-2">
                         <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-primary btn-transition">Logout</a>
                     </li>
