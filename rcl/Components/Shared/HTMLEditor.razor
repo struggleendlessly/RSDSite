@@ -1,15 +1,21 @@
 ﻿<AuthorizeView>
     <Authorized>
-        @if (StateManager.CanEditSite())
+        @if (StateManager.CanEditSite() && SettingsModel.Data != null)
         {
             @if (!EditMode)
             {
-                <button class="badge bg-primary mb-2" @onclick="ToggleEditModeAsync">Edit</button>
+                <button class="badge bg-primary mb-2" @onclick="ToggleEditModeAsync">
+                    @SettingsModel.Data[StaticStrings.AdminPageDataHTMLEditorEditButtonTextKey]
+                </button>
             }
             else
             {
-                <button class="badge bg-success mb-2" @onclick="SaveChangesAsync">Save</button>
-                <button class="badge bg-secondary mb-2" @onclick="CancelEditAsync">Cancel</button>
+                <button class="badge bg-success mb-2" @onclick="SaveChangesAsync">
+                    @SettingsModel.Data[StaticStrings.AdminPageDataHTMLEditorSaveButtonTextKey]
+                </button>
+                <button class="badge bg-secondary mb-2" @onclick="CancelEditAsync">
+                    @SettingsModel.Data[StaticStrings.AdminPageDataHTMLEditorCancelButtonTextKey]
+                </button>
             }
         }   
     </Authorized>

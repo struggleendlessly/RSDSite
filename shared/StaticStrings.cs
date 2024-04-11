@@ -91,6 +91,10 @@ namespace shared
         public static string AdminPageDataServicesButtonTextLabelKey = "ServicesButtonTextLabel";    
         public static string AdminPageDataServicesButtonTextKey = "ServicesButtonText";
         public static string AdminPageDataContactUsMessagesLabelKey = "ContactUsMessagesLabel";
+        public static string AdminPageDataHTMLEditorEditButtonTextKey = "HTMLEditorEditButtonText";
+        public static string AdminPageDataHTMLEditorSaveButtonTextKey = "HTMLEditorSaveButtonText";
+        public static string AdminPageDataHTMLEditorCancelButtonTextKey = "HTMLEditorCancelButtonText";
+        public static string AdminPageDataImageEditorSaveButtonTextKey = "ImageEditorSaveButtonText";
 
         public static string AdminPageSettingsMenuDataMainKey = "MainPageText";
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";

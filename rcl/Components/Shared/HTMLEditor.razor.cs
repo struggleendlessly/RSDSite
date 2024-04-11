@@ -39,8 +39,14 @@ namespace rcl.Components.Shared
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
+        public PageModel SettingsModel { get; set; } = new PageModel();
+
         protected override async Task OnInitializedAsync()
         {
+            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             Value = Model.Data[Key];
         }
 
