@@ -1,17 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+using shared.DTO.Stripe;
+
+using System.Text.Json;
+
+var json = File.ReadAllText("H:\\Untitled-1.json");
+var data = JsonSerializer.Deserialize<CustomerSubscriptionUpdated.Rootobject>(json);
 Console.WriteLine("Hello, World!");
 
-static int[] reverse(int[] p)
-{
-
-    for (int i = 0; i <= p.Length/2; i++)
-    {
-        var f = p[i];
-        var l = p[p.Length-1-i];
-
-        p[i] = l; 
-        p[p.Length - 1 - i] = f;
-    }
-
-    return p;
-}
