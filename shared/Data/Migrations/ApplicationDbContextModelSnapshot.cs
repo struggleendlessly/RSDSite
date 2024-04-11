@@ -259,69 +259,6 @@ namespace shared.Data.Migrations
                     b.ToTable("ContactUsMessages");
                 });
 
-            modelBuilder.Entity("shared.Data.Entities.Subscription", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("SubscriptionModuleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WebsiteIdId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionModuleId");
-
-                    b.HasIndex("WebsiteIdId");
-
-                    b.ToTable("Subscriptions");
-                });
-
-            modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("StripeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StripeId");
-
-                    b.ToTable("SubscriptionModules");
-                });
-
-            modelBuilder.Entity("shared.Data.Entities.SubscriptionStripeInfo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubscriptionStripeInfos");
-                });
-
             modelBuilder.Entity("shared.Data.Entities.Website", b =>
                 {
                     b.Property<Guid>("Id")
@@ -403,36 +340,6 @@ namespace shared.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Website");
-                });
-
-            modelBuilder.Entity("shared.Data.Entities.Subscription", b =>
-                {
-                    b.HasOne("shared.Data.Entities.SubscriptionModule", "SubscriptionModule")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionModuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("shared.Data.Entities.Website", "WebsiteId")
-                        .WithMany()
-                        .HasForeignKey("WebsiteIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SubscriptionModule");
-
-                    b.Navigation("WebsiteId");
-                });
-
-            modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
-                {
-                    b.HasOne("shared.Data.Entities.SubscriptionStripeInfo", "Stripe")
-                        .WithMany()
-                        .HasForeignKey("StripeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Stripe");
                 });
 
             modelBuilder.Entity("shared.Data.Entities.Website", b =>

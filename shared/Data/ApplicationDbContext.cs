@@ -8,9 +8,9 @@ namespace shared.Data
     {
         public DbSet<Website> Websites { get; set; }
         public DbSet<ContactUsMessage> ContactUsMessages { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<SubscriptionModule> SubscriptionModules { get; set; }
-        public DbSet<SubscriptionStripeInfo> SubscriptionStripeInfos { get; set; }
+        //public DbSet<Subscription> Subscriptions { get; set; }
+        //public DbSet<SubscriptionModule> SubscriptionModules { get; set; }
+        //public DbSet<SubscriptionStripeInfo> SubscriptionStripeInfos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
