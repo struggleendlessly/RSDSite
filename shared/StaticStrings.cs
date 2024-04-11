@@ -125,6 +125,7 @@ namespace shared
         public static string DefaultSiteName = "main";
         public static string DefaultEnLang = "en";
         public static string DefaultUaLang = "ua";
+        public static string DefaultContainerName = "example";
 
         /* Memory Cache Keys */
 
