@@ -112,9 +112,15 @@
                     }
                 </div>
             }
+            else
+            {
+                <div class="alert alert-light text-center" role="alert">
+                    There are no messages...
+                </div>
+            }
             <hr />
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 mb-3">
                     <h5>Create site</h5>
                     <EditForm Model="CreateSiteModel" method="post" OnValidSubmit="CreateSite" FormName="createSite">
                         <DataAnnotationsValidator />
@@ -132,6 +138,17 @@
                         </div>
                         <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">Create</button>
                     </EditForm>
+                </div>
+                <hr />
+                <div class="col-12">
+                    <h5>Change site</h5>
+                    <select @bind="SelectedSite" class="form-select" aria-label="Change site">
+                        @foreach (var site in StateManager.UserSites)
+                        {
+                            <option value="@site">@site</option>
+                        }
+                    </select>
+                    <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">Change</button>
                 </div>
             </div>
         </div>

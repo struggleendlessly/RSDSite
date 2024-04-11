@@ -44,6 +44,9 @@ namespace rcl.Components.Pages
         [Inject]
         ISiteCreator SiteCreator { get; set; }
 
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
@@ -54,6 +57,8 @@ namespace rcl.Components.Pages
 
         [SupplyParameterFromForm]
         public CreateSiteModel CreateSiteModel { get; set; } = new();
+
+        public string SelectedSite { get; set; }
 
         public string CreateSiteMessage { get; set; } = string.Empty;
 
@@ -125,6 +130,12 @@ namespace rcl.Components.Pages
 
             CreateSiteMessage = "The site was successfully created";
             CreateSiteModel = new CreateSiteModel();
+        }
+
+        public void ChangeSite()
+        {
+            var newUrl = NavigationManager.Uri.Replace(StateManager.SiteName, SelectedSite);
+            NavigationManager.NavigateTo(newUrl);
         }
 
         public void Dispose()
