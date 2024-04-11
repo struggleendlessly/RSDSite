@@ -100,6 +100,7 @@ namespace web.Components.Account.Pages
 
             await SiteCreator.CreateSite(newWebsite.Name);
 
+            StateManager.UserId = user.Id;
             StateManager.UserEmail = user.Email;
             StateManager.UserSites.Add(newWebsite.Name);
 

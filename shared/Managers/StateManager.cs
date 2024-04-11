@@ -29,6 +29,7 @@ namespace shared.Managers
             set => _lang = string.IsNullOrWhiteSpace(value) ? StaticStrings.DefaultEnLang : value.ToLower();
         }
 
+        public string UserId { get; set; }
         public string UserEmail { get; set; }
         public List<string> UserSites { get; set; } = new List<string>();
 

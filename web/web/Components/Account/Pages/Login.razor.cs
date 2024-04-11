@@ -67,6 +67,7 @@ namespace web.Components.Account.Pages
                     .Include(u => u.Websites)
                     .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
+                StateManager.UserId = user.Id;
                 StateManager.UserEmail = user.Email;
                 StateManager.UserSites = user.Websites.Select(w => w.Name).ToList();
 

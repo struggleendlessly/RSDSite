@@ -35,6 +35,7 @@ namespace web.Components.Account.Pages
             {
                 await SignInManager.SignOutAsync();
 
+                StateManager.UserId = null;
                 StateManager.UserEmail = null;
                 StateManager.UserSites.Clear();
             }
