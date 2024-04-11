@@ -28,6 +28,7 @@ namespace web.Endpoints
                         var data = JsonSerializer.Deserialize<CheckoutSessionCompleted.Rootobject>(stripeEvent.Data.ToJson());
                         var siteName = data._object.custom_fields[0].text.value;
                         var email = data._object.customer_details.email;
+                        var customer = data._object.customer; // customer stripe id field
 
                         //TODO: Create user with email and website with sitename
                     }
