@@ -26,5 +26,18 @@ namespace shared.Managers
             await _dbContext.SaveChangesAsync();
             return website;
         }
+
+        public async Task<Website> UpdateAsync(Website website)
+        {
+            var existingWebsite = await _dbContext.Websites.FindAsync(website.Id);
+            if (existingWebsite != null)
+            {
+                existingWebsite.Name = website.Name;
+
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return existingWebsite;
+        }
     }
 }

@@ -83,6 +83,22 @@ namespace shared.Managers
             }
         }
 
+        public async Task RenameContainerAsync(string sourceContainerName, string destinationContainerName)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
+
+            BlobContainerClient sourceContainerClient = blobServiceClient.GetBlobContainerClient(sourceContainerName);
+            BlobContainerClient destinationContainerClient = blobServiceClient.GetBlobContainerClient(destinationContainerName);
+
+            await destinationContainerClient.CreateIfNotExistsAsync();
+
+            await EnsureContainerPublicAccessAsync(destinationContainerClient);
+
+            await CopyAllFilesAsync(sourceContainerName, destinationContainerName);
+
+            await sourceContainerClient.DeleteAsync();
+        }
+
         private async Task EnsureContainerPublicAccessAsync(BlobContainerClient containerClient)
         {
             BlobContainerAccessPolicy accessPolicy = await containerClient.GetAccessPolicyAsync();

@@ -58,11 +58,18 @@ namespace rcl.Components.Pages
         [SupplyParameterFromForm]
         public CreateSiteModel CreateSiteModel { get; set; } = new();
 
+        [SupplyParameterFromForm]
+        public RenameSiteModel RenameSiteModel { get; set; } = new();
+
         public string SelectedSite { get; set; }
 
         public string CreateSiteMessage { get; set; } = string.Empty;
 
-        private IEnumerable<IdentityError>? identityErrors;
+        public string RenameSiteMessage { get; set; } = string.Empty;
+
+        private IEnumerable<IdentityError>? CreateSiteIdentityErrors;
+
+        private IEnumerable<IdentityError>? RenameSiteIdentityErrors;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -107,7 +114,7 @@ namespace rcl.Components.Pages
             var existingWebsite = await WebsiteService.GetWebsiteByName(CreateSiteModel.Name);
             if (existingWebsite != null)
             {
-                identityErrors = new List<IdentityError>
+                CreateSiteIdentityErrors = new List<IdentityError>
                 {
                     new IdentityError
                     {
@@ -136,6 +143,42 @@ namespace rcl.Components.Pages
         {
             var newUrl = NavigationManager.Uri.Replace(StateManager.SiteName, SelectedSite);
             NavigationManager.NavigateTo(newUrl);
+        }
+
+        public async Task RenameSite(EditContext editContext)
+        {
+            var existingWebsite = await WebsiteService.GetWebsiteByName(RenameSiteModel.NewName);
+            if (existingWebsite != null)
+            {
+                RenameSiteIdentityErrors = new List<IdentityError>
+                {
+                    new IdentityError
+                    {
+                        Code = "DuplicateSiteName",
+                        Description = "The site name is already taken. Please choose a different one."
+                    }
+                };
+
+                return;
+            }
+
+            var website = await WebsiteService.GetWebsiteByName(RenameSiteModel.SiteName);
+            website.Name = RenameSiteModel.NewName;
+
+            var result = await WebsiteService.UpdateAsync(website);
+
+            for (int i = 0; i < StateManager.UserSites.Count; i++)
+            {
+                if (StateManager.UserSites[i] == RenameSiteModel.SiteName)
+                {
+                    StateManager.UserSites[i] = RenameSiteModel.NewName;
+                }
+            }
+
+            await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
+
+            RenameSiteMessage = "The site was successfully renamed";
+            RenameSiteModel = new RenameSiteModel();
         }
 
         public void Dispose()
