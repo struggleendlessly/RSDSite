@@ -15,12 +15,15 @@ namespace shared
         public const string AdminPageRoute = "/{SiteName}/{Lang}/admin";
 
         public const string LoginPageRoute = "/{SiteName}/{Lang}/account/login";
-        public const string ForgotPasswordPageRoute = "/{SiteName}/{Lang}/account/forgot-password";
         public const string RegisterPageRoute = "/{SiteName}/{Lang}/account/register";
         public const string RegisterConfirmationPageRoute = "/{SiteName}/{Lang}/account/register-confirmation";
         public const string LogoutPageRoute = "/{SiteName}/{Lang}/account/logout";
         public const string AccountConfirmEmailPageRoute = "/{SiteName}/{Lang}/account/confirm-email";
+        public const string ForgotPasswordPageRoute = "/{SiteName}/{Lang}/account/forgot-password";
         public const string AccountForgotPasswordConfirmationPageRoute = "/{SiteName}/{Lang}/account/forgot-password-confirmation";
+        public const string AccountResetPasswordPageRoute = "/{SiteName}/{Lang}/account/reset-password";
+        public const string AccountResetPasswordConfirmationPageRoute = "/{SiteName}/{Lang}/account/reset-password-confirmation";
+        public const string AccountInvalidPasswordResetPageRoute = "/{SiteName}/{Lang}/account/invalid-password-reset";
 
         public const string AboutUsPageUrl = "about-us";
         public const string ContactUsPageUrl = "contact-us";
@@ -29,12 +32,15 @@ namespace shared
         public const string PricingPageUrl = "pricing";
         public const string AdminPageUrl = "admin";
 
-        public const string LoginPageUrl = "account/login";
-        public const string ForgotPasswordPageUrl = "account/forgot-password";
+        public const string LoginPageUrl = "account/login";    
         public const string RegisterPageUrl = "account/register";
         public const string RegisterConfirmationPageUrl = "account/register-confirmation";
         public const string LogoutPageUrl = "account/logout";
         public const string AccountConfirmEmailPageUrl = "account/confirm-email";
         public const string AccountForgotPasswordConfirmationPageUrl = "account/forgot-password-confirmation";
+        public const string ForgotPasswordPageUrl = "account/forgot-password";
+        public const string AccountResetPasswordPageUrl = "account/reset-password";
+        public const string AccountResetPasswordConfirmationPageUrl = "account/reset-password-confirmation";
+        public const string AccountInvalidPasswordResetPageUrl = "account/invalid-password-reset";
     }
 }

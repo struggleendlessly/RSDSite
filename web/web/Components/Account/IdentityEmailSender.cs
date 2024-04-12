@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using shared.Data.Entities;
+
 using shared.Emails;
+using shared.Data.Entities;
 
 namespace web.Components.Account
 {
@@ -28,14 +29,30 @@ namespace web.Components.Account
             await _emailService.Send(emailModel);
         }
 
-        public Task SendPasswordResetCodeAsync(ApplicationUser user, string email, string resetCode)
+        public async Task SendPasswordResetCodeAsync(ApplicationUser user, string email, string resetCode)
         {
-            return Task.CompletedTask;
+            var emailModel = new EmailModel
+            {
+                Subject = "Reset your password",
+                HtmlContent = $"Please reset your password using the following code: {resetCode}",
+                Recipient = email,
+                Sender = _emailSenders.DoNotReply
+            };
+
+            await _emailService.Send(emailModel);
         }
 
-        public Task SendPasswordResetLinkAsync(ApplicationUser user, string email, string resetLink)
+        public async Task SendPasswordResetLinkAsync(ApplicationUser user, string email, string resetLink)
         {
-            return Task.CompletedTask;
+            var emailModel = new EmailModel
+            {
+                Subject = "Reset your password",
+                HtmlContent = $"Please reset your password by <a href='{resetLink}'>clicking here</a>.",
+                Recipient = email,
+                Sender = _emailSenders.DoNotReply
+            };
+
+            await _emailService.Send(emailModel);
         }
     }
 }
