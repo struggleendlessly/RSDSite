@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
+
 using System.Text;
-using Microsoft.AspNetCore.Identity;
-using shared.Data.Entities;
-using shared.Interfaces;
+using System.Text.Encodings.Web;
+using System.ComponentModel.DataAnnotations;
+
 using shared;
+using shared.Interfaces;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {
@@ -50,7 +52,7 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GeneratePasswordResetTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri("Account/ResetPassword").AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(GetPageUrl(StaticRoutesStrings.AccountResetPasswordPageUrl)).AbsoluteUri,
                 new Dictionary<string, object?> { ["code"] = code });
 
             await EmailSender.SendPasswordResetLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
