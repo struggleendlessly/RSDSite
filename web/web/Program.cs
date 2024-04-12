@@ -70,7 +70,7 @@ builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsigh
 var app = builder.Build();
 
 app.MapFileEndpoint();
-app.MapStripeEndpoint();
+app.MapStripeEndpoint(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
