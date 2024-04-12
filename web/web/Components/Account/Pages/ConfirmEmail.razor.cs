@@ -8,6 +8,12 @@ namespace web.Components.Account.Pages
 {
     public partial class ConfirmEmail
     {
+        [Parameter]
+        public string SiteName { get; set; }
+
+        [Parameter]
+        public string Lang { get; set; }
+
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
 
