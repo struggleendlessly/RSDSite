@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace shared.DTO.Stripe
 {
     public class CheckoutSessionCompleted
     {
-
         public class Rootobject
         {
             [JsonPropertyName("object")]
             public Object _object { get; set; }
         }
-
         public class Object
         {
             public string id { get; set; }
@@ -165,8 +158,5 @@ namespace shared.DTO.Stripe
             public object minimum_length { get; set; }
             public string value { get; set; }
         }
-
-
-
     }
 }

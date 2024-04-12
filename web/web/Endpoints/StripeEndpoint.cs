@@ -23,23 +23,42 @@ namespace web.Endpoints
 
                     System.IO.File.WriteAllText(@$"H:\jsonString-{stripeEvent.Type}.json", jsonString);
                     // Handle the event
+                    if (stripeEvent.Type == Events.CustomerCreated)
+                    {
+                        var data = JsonSerializer.Deserialize<CustomerCreated.Rootobject>(stripeEvent.Data.ToJson());
+                        var email = data._object.email;
+                        var customer = data._object.id; // customer stripe id field
+
+                    }
                     if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                     {
                         var data = JsonSerializer.Deserialize<CheckoutSessionCompleted.Rootobject>(stripeEvent.Data.ToJson());
                         var siteName = data._object.custom_fields[0].text.value;
                         var email = data._object.customer_details.email;
                         var customer = data._object.customer; // customer stripe id field
-
-                        //TODO: Create user with email and website with sitename
+                        var subscription = data._object.subscription; // subscription stripe id field
+                        //TODO: if subscription exists - do nothing, else:
+                        //Create user with email
+                        //create website with sitename
+                        //send a welcome email with password reset link
+                        //send email confirmation link
                     }
-                    else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
+                    else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted &&
+                             stripeEvent.Type == Events.CustomerSubscriptionPaused)
                     {
+
                     }
                     else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                     {
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionUpdated.Rootobject>(stripeEvent.Data.ToJson());
+                        var subscriptionUpdatedType = data._object._object;// = "subscription";
+
+                        if (subscriptionUpdatedType.Equals("subscriptions"))
+                        {
+                            //TODO: 
+                            //update subscription status in db
+                        }
                     }
-                    // ... handle other event types
                     else
                     {
                         Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
