@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace shared.ConfigurationOptions
+﻿namespace shared.ConfigurationOptions
 {
     public class MainSiteOwnersOptions
     {

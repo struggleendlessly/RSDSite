@@ -12,6 +12,8 @@ using Stripe;
 using System.Text;
 using System.Text.Json;
 using System.Text.Encodings.Web;
+using Microsoft.Extensions.Options;
+using shared.ConfigurationOptions;
 
 namespace web.Endpoints
 {
@@ -19,12 +21,14 @@ namespace web.Endpoints
     {
         private static IServiceProvider _serviceProvider;
 
-        const string endpointSecret = "whsec_64abfe30f633f312ea2dd4b41ab7a135f762e1a5d3294e296b5c5831259aad4d";
-        public static void MapStripeEndpoint(this IEndpointRouteBuilder endpoints, IServiceProvider serviceProvider)
+        public static void MapStripeEndpoint(
+            this IEndpointRouteBuilder endpoints, 
+            IServiceProvider serviceProvider
+            )
         {
             _serviceProvider = serviceProvider;
 
-            endpoints.MapPost("/webhook/stripe", async (HttpContext context) =>
+            endpoints.MapPost("/webhook/stripe", async (HttpContext context, IOptions<StripeOptions> stripeOptions) =>
             {
                 using var scope = _serviceProvider.CreateScope();
 
@@ -32,7 +36,7 @@ namespace web.Endpoints
                 try
                 {
                     var stripeEvent = EventUtility.ConstructEvent(json,
-                        context.Request.Headers["Stripe-Signature"], endpointSecret);
+                        context.Request.Headers["Stripe-Signature"], stripeOptions.Value.WebhookSigningSecret);
 
                     string jsonString = JsonSerializer.Serialize(stripeEvent);
 

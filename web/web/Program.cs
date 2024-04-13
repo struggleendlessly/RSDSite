@@ -1,19 +1,17 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 
 using shared.ConfigurationOptions;
+using shared.Data;
+using shared.Data.Entities;
 using shared.Emails;
 using shared.Interfaces;
 using shared.Managers;
 
 using web.Components;
 using web.Components.Account;
-using shared.Data.Entities;
 using web.Endpoints;
-using shared.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +26,7 @@ builder.Services.AddMemoryCache();
 builder.Services.Configure<AzureEmailCommunicationOptions>(builder.Configuration.GetSection(AzureEmailCommunicationOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
 builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSection(MainSiteOwnersOptions.SectionName));
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<EmailService>();
