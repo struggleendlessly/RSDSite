@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
+
+using shared.ConfigurationOptions;
 
 namespace web.Components.Pages
 {
@@ -9,5 +12,13 @@ namespace web.Components.Pages
 
         [Parameter]
         public string Lang { get; set; }
+
+        [Inject]
+        public IOptions<StripeOptions> stripeOptions { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+
+        }
     }
 }
