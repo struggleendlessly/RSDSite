@@ -72,6 +72,13 @@ namespace web.Endpoints
                         var websiteService = scope.ServiceProvider.GetRequiredService<IWebsiteService>();
                         var siteCreator = scope.ServiceProvider.GetRequiredService<ISiteCreator>();
 
+                        var existingWebsite = await websiteService.GetWebsiteByName(siteName);
+                        if (existingWebsite != null)
+                        {
+                            var dateTimeNow = DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss");
+                            siteName = $"{siteName}-{dateTimeNow}";
+                        }
+
                         var website = new Website { UserId = user.Id, Name = siteName };
 
                         await websiteService.CreateWebsite(website);
