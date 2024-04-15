@@ -154,19 +154,19 @@ namespace web.Endpoints
                             }
                         }
                     }
-                }
-                    else
-                {
-                    Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
-                }
 
-                return Results.Ok();
-            }
+                    else
+                    {
+                        Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
+                    }
+
+                    return Results.Ok();
+                }
                 catch (StripeException e)
                 {
-                return Results.BadRequest();
-            }
-        });
+                    return Results.BadRequest();
+                }
+            });
         }
-}
+    }
 }
