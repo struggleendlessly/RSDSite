@@ -10,6 +10,6 @@ namespace shared.Data.Entities
         public string StripeSubscriptionId { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public SubscriptionModule SubscriptionModule { get; set; } = new SubscriptionModule();
+        public SubscriptionModule? SubscriptionModule { get; set; } = new SubscriptionModule();
     }
 }
