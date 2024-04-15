@@ -137,36 +137,36 @@ namespace web.Endpoints
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionUpdated.Rootobject>(stripeEvent.Data.ToJson());
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
                         var stripeSubscriptionId = data._object.id;
-                        var stripeSubscribedProductIds = data._object.items.data;
+                        var stripeSubscribedProductId = data._object.plan.product;
 
                         if (subscriptionUpdatedType.Equals("subscriptions"))
                         {
-                            foreach (var item in stripeSubscribedProductIds)
+                            var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
+
+                            if (subscription is not null)
                             {
-                                var stripeSubscribedProductId = item.plan.product;
-                                var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
-                                
-                                if (subscription is not null)
-                                {
-                                    var module = dbContext.SubscriptionStripeInfos.FirstOrDefault(m => m.Code == stripeSubscribedProductId).SubscriptionModules.FirstOrDefault();
-                                    subscription.SubscriptionModule = module;
-                                    dbContext.SaveChanges();
-                                }
+                                var isSubscriptionActive = data._object.status == "active" || data._object.status == "trialing";
+                                var module = dbContext.SubscriptionStripeInfos.FirstOrDefault(m => m.Code == stripeSubscribedProductId).SubscriptionModules.FirstOrDefault();
+                                subscription.SubscriptionModule = module;
+                                subscription.IsActive = isSubscriptionActive;
+
+                                dbContext.SaveChanges();
                             }
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
-                    }
-
-                    return Results.Ok();
                 }
+                    else
+                {
+                    Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
+                }
+
+                return Results.Ok();
+            }
                 catch (StripeException e)
                 {
-                    return Results.BadRequest();
-                }
-            });
+                return Results.BadRequest();
+            }
+        });
         }
-    }
+}
 }
