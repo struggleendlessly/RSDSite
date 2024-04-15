@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Options;
 using shared.ConfigurationOptions;
+using shared.Data;
 
 namespace web.Endpoints
 {
@@ -22,13 +23,18 @@ namespace web.Endpoints
         private static IServiceProvider _serviceProvider;
 
         public static void MapStripeEndpoint(
-            this IEndpointRouteBuilder endpoints, 
+            this IEndpointRouteBuilder endpoints,
             IServiceProvider serviceProvider
             )
         {
             _serviceProvider = serviceProvider;
 
-            endpoints.MapPost("/webhook/stripe", async (HttpContext context, IOptions<StripeOptions> stripeOptions) =>
+            endpoints.MapPost("/webhook/stripe",
+                async (
+                    HttpContext context,
+                    IOptions<StripeOptions> stripeOptions,
+                    ApplicationDbContext dbContext
+                    ) =>
             {
                 using var scope = _serviceProvider.CreateScope();
 
@@ -54,8 +60,24 @@ namespace web.Endpoints
                         var data = JsonSerializer.Deserialize<CheckoutSessionCompleted.Rootobject>(stripeEvent.Data.ToJson());
                         var siteName = data._object.custom_fields[0].text.value;
                         var email = data._object.customer_details.email;
-                        var customer = data._object.customer; // customer stripe id field
-                        var subscription = data._object.subscription; // subscription stripe id field
+                        var stripeCustomer = data._object.customer; // customer stripe id field
+                        var stripeSubscription = data._object.subscription; // subscription stripe id field
+
+                        var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscription);
+                        if (subscription is not null)
+                        {
+                            return Results.Ok();
+                        }
+
+                        subscription = new shared.Data.Entities.Subscription()
+                        {
+                            StripeCustomerId = stripeCustomer,
+                            StripeSubscriptionId = stripeSubscription,
+                            IsActive = true
+                        };
+
+                        dbContext.Subscriptions.Add(subscription);
+                        dbContext.SaveChanges();
 
                         var stateManager = scope.ServiceProvider.GetRequiredService<IStateManager>();
                         var emailSender = scope.ServiceProvider.GetRequiredService<IEmailSender<ApplicationUser>>();
@@ -101,21 +123,36 @@ namespace web.Endpoints
                         var emailConfirmationCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{emailConfirmationPageUrl}?userId={user.Id}&code={emailConfirmationCode}";
 
                         await emailSender.SendConfirmationLinkAsync(user, email, HtmlEncoder.Default.Encode(emailConfirmationCallbackUrl));
+
+
                     }
-                    else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted &&
+                    else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted ||
                              stripeEvent.Type == Events.CustomerSubscriptionPaused)
                     {
 
                     }
-                    else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
+                    else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated ||
+                             stripeEvent.Type == Events.CustomerSubscriptionCreated)
                     {
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionUpdated.Rootobject>(stripeEvent.Data.ToJson());
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
+                        var stripeSubscriptionId = data._object.id;
+                        var stripeSubscribedProductIds = data._object.items.data;
 
                         if (subscriptionUpdatedType.Equals("subscriptions"))
                         {
-                            //TODO: 
-                            //update subscription status in db
+                            foreach (var item in stripeSubscribedProductIds)
+                            {
+                                var stripeSubscribedProductId = item.plan.product;
+                                var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
+                                
+                                if (subscription is not null)
+                                {
+                                    var module = dbContext.SubscriptionStripeInfos.FirstOrDefault(m => m.Code == stripeSubscribedProductId).SubscriptionModules.FirstOrDefault();
+                                    subscription.SubscriptionModule = module;
+                                    dbContext.SaveChanges();
+                                }
+                            }
                         }
                     }
                     else
