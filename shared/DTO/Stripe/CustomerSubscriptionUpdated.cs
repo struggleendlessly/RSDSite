@@ -14,6 +14,8 @@ namespace shared.DTO.Stripe
         public class Object
         {
             public string id { get; set; }
+
+            [JsonPropertyName("object")]
             public string _object { get; set; }
             public object application { get; set; }
             public object application_fee_percent { get; set; }
@@ -122,7 +124,7 @@ namespace shared.DTO.Stripe
             public bool active { get; set; }
             public object aggregate_usage { get; set; }
             public int amount { get; set; }
-            public string amount_decimal { get; set; }
+            public decimal amount_decimal { get; set; }
             public string billing_scheme { get; set; }
             public int created { get; set; }
             public string currency { get; set; }
@@ -162,7 +164,7 @@ namespace shared.DTO.Stripe
             public object transform_quantity { get; set; }
             public string type { get; set; }
             public int unit_amount { get; set; }
-            public string unit_amount_decimal { get; set; }
+            public decimal unit_amount_decimal { get; set; }
         }
 
         public class Metadata2
@@ -213,7 +215,7 @@ namespace shared.DTO.Stripe
             public bool active { get; set; }
             public object aggregate_usage { get; set; }
             public int amount { get; set; }
-            public string amount_decimal { get; set; }
+            public decimal amount_decimal { get; set; }
             public string billing_scheme { get; set; }
             public int created { get; set; }
             public string currency { get; set; }

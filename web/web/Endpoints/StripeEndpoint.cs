@@ -108,7 +108,8 @@ namespace web.Endpoints
                             StripeCustomerId = stripeCustomer,
                             StripeSubscriptionId = stripeSubscription,
                             IsActive = true,
-                            Website = createdWebsite
+                            Website =  dbContext.Websites.FirstOrDefault(x => x.Id == createdWebsite.Id),
+                            SubscriptionModule = null
                         };
 
                         dbContext.Subscriptions.Add(subscription);
@@ -145,7 +146,7 @@ namespace web.Endpoints
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
                         var stripeSubscriptionId = data._object.id;
 
-                        if (subscriptionUpdatedType.Equals("subscriptions"))
+                        if (subscriptionUpdatedType.Equals("subscription"))
                         {
                             var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
 
