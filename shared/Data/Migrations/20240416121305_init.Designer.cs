@@ -12,15 +12,15 @@ using shared.Data;
 namespace shared.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240314161544_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240416121305_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -158,7 +158,7 @@ namespace shared.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("web.Data.ApplicationUser", b =>
+            modelBuilder.Entity("shared.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -203,10 +203,6 @@ namespace shared.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SiteName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -227,6 +223,133 @@ namespace shared.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("shared.Data.Entities.ContactUsMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("WebsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WebsiteId");
+
+                    b.ToTable("ContactUsMessages");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StripeCustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StripeSubscriptionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("SubscriptionModuleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("WebsiteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionModuleId");
+
+                    b.HasIndex("WebsiteId");
+
+                    b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StripeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StripeId");
+
+                    b.ToTable("SubscriptionModules");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.SubscriptionStripeInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubscriptionStripeInfos");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.Website", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Websites");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -238,7 +361,7 @@ namespace shared.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("web.Data.ApplicationUser", null)
+                    b.HasOne("shared.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -247,7 +370,7 @@ namespace shared.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("web.Data.ApplicationUser", null)
+                    b.HasOne("shared.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +385,7 @@ namespace shared.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web.Data.ApplicationUser", null)
+                    b.HasOne("shared.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,11 +394,83 @@ namespace shared.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("web.Data.ApplicationUser", null)
+                    b.HasOne("shared.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.ContactUsMessage", b =>
+                {
+                    b.HasOne("shared.Data.Entities.Website", "Website")
+                        .WithMany("ContactUsMessages")
+                        .HasForeignKey("WebsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Website");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.Subscription", b =>
+                {
+                    b.HasOne("shared.Data.Entities.SubscriptionModule", "SubscriptionModule")
+                        .WithMany("Subscription")
+                        .HasForeignKey("SubscriptionModuleId");
+
+                    b.HasOne("shared.Data.Entities.Website", "Website")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("WebsiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubscriptionModule");
+
+                    b.Navigation("Website");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
+                {
+                    b.HasOne("shared.Data.Entities.SubscriptionStripeInfo", "Stripe")
+                        .WithMany("SubscriptionModules")
+                        .HasForeignKey("StripeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stripe");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.Website", b =>
+                {
+                    b.HasOne("shared.Data.Entities.ApplicationUser", "User")
+                        .WithMany("Websites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Websites");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
+                {
+                    b.Navigation("Subscription");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.SubscriptionStripeInfo", b =>
+                {
+                    b.Navigation("SubscriptionModules");
+                });
+
+            modelBuilder.Entity("shared.Data.Entities.Website", b =>
+                {
+                    b.Navigation("ContactUsMessages");
+
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

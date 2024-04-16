@@ -96,7 +96,7 @@ namespace rcl.Components.Pages
                 Email = Input.Email,
                 PhoneNumber = Input.PhoneNumber,
                 Details = Input.Details,
-                WebsiteId = currentWebsite.Id
+                Website = currentWebsite
             };
 
             await ContactUsMessageService.CreateContactUsMessage(message);

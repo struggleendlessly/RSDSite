@@ -75,6 +75,12 @@ namespace web.Endpoints
 
                         //TODO: if subscription exists - do nothing, else:
 
+                        var userExsist = await dbContext.Users.FirstOrDefaultAsync(s => s.Email == email);
+                        if (userExsist is not null)
+                        {
+                            return Results.Ok();
+                        }
+
                         //Create user with email
                         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                         var user = new ApplicationUser { UserName = email, Email = email };
@@ -92,7 +98,7 @@ namespace web.Endpoints
                             siteName = $"{siteName}-{dateTimeNow}";
                         }
 
-                        var website = new Website { UserId = user.Id, Name = siteName };
+                        var website = new Website { User = user, Name = siteName };
 
                         var createdWebsite = await websiteService.CreateWebsite(website);
                         await siteCreator.CreateSite(website.Name);

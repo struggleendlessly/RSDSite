@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using shared.Data.Entities;
 using shared.Interfaces;
 using shared;
+using web.Components.Account.Pages.Manage;
 
 namespace web.Components.Account.Pages
 {
@@ -93,7 +94,7 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
-            var newWebsite = new Website { UserId = user.Id, Name = Input.SiteName };
+            var newWebsite = new Website { User = user, Name = Input.SiteName };
             await WebsiteService.CreateWebsite(newWebsite);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");

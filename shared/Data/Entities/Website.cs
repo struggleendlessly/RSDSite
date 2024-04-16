@@ -7,7 +7,6 @@ namespace shared.Data.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public string UserId { get; set; }
         public ICollection<Subscription> Subscriptions { get; set; }= new List<Subscription>();
         public ApplicationUser User { get; set; }
 

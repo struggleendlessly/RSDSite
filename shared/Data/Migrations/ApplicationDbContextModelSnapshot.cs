@@ -284,7 +284,7 @@ namespace shared.Data.Migrations
 
                     b.HasIndex("WebsiteId");
 
-                    b.ToTable("Subscription");
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("shared.Data.Entities.SubscriptionModule", b =>
@@ -304,7 +304,7 @@ namespace shared.Data.Migrations
 
                     b.HasIndex("StripeId");
 
-                    b.ToTable("SubscriptionModule");
+                    b.ToTable("SubscriptionModules");
                 });
 
             modelBuilder.Entity("shared.Data.Entities.SubscriptionStripeInfo", b =>
@@ -323,7 +323,7 @@ namespace shared.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubscriptionStripeInfo");
+                    b.ToTable("SubscriptionStripeInfos");
                 });
 
             modelBuilder.Entity("shared.Data.Entities.Website", b =>

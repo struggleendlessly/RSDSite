@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace shared.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,6 @@ namespace shared.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SiteName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -49,6 +48,19 @@ namespace shared.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionStripeInfos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionStripeInfos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,6 +169,94 @@ namespace shared.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Websites",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Websites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Websites_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionModules",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StripeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionModules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionModules_SubscriptionStripeInfos_StripeId",
+                        column: x => x.StripeId,
+                        principalTable: "SubscriptionStripeInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactUsMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WebsiteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactUsMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContactUsMessages_Websites_WebsiteId",
+                        column: x => x.WebsiteId,
+                        principalTable: "Websites",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WebsiteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StripeCustomerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StripeSubscriptionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    SubscriptionModuleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_SubscriptionModules_SubscriptionModuleId",
+                        column: x => x.SubscriptionModuleId,
+                        principalTable: "SubscriptionModules",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Websites_WebsiteId",
+                        column: x => x.WebsiteId,
+                        principalTable: "Websites",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -195,6 +295,31 @@ namespace shared.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactUsMessages_WebsiteId",
+                table: "ContactUsMessages",
+                column: "WebsiteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionModules_StripeId",
+                table: "SubscriptionModules",
+                column: "StripeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_SubscriptionModuleId",
+                table: "Subscriptions",
+                column: "SubscriptionModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_WebsiteId",
+                table: "Subscriptions",
+                column: "WebsiteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Websites_UserId",
+                table: "Websites",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -216,7 +341,22 @@ namespace shared.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ContactUsMessages");
+
+            migrationBuilder.DropTable(
+                name: "Subscriptions");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionModules");
+
+            migrationBuilder.DropTable(
+                name: "Websites");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionStripeInfos");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

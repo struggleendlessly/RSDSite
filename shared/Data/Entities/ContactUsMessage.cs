@@ -11,7 +11,6 @@ namespace shared.Data.Entities
         public string? PhoneNumber { get; set; }
         public string Details { get; set; }
 
-        public Guid WebsiteId { get; set; }
         public Website Website { get; set; }
     }
 }
