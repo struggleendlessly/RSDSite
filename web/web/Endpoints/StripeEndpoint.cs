@@ -15,6 +15,7 @@ using System.Text.Encodings.Web;
 using Microsoft.Extensions.Options;
 using shared.ConfigurationOptions;
 using shared.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace web.Endpoints
 {
@@ -63,21 +64,11 @@ namespace web.Endpoints
                         var stripeCustomer = data._object.customer; // customer stripe id field
                         var stripeSubscription = data._object.subscription; // subscription stripe id field
 
-                        var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscription);
+                        var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscription);
                         if (subscription is not null)
                         {
                             return Results.Ok();
                         }
-
-                        subscription = new shared.Data.Entities.Subscription()
-                        {
-                            StripeCustomerId = stripeCustomer,
-                            StripeSubscriptionId = stripeSubscription,
-                            IsActive = true
-                        };
-
-                        dbContext.Subscriptions.Add(subscription);
-                        dbContext.SaveChanges();
 
                         var stateManager = scope.ServiceProvider.GetRequiredService<IStateManager>();
                         var emailSender = scope.ServiceProvider.GetRequiredService<IEmailSender<ApplicationUser>>();
@@ -103,8 +94,19 @@ namespace web.Endpoints
 
                         var website = new Website { UserId = user.Id, Name = siteName };
 
-                        await websiteService.CreateWebsite(website);
+                        var createdWebsite = await websiteService.CreateWebsite(website);
                         await siteCreator.CreateSite(website.Name);
+
+                        subscription = new shared.Data.Entities.Subscription()
+                        {
+                            StripeCustomerId = stripeCustomer,
+                            StripeSubscriptionId = stripeSubscription,
+                            IsActive = true,
+                            Website = createdWebsite
+                        };
+
+                        dbContext.Subscriptions.Add(subscription);
+                        dbContext.SaveChanges();
 
                         //send a welcome email with password reset link
                         var passwordResetCode = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -131,13 +133,11 @@ namespace web.Endpoints
                     {
 
                     }
-                    else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated ||
-                             stripeEvent.Type == Events.CustomerSubscriptionCreated)
+                    else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                     {
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionUpdated.Rootobject>(stripeEvent.Data.ToJson());
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
                         var stripeSubscriptionId = data._object.id;
-                        var stripeSubscribedProductId = data._object.plan.product;
 
                         if (subscriptionUpdatedType.Equals("subscriptions"))
                         {
@@ -146,9 +146,27 @@ namespace web.Endpoints
                             if (subscription is not null)
                             {
                                 var isSubscriptionActive = data._object.status == "active" || data._object.status == "trialing";
+                                subscription.IsActive = isSubscriptionActive;
+
+                                dbContext.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
+                    {
+                        var data = JsonSerializer.Deserialize<CustomerSubscriptionCreated.Rootobject>(stripeEvent.Data.ToJson());
+                        var subscriptionUpdatedType = data._object._object;// = "subscription";
+                        var stripeSubscriptionId = data._object.id;
+                        var stripeSubscribedProductId = data._object.items.data[0].plan.product;
+
+                        if (subscriptionUpdatedType.Equals("subscription"))
+                        {
+                            var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
+
+                            if (subscription is not null)
+                            {
                                 var module = dbContext.SubscriptionStripeInfos.FirstOrDefault(m => m.Code == stripeSubscribedProductId).SubscriptionModules.FirstOrDefault();
                                 subscription.SubscriptionModule = module;
-                                subscription.IsActive = isSubscriptionActive;
 
                                 dbContext.SaveChanges();
                             }
