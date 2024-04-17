@@ -86,7 +86,7 @@ namespace web.Components.Account.Pages
             }
             else if (result.IsNotAllowed)
             {
-                errorMessage = "Error: Please confirm your email.";
+                errorMessage = "Error: Please confirm your email to Sign in.";
             }
             else
             {

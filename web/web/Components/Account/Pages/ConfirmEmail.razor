@@ -2,6 +2,8 @@
 
 @attribute [Route(StaticRoutesStrings.AccountConfirmEmailPageRoute)]
 
+@rendermode InteractiveServer
+
 <PageTitle>Confirm email</PageTitle>
 
 <!-- ========== MAIN CONTENT ========== -->
@@ -10,6 +12,10 @@
     <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
         <h1>Confirm email</h1>
         <StatusMessage Message="@statusMessage" />
+        @if (ShowEmailResendLink)
+        {
+            <button type="button" class="btn btn-link text-decoration-none" @onclick="ResendConfirmationEmailAsync" disabled="@DisableEmailResendLink">Resend the confirmation email</button>
+        }
     </div>
     <!-- End Form -->
 </main>
