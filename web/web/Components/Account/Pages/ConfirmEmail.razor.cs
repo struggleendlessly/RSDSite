@@ -48,7 +48,7 @@ namespace web.Components.Account.Pages
             {
                 var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
                 var result = await UserManager.ConfirmEmailAsync(user, code);
-                statusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+                statusMessage = result.Succeeded ? "Thank you for confirming your email." : $"Error confirming your email. \n {string.Join(",", result.Errors)}";
             }
         }
     }
