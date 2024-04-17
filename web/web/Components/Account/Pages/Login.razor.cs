@@ -84,6 +84,10 @@ namespace web.Components.Account.Pages
                 Logger.LogWarning("User account locked out.");
                 RedirectManager.RedirectTo("Account/Lockout");
             }
+            else if (result.IsNotAllowed)
+            {
+                errorMessage = "Error: Please confirm your email.";
+            }
             else
             {
                 errorMessage = "Error: Invalid login attempt.";
