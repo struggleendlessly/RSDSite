@@ -35,6 +35,8 @@ namespace rcl.Components.Shared
 
         DotNetObjectReference<FAQList>? dotNetHelper { get; set; }
 
+        private bool isAdding = false;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -92,6 +94,8 @@ namespace rcl.Components.Shared
 
         public async Task Add(string key)
         {
+            isAdding = true;
+
             var dateTime = DateTime.Now;
             var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
             var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
@@ -113,6 +117,10 @@ namespace rcl.Components.Shared
             ServiceItems.Insert(index + 1, serviceItem);
 
             await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+
+            await Task.Delay(1000);
+
+            isAdding = false;
         }
 
         [JSInvokable]
