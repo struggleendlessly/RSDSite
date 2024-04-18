@@ -71,7 +71,7 @@
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
                 <a class="btn btn-outline-primary" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
-                    @(Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
+                    @((MarkupString) Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
             </HTMLEditor>
         }

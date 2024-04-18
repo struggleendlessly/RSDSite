@@ -29,7 +29,7 @@
                         FuncSave="SaveContent"
                         Key="@serviceTitleKey">
                             <butoon class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
-                                @Model.Data[serviceTitleKey]
+                                @((MarkupString) Model.Data[serviceTitleKey])
                             </butoon>
                     </HTMLEditor>
                 </h2>
@@ -41,7 +41,7 @@
                         FuncSave="SaveContent"
                         Key="@serviceSubtitleKey">
                             <div class="accordion-body">
-                                @Model.Data[serviceSubtitleKey]
+                                @((MarkupString) Model.Data[serviceSubtitleKey])
                             </div>
                     </HTMLEditor>
                 </div>

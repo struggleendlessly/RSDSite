@@ -37,7 +37,7 @@
                                     FuncSave="SaveContent"
                                     Key="@serviceSubtitleKey">
                             <span class="card-subtitle">
-                                @Model.Data[serviceSubtitleKey]
+                                @((MarkupString) Model.Data[serviceSubtitleKey])
                             </span>
                         </HTMLEditor>
                         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTitleId + serviceKeyIndex)"
@@ -46,7 +46,7 @@
                                     FuncSave="SaveContent"
                                     Key="@serviceTitleKey">
                             <h5 class="card-title">
-                                @Model.Data[serviceTitleKey]
+                                @((MarkupString) Model.Data[serviceTitleKey])
                             </h5>
                         </HTMLEditor>
                         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTextId + serviceKeyIndex)"
@@ -55,7 +55,7 @@
                                     FuncSave="SaveContent"
                                     Key="@serviceTextKey">
                             <p class="card-text">
-                                @Model.Data[serviceTextKey]
+                                @((MarkupString) Model.Data[serviceTextKey])
                             </p>
                         </HTMLEditor>
                     </div>

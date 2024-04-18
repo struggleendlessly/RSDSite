@@ -24,7 +24,7 @@
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@StaticStrings.AdminPageDataFooterTextKey">
-                        <p>@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
+                        <p>@((MarkupString) Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
                     </HTMLEditor>
                 }
             </div>
@@ -48,25 +48,25 @@
                                 Model="MenuModel"
                                 FuncSave="SaveMenu"
                                 Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
-                        <p>Main page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]</p>
+                        <p>Main page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])</p>
                     </HTMLEditor>
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
                                 Model="MenuModel"
                                 FuncSave="SaveMenu"
                                 Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
-                        <p>About us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]</p>
+                        <p>About us page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])</p>
                     </HTMLEditor>
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
                                 Model="MenuModel"
                                 FuncSave="SaveMenu"
                                 Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
-                        <p>Contact us page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]</p>
+                        <p>Contact us page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])</p>
                     </HTMLEditor>
                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
                                 Model="MenuModel"
                                 FuncSave="SaveMenu"
                                 Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
-                        <p>Services page text: @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]</p>
+                        <p>Services page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])</p>
                     </HTMLEditor>
                 }
             </div>
@@ -79,7 +79,7 @@
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
-                        <p>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]</p>
+                        <p>@((MarkupString) Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey])</p>
                     </HTMLEditor>
                 }
             </div>
