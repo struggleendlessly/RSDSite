@@ -6,6 +6,9 @@ namespace shared
     {
         /* CSS */
 
+        public static string СSSTextBold = "fw-bold";
+        public static string СSSActiveLinkSecondary = "link-secondary";
+        public static string СSSActiveLinkDark = "link-dark";
         public static string СSSActiveClass = "active";
         public static string CSSDisplayNone = "d-none";
         public static string CSSDisplayInline = "inline";

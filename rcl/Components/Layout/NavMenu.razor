@@ -1,15 +1,15 @@
 ﻿<h1 class="visually-hidden">Headers examples</h1>
 
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom text-dark">
+        <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             @if (Model.Data != null)
             {
                 <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
             }
         </a>
 
-        <ul class="nav nav-pills">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             @if (MenuModel.Data != null)
             {
                 <li class="nav-item">
@@ -23,104 +23,29 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl))">
-                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
                     </a>
                 </li>
-            }
-            @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
-            {
-                <li class="nav-item">
-                    <a href="@GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">Pricing</a>
-                </li>
-            }
-            <AuthorizeView>
-                <Authorized>
-                    @if (StateManager.CanEditSite())
-                    {
-                        <li class="nav-item">
-                            <a href="@GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-primary btn-transition">Admin</a>
-                        </li>
-                    }
-                    <li class="nav-item ms-2">
-                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-primary btn-transition">Logout</a>
+                @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
+                {
+                    <li class="nav-item">
+                        <a href="@GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">
+                            Pricing
+                        </a>
                     </li>
-                </Authorized>
-            </AuthorizeView>
+                }
+            }
         </ul>
+
+        <div class="col-md-3 text-end">
+            @if (MenuModel.Data != null)
+            {
+                <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="btn btn-dark text-white @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl, true))">
+                    @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
+                </a>
+            }
+        </div>
     </header>
 
 </div>
-
-@* <div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">web</a>
-    </div>
-</div>
-
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
-            </NavLink>
-        </div>
-
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <button type="submit" class="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </button>
-                    </form>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Register">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Login">
-                        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
-        </AuthorizeView>
-    </nav>
-</div>
- *@

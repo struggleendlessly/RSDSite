@@ -52,7 +52,7 @@ namespace rcl.Components.Layout
             StateHasChanged();
         }
 
-        private string HighlightActiveMenuItem(string url)
+        private string HighlightActiveMenuItem(string url, bool isBtn = false)
         {
             if (url.StartsWith("/"))
             {
@@ -66,10 +66,15 @@ namespace rcl.Components.Layout
 
             if (currentUrl != url)
             {
-                return string.Empty;
+                return StaticHtmlStrings.СSSActiveLinkDark;
             }
+            var res = $"{StaticHtmlStrings.СSSActiveLinkSecondary} {StaticHtmlStrings.СSSTextBold}";
 
-            return StaticHtmlStrings.СSSActiveClass;
+            if (isBtn)
+            {
+                res = $"{StaticHtmlStrings.СSSTextBold}";
+            }
+            return res;
         }
 
         private void SetSiteName(string baseRelativePath)
