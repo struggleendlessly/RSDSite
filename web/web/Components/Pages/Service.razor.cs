@@ -11,6 +11,6 @@ namespace web.Components.Pages
         public string Lang {  get; set; }
 
         [Parameter]
-        public string Key { get; set; }
+        public string UrlKey { get; set; }
     }
 }

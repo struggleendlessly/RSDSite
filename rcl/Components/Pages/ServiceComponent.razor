@@ -1,12 +1,13 @@
 ﻿<div class="container pb-4">
     @if (Model.Data != null)
     {
-        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@Key">
-            @((MarkupString)Model.Data[Key])
+        <HTMLEditor 
+            EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
+            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+            Model="Model"
+            FuncSave="Save"
+            Key="@Key">
+                @((MarkupString) Model.Data[Key])
         </HTMLEditor>
     }
 </div>

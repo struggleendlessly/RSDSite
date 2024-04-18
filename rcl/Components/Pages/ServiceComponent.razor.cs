@@ -23,13 +23,15 @@ namespace rcl.Components.Pages
         protected IMemoryCache MemoryCache { get; set; }
 
         [Parameter]
-        public string Key { get; set; } = string.Empty;
+        public string UrlKey { get; set; } = string.Empty;
 
         [Inject]
         IStateManager StateManager { get; set; }
 
         [Inject]
         IPageDataService PageDataService { get; set; }
+
+        public string Key { get; set; } = string.Empty;
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -49,6 +51,15 @@ namespace rcl.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+            var keyValuePairUrl = ServiceItems.SelectMany(x => x.LongDesc).FirstOrDefault(x => x.Value == UrlKey);
+            if (string.IsNullOrWhiteSpace(keyValuePairUrl.Key) || string.IsNullOrWhiteSpace(keyValuePairUrl.Value))
+            {
+                // TODO: Add a redirect to the 404 page
+                return;
+            }
+
+            Key = keyValuePairUrl.Key.Replace(StaticStrings.UrlKeyEnding, string.Empty);
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
                 .Where(x => x.Key == Key)
