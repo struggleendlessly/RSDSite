@@ -4,7 +4,7 @@
         <a class="d-inline-flex align-items-center mb-3" href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
             <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
         </a>
-        <p class="fs-6">@Model.Data[StaticStrings.AdminPageDataFooterTextKey]</p>
+        <p class="fs-6">@((MarkupString) Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
         <ul class="list-inline pb-md-2">
             <li class="list-inline-item">
                 <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">

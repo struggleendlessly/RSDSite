@@ -10,7 +10,7 @@ namespace shared
         public const string AboutUsPageRoute = "/{SiteName}/{Lang}/about-us";
         public const string ContactUsPageRoute = "/{SiteName}/{Lang}/contact-us";
         public const string ServicesPageRoute = "/{SiteName}/{Lang}/services";
-        public const string ServicePageRoute = "/{SiteName}/{Lang}/service/{Key}";
+        public const string ServicePageRoute = "/{SiteName}/{Lang}/service/{UrlKey}";
         public const string PricingPageRoute = "/{SiteName}/{Lang}/pricing";
         public const string AdminPageRoute = "/{SiteName}/{Lang}/admin";
 
