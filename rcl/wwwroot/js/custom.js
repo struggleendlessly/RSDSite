@@ -12,7 +12,18 @@
 function js_editorActivate(id) {
     var selector = `#${id}`;
 
+    const toolbarOptions = [
+        [{ header: [1, 2, 3, false] }],
+        ['size', 'bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }],
+        ['link', 'image'],
+        ['clean']
+    ];
+
     const quill = new Quill(selector, {
+        modules: {
+            toolbar: toolbarOptions
+        },
         theme: 'snow'
     });
 }
