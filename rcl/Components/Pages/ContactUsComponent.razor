@@ -71,7 +71,9 @@
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
-                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])</p>
+                            <a class="text-dark text-decoration-none" href="tel:@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])">
+                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])
+                            </a>
                         </HTMLEditor>
                     }
                 </div>
