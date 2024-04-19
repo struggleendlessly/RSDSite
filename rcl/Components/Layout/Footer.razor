@@ -1,44 +1,72 @@
-﻿<footer class="container content-space-2 text-center">
-    @if (Model.Data != null)
-    {
-        <a class="d-inline-flex align-items-center mb-3" href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
-            <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
-        </a>
-        <p class="fs-6">@((MarkupString) Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
-        <ul class="list-inline pb-md-2">
-            <li class="list-inline-item">
-                <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">
-                    <img src="_content/rcl/assets/icons/american-flag-32.png" />
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultUaLang)">
-                    <img src="_content/rcl/assets/icons/ukrainian-flag-32.png" />
-                </a>
-            </li>
-        </ul>
-    }
-    @if (SocialNetworksModel.Data != null && SocialNetworksModel.Data.Count > 0)
-    {
-        <ul class="list-inline pb-md-2">
-            @for (int i = 0; i < SocialNetworks.Count; i++)
-            {
-                var serviceKeyIndex = i * 3;
-                var serviceKey = SocialNetworksModel.Data.ElementAt(serviceKeyIndex).Value;
-                var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
-                var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+﻿<footer class="footer mt-auto content-space-2 text-center">
 
-                <li class="list-inline-item">
-                    <a class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle" href="@SocialNetworksModel.Data[serviceUrlKey]">
-                        <img src="@SocialNetworksModel.Data[serviceImageKey]" />
-                    </a>
-                </li>
+    <div class="border-top mx-auto pb-5" style="max-width: 100%"></div>
+
+    <!-- Logo -->
+    <div class="row pb-5">
+        <div class="col-lg-12 col-sm-12">
+            @if (Model.Data != null)
+            {
+                <a class="d-inline-flex align-items-center mb-3" href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
+                    <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
+                </a>
             }
-        </ul>
-    }
-    <AuthorizeView>
-        <NotAuthorized>
-            <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">Login</a>
-        </NotAuthorized>
-    </AuthorizeView>
+        </div>
+    </div>
+
+    <!-- Midle row -->
+    <div class="row">
+
+        <!-- Language -->
+        <div class="col-lg-4 col-sm-12  pb-3">
+            @if (Model.Data != null)
+            {
+                <a class="btn btn-icon" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">
+                    <img style="width:32px; height:32px;" src="_content/rcl/assets/icons/american-flag-32.png" />
+                </a>
+                <a class="btn btn-icon" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultUaLang)">
+                    <img style="width:32px; height:32px;" src="_content/rcl/assets/icons/ukrainian-flag-32.png" />
+                </a>
+            }
+        </div>
+
+        <!-- Social networks -->
+        <div class="col-lg-4 col-sm-12  pb-3">
+            @if (SocialNetworksModel.Data != null && SocialNetworksModel.Data.Count > 0)
+            {
+                @for (int i = 0; i < SocialNetworks.Count; i++)
+                {
+                    var serviceKeyIndex = i * 3;
+                    var serviceKey = SocialNetworksModel.Data.ElementAt(serviceKeyIndex).Value;
+                    var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
+                    var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+
+                    <a class="btn btn-icon" href="@SocialNetworksModel.Data[serviceUrlKey]">
+                        <img style="width:32px; height:32px;" src="@SocialNetworksModel.Data[serviceImageKey]" />
+                    </a>
+                }
+            }
+        </div>
+
+        <!-- Text -->
+        <div class="col-lg-4 col-sm-12 pb-3">
+            @if (Model.Data != null)
+            {
+                <p class="fs-6 pt-2">@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
+            }
+        </div>
+    </div>
+
+    <!-- Login button -->
+    <div class="row pb-3">
+        <div class="col-lg-12 col-sm-12">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
+
+    <div class="border-top mx-auto pb-5" style="max-width: 100%"></div>
 </footer>
