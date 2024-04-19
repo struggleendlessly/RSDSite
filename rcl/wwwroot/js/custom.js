@@ -13,10 +13,14 @@ function js_editorActivate(id) {
     var selector = `#${id}`;
 
     const toolbarOptions = [
-        [{ header: [1, 2, 3, false] }],
-        ['size', 'bold', 'italic', 'underline'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }],
-        ['link', 'image'],
+        [{ 'font': [] }, { header: [1, 2, 3, false] }],
+        ['size', 'bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],
+        [{ 'header': 1 }, { 'header': 2 }, 'blockquote', 'code-block'], 
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }, { 'align': [] }],
+        ['link', 'image', 'video', 'formula'],
         ['clean']
     ];
 
