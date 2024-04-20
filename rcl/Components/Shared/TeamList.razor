@@ -42,7 +42,9 @@
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceTitleKey">
-                            <h5 class="card-title">@((MarkupString)Model.Data[serviceTitleKey])</h5>
+                            <h5 class="card-title">
+                                @((MarkupString)Model.Data[serviceTitleKey])
+                            </h5>
                         </HTMLEditor>
 
                         <!-- Card sub titli -->
@@ -51,7 +53,9 @@
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceTitleKey">
-                            <h6 class="card-title">@((MarkupString)Model.Data[serviceSubtitleKey])</h6>
+                            <h6 class="card-title">
+                                @((MarkupString)Model.Data[serviceSubtitleKey])
+                            </h6>
                         </HTMLEditor>
 
                         <!-- Card text -->
@@ -60,7 +64,9 @@
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceTextKey">
-                            <p class="card-text">@((MarkupString)Model.Data[serviceTextKey])</p>
+                            <p class="card-text">
+                                @((MarkupString)Model.Data[serviceTextKey])
+                            </p>
                         </HTMLEditor>
                     </div>
                 </div>

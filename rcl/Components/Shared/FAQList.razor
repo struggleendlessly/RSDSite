@@ -1,7 +1,8 @@
-﻿@{
-    if (Model.Data != null && Model.Data.Count > 0)
+﻿<div class="accordion my-5 pt-4" id="accordionFAQ">
+
+    @if (Model.Data != null && Model.Data.Count > 0)
     {
-        for (int i = 0; i < ServiceItems.Count; i++)
+        @for (int i = 0; i < ServiceItems.Count; i++)
         {
             var serviceKeyIndex = i * 3;
             var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
@@ -21,32 +22,48 @@
                         }
                     </Authorized>
                 </AuthorizeView>
-                <h2 class="accordion-header" id="panelsStayOpen-heading-@serviceKeyIndex">
-                    <HTMLEditor 
-                        EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
-                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="SaveContent"
-                        Key="@serviceTitleKey">
-                            <butoon class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex" aria-expanded="false" aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
-                                @((MarkupString) Model.Data[serviceTitleKey])
-                            </butoon>
-                    </HTMLEditor>
+
+                <h2 class="accordion-header display-5 fw-bold"
+                    id="panelsStayOpen-heading-@serviceKeyIndex">
+
+                    <button class="accordion-button collapsed bg-light"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex"
+                            aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
+
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTitleKey">
+
+                            @((MarkupString)Model.Data[serviceTitleKey])
+
+                        </HTMLEditor>
+                    </button>
                 </h2>
-                <div id="panelsStayOpen-collapse-@serviceKeyIndex" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading-@serviceKeyIndex" data-bs-parent="#accordionFAQ">
-                    <HTMLEditor 
-                        EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKeyIndex)"
-                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="SaveContent"
-                        Key="@serviceSubtitleKey">
-                            <div class="accordion-body">
-                                @((MarkupString) Model.Data[serviceSubtitleKey])
-                            </div>
+
+                <div id="panelsStayOpen-collapse-@serviceKeyIndex"
+                     class="accordion-collapse collapse py-3"
+                     aria-labelledby="panelsStayOpen-heading-@serviceKeyIndex"
+                     data-bs-parent="#accordionFAQ">
+
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKeyIndex)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="SaveContent"
+                                Key="@serviceSubtitleKey">
+
+                        <div class="accordion-body">
+                            @((MarkupString)Model.Data[serviceSubtitleKey])
+                        </div>
+
                     </HTMLEditor>
                 </div>
             </div>
             <!-- End Accordion Item -->
         }
     }
-}
+</div>

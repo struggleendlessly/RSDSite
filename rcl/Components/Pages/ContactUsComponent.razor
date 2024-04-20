@@ -13,14 +13,19 @@
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                        <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
+                        <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])
+                        </h1>
                     </HTMLEditor>
+
                     <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
                                 EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
+                        </p>
                     </HTMLEditor>
                 }
             </div>
@@ -38,6 +43,7 @@
                                         Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
                                 <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
                             </HTMLEditor>
+
                             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
                                         EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                         Model="Model"
@@ -52,7 +58,7 @@
 
             <!-- MAP HERE -->
             <div id="map" class="mb-5" style="height: 350px;"></div>
-            
+
             <div class="row">
                 <div class="col-sm-6">
                     @if (Model.Data != null)
@@ -155,7 +161,7 @@
                                         {
                                             <label class="form-label" for="contactUsFormFirstName">@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldLabelKey]</label>
                                             <InputText @bind-Value="Input.FirstName" type="text" class="form-control form-control-lg"
-                                                id="contactUsFormFirstName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldPlaceholderKey]" aria-label="First name" required />
+                                                       id="contactUsFormFirstName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldPlaceholderKey]" aria-label="First name" required />
                                             <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
                                         }
                                     </div>
@@ -166,9 +172,9 @@
                                         {
                                             <label class="form-label" for="contactUsFormLastName">@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldLabelKey]</label>
                                             <InputText @bind-Value="Input.LastName" type="text" class="form-control form-control-lg"
-                                                id="contactUsFormLastName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldPlaceholderKey]" aria-label="Last name" required />
+                                                       id="contactUsFormLastName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldPlaceholderKey]" aria-label="Last name" required />
                                             <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
-                                        }          
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +185,7 @@
                                         {
                                             <label class="form-label" for="contactUsFormEmail">@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldLabelKey]</label>
                                             <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg"
-                                                id="contactUsFormEmail" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldPlaceholderKey]" aria-label="email@site.com" required />
+                                                       id="contactUsFormEmail" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldPlaceholderKey]" aria-label="email@site.com" required />
                                             <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
                                         }
                                     </div>
@@ -190,7 +196,7 @@
                                         {
                                             <label class="form-label" for="contactUsFormPhone">@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldLabelKey]</label>
                                             <InputText @bind-Value="Input.PhoneNumber" type="text" class="form-control form-control-lg"
-                                                id="contactUsFormPhone" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldPlaceholderKey]" aria-label="+x(xxx)xxx-xx-xx" />
+                                                       id="contactUsFormPhone" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldPlaceholderKey]" aria-label="+x(xxx)xxx-xx-xx" />
                                             <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
                                         }
                                     </div>
@@ -201,7 +207,7 @@
                                 {
                                     <label class="form-label" for="contactUsFormDetails">@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldLabelKey]</label>
                                     <InputTextArea @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
-                                        placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldPlaceholderKey]" aria-label="Tell us about your ..." rows="4" required>
+                                                   placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldPlaceholderKey]" aria-label="Tell us about your ..." rows="4" required>
                                     </InputTextArea>
                                 }
                             </div>

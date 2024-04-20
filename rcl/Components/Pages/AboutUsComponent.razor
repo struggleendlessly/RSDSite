@@ -8,7 +8,9 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.AboutUsPageDataTitleKey)">
-            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTitleKey])</h1>
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTitleKey])
+            </h1>
         </HTMLEditor>
     }
 
@@ -21,13 +23,17 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])
+                </p>
             </HTMLEditor>
         }
     </div>
 
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">Get in touch</button>
+        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
+            Get in touch
+        </button>
     </div>
 
     <!-- img -->
@@ -92,7 +98,7 @@
     }
 
     <!-- Numbers with description -->
-    <div class="row justify-content-lg-center mt-5">
+    <div class="row justify-content-lg-center my-5">
         <div class="col-sm-4 col-lg-3 mb-7 text-center">
             @if (Model.Data != null)
             {
@@ -101,14 +107,18 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey)">
-                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey])</h2>
+                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey])
+                    </h2>
                 </HTMLEditor>
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsFirstSubtitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey)">
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey])</p>
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey])
+                    </p>
                 </HTMLEditor>
             }
         </div>
@@ -120,14 +130,18 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey)">
-                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey])</h2>
+                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey])
+                    </h2>
                 </HTMLEditor>
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsSecondSubtitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey)">
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey])</p>
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey])
+                    </p>
                 </HTMLEditor>
             }
         </div>
@@ -139,18 +153,23 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey)">
-                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey])</h2>
+                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey])
+                    </h2>
                 </HTMLEditor>
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsThirdSubtitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey)">
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey])</p>
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey])
+                    </p>
                 </HTMLEditor>
             }
         </div>
     </div>
+
 
     <div class="row featurette">
         <div class="col-md-7 order-md-2">
@@ -161,14 +180,18 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataInfoRightFirstKey)">
-                    <h2 class="featurette-heading">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightFirstKey])</h2>
+                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightFirstKey])
+                    </h2>
                 </HTMLEditor>
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoRightSecondtId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataInfoRightSecondKey)">
-                    <p class="lead">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])</p>
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])
+                    </p>
                 </HTMLEditor>
             }
         </div>
@@ -180,12 +203,15 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)">
-                    <p class="lead">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])</p>
+                    <p class="lead">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
+                    </p>
                 </HTMLEditor>
             }
         </div>
     </div>
 
+    <!-- Title and Sub for the List of -->
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         @if (Model.Data != null)
         {
@@ -194,14 +220,19 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataTeamTitleKey)">
-                <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamTitleKey])</h2>
+                <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                    @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamTitleKey])
+                </h2>
             </HTMLEditor>
+
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamSubtitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.AboutUsPageDataTeamSubtitleKey)">
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])
+                </p>
             </HTMLEditor>
         }
     </div>

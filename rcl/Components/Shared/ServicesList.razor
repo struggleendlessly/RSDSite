@@ -1,7 +1,8 @@
-﻿@{
-    if (Model.Data.Count > 0 && ModelUrls.Data.Count > 0 && SettingsModel.Data.Count > 0)
-    {
-        for (int i = 0; i < ServiceItems.Count; i++)
+﻿@if (Model.Data != null && Model.Data.Count > 0)
+{
+    <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto">
+
+        @for (int i = 0; i < ServiceItems.Count; i++)
         {
             var serviceKeyIndex = i * 3;
             var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
@@ -11,75 +12,78 @@
             var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
             var serviceButtonTextValue = SettingsModel.Data[StaticStrings.AdminPageDataServicesButtonTextKey];
 
-            <div class="col-sm-6 col-lg-4 mb-3">
-                <!-- Card -->
-                <div class="card card-transition h-100">
+            <div class="col mx-auto text-center " style="">
+                <AuthorizeView>
+                    <Authorized>
+                        <!-- Card add or remove -->
+                        @if (StateManager.CanEditSite())
+                        {
+                            <div class="mb-2 mt-2">
+                                <button class="badge bg-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">+</button>
+                                <button class="badge bg-danger" @onclick="() => Remove(serviceKey)" disabled="@isAdding">-</button>
+                            </div>
+                        }
+                    </Authorized>
+                </AuthorizeView>
+
+                <div class="card border-light bg-light h-100 py-3">
+                    <AuthorizeView>
+                        <Authorized>
+                            <!-- Card add or remove -->
+                            @if (StateManager.CanEditSite())
+                            {
+                                <div class="card-header bg-transparent border-dark">
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                                Model="ModelUrls"
+                                                FuncSave="SaveUrl"
+                                                Key="@serviceUrlKey">
+                                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p fw-bold">Page url:</p>
+                                        <span class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                                             @(ModelUrls.Data[serviceUrlKey])
+                                        </span>
+                                    </HTMLEditor>
+                                </div>
+                            }
+                        </Authorized>
+                    </AuthorizeView>
+
+
                     <div class="card-body">
-                        <AuthorizeView>
-                            <Authorized>
-                                @if (StateManager.CanEditSite())
-                                {
-                                    <div class="mb-2">
-                                        <button class="badge bg-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">+</button>
-                                        <button class="badge bg-danger" @onclick="() => Remove(serviceKey)" disabled="@isAdding">-</button>
-                                    </div>
-                                    <div class="mb-2">
-                                        <HTMLEditor 
-                                            EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
-                                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                            Model="ModelUrls"
-                                            FuncSave="SaveUrl"
-                                            Key="@serviceUrlKey">
-                                                <p>Page url: @(ModelUrls.Data[serviceUrlKey])</p>
-                                        </HTMLEditor>
-                                    </div>
-                                }
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        <!-- Card main title -->
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceTitleKey">
-                                        <h4 class="card-title">
-                                            @((MarkupString) Model.Data[serviceTitleKey])
-                                        </h4>
-                                </HTMLEditor>
-                                <HTMLEditor 
-                                    EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKeyIndex)"
+                            <h5 class="card-title">
+                                @((MarkupString)Model.Data[serviceTitleKey])
+                            </h5>
+                        </HTMLEditor>
+
+                        <!-- Card text -->
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKeyIndex)"
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceSubtitleKey">
-                                        <p class="card-text">
-                                            @((MarkupString) Model.Data[serviceSubtitleKey])
-                                        </p>
-                                </HTMLEditor>
-                            </Authorized>
-                            <NotAuthorized>
-                                <h4 class="card-title">
-                                    @((MarkupString) Model.Data[serviceTitleKey])
-                                </h4>
-                                <p class="card-text">
-                                    @((MarkupString) Model.Data[serviceSubtitleKey])
-                                </p>
-                            </NotAuthorized>
-                        </AuthorizeView>
+                            <p class="card-text">
+                                @((MarkupString)Model.Data[serviceSubtitleKey])
+                            </p>
+                        </HTMLEditor>
+
+
                     </div>
 
-                    <div class="card-footer pt-0">
-                        <!-- Socials -->
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item">
-                                <a class="btn btn-outline-primary btn-xs rounded" href="@StateManager.SiteName/@StateManager.Lang/@StaticRoutesStrings.ServicePageUrl/@serviceUrlValue">
-                                    @((MarkupString) serviceButtonTextValue)
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- End Socials -->
+                    <!-- Card footer -->
+                    <div class="card-footer bg-light border-0">
+                        <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@StateManager.SiteName/@StateManager.Lang/@StaticRoutesStrings.ServicePageUrl/@serviceUrlValue">
+                            @((MarkupString)serviceButtonTextValue)
+                        </a>
                     </div>
                 </div>
-                <!-- End Card -->
             </div>
         }
-    }
+    </div>
 }
+

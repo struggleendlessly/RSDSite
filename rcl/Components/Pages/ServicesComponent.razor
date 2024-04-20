@@ -1,87 +1,87 @@
 ﻿<div class="px-2 py-1 text-center container">
-        @if (Model.Data != null)
-        {
-            <HTMLEditor 
-                EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
-                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
-            </HTMLEditor>
-        }
-
-    <div class="row gx-3 gx-lg-4">
-        <div class="col-5 align-self-end">
-            @if (Model.Data != null)
-            {
-                <ImageEditor 
-                    EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
+    @if (Model.Data != null)
+    {
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
-                        <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description" />
-                </ImageEditor>
-            }
-        </div>
+                    Key="@(StaticStrings.ServicesPageDataTitleKey)">
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                @((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])
+            </h1>
+        </HTMLEditor>
+    }
 
-        <div class="col-7">
-            <div class="ms-lg-4">
-                @if (Model.Data != null)
-                {
-                    <ImageEditor 
-                        EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
-                            <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description" />
-                    </ImageEditor>
-                }
-            </div>
-        </div>
-    </div>
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        @if (Model.Data != null)
-        {
-            <HTMLEditor 
-                EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
-                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
-                    <h1 class="display-6 fw-normal">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])</h1>
-            </HTMLEditor>
-            <HTMLEditor 
-                EditorId="@(StaticHtmlStrings.HTMLEditorServicesListSubtitleId)"
-                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
-                    <p class="fs-5 text-muted">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])</p>
-            </HTMLEditor>
-        }
-    </div>
+    @if (Model.Data != null)
+    {
+        <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
+                     Model="Model"
+                     FuncSave="Save"
+                     Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
+            <img class="img-fluid rounded my-5" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description" />
+        </ImageEditor>
+    }
 
-    <div class="row gx-3 mb-5">
-        <ServicesList 
-            ServiceItems="ServiceItems">
-        </ServicesList>
-    </div>
 
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        @if (Model.Data != null)
-        {
-            <HTMLEditor 
-                EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
-                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                Model="Model"
-                FuncSave="Save"
-                Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
-                    <h1 class="display-6 fw-normal pb-md-4">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])</h1>
-            </HTMLEditor>
-        }
-        <div class="accordion" id="accordionFAQ">
-            <FAQList></FAQList>
-        </div>
+    @*         <div class="col-7">
+    <div class="ms-lg-4">
+    @if (Model.Data != null)
+    {
+    <ImageEditor
+    EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
+    Model="Model"
+    FuncSave="Save"
+    Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
+    <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description" />
+    </ImageEditor>
+    }
     </div>
+    </div> *@
+
+    @if (Model.Data != null)
+    {
+        <!-- CSSMainTitle_h2 -->
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
+            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                @((MarkupString)Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
+            </h2>
+        </HTMLEditor>
+
+        <!-- CSSMainTitle_h2 -->
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListSubtitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
+            <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                @((MarkupString)Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
+            </p>
+        </HTMLEditor>
+    }
+
+    <!-- List of -->
+    <ServicesList ServiceItems="ServiceItems">
+    </ServicesList>
+
+    <!-- Title and Sub for the List of -->
+    @if (Model.Data != null)
+    {
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
+            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                @((MarkupString)Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])
+            </h2>
+        </HTMLEditor>
+    }
+
+    <!-- List of -->
+    <FAQList></FAQList>
+
 </div>

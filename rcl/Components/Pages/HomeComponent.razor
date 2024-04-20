@@ -8,7 +8,9 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
-            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                @((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])
+            </h1>
         </HTMLEditor>
     }
 
@@ -21,13 +23,18 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
+                </p>
             </HTMLEditor>
         }
     </div>
 
+    <!-- btn -->
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">Get in touch</button>
+        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
+            Get in touch
+        </button>
     </div>
 
     <!-- img -->
@@ -43,23 +50,27 @@
 
     @if (Model.Data != null)
     {
-        <!-- HomePageDataFeaturedCaseStudiesTitleKey -->
+        <!-- CSSMainTitle_h2 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
-            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h2>
+            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                @((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])
+            </h2>
         </HTMLEditor>
 
-        <!-- HomePageDataFeaturedCaseStudiesSubtitleKey -->
+        <!-- CSSMainSubTitle_p -->
         <div class="col-lg-6 mx-auto">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesSubtitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])
+                </p>
             </HTMLEditor>
         </div>
     }
