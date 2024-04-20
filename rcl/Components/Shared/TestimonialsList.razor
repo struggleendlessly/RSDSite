@@ -1,18 +1,20 @@
-﻿@{
-    if (Model.Data != null && Model.Data.Count > 0)
-    {
-        <div class="row justify-content-center">
-            @for (int i = 0; i < ServiceItems.Count; i++)
-            {
-                var serviceKeyIndex = i * 5;
-                var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
-                var serviceAvatarKey = serviceKey + StaticStrings.AvatarKeyEnding;
-                var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
-                var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
-                var serviceTextKey = serviceKey + StaticStrings.TextKeyEnding;
+﻿@if (Model.Data != null && Model.Data.Count > 0)
+{
+    <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto">
 
+        @for (int i = 0; i < ServiceItems.Count; i++)
+        {
+            var serviceKeyIndex = i * 5;
+            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceAvatarKey = serviceKey + StaticStrings.AvatarKeyEnding;
+            var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
+            var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
+            var serviceTextKey = serviceKey + StaticStrings.TextKeyEnding;
+
+            <div class="col mx-auto text-center " style="">
                 <AuthorizeView>
                     <Authorized>
+                        <!-- Card add or remove -->
                         @if (StateManager.CanEditSite())
                         {
                             <div class="mb-2 mt-2">
@@ -22,38 +24,47 @@
                         }
                     </Authorized>
                 </AuthorizeView>
-                <div class="col-lg-4 mx-auto text-center">
 
+                <div class="card border-opacity-100 h-100 ">
+
+                    <!-- Card image -->
                     <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorHomeTestimonialsListAvatarId + serviceKeyIndex)"
                                  Model="Model"
                                  FuncSave="SaveContent"
                                  Key="@serviceAvatarKey">
-                        <img src="@Model.Data[serviceAvatarKey]" class="rounded-circle" style="max-height: 150px;" />
+                        <img src="@Model.Data[serviceAvatarKey]" class="card-img-top img-fluid" style="" />
                     </ImageEditor>
-                    
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@serviceTitleKey">
-                        <h2>@((MarkupString)Model.Data[serviceTitleKey])</h2>
-                    </HTMLEditor>
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListSubtitleId + serviceKeyIndex)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@serviceSubtitleKey">
-                        <h6 class="text-muted">@((MarkupString)Model.Data[serviceSubtitleKey])</h6>
-                    </HTMLEditor>
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTextId + serviceKeyIndex)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@serviceTextKey">
-                        <p>@((MarkupString)Model.Data[serviceTextKey])</p>
-                    </HTMLEditor>
+
+                    <div class="card-body">
+                        <!-- Card main title -->
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTitleKey">
+                            <h5 class="card-title">@((MarkupString)Model.Data[serviceTitleKey])</h5>
+                        </HTMLEditor>
+
+                        <!-- Card sub titli -->
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTitleId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTitleKey">
+                            <h6 class="card-title">@((MarkupString)Model.Data[serviceSubtitleKey])</h6>
+                        </HTMLEditor>
+
+                        <!-- Card text -->
+                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTestimonialsListTextId + serviceKeyIndex)"
+                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                    Model="Model"
+                                    FuncSave="SaveContent"
+                                    Key="@serviceTextKey">
+                            <p class="card-text">@((MarkupString)Model.Data[serviceTextKey])</p>
+                        </HTMLEditor>
+                    </div>
                 </div>
-            }      
-        </div>
-    }
+            </div>
+        }
+    </div>
 }

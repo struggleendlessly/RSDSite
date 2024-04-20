@@ -1,77 +1,29 @@
 ﻿@{
     @if (ServiceItems.Count > 0)
     {
-        <div class="row justify-content-start">
-            @if (ServiceItems[0] != null)
+        var length = ServiceItems.Count;
+        if (ServiceItems.Count > 3)
+        {
+            length = 4;
+        }
+
+        <div class="row row-cols-1 row-cols-md-2 g-5 py-5">
+
+            @for (int i = 0; i < length; i++)
             {
-                var url = ServiceItems[0].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
-                var title = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
-                var subtitle = ServiceItems[0].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
+                var item = ServiceItems[i];
+                var url = item.LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
+                var title = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
+                var subtitle = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
                 var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
 
-                <div class="col-md-6">
-                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
-                        <div class="p-4 mb-3 bg-light rounded">
-                            <h4 class="fst-italic">@title</h4>
-                            <p class="mb-0">@subtitle</p>
+                <div class="col">
+                    <div class="card border-light bg-light h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@title</h5>
+                            <p class="card-text">@subtitle</p>
                         </div>
-
-                    </a>
-                </div>
-            }
-
-            @if (ServiceItems[1] != null)
-            {
-                var url = ServiceItems[1].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
-                var title = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
-                var subtitle = ServiceItems[1].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
-                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
-
-                <div class="col-md-6">
-                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
-                        <div class="p-4 mb-3 bg-light rounded">
-                            <h4 class="fst-italic">@title</h4>
-                            <p class="mb-0">@subtitle</p>
-                        </div>
-
-                    </a>
-                </div>
-            }
-        </div>
-        <div class="row justify-content-start">
-            @if (ServiceItems[2] != null)
-            {
-                var url = ServiceItems[2].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
-                var title = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
-                var subtitle = ServiceItems[2].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
-                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
-
-                <div class="col-md-6">
-                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
-                        <div class="p-4 mb-3 bg-light rounded">
-                            <h4 class="fst-italic">@title</h4>
-                            <p class="mb-0">@subtitle</p>
-                        </div>
-
-                    </a>
-                </div>
-            }
-
-            @if (ServiceItems[3] != null)
-            {
-                var url = ServiceItems[3].LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
-                var title = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
-                var subtitle = ServiceItems[3].ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
-                var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
-
-                <div class="col-md-6">
-                    <a href="@href" class="text-decoration-none position-sticky text-black" style="top: 2rem;">
-                        <div class="p-4 mb-3 bg-light rounded">
-                            <h4 class="fst-italic">@title</h4>
-                            <p class="mb-0">@subtitle</p>
-                        </div>
-
-                    </a>
+                    </div>
                 </div>
             }
         </div>

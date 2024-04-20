@@ -1,4 +1,6 @@
-﻿<div class="px-4 my-5 text-center border-bottom">
+﻿<div class="px-2 py-1 text-center container">
+
+    <!-- HomePageDataTitleKey -->
     @if (Model.Data != null)
     {
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
@@ -6,9 +8,11 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
-            <h1 class="display-4 fw-bold">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+            <h1 class="display-4 fw-bold mb-2">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
         </HTMLEditor>
     }
+
+    <!-- HomePageDataSubtitleKey -->
     <div class="col-lg-6 mx-auto">
         @if (Model.Data != null)
         {
@@ -17,68 +21,69 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                <p class="lead mb-4">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+                <p class="lead mb-4 fw-normal">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
             </HTMLEditor>
         }
     </div>
-    <div class="overflow-hidden" style="max-height: 30vh;">
-        <div class="container px-5">
-            @if (Model.Data != null)
-            {
-                <ImageEditor 
-                    EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
+        <button type="button btn-dark text-white" class="btn btn-dark text-white px-4 gap-3">Get in touch</button>
+    </div>
+
+    <!-- HomePageDataImageKey -->
+    @if (Model.Data != null)
+    {
+        <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
+                     Model="Model"
+                     FuncSave="Save"
+                     Key="@(StaticStrings.HomePageDataImageKey)">
+            <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
+        </ImageEditor>
+    }
+
+    @if (Model.Data != null)
+    {
+        <!-- HomePageDataFeaturedCaseStudiesTitleKey -->
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataImageKey)">
-                        <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy" />
-                </ImageEditor>
-            }
-        </div>
-    </div>
-</div>
+                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
+            <h2 class="display-5 fw-bold mb-2 mt-5">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h2>
+        </HTMLEditor>
 
-<div class="container">
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        @if (Model.Data != null)
-        {
-            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
-                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
-                <h1 class="display-6 fw-normal">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h1>
-            </HTMLEditor>
+        <!-- HomePageDataFeaturedCaseStudiesSubtitleKey -->
+        <div class="col-lg-6 mx-auto">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesSubtitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
-                <p class="fs-5 text-muted">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
+                <p class="lead mb-4 fw-normal ">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
             </HTMLEditor>
-        }
-    </div>
+        </div>
+    }
 
-    <FeaturedCaseStudies 
-        ServiceItems="ServiceItems">
+    <!-- List of services to show -->
+    <FeaturedCaseStudies ServiceItems="ServiceItems">
     </FeaturedCaseStudies>
 
-    <div class=" p-3 pb-md-4 mx-auto text-center">
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
         @if (Model.Data != null)
         {
-           <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
-                <a class="btn btn-outline-primary" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
-                    @((MarkupString) Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
+                <a class="btn btn-dark text-white px-4 gap-3" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
+                    @((MarkupString)Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
             </HTMLEditor>
         }
     </div>
-    <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
 
+    <!-- List of reviews -->
     <TestimonialsList></TestimonialsList>
 
-    <div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
 </div>
