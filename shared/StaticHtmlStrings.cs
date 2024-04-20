@@ -13,6 +13,11 @@ namespace shared
         public static string CSSDisplayNone = "d-none";
         public static string CSSDisplayInline = "inline";
         public static string CSSDisplayBlock = "d-block";
+        public static string CSSMainTitle_h1 = "display-4 fw-bold mb-4";
+        public static string CSSMainTitle_h2 = "display-5 fw-bold mb-4 mt-5";
+        public static string CSSMainSubTitle_p = "lead mb-4 fw-normal";
+        public static string CSSButtonDarkInTheText = "btn btn-dark text-white px-4 gap-3";
+
 
         /* Home */
 

@@ -1,5 +1,4 @@
-﻿<div class="container pb-4">
-    <div class="px-4 my-5 text-center">
+﻿<div class="px-2 py-1 text-center container">
         @if (Model.Data != null)
         {
             <HTMLEditor 
@@ -8,10 +7,9 @@
                 Model="Model"
                 FuncSave="Save"
                 Key="@(StaticStrings.ServicesPageDataTitleKey)">
-                    <h1 class="display-4 fw-bold">@((MarkupString) Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
+                <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])</h1>
             </HTMLEditor>
         }
-    </div>
 
     <div class="row gx-3 gx-lg-4">
         <div class="col-5 align-self-end">
@@ -87,5 +85,3 @@
         </div>
     </div>
 </div>
-
-<div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>

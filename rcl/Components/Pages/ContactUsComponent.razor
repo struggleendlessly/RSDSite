@@ -13,14 +13,14 @@
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                        <h1>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
+                        <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])</h1>
                     </HTMLEditor>
                     <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
                                 EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                 Model="Model"
                                 FuncSave="Save"
                                 Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                        <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])</p>
                     </HTMLEditor>
                 }
             </div>

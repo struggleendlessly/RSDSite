@@ -1,6 +1,6 @@
 ﻿<div class="px-2 py-1 text-center container">
 
-    <!-- HomePageDataTitleKey -->
+    <!-- CSSMainTitle_h1 -->
     @if (Model.Data != null)
     {
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
@@ -8,11 +8,11 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataTitleKey)">
-            <h1 class="display-4 fw-bold mb-4">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">@((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])</h1>
         </HTMLEditor>
     }
 
-    <!-- HomePageDataSubtitleKey -->
+    <!-- CSSMainSubTitle_p -->
     <div class="col-lg-6 mx-auto">
         @if (Model.Data != null)
         {
@@ -21,16 +21,16 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                <p class="lead mb-4 fw-normal">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])</p>
             </HTMLEditor>
         }
     </div>
 
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        <button type="button btn-dark text-white" class="btn btn-dark text-white px-4 gap-3">Get in touch</button>
+        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">Get in touch</button>
     </div>
 
-    <!-- HomePageDataImageKey -->
+    <!-- img -->
     @if (Model.Data != null)
     {
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
@@ -49,7 +49,7 @@
                     Model="Model"
                     FuncSave="Save"
                     Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
-            <h2 class="display-5 fw-bold mb-4 mt-5">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h2>
+            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])</h2>
         </HTMLEditor>
 
         <!-- HomePageDataFeaturedCaseStudiesSubtitleKey -->
@@ -59,7 +59,7 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
-                <p class="lead mb-4 fw-normal ">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">@((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])</p>
             </HTMLEditor>
         </div>
     }
@@ -76,14 +76,14 @@
                         Model="Model"
                         FuncSave="Save"
                         Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
-                <a class="btn btn-dark text-white px-4 gap-3" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
+                <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
             </HTMLEditor>
         }
     </div>
 
-    <!-- List of reviews -->
+    <!-- List of -->
     <TestimonialsList></TestimonialsList>
 
 </div>
