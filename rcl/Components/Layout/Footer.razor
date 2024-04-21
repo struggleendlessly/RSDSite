@@ -52,7 +52,9 @@
         <div class="col-lg-4 col-sm-12 pb-3">
             @if (Model.Data != null)
             {
-                <p class="fs-6 pt-2">@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
+                <p class="fs-6 pt-2">
+                    @((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])
+                </p>
             }
         </div>
     </div>
@@ -62,7 +64,9 @@
         <div class="col-lg-12 col-sm-12">
             <AuthorizeView>
                 <NotAuthorized>
-                    <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">Login</a>
+                    <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">
+                        Login
+                    </a>
                 </NotAuthorized>
             </AuthorizeView>
         </div>

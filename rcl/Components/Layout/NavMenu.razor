@@ -1,6 +1,4 @@
-﻿
-
-<AuthorizeView>
+﻿<AuthorizeView>
     <Authorized>
         <header class="p-1 bg-primary text-white">
             <div class="container">
@@ -10,7 +8,9 @@
                     </div>
 
                     <div class="text-end">
-                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-outline-light btn-transition mx-3">Logout</a>
+                        <a href="@GetPageUrl(StaticRoutesStrings.LogoutPageUrl)" class="btn btn-outline-light btn-transition mx-3">
+                            Logout
+                        </a>
 
                         @if (StateManager.CanEditSite())
                         {

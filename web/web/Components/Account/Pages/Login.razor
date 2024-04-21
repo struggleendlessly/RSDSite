@@ -2,38 +2,84 @@
 
 @attribute [Route(StaticRoutesStrings.LoginPageRoute)]
 
-<PageTitle>Log in</PageTitle>
+<PageTitle>Log in </PageTitle>
 
 <div class="text-center mb-5">
     <div class="form-signin">
         <StatusMessage Message="@errorMessage" />
         <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
-            <h1 class="h3 mb-3 fw-normal">Welcome back</h1>
-            <p>Login to manage your account</p>
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                Welcome back
+            </h1>
+
+            <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                Login to manage your account
+            </p>
+
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
+
             <div class="form-floating">
-                <label for="loginEmail">Your email</label>
-                <InputText @bind-Value="Input.Email" type="email" class="form-control" id="loginEmail" placeholder="name@example.com" aria-label="name@example.com" required />
+                <InputText @bind-Value="Input.Email"
+                           type="email"
+                           class="form-control"
+                           id="loginEmail"
+                           placeholder="name@example.com"
+                           aria-label="name@example.com"
+                           required />
+
                 <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+
+                <label for="loginEmail">
+                    Your email
+                </label>
             </div>
+
             <div class="form-floating">
-                <label for="loginPassword">Password</label>
-                <InputText @bind-Value="Input.Password" type="password" class="form-control" id="loginPassword" placeholder="Password" aria-label="Password" required />
+                <InputText @bind-Value="Input.Password"
+                           type="password"
+                           class="form-control"
+                           id="loginPassword"
+                           placeholder="Password"
+                           aria-label="Password"
+                           required />
+
                 <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
+
+                <label for="loginPassword">
+                    Password
+                </label>
             </div>
+
             <div class="checkbox mb-3 mt-3">
                 <label>
-                    <InputCheckbox @bind-Value="Input.RememberMe" type="checkbox" id="loginRememberMe" class="form-check-input" />
+                    <InputCheckbox @bind-Value="Input.RememberMe"
+                                   type="checkbox"
+                                   id="loginRememberMe"
+                                   class="form-check-input" />
                     Remember me
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+            <button class="w-100 btn btn-lg btn btn-dark text-white px-4 gap-3" type="submit">
+                Sign in
+            </button>
+
+            @*             <div class="text-center mt-3">
+            <p>
+            Don't have an account yet?
+            <a class="link text-decoration-none"
+            href="@(NavigationManager.GetUriWithQueryParameters(GetPageUrl(StaticRoutesStrings.RegisterPageUrl), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">
+            Sign up here
+            </a>
+            </p>
+            </div> *@
+
             <div class="text-center mt-3">
-                <p>Don't have an account yet? <a class="link text-decoration-none" href="@(NavigationManager.GetUriWithQueryParameters(GetPageUrl(StaticRoutesStrings.RegisterPageUrl), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Sign up here</a></p>
-            </div>
-            <div class="text-center">
-                <a class="link text-decoration-none" href="@GetPageUrl(StaticRoutesStrings.ForgotPasswordPageUrl)">Forgot Password?</a>
+                <a class="link text-decoration-none"
+                   href="@GetPageUrl(StaticRoutesStrings.ForgotPasswordPageUrl)">
+                    Forgot Password?
+                </a>
             </div>
         </EditForm>
     </div>
