@@ -1,6 +1,9 @@
 ﻿<div class="px-2 py-1 text-center container">
     @if (Model.Data is not null)
     {
+        var titleKey = Key + StaticStrings.TitleKeyEnding;
+        var imageKey = Key + StaticStrings.ImageKeyEnding;
+
 @*         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
@@ -25,13 +28,32 @@
             </HTMLEditor>
         </div> *@
 
+        <!-- CSSMainTitle_h1 -->
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServiceTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@titleKey">
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                @((MarkupString)Model.Data[titleKey])
+            </h1>
+        </HTMLEditor>
+
+        <!-- img -->
+        <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServiceImageId"
+                     Model="Model"
+                     FuncSave="Save"
+                     Key="@imageKey">
+            <img src="@Model.Data[imageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
+        </ImageEditor>
+
         <HTMLEditor 
             EditorId="@(StaticHtmlStrings.HTMLEditorServicePageContentId)"
             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
             Model="Model"
             FuncSave="Save"
             Key="@Key">
-                @((MarkupString) Model.Data[Key])
+                <p>@((MarkupString)Model.Data[Key])</p> 
         </HTMLEditor>
     }
 </div>
