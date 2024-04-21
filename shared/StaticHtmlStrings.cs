@@ -95,7 +95,9 @@ namespace shared
         public static string ServicesListServiceShortDescDefaultKey = "Service_{0}_{1}";
         public static string ServicesListServiceShortDescDefaultTitleValue = "Title";
         public static string ServicesListServiceShortDescDefaultSubtitleValue = "Subtitle";
-        public static string ServicesListServiceLongDescDefaultValue = "Content";
+        public static string ServicesListServiceLongDescDefaultValue = "Service content";
+        public static string ServicesListServiceLongDescTitleDefaultValue = "Service title";
+        public static string ServicesListServiceLongDescImageDefaultValue = "https://cdn.pixabay.com/photo/2017/02/13/23/03/planet-2064152_640.jpg";
 
         public static string AboutUsTeamListServiceShortDescDefaultImageValue = "_content/rcl/assets/img/160x160/img7.jpg";
         public static string AboutUsTeamListServiceShortDescDefaultTitleValue = "Christina Kray";

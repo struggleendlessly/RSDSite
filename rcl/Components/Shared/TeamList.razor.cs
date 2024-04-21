@@ -96,7 +96,7 @@ namespace rcl.Components.Shared
             }
         }
 
-        public async Task Add(string key)
+        public async Task Add(string? key = null)
         {
             isAdding = true;
 
@@ -123,8 +123,15 @@ namespace rcl.Components.Shared
                 { serviceTextKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTextValue }
             };
 
-            var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
-            ServiceItems.Insert(index + 1, serviceItem);
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+                var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
+                ServiceItems.Insert(index + 1, serviceItem);
+            }
+            else
+            {
+                ServiceItems.Add(serviceItem);
+            }
 
             await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
 

@@ -123,7 +123,7 @@ namespace rcl.Components.Shared
             }
         }
 
-        public async Task Add(string key)
+        public async Task Add(string? key = null)
         {
             isAdding = true;
 
@@ -146,13 +146,22 @@ namespace rcl.Components.Shared
             serviceItem.LongDesc = new Dictionary<string, string>
             {
                 { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
-                { serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey }
+                { serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey },
+                { serviceItemKey + StaticStrings.TitleKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescTitleDefaultValue },
+                { serviceItemKey + StaticStrings.ImageKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescImageDefaultValue }
             };
 
             ModelUrls.Data.Add(serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey);
 
-            var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
-            ServiceItems.Insert(index + 1, serviceItem);
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+                var index = ServiceItems.FindIndex(x => x.ShortDesc.ContainsKey(key));
+                ServiceItems.Insert(index + 1, serviceItem);
+            }
+            else
+            {
+                ServiceItems.Add(serviceItem);
+            }
 
             await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
 
