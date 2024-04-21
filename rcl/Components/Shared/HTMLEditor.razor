@@ -1,6 +1,6 @@
 ﻿<AuthorizeView>
     <Authorized>
-        @if (StateManager.CanEditSite() && SettingsModel.Data != null)
+        @if (SettingsModel.Data is not null && StateManager.CanEditSite())
         {
             <div class="mb-2">
                 @if (!EditMode)

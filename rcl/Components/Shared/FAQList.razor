@@ -1,6 +1,6 @@
 ﻿<div class="accordion my-5 pt-4" id="accordionFAQ">
 
-    @if (Model.Data != null && Model.Data.Count > 0)
+    @if (Model.Data is not null && Model.Data.Count > 0)
     {
         @for (int i = 0; i < ServiceItems.Count; i++)
         {

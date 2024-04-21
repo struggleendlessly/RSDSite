@@ -1,10 +1,19 @@
 ﻿<AuthorizeView>
     <Authorized>
-        @if (StateManager.CanEditSite() && SettingsModel.Data != null)
+        @if (SettingsModel.Data is not null && StateManager.CanEditSite())
         {
             <div class="input-group input-group-sm mb-2">
-                <input type="file" class="form-control" id="@EditorId" aria-describedby="inputGroupFileAddon" aria-label="Save" accept="image/*" />
-                <button class="btn btn-success" type="button" id="inputGroupFileAddon" @onclick="SaveChangesAsync">
+                <input type="file"
+                       class="form-control"
+                       id="@EditorId"
+                       aria-describedby="inputGroupFileAddon"
+                       aria-label="Save"
+                       accept="image/*" />
+
+                <button class="btn btn-success"
+                        type="button"
+                        id="inputGroupFileAddon"
+                        @onclick="SaveChangesAsync">
                     @SettingsModel.Data[StaticStrings.AdminPageDataImageEditorSaveButtonTextKey]
                 </button>
             </div>
