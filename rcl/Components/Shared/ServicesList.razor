@@ -1,6 +1,6 @@
 ﻿@if (Model.Data is not null && Model.Data.Count > 0)
 {
-    <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto">
+    <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto mt-1">
 
         @for (int i = 0; i < ServiceItems.Count; i++)
         {
@@ -12,8 +12,11 @@
             var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
             var serviceButtonTextValue = SettingsModel.Data[StaticStrings.AdminPageDataServicesButtonTextKey];
 
-            <div class="col mx-auto text-center mb-5" style="">
-                <AuthorizeView>
+            <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+
+
+                <div class="card border-light bg-light h-100 py-3">
+                                    <AuthorizeView>
                     <Authorized>
                         <!-- Card add or remove -->
                         @if (StateManager.CanEditSite())
@@ -37,7 +40,6 @@
                     </Authorized>
                 </AuthorizeView>
 
-                <div class="card border-light bg-light h-100 py-3">
                     <AuthorizeView>
                         <Authorized>
                             <!-- Card add or remove -->

@@ -1,7 +1,10 @@
-﻿<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <div class="container content-space-2 content-space-lg-3">
-        <h2>Pricing page</h2>
-    </div>
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+﻿<div class="px-2 py-1 text-center container">
+    <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+        Pricing
+    </h1>
+
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.PricingTableId"
+                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey">
+    </stripe-pricing-table>
+</div>
