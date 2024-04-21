@@ -1,34 +1,107 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 
-<div class="container">
+<div class="px-2 py-1 text-center container">
 
-    <div class="row pb-4">
+    <!-- CSSMainTitle_h1 -->
+    @if (Model.Data != null)
+    {
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.ContactUsPageDataTitleKey)">
+            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])
+            </h1>
+        </HTMLEditor>
+
+        <!-- CSSMainSubTitle_p -->
+        <div class="col-lg-6 mx-auto pb-1">
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
+                </p>
+            </HTMLEditor>
+        </div>
+    }
+
+    <div class="row justify-content-lg-center my-5">
+        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+            <!-- Email -->
+            @if (Model.Data != null)
+            {
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
+                    <h5 class="mb-1">
+                        @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
+                    </h5>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
+                    <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
+                </HTMLEditor>
+            }
+        </div>
+        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+            <!-- Call -->
+            @if (Model.Data != null)
+            {
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
+                    <h5 class="mb-1">
+                        @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
+                    </h5>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
+                    <a class="text-dark text-decoration-none" href="tel:@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])">
+                        @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])
+                    </a>
+                </HTMLEditor>
+            }
+        </div>
+        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+            <!-- Address -->
+            @if (Model.Data != null)
+            {
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
+                    <h5 class="mb-1">
+                        @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
+                    </h5>
+                </HTMLEditor>
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressSubtitleId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
+                    <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
+                </HTMLEditor>
+            }
+        </div>
+    </div>
+
+    <div class="row mb-5">
         <div class="col-lg-6 text-center">
-
-            <div class="mb-5">
-                @if (Model.Data != null)
-                {
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataTitleKey)">
-                        <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
-                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])
-                        </h1>
-                    </HTMLEditor>
-
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsSubtitleId)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
-                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
-                        </p>
-                    </HTMLEditor>
-                }
-            </div>
 
             @if (Model.Data != null)
             {
@@ -57,80 +130,9 @@
             }
 
             <!-- MAP HERE -->
-            <div id="map" class="mb-5" style="height: 350px;"></div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    @if (Model.Data != null)
-                    {
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
-                            <h5 class="mb-1">
-                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
-                            </h5>
-                        </HTMLEditor>
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
-                            <a class="text-dark text-decoration-none" href="tel:@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])">
-                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])
-                            </a>
-                        </HTMLEditor>
-                    }
-                </div>
-
-
-                <div class="col-sm-6">
-                    @if (Model.Data != null)
-                    {
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
-                            <h5 class="mb-1">
-                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
-                            </h5>
-                        </HTMLEditor>
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
-                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
-                        </HTMLEditor>
-                    }
-                </div>
-
-
-                <div class="col-sm-6">
-                    @if (Model.Data != null)
-                    {
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
-                            <h5 class="mb-1">
-                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
-                            </h5>
-                        </HTMLEditor>
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressSubtitleId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
-                            <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
-                        </HTMLEditor>
-                    }
-                </div>
-            </div>
+            <div id="map" class="rounded" style="height: 536px;"></div>
         </div>
+
         <div class="col-lg-6 text-center">
             <div class="card h-100">
                 <div class="card-body">
@@ -144,6 +146,7 @@
                             <h5 class="card-title">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])</h5>
                         </HTMLEditor>
                     }
+
                     <p class="card-text">
                         <EditForm Model="Input" method="post" OnValidSubmit="SubmitForm" FormName="contact-us">
                             <DataAnnotationsValidator />
@@ -245,8 +248,4 @@
             </div>
         </div>
     </div>
-
-
 </div>
-
-<div class="border-top mx-auto pb-4" style="max-width: 25rem;"></div>
