@@ -1,8 +1,7 @@
 ﻿<div class="px-2 py-1 text-center container">
-
-    <!-- CSSMainTitle_h1 -->
-    @if (Model.Data != null)
+    @if (Model.Data is not null)
     {
+        <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
@@ -12,12 +11,9 @@
                 @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTitleKey])
             </h1>
         </HTMLEditor>
-    }
 
-    <!-- CSSMainSubTitle_p -->
-    <div class="col-lg-6 mx-auto">
-        @if (Model.Data != null)
-        {
+        <!-- CSSMainSubTitle_p -->
+        <div class="col-lg-6 mx-auto">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsSubtitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
@@ -27,18 +23,15 @@
                     @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])
                 </p>
             </HTMLEditor>
-        }
-    </div>
+        </div>
 
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
-            Get in touch
-        </button>
-    </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
+            <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
+                Get in touch
+            </button>
+        </div>
 
-    <!-- img -->
-    @if (Model.Data != null)
-    {
+        <!-- img -->
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAboutUsCarouselImage1Id"
                      Model="Model"
                      FuncSave="Save"
@@ -95,13 +88,11 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    }
 
-    <!-- Numbers with description -->
-    <div class="row justify-content-lg-center my-5">
-        <div class="col-sm-4 col-lg-3 mb-7 text-center">
-            @if (Model.Data != null)
-            {
+        <!-- Numbers with description -->
+        <div class="row justify-content-lg-center my-5">
+            <!-- 1 -->
+            <div class="col-sm-4 col-lg-3 mb-7 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsFirstTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -120,11 +111,10 @@
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey])
                     </p>
                 </HTMLEditor>
-            }
-        </div>
-        <div class="col-sm-4 col-lg-3 mb-7 text-center">
-            @if (Model.Data != null)
-            {
+            </div>
+
+            <!-- 2 -->
+            <div class="col-sm-4 col-lg-3 mb-7 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsSecondTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -143,11 +133,10 @@
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey])
                     </p>
                 </HTMLEditor>
-            }
-        </div>
-        <div class="col-sm-4 col-lg-3 text-center">
-            @if (Model.Data != null)
-            {
+            </div>
+
+            <!-- 3 -->
+            <div class="col-sm-4 col-lg-3 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsFeatureStatsThirdTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -166,15 +155,12 @@
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey])
                     </p>
                 </HTMLEditor>
-            }
+            </div>
         </div>
-    </div>
 
 
-    <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-            @if (Model.Data != null)
-            {
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoRightFirstId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -193,11 +179,8 @@
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])
                     </p>
                 </HTMLEditor>
-            }
-        </div>
-        <div class="col-md-5 order-md-1">
-            @if (Model.Data != null)
-            {
+            </div>
+            <div class="col-md-5 order-md-1">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoLeftId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -207,14 +190,11 @@
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
                     </p>
                 </HTMLEditor>
-            }
+            </div>
         </div>
-    </div>
 
-    <!-- Title and Sub for the List of -->
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        @if (Model.Data != null)
-        {
+        <!-- Title and Sub for the List of -->
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamTitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
@@ -234,9 +214,9 @@
                     @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])
                 </p>
             </HTMLEditor>
-        }
-    </div>
+        </div>
 
-    <!-- List of -->
-    <TeamList></TeamList>
+        <!-- List of -->
+        <TeamList></TeamList>
+    }
 </div>

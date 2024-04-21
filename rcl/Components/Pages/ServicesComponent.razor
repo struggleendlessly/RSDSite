@@ -1,6 +1,7 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data != null)
+    @if (Model.Data is not null)
     {
+        <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
@@ -10,36 +11,14 @@
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])
             </h1>
         </HTMLEditor>
-    }
 
-    @if (Model.Data != null)
-    {
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
                      Model="Model"
                      FuncSave="Save"
                      Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
             <img class="img-fluid rounded my-5" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description" />
         </ImageEditor>
-    }
 
-
-    @*         <div class="col-7">
-    <div class="ms-lg-4">
-    @if (Model.Data != null)
-    {
-    <ImageEditor
-    EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage2Id"
-    Model="Model"
-    FuncSave="Save"
-    Key="@(StaticStrings.ServicesPageDataGalleryImage2Key)">
-    <img class="img-fluid rounded-2" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage2Key]" alt="Image Description" />
-    </ImageEditor>
-    }
-    </div>
-    </div> *@
-
-    @if (Model.Data != null)
-    {
         <!-- CSSMainTitle_h2 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
@@ -61,15 +40,12 @@
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
             </p>
         </HTMLEditor>
-    }
 
-    <!-- List of -->
-    <ServicesList ServiceItems="ServiceItems">
-    </ServicesList>
+        <!-- List of -->
+        <ServicesList ServiceItems="ServiceItems">
+        </ServicesList>
 
-    <!-- Title and Sub for the List of -->
-    @if (Model.Data != null)
-    {
+        <!-- Title and Sub for the List of -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
@@ -79,9 +55,8 @@
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])
             </h2>
         </HTMLEditor>
+
+        <!-- List of -->
+        <FAQList></FAQList>
     }
-
-    <!-- List of -->
-    <FAQList></FAQList>
-
 </div>

@@ -1,8 +1,7 @@
 ﻿<div class="px-2 py-1 text-center container">
-
-    <!-- CSSMainTitle_h1 -->
-    @if (Model.Data != null)
+    @if (Model.Data is not null)
     {
+        <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
@@ -12,12 +11,9 @@
                 @((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])
             </h1>
         </HTMLEditor>
-    }
 
-    <!-- CSSMainSubTitle_p -->
-    <div class="col-lg-6 mx-auto">
-        @if (Model.Data != null)
-        {
+        <!-- CSSMainSubTitle_p -->
+        <div class="col-lg-6 mx-auto">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeSubtitleId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
@@ -27,29 +23,23 @@
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
                 </p>
             </HTMLEditor>
-        }
-    </div>
+        </div>
 
-    <!-- btn -->
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
-            Get in touch
-        </button>
-    </div>
+        <!-- btn -->
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
+            <button type="button" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
+                Get in touch
+            </button>
+        </div>
 
-    <!-- img -->
-    @if (Model.Data != null)
-    {
+        <!-- img -->
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
                      Model="Model"
                      FuncSave="Save"
                      Key="@(StaticStrings.HomePageDataImageKey)">
             <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
         </ImageEditor>
-    }
 
-    @if (Model.Data != null)
-    {
         <!-- CSSMainTitle_h2 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeFeaturedCaseStudiesTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
@@ -73,15 +63,12 @@
                 </p>
             </HTMLEditor>
         </div>
-    }
 
-    <!-- List of services to show -->
-    <FeaturedCaseStudies ServiceItems="ServiceItems">
-    </FeaturedCaseStudies>
+        <!-- List of services to show -->
+        <FeaturedCaseStudies ServiceItems="ServiceItems">
+        </FeaturedCaseStudies>
 
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-        @if (Model.Data != null)
-        {
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
             <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
                         EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                         Model="Model"
@@ -91,10 +78,9 @@
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
             </HTMLEditor>
-        }
-    </div>
+        </div>
 
-    <!-- List of -->
-    <TestimonialsList></TestimonialsList>
-
+        <!-- List of -->
+        <TestimonialsList></TestimonialsList>
+    }
 </div>

@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 
 <div class="px-2 py-1 text-center container">
-
-    <!-- CSSMainTitle_h1 -->
-    @if (Model.Data != null)
+    @if (Model.Data is not null)
     {
+        <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
@@ -27,13 +26,10 @@
                 </p>
             </HTMLEditor>
         </div>
-    }
 
-    <div class="row justify-content-lg-center my-5">
-        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+        <div class="row justify-content-lg-center my-5">
             <!-- Email -->
-            @if (Model.Data != null)
-            {
+            <div class="col-sm-4 col-lg-3 mb-5 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -50,12 +46,10 @@
                             Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
                     <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
                 </HTMLEditor>
-            }
-        </div>
-        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+            </div>
+
             <!-- Call -->
-            @if (Model.Data != null)
-            {
+            <div class="col-sm-4 col-lg-3 mb-5 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -74,12 +68,10 @@
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])
                     </a>
                 </HTMLEditor>
-            }
-        </div>
-        <div class="col-sm-4 col-lg-3 mb-5 text-center">
+            </div>
+
             <!-- Address -->
-            @if (Model.Data != null)
-            {
+            <div class="col-sm-4 col-lg-3 mb-5 text-center">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsAddressTitleId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
@@ -96,15 +88,11 @@
                             Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
                     <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
                 </HTMLEditor>
-            }
+            </div>
         </div>
-    </div>
 
-    <div class="row mb-5">
-        <div class="col-lg-6 text-center">
-
-            @if (Model.Data != null)
-            {
+        <div class="row mb-5 ">
+            <div class="col-lg-6 text-center mb-5 mb-sm-5 mb-lg-0">
                 <AuthorizeView>
                     <Authorized>
                         @if (StateManager.CanEditSite())
@@ -127,110 +115,129 @@
                         }
                     </Authorized>
                 </AuthorizeView>
-            }
 
-            <!-- MAP HERE -->
-            <div id="map" class="rounded" style="height: 536px;"></div>
-        </div>
+                <!-- MAP HERE -->
+                <div id="map" class="rounded" style="height: 536px;"></div>
+            </div>
 
-        <div class="col-lg-6 text-center">
-            <div class="card h-100">
-                <div class="card-body">
-                    @if (Model.Data != null)
-                    {
+            <div class="col-lg-6 text-center">
+                <div class="card h-100">
+                    <div class="card-body">
                         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTitleId)"
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="Save"
                                     Key="@(StaticStrings.ContactUsPageDataFormTitleKey)">
-                            <h5 class="card-title">@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])</h5>
+                            <h5 class="card-title">
+                                @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])
+                            </h5>
                         </HTMLEditor>
-                    }
 
-                    <p class="card-text">
-                        <EditForm Model="Input" method="post" OnValidSubmit="SubmitForm" FormName="contact-us">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary class="text-danger" role="alert" />
-                            @if (!string.IsNullOrWhiteSpace(Message))
-                            {
-                                <div class="alert alert-success" role="alert">
-                                    @Message
-                                </div>
-                            }
-                            <div class="row gx-3">
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        @if (Model.Data != null)
-                                        {
-                                            <label class="form-label" for="contactUsFormFirstName">@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldLabelKey]</label>
-                                            <InputText @bind-Value="Input.FirstName" type="text" class="form-control form-control-lg"
-                                                       id="contactUsFormFirstName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldPlaceholderKey]" aria-label="First name" required />
-                                            <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        @if (Model.Data != null)
-                                        {
-                                            <label class="form-label" for="contactUsFormLastName">@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldLabelKey]</label>
-                                            <InputText @bind-Value="Input.LastName" type="text" class="form-control form-control-lg"
-                                                       id="contactUsFormLastName" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldPlaceholderKey]" aria-label="Last name" required />
-                                            <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gx-3">
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        @if (Model.Data != null)
-                                        {
-                                            <label class="form-label" for="contactUsFormEmail">@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldLabelKey]</label>
-                                            <InputText @bind-Value="Input.Email" type="email" class="form-control form-control-lg"
-                                                       id="contactUsFormEmail" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldPlaceholderKey]" aria-label="email@site.com" required />
-                                            <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        @if (Model.Data != null)
-                                        {
-                                            <label class="form-label" for="contactUsFormPhone">@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldLabelKey]</label>
-                                            <InputText @bind-Value="Input.PhoneNumber" type="text" class="form-control form-control-lg"
-                                                       id="contactUsFormPhone" placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldPlaceholderKey]" aria-label="+x(xxx)xxx-xx-xx" />
-                                            <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                @if (Model.Data != null)
+                        <p class="card-text">
+                            <EditForm Model="Input" method="post" OnValidSubmit="SubmitForm" FormName="contact-us">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary class="text-danger" role="alert" />
+
+                                @if (!string.IsNullOrWhiteSpace(Message))
                                 {
-                                    <label class="form-label" for="contactUsFormDetails">@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldLabelKey]</label>
-                                    <InputTextArea @bind-Value="Input.Details" class="form-control form-control-lg" id="contactUsFormDetails"
-                                                   placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldPlaceholderKey]" aria-label="Tell us about your ..." rows="4" required>
-                                    </InputTextArea>
+                                    <div class="alert alert-success" role="alert">
+                                        @Message
+                                    </div>
                                 }
-                            </div>
-                            <div class="d-grid">
-                                @if (Model.Data != null)
-                                {
+
+                                <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="contactUsFormFirstName">
+                                                @Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldLabelKey]
+                                            </label>
+                                            <InputText @bind-Value="Input.FirstName"
+                                                       type="text"
+                                                       class="form-control form-control-lg"
+                                                       id="contactUsFormFirstName"
+                                                       placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormFirstNameFieldPlaceholderKey]"
+                                                       aria-label="First name"
+                                                       required />
+                                            <ValidationMessage For="() => Input.FirstName" class="invalid-feedback" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="contactUsFormLastName">
+                                                @Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldLabelKey]
+                                            </label>
+                                            <InputText @bind-Value="Input.LastName"
+                                                       type="text"
+                                                       class="form-control form-control-lg"
+                                                       id="contactUsFormLastName"
+                                                       placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormLastNameFieldPlaceholderKey]"
+                                                       aria-label="Last name"
+                                                       required />
+                                            <ValidationMessage For="() => Input.LastName" class="invalid-feedback" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="contactUsFormEmail">
+                                                @Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldLabelKey]
+                                            </label>
+                                            <InputText @bind-Value="Input.Email"
+                                                       type="email" class="form-control form-control-lg"
+                                                       id="contactUsFormEmail"
+                                                       placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormEmailAddressFieldPlaceholderKey]"
+                                                       aria-label="email@site.com"
+                                                       required />
+                                            <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="contactUsFormPhone">
+                                                @Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldLabelKey]
+                                            </label>
+                                            <InputText @bind-Value="Input.PhoneNumber"
+                                                       type="text"
+                                                       class="form-control form-control-lg"
+                                                       id="contactUsFormPhone"
+                                                       placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormPhoneFieldPlaceholderKey]"
+                                                       aria-label="+x(xxx)xxx-xx-xx" />
+                                            <ValidationMessage For="() => Input.PhoneNumber" class="invalid-feedback" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="contactUsFormDetails">
+                                        @Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldLabelKey]
+                                    </label>
+                                    <InputTextArea @bind-Value="Input.Details"
+                                                   class="form-control form-control-lg"
+                                                   id="contactUsFormDetails"
+                                                   placeholder="@Model.Data[StaticStrings.ContactUsPageDataFormDetailsFieldPlaceholderKey]"
+                                                   aria-label="Tell us about your ..."
+                                                   rows="4"
+                                                   required>
+                                    </InputTextArea>
+                                </div>
+
+                                <div class="d-grid">
                                     <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormButtonTextId)"
                                                 EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                                 Model="Model"
                                                 FuncSave="Save"
                                                 Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
-                                        <button type="submit" class="btn btn-primary btn-lg">
+                                        <button type="submit" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
                                             @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
                                         </button>
                                     </HTMLEditor>
-                                }
-                            </div>
-                            <div class="text-center">
-                                @if (Model.Data != null)
-                                {
+                                </div>
+
+                                <div class="text-center">
                                     <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsFormTextUnderButtonKey)"
                                                 EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                                 Model="Model"
@@ -240,12 +247,13 @@
                                             @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
                                         </p>
                                     </HTMLEditor>
-                                }
-                            </div>
-                        </EditForm>
-                    </p>
+                                </div>
+                            </EditForm>
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
