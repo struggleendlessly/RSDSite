@@ -68,17 +68,19 @@
         <FeaturedCaseStudies ServiceItems="ServiceItems">
         </FeaturedCaseStudies>
 
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
-            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
-                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
+        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
+                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                    Model="Model"
+                    FuncSave="Save"
+                    Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
                 <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataViewAllWorksButtonTextKey])
                 </a>
-            </HTMLEditor>
-        </div>
+            </div>
+
+        </HTMLEditor>
 
         <!-- List of -->
         <TestimonialsList></TestimonialsList>

@@ -11,7 +11,7 @@
             var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
             var serviceTextKey = serviceKey + StaticStrings.TextKeyEnding;
 
-            <div class="col mx-auto text-center " style="">
+            <div class="col mx-auto text-center mb-5" style="">
                 <AuthorizeView>
                     <Authorized>
                         <!-- Card add or remove -->
@@ -63,7 +63,7 @@
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="SaveContent"
-                                    Key="@serviceTitleKey">
+                                    Key="@serviceSubtitleKey">
                             <h6 class="card-title">
                                 @((MarkupString)Model.Data[serviceSubtitleKey])
                             </h6>
