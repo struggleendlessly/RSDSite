@@ -37,23 +37,22 @@
                 <h2 class="accordion-header"
                     id="panelsStayOpen-heading-@serviceKeyIndex">
 
+                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
+                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                Model="Model"
+                                FuncSave="SaveContent"
+                                Key="@serviceTitleKey">
+                    </HTMLEditor>
+
                     <button class="accordion-button collapsed bg-light display-5 fw-bold"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex"
                             aria-expanded="false"
                             aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
-
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceTitleKey">
-
-                            @((MarkupString)Model.Data[serviceTitleKey])
-
-                        </HTMLEditor>
+                        @((MarkupString)Model.Data[serviceTitleKey])
                     </button>
+
                 </h2>
 
                 <div id="panelsStayOpen-collapse-@serviceKeyIndex"

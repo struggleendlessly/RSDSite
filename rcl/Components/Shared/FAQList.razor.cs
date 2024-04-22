@@ -69,6 +69,8 @@ namespace rcl.Components.Shared
             }
 
             await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+
+            StateHasChanged();
         }
 
         public async Task Remove(string key)
