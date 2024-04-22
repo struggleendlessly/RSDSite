@@ -29,52 +29,70 @@
 </AuthorizeView>
 
 <div class="container pb-5">
-
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 text-dark">
-        <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            @if (Model.Data != null)
-            {
-                <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
-            }
-        </a>
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            @if (MenuModel.Data != null)
-            {
-                <li class="nav-item">
-                    <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.EmptyRoute))" aria-current="page">
-                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="@GetPageUrl(StaticRoutesStrings.AboutUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.AboutUsPageUrl))">
-                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
-                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
-                    </a>
-                </li>
-                @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
-                {
-                    <li class="nav-item">
-                        <a href="@GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">
-                            Pricing
-                        </a>
-                    </li>
-                }
-            }
-        </ul>
-
-        <div class="col-md-3 text-end">
-            @if (MenuModel.Data != null)
-            {
-                <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="btn btn-dark text-white @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl, true))">
-                    @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
+    <header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="navbar-brand">
+                    @if (Model.Data != null)
+                    {
+                        <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
+                    }
                 </a>
-            }
-        </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        @if (MenuModel.Data != null)
+                        {
+                            <li class="nav-item">
+                                <a href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.EmptyRoute))" aria-current="page">
+                                    @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@GetPageUrl(StaticRoutesStrings.AboutUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.AboutUsPageUrl))">
+                                    @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
+                                    @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
+                                </a>
+                            </li>
+                            @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
+                            {
+                                <li class="nav-item">
+                                    <a href="@GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">
+                                        Pricing
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <div class="d-inline d-lg-none">
+                        @if (MenuModel.Data != null)
+                        {
+                            <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="btn btn-dark text-white @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl, true))">
+                                @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div class="d-none d-lg-inline">
+                    @if (MenuModel.Data != null)
+                    {
+                        <a href="@GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="btn btn-dark text-white @(HighlightActiveMenuItem(StaticRoutesStrings.ContactUsPageUrl, true))">
+                            @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
     </header>
 
 </div>
