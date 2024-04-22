@@ -61,11 +61,12 @@ namespace rcl.Components.Pages
 
             Key = keyValuePairUrl.Key.Replace(StaticStrings.UrlKeyEnding, string.Empty);
             var titleKey = Key + StaticStrings.TitleKeyEnding;
+            var subtitleKey = Key + StaticStrings.SubtitleKeyEnding;
             var imageKey = Key + StaticStrings.ImageKeyEnding;
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
-                .Where(x => x.Key == Key || x.Key == titleKey || x.Key == imageKey)
+                .Where(x => x.Key == Key || x.Key == titleKey || x.Key == subtitleKey || x.Key == imageKey)
                 .ToDictionary();
         }
 

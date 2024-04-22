@@ -2,31 +2,8 @@
     @if (Model.Data is not null)
     {
         var titleKey = Key + StaticStrings.TitleKeyEnding;
+        var subtitleKey = Key + StaticStrings.SubtitleKeyEnding;
         var imageKey = Key + StaticStrings.ImageKeyEnding;
-
-@*         <!-- CSSMainTitle_h1 -->
-        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
-                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                    Model="Model"
-                    FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataTitleKey)">
-            <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
-                @((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])
-            </h1>
-        </HTMLEditor>
-
-        <!-- CSSMainSubTitle_p -->
-        <div class="col-lg-6 mx-auto">
-            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeSubtitleId)"
-                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                        Model="Model"
-                        FuncSave="Save"
-                        Key="@(StaticStrings.HomePageDataSubtitleKey)">
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                    @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
-                </p>
-            </HTMLEditor>
-        </div> *@
 
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServiceTitleId)"
@@ -38,6 +15,19 @@
                 @((MarkupString)Model.Data[titleKey])
             </h1>
         </HTMLEditor>
+
+        <!-- CSSMainSubTitle_p -->
+        <div class="col-lg-6 mx-auto">
+            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServiceSubtitleId)"
+                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                        Model="Model"
+                        FuncSave="Save"
+                        Key="@subtitleKey">
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @((MarkupString)Model.Data[subtitleKey])
+                </p>
+            </HTMLEditor>
+        </div>
 
         <!-- img -->
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServiceImageId"

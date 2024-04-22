@@ -89,6 +89,7 @@ namespace shared
         /* Service */
 
         public static string HTMLEditorServiceTitleId = "htmlEditorServiceTitle";
+        public static string HTMLEditorServiceSubtitleId = "htmlEditorServiceSubtitle";
         public static string ImageEditorServiceImageId = "imageEditorServiceImage";
         public static string HTMLEditorServicePageContentId = "htmlEditorServicePageContent";
 
