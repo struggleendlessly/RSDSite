@@ -35,6 +35,8 @@ namespace rcl.Components.Shared
 
         public PageModel SettingsModel { get; set; } = new PageModel();
 
+        private bool isSaving = false;
+
         protected override async Task OnInitializedAsync()
         {
             SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
@@ -42,6 +44,8 @@ namespace rcl.Components.Shared
 
         private async Task SaveChangesAsync()
         {
+            isSaving = true;
+
             var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.imageEditorGetContent, EditorId);
 
             if (!string.IsNullOrWhiteSpace(content))
@@ -49,6 +53,8 @@ namespace rcl.Components.Shared
                 Model.Data[Key] = content;
                 await FuncSave(Model);
             }
+
+            isSaving = false;
         }
     }
 }

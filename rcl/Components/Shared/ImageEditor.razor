@@ -10,13 +10,24 @@
                            id="@EditorId"
                            aria-describedby="inputGroupFileAddon"
                            aria-label="Save"
-                           accept="image/*" />
+                           accept="image/*"
+                           disabled="@isSaving" />
 
                     <button class="btn btn-outline-success"
                             type="button"
                             id="inputGroupFileAddon"
-                            @onclick="SaveChangesAsync">
-                        @SettingsModel.Data[StaticStrings.AdminPageDataImageEditorSaveButtonTextKey]
+                            @onclick="SaveChangesAsync"
+                            disabled="@isSaving">
+
+                        @if (isSaving)
+                        {
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        }
+                        else
+                        {
+                            @SettingsModel.Data[StaticStrings.AdminPageDataImageEditorSaveButtonTextKey]
+                        }
+
                     </button>
                 </div>
             </div>
