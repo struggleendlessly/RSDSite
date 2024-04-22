@@ -158,17 +158,28 @@
             </div>
         </div>
 
-
+        <!-- Block with title left side -->
         <div class="row featurette">
+            <div class="col-md-5 order-md-1">
+                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoLeftId)"
+                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                            Model="Model"
+                            FuncSave="Save"
+                            Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)">
+                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
+                    </h2>
+                </HTMLEditor>
+            </div>
             <div class="col-md-7 order-md-2">
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoRightFirstId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.AboutUsPageDataInfoRightFirstKey)">
-                    <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightFirstKey])
-                    </h2>
+                    </p>
                 </HTMLEditor>
                 <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoRightSecondtId)"
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
@@ -177,17 +188,6 @@
                             Key="@(StaticStrings.AboutUsPageDataInfoRightSecondKey)">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])
-                    </p>
-                </HTMLEditor>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsInfoLeftId)"
-                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                            Model="Model"
-                            FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)">
-                    <p class="lead">
-                        @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
                     </p>
                 </HTMLEditor>
             </div>
