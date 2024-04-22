@@ -1,90 +1,63 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <div class="col-12">
-                @if (Model.Data != null)
-                {
-                    <h5>@Model.Data[StaticStrings.AdminPageDataLogoLabelKey]</h5>
-                    <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
-                                 Model="Model"
-                                 FuncSave="Save"
-                                 Key="@StaticStrings.AdminPageDataLogoKey">
-                        <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
-                    </ImageEditor>
-                }
-            </div>
-            <hr />
-            <div class="col-12 mt-5">
-                @if (Model.Data != null)
-                {
-                    <h5>@Model.Data[StaticStrings.AdminPageDataFooterTextLabelKey]</h5>
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@StaticStrings.AdminPageDataFooterTextKey">
-                        <p>@((MarkupString) Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
-                    </HTMLEditor>
-                }
-            </div>
-            <hr />
-            <div class="col-12 mt-5">
-                @if (Model.Data != null)
-                {
-                    <h5>@Model.Data[StaticStrings.AdminPageDataFooterSocialNetworksLabelKey]</h5>
-                    <SocialNetworks></SocialNetworks>
-                }
-            </div>
-            <hr />
-            <div class="col-12 mt-5">
-                @if (Model.Data != null)
-                {
-                    <h5>@Model.Data[StaticStrings.AdminPageDataHeaderMenuLabelKey]</h5>
-                }
-                @if (MenuModel.Data != null)
-                {
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
-                                Model="MenuModel"
-                                FuncSave="SaveMenu"
-                                Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
-                        <p>Main page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])</p>
-                    </HTMLEditor>
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
-                                Model="MenuModel"
-                                FuncSave="SaveMenu"
-                                Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
-                        <p>About us page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])</p>
-                    </HTMLEditor>
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
-                                Model="MenuModel"
-                                FuncSave="SaveMenu"
-                                Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
-                        <p>Contact us page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])</p>
-                    </HTMLEditor>
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
-                                Model="MenuModel"
-                                FuncSave="SaveMenu"
-                                Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
-                        <p>Services page text: @((MarkupString) MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])</p>
-                    </HTMLEditor>
-                }
-            </div>
-            <hr />
-            <div class="col-12 mt-5">
-                @if (Model.Data != null)
-                {
-                    <h5>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextLabelKey]</h5>
-                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
-                                Model="Model"
-                                FuncSave="Save"
-                                Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
-                        <p>@((MarkupString) Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey])</p>
-                    </HTMLEditor>
-                }
-            </div>
-        </div>
-        <div class="col-6">
+    @*     <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+    <button class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarAdmin"
+    aria-controls="navbarAdmin"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarAdmin">
+    <ul class="nav justify-content-center">
+    <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+    </li>
+    </ul>
+    </div>
+
+    </div>
+    </nav> *@
+
+    <!-- Tabs headers -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                Messages
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                General
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
+                Settings
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tabs body -->
+    <div class="tab-content" id="myTabContent">
+
+        <!-- Tab message -->
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             @if (Model.Data != null)
             {
                 <h5>@Model.Data[StaticStrings.AdminPageDataContactUsMessagesLabelKey]</h5>
@@ -118,67 +91,223 @@
                     There are no messages...
                 </div>
             }
-            <hr />
+        </div>
+
+        <!-- Tab general -->
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             <div class="row">
-                <div class="col-12 mb-3">
-                    <h5>Create site</h5>
-                    <EditForm Model="CreateSiteModel" method="post" OnValidSubmit="CreateSite" FormName="createSite">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary class="text-danger" role="alert" />
-                        @if (!string.IsNullOrWhiteSpace(CreateSiteMessage))
+                <div class="col-6">
+                    <div class="col-12">
+                        @if (Model.Data != null)
                         {
-                            <div class="alert alert-success" role="alert">
-                                @CreateSiteMessage
-                            </div>
+                            <h5>@Model.Data[StaticStrings.AdminPageDataLogoLabelKey]</h5>
+                            <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
+                                         Model="Model"
+                                         FuncSave="Save"
+                                         Key="@StaticStrings.AdminPageDataLogoKey">
+                                <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
+                            </ImageEditor>
                         }
-                        <div class="form-floating">
-                            <label for="createSiteName">Name</label>
-                            <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
-                            <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
-                        </div>
-                        <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">Create</button>
-                    </EditForm>
+                    </div>
+                    <hr />
+                    <div class="col-12 mt-5">
+                        @if (Model.Data != null)
+                        {
+                            <h5>@Model.Data[StaticStrings.AdminPageDataFooterTextLabelKey]</h5>
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
+                                        Model="Model"
+                                        FuncSave="Save"
+                                        Key="@StaticStrings.AdminPageDataFooterTextKey">
+                                <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
+                            </HTMLEditor>
+                        }
+                    </div>
+                    <hr />
+                    <div class="col-12 mt-5">
+                        @if (Model.Data != null)
+                        {
+                            <h5>@Model.Data[StaticStrings.AdminPageDataFooterSocialNetworksLabelKey]</h5>
+                            <SocialNetworks></SocialNetworks>
+                        }
+                    </div>
+                    <hr />
+                    <div class="col-12 mt-5">
+                        @if (Model.Data != null)
+                        {
+                            <h5>@Model.Data[StaticStrings.AdminPageDataHeaderMenuLabelKey]</h5>
+                        }
+                        @if (MenuModel.Data != null)
+                        {
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                                        Model="MenuModel"
+                                        FuncSave="SaveMenu"
+                                        Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
+                                <p>Main page text: @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])</p>
+                            </HTMLEditor>
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                                        Model="MenuModel"
+                                        FuncSave="SaveMenu"
+                                        Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
+                                <p>About us page text: @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])</p>
+                            </HTMLEditor>
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                                        Model="MenuModel"
+                                        FuncSave="SaveMenu"
+                                        Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
+                                <p>Contact us page text: @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])</p>
+                            </HTMLEditor>
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                                        Model="MenuModel"
+                                        FuncSave="SaveMenu"
+                                        Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
+                                <p>Services page text: @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])</p>
+                            </HTMLEditor>
+                        }
+                    </div>
+                    <hr />
+                    <div class="col-12 mt-5">
+                        @if (Model.Data != null)
+                        {
+                            <h5>@Model.Data[StaticStrings.AdminPageDataServicesButtonTextLabelKey]</h5>
+                            <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                                        Model="Model"
+                                        FuncSave="Save"
+                                        Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
+                                <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey])</p>
+                            </HTMLEditor>
+                        }
+                    </div>
                 </div>
-                <hr />
-                <div class="col-12 mb-3">
-                    <h5>Change site</h5>
-                    <select @bind="SelectedSite" class="form-select" aria-label="Change site">
-                        @foreach (var site in StateManager.UserSites)
-                        {
-                            <option value="@site">@site</option>
-                        }
-                    </select>
-                    <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">Change</button>
+                <div class="col-6">
+
+                    <hr />
+
                 </div>
-                <hr />
-                <div class="col-12">
-                    <h5>Rename site</h5>
-                    <EditForm Model="RenameSiteModel" method="post" OnValidSubmit="RenameSite" FormName="renameSite">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary class="text-danger" role="alert" />
-                        @if (!string.IsNullOrWhiteSpace(RenameSiteMessage))
-                        {
-                            <div class="alert alert-success" role="alert">
-                                @RenameSiteMessage
+            </div>
+        </div>
+
+        <!-- Tab settings -->
+        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
+
+                <!-- Change site -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Change site
+                            </h5>
+
+                            <p class="card-text">
+                                <select @bind="SelectedSite" class="form-select" aria-label="Change site">
+                                    @foreach (var site in StateManager.UserSites)
+                                    {
+                                        <option value="@site">@site</option>
+                                    }
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="card-footer">
+                            <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">
+                                Change
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create site -->
+                <div class="col">
+                    <div class="card h-100">
+                        <EditForm Model="CreateSiteModel"
+                                  method="post"
+                                  OnValidSubmit="CreateSite"
+                                  FormName="createSite">
+
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Create site
+                                </h5>
+
+                                <p class="card-text">
+                                    <DataAnnotationsValidator />
+                                    <ValidationSummary class="text-danger" role="alert" />
+
+                                    @if (!string.IsNullOrWhiteSpace(CreateSiteMessage))
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            @CreateSiteMessage
+                                        </div>
+                                    }
+                                    <div class="form-floating">
+                                        <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
+                                        <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
+
+                                        <label for="createSiteName">Name</label>
+                                    </div>
+                                </p>
                             </div>
-                        }
-                        <div class="form-floating">
-                            <label for="renameSiteName">Select site</label>
-                            <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
-                                @foreach (var site in StateManager.UserSites)
-                                {
-                                    <option value="@site">@site</option>
-                                }
-                            </select>
-                            <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
-                        </div>
-                        <div class="form-floating">
-                            <label for="renameNewSiteName">New name</label>
-                            <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
-                            <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
-                        </div>
-                        <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">Rename</button>
-                    </EditForm>
+
+                            <div class="card-footer">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                    Create
+                                </button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+
+                <!-- Rename site -->
+                <div class="col">
+                    <div class="card h-100">
+                        <EditForm Model="RenameSiteModel"
+                                  method="post"
+                                  OnValidSubmit="RenameSite"
+                                  FormName="renameSite">
+
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Rename site
+                                </h5>
+
+                                <p class="card-text">
+                                    <DataAnnotationsValidator />
+                                    <ValidationSummary class="text-danger" role="alert" />
+
+                                    @if (!string.IsNullOrWhiteSpace(RenameSiteMessage))
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            @RenameSiteMessage
+                                        </div>
+                                    }
+                                    <div class="form-floating mb-3">
+                                        <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
+                                            @foreach (var site in StateManager.UserSites)
+                                            {
+                                                <option value="@site">@site</option>
+                                            }
+                                        </select>
+                                        <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
+
+                                        <label for="renameSiteName">Select site</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
+                                        <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
+
+                                        <label for="renameNewSiteName">New name</label>
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                    Rename
+                                </button>
+                            </div>
+                        </EditForm>
+                    </div>
                 </div>
             </div>
         </div>
