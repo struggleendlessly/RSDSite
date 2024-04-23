@@ -67,11 +67,11 @@ namespace web.Components.Account.Pages
                     .Include(u => u.Websites)
                     .FirstOrDefaultAsync(u => u.Email == Input.Email);
 
-                StateManager.UserId = user.Id;
-                StateManager.UserEmail = user.Email;
-                StateManager.UserSites = user.Websites.Select(w => w.Name).ToList();
+                //StateManager.UserId = user.Id;
+                //StateManager.UserEmail = user.Email;
+                //StateManager.UserSites = user.Websites.Select(w => w.Name).ToList();
 
-                RedirectManager.RedirectTo(ReturnUrl + StateManager.UserSites.FirstOrDefault() + $"/{StateManager.Lang}");
+                RedirectManager.RedirectTo(ReturnUrl + user.Websites.FirstOrDefault() + $"/{StateManager.Lang}");
             }
             else if (result.RequiresTwoFactor)
             {

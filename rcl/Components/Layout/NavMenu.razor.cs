@@ -31,7 +31,7 @@ namespace rcl.Components.Layout
         protected override async Task OnInitializedAsync()
         {
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-            SetSiteName(currentUrl);
+            //SetSiteName(currentUrl);
 
             NavigationManager.LocationChanged += OnLocationChanged;
 
@@ -47,7 +47,7 @@ namespace rcl.Components.Layout
         private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
         {
             currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-            SetSiteName(currentUrl);
+            //SetSiteName(currentUrl);
 
             StateHasChanged();
         }
@@ -77,13 +77,13 @@ namespace rcl.Components.Layout
             return res;
         }
 
-        private void SetSiteName(string baseRelativePath)
-        {
-            string[] parts = baseRelativePath.Split('/');
+        //private void SetSiteName(string baseRelativePath)
+        //{
+        //    string[] parts = baseRelativePath.Split('/');
 
-            StateManager.SiteName = parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultSiteName;
-            StateManager.Lang = parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
-        }
+        //    StateManager.SiteName = parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultSiteName;
+        //    StateManager.Lang = parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
+        //}
 
         public void Dispose()
         {

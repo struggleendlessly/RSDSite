@@ -101,9 +101,9 @@ namespace web.Components.Account.Pages
 
             await SiteCreator.CreateSite(newWebsite.Name);
 
-            StateManager.UserId = user.Id;
-            StateManager.UserEmail = user.Email;
-            StateManager.UserSites.Add(newWebsite.Name);
+            //StateManager.UserId = user.Id;
+            //StateManager.UserEmail = user.Email;
+            //StateManager.UserSites.Add(newWebsite.Name);
 
             // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
             // string userEmail = Input.Email;

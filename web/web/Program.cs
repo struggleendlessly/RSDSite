@@ -38,7 +38,7 @@ builder.Services.AddTransient<AzureBlobStorageManager>();
 builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddTransient<ISiteCreator, SiteCreator>();
-builder.Services.AddSingleton<IStateManager, StateManager>();
+builder.Services.AddScoped<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 builder.Services.AddScoped<IPageDataService, PageDataService>();
