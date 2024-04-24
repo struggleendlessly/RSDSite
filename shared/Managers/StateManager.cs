@@ -17,6 +17,7 @@ namespace shared.Managers
         private readonly IWebsiteService _websiteService;
 
         private readonly List<string> _mainSiteOwnersEmails;
+        private List<string> _userSites;
         private readonly ClaimsPrincipal _user;
 
         public StateManager(
@@ -29,6 +30,8 @@ namespace shared.Managers
             _navigationManager = navigationManager;
             _authenticationStateProvider = authenticationStateProvider;
             _websiteService = websiteService;
+
+            _userSites = new List<string>();
 
             var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
             _user = authState.User;
@@ -90,7 +93,15 @@ namespace shared.Managers
             {
                 if (_user.Identity is not null && _user.Identity.IsAuthenticated)
                 {
-                    return _websiteService.GetUserSitesAsync(UserId).Result;
+                    if (_userSites.Count > 0)
+                    {
+                        return _userSites;
+                    }
+                    else
+                    {
+                        _userSites = _websiteService.GetUserSites(UserId);
+                        return _userSites;
+                    }
                 }
                 else
                 {

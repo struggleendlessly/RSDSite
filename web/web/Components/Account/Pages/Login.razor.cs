@@ -71,7 +71,7 @@ namespace web.Components.Account.Pages
                 //StateManager.UserEmail = user.Email;
                 //StateManager.UserSites = user.Websites.Select(w => w.Name).ToList();
 
-                RedirectManager.RedirectTo(ReturnUrl + user.Websites.FirstOrDefault() + $"/{StateManager.Lang}");
+                RedirectManager.RedirectTo(ReturnUrl + user.Websites.FirstOrDefault().Name + $"/{StateManager.Lang}");
             }
             else if (result.RequiresTwoFactor)
             {
