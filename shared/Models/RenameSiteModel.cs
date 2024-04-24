@@ -8,6 +8,7 @@ namespace shared.Models
         public string SiteName { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(63, MinimumLength = 3)]
         public string NewName { get; set; } = string.Empty;
     }
 }
