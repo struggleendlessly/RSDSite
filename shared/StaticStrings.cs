@@ -116,6 +116,13 @@ namespace shared
         public static string EditorContentFormatRaw = "raw";
         public static string EditorContentFormatHtml = "html";
 
+        /* Text Editor Types */
+
+        public static string TextEditorTypeText = "text";
+        public static string TextEditorTypeEmail = "email";
+        public static string TextEditorTypePhone = "tel";
+        public static string TextEditorTypeUrl = "url";
+
         /* Other */
 
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");

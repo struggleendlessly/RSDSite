@@ -39,13 +39,15 @@
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
                     </h5>
                 </HTMLEditor>
-                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId)"
-                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsEmailUsSubtitleId"
+                            EditorType="@(StaticStrings.TextEditorTypeEmail)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataEmailUsSubtitleKey)">
-                    <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey])</p>
-                </HTMLEditor>
+                            Key="@StaticStrings.ContactUsPageDataEmailUsSubtitleKey">
+                    <a class="text-dark text-decoration-none" href="mailto:@Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey]">
+                        @Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey]
+                    </a>
+                </TextEditor>
             </div>
 
             <!-- Call -->
@@ -59,15 +61,15 @@
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
                     </h5>
                 </HTMLEditor>
-                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId)"
-                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsCallUsSubtitleId"
+                            EditorType="@(StaticStrings.TextEditorTypePhone)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataCallUsSubtitleKey)">
-                    <a class="text-dark text-decoration-none" href="tel:@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])">
-                        @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey])
+                            Key="@StaticStrings.ContactUsPageDataCallUsSubtitleKey">
+                    <a class="text-dark text-decoration-none" href="tel:@Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey]">
+                        @Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey]
                     </a>
-                </HTMLEditor>
+                </TextEditor>
             </div>
 
             <!-- Address -->
@@ -97,21 +99,21 @@
                     <Authorized>
                         @if (StateManager.CanEditSite())
                         {
-                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId)"
-                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                            <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId"
+                                        EditorType="@(StaticStrings.TextEditorTypeText)"
                                         Model="Model"
                                         FuncSave="Save"
-                                        Key="@(StaticStrings.ContactUsPageDatMapCoordinatesKey)">
-                                <p>Map coordinates: @(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey])</p>
-                            </HTMLEditor>
+                                        Key="@StaticStrings.ContactUsPageDatMapCoordinatesKey">
+                                <p>Map coordinates: @Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]</p>
+                            </TextEditor>
 
-                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId)"
-                                        EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                            <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId"
+                                        EditorType="@(StaticStrings.TextEditorTypeText)"
                                         Model="Model"
                                         FuncSave="Save"
-                                        Key="@(StaticStrings.ContactUsPageDataMapMarkerTextKey)">
-                                <p>Map marker text: @(Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey])</p>
-                            </HTMLEditor>
+                                        Key="@StaticStrings.ContactUsPageDataMapMarkerTextKey">
+                                <p>Map marker text: @Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]</p>
+                            </TextEditor>
                         }
                     </Authorized>
                 </AuthorizeView>

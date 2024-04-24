@@ -130,12 +130,13 @@
                                 </h5>
 
                                 <p class="card-text text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
                                                 Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
-                                    </HTMLEditor>
+                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]
+                                    </TextEditor>
                                 </p>
                             </div>
                         </div>
@@ -148,12 +149,13 @@
                                 </h5>
 
                                 <p class="card-text text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
                                                 Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
-                                    </HTMLEditor>
+                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]
+                                    </TextEditor>
                                 </p>
                             </div>
                         </div>
@@ -166,12 +168,13 @@
                                 </h5>
 
                                 <p class="card-text text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
                                                 Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey])
-                                    </HTMLEditor>
+                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]
+                                    </TextEditor>
                                 </p>
                             </div>
                         </div>
@@ -184,12 +187,13 @@
                                 </h5>
 
                                 <p class="card-text text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
                                                 Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
-                                    </HTMLEditor>
+                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]
+                                    </TextEditor>
                                 </p>
                             </div>
                         </div>
@@ -250,13 +254,14 @@
                                     @Model.Data[StaticStrings.AdminPageDataServicesButtonTextLabelKey]
                                 </h5>
 
-                                <p class="card-text  text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                                <p class="card-text text-center">
+                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="Model"
                                                 FuncSave="Save"
                                                 Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
-                                        <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey])</p>
-                                    </HTMLEditor>
+                                        @Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]
+                                    </TextEditor>
                                 </p>
                             </div>
                         </div>

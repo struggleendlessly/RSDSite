@@ -24,15 +24,15 @@
 
                     <p class="card-text">
                         Url:
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                        <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId + serviceKeyIndex)"
+                                    EditorType="@(StaticStrings.TextEditorTypeUrl)"
                                     Model="Model"
                                     FuncSave="SaveContent"
                                     Key="@serviceUrlKey">
                             <p>
                                 @Model.Data[serviceUrlKey]
                             </p>
-                        </HTMLEditor>
+                        </TextEditor>
                     </p>
                 </div>
 

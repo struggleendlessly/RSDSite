@@ -46,16 +46,16 @@
                             @if (StateManager.CanEditSite())
                             {
                                 <div class="card-header bg-transparent border-dark">
-                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
-                                                EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                    <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
+                                                EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="ModelUrls"
                                                 FuncSave="SaveUrl"
                                                 Key="@serviceUrlKey">
                                         <p class="@StaticHtmlStrings.CSSMainSubTitle_p fw-bold">Page url:</p>
                                         <span class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                                             @(ModelUrls.Data[serviceUrlKey])
+                                            @ModelUrls.Data[serviceUrlKey]
                                         </span>
-                                    </HTMLEditor>
+                                    </TextEditor>
                                 </div>
                             }
                         </Authorized>
