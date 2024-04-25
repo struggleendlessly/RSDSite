@@ -23,6 +23,7 @@
         public static string imageEditorGetContent = "js_imageEditorGetContent";
 
         public static string leafletActivate = "js_leafletActivate";
+        public static string showAndHideAlert = "js_showAndHideAlert";
 
         public static string dotNetHelpersSetDotNetHelper = "DotNetHelpers.setDotNetHelper";
     }

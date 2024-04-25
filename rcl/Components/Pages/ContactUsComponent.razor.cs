@@ -46,8 +46,6 @@ namespace rcl.Components.Pages
 
         DotNetObjectReference<ContactUsComponent>? dotNetHelper { get; set; }
 
-        public string Message { get; set; } = string.Empty;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -84,6 +82,7 @@ namespace rcl.Components.Pages
         {
             if (StateManager.SiteName == StaticStrings.DefaultSiteName)
             {
+                // TODO: To link messages to the main site, it must be in the database like the others
                 return;
             }
 
@@ -101,7 +100,8 @@ namespace rcl.Components.Pages
 
             await ContactUsMessageService.CreateContactUsMessage(message);
 
-            Message = "Form submitted successfully.";
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.ContactUsFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.ContactUsFormSubmitted);
+
             Input = new ContactUsMessageModel();
         }
 

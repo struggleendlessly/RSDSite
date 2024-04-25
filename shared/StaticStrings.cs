@@ -148,5 +148,11 @@ namespace shared
         public static string AdminPageSettingsDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsModel";
         public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSocialNetworksModel";
         public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
+
+        /* Alerts Messages */
+        public static string ContactUsFormSubmitted = "Form submitted successfully";
+        public static string AdminCreateOrRenameSiteFormDuplicateSiteName = "The site name is already taken. Please choose a different one";
+        public static string AdminCreateSiteFormSuccessfullyCreated = "The site was successfully created";
+        public static string AdminRenameSiteFormSuccessfullyRenamed = "The site was successfully renamed";
     }
 }

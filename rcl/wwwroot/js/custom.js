@@ -9,6 +9,24 @@
     URL.revokeObjectURL(url);
 }
 
+function js_showAndHideAlert(alertId, alertClass, alertMessage) {
+    var alertElement = document.getElementById(alertId);
+    if (alertElement) {
+        alertElement.innerText = alertMessage;
+        alertElement.classList.remove('d-none');
+        alertElement.classList.add(alertClass);
+        alertElement.classList.add('d-block');
+
+        setTimeout(function () {
+            alertElement.classList.remove('d-block');
+            alertElement.classList.remove(alertClass);
+            alertElement.classList.add('d-none');
+            alertElement.innerText = '';
+            
+        }, 3000);
+    }
+}
+
 function js_editorActivate(id) {
     var selector = `#${id}`;
 

@@ -318,6 +318,8 @@
             <!-- Create site -->
             <div class="col">
                 <div class="card h-100">
+                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminCreateSiteFormAlertId">
+                    </div>
                     <EditForm Model="CreateSiteModel"
                               method="post"
                               OnValidSubmit="CreateSite"
@@ -331,13 +333,6 @@
                             <p class="card-text">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary class="text-danger" role="alert" />
-
-                                @if (!string.IsNullOrWhiteSpace(CreateSiteMessage))
-                                {
-                                    <div class="alert alert-success" role="alert">
-                                        @CreateSiteMessage
-                                    </div>
-                                }
                                 <div class="form-floating">
                                     <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
                                     <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
@@ -361,6 +356,8 @@
             <!-- Rename site -->
             <div class="col">
                 <div class="card h-100">
+                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminRenameSiteFormAlertId">
+                    </div>
                     <EditForm Model="RenameSiteModel"
                               method="post"
                               OnValidSubmit="RenameSite"
@@ -374,13 +371,6 @@
                             <p class="card-text">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary class="text-danger" role="alert" />
-
-                                @if (!string.IsNullOrWhiteSpace(RenameSiteMessage))
-                                {
-                                    <div class="alert alert-success" role="alert">
-                                        @RenameSiteMessage
-                                    </div>
-                                }
                                 <div class="form-floating mb-3">
                                     <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
                                         @foreach (var site in StateManager.UserSites)

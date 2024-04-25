@@ -1,18 +1,17 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Forms;
 
 using shared;
+using shared.Data;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
 using shared.Data.Entities;
 
 using System.Text.Json;
-using shared.Data;
 
 namespace rcl.Components.Pages
 {
@@ -67,14 +66,6 @@ namespace rcl.Components.Pages
 
         public string SelectedSite { get; set; }
 
-        public string CreateSiteMessage { get; set; } = string.Empty;
-
-        public string RenameSiteMessage { get; set; } = string.Empty;
-
-        private IEnumerable<IdentityError>? CreateSiteIdentityErrors;
-
-        private IEnumerable<IdentityError>? RenameSiteIdentityErrors;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -118,17 +109,10 @@ namespace rcl.Components.Pages
             var existingWebsite = await WebsiteService.GetWebsiteByName(CreateSiteModel.Name);
             if (existingWebsite != null)
             {
-                CreateSiteIdentityErrors = new List<IdentityError>
-                {
-                    new IdentityError
-                    {
-                        Code = "DuplicateSiteName",
-                        Description = "The site name is already taken. Please choose a different one."
-                    }
-                };
-
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminCreateOrRenameSiteFormDuplicateSiteName);
                 return;
             }
+
             var user = context.Users.Where(s => s.Id == StateManager.UserId).FirstOrDefault();
             var newWebsite = new Website { User = user, Name = CreateSiteModel.Name };
             await WebsiteService.CreateWebsite(newWebsite);
@@ -139,7 +123,7 @@ namespace rcl.Components.Pages
 
             StateManager.UserSites.Add(newWebsite.Name);
 
-            CreateSiteMessage = "The site was successfully created";
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminCreateSiteFormSuccessfullyCreated);
             CreateSiteModel = new CreateSiteModel();
         }
 
@@ -154,15 +138,7 @@ namespace rcl.Components.Pages
             var existingWebsite = await WebsiteService.GetWebsiteByName(RenameSiteModel.NewName);
             if (existingWebsite != null)
             {
-                RenameSiteIdentityErrors = new List<IdentityError>
-                {
-                    new IdentityError
-                    {
-                        Code = "DuplicateSiteName",
-                        Description = "The site name is already taken. Please choose a different one."
-                    }
-                };
-
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminCreateOrRenameSiteFormDuplicateSiteName);
                 return;
             }
 
@@ -181,7 +157,7 @@ namespace rcl.Components.Pages
 
             await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
 
-            RenameSiteMessage = "The site was successfully renamed";
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
             RenameSiteModel = new RenameSiteModel();
         }
 

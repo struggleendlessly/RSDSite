@@ -17,7 +17,8 @@ namespace shared
         public static string CSSMainTitle_h2 = "display-5 fw-bold mb-4 mt-5";
         public static string CSSMainSubTitle_p = "lead mb-4 fw-normal";
         public static string CSSButtonDarkInTheText = "btn btn-dark text-white px-4 gap-3";
-
+        public static string CSSAlertSuccess = "alert-success";
+        public static string CSSAlertDanger = "alert-danger";
 
         /* Home */
 
@@ -124,5 +125,10 @@ namespace shared
         public static string HTMLEditorAdminSettingsMenuAboutUsId = "htmlEditorAdminSettingsMenuAboutUs";
         public static string HTMLEditorAdminSettingsMenuContactUsId = "htmlEditorAdminSettingsMenuContactUs";
         public static string HTMLEditorAdminSettingsMenuServicesId = "htmlEditorAdminSettingsMenuServices";
+
+        /* Alerts */
+        public static string ContactUsFormAlertId = "contactUsFormAlert";
+        public static string AdminCreateSiteFormAlertId = "adminCreateSiteFormAlert";
+        public static string AdminRenameSiteFormAlertId = "adminRenameSiteFormAlert";
     }
 }

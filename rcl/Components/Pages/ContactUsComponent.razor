@@ -136,17 +136,11 @@
                         </HTMLEditor>
 
                         <p class="card-text">
+                            <div class="alert d-none" role="alert" id="@StaticHtmlStrings.ContactUsFormAlertId">
+                            </div>
                             <EditForm Model="Input" method="post" OnValidSubmit="SubmitForm" FormName="contact-us">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary class="text-danger" role="alert" />
-
-                                @if (!string.IsNullOrWhiteSpace(Message))
-                                {
-                                    <div class="alert alert-success" role="alert">
-                                        @Message
-                                    </div>
-                                }
-
                                 <div class="row gx-3">
                                     <div class="col-sm-6">
                                         <div class="mb-3">
