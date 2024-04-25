@@ -148,6 +148,7 @@ namespace rcl.Components.Shared
                 { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
                 { serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey },
                 { serviceItemKey + StaticStrings.TitleKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescTitleDefaultValue },
+                { serviceItemKey + StaticStrings.SubtitleKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescSubtitleDefaultValue },
                 { serviceItemKey + StaticStrings.ImageKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescImageDefaultValue }
             };
 
