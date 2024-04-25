@@ -61,6 +61,7 @@ namespace rcl.Components.Pages
         public async Task Save(PageModel model)
         {
             await PageDataService.SaveDataAsync(model, StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
+            StateHasChanged();
         }
 
         public void Dispose()
