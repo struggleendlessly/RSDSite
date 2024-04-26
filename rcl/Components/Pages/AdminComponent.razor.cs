@@ -80,6 +80,8 @@ namespace rcl.Components.Pages
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
+
+            SelectedSite = StateManager.SiteName;
         }
 
         [JSInvokable]

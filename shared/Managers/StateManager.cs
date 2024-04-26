@@ -91,31 +91,28 @@ namespace shared.Managers
         {
             get
             {
-                if (_user.Identity is not null && _user.Identity.IsAuthenticated)
-                {
-                    if (_userSites.Count > 0)
-                    {
-                        return _userSites;
-                    }
-                    else
-                    {
-                        _userSites = _websiteService.GetUserSites(UserId);
-                        return _userSites;
-                    }
-                }
-                else
+                if (_user.Identity is null || !_user.Identity.IsAuthenticated)
                 {
                     return new List<string>();
                 }
+
+                if (_userSites.Count == 0)
+                {
+                    _userSites = _websiteService.GetUserSites(UserId);
+
+                    if (_mainSiteOwnersEmails.Contains(UserEmail))
+                    {
+                        _userSites.Add(StaticStrings.DefaultSiteName);
+                    }
+                }
+
+                return _userSites;
             }
         }
 
         public bool CanEditSite()
         {
-            bool isUserSiteOwner = UserSites.Contains(SiteName);
-            bool isMainSiteOwner = SiteName == StaticStrings.DefaultSiteName && _mainSiteOwnersEmails.Contains(UserEmail);
-
-            return isUserSiteOwner || isMainSiteOwner;
+            return UserSites.Contains(SiteName);
         }
     }
 }
