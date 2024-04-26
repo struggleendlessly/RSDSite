@@ -10,6 +10,7 @@ namespace shared.Data.Entities
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string Details { get; set; }
+        public DateTime Created { get; set; }
 
         public Website Website { get; set; }
     }

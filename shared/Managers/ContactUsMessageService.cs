@@ -20,6 +20,7 @@ namespace shared.Managers
             return await _dbContext.ContactUsMessages
                 .Include(x => x.Website)
                 .Where(x => x.Website.Name == siteName)
+                .OrderByDescending(x => x.Created)
                 .ToListAsync();
         }
 

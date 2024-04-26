@@ -95,6 +95,7 @@ namespace rcl.Components.Pages
                 Email = Input.Email,
                 PhoneNumber = Input.PhoneNumber,
                 Details = Input.Details,
+                Created = DateTime.UtcNow,
                 Website = currentWebsite
             };
 
