@@ -44,7 +44,7 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@StaticStrings.ContactUsPageDataEmailUsSubtitleKey">
-                    <a class="text-dark text-decoration-none" href="mailto:@Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey]">
+                    <a class="text-decoration-none" href="mailto:@Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey]">
                         @Model.Data[StaticStrings.ContactUsPageDataEmailUsSubtitleKey]
                     </a>
                 </TextEditor>
@@ -66,7 +66,7 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@StaticStrings.ContactUsPageDataCallUsSubtitleKey">
-                    <a class="text-dark text-decoration-none" href="tel:@Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey]">
+                    <a class="text-decoration-none" href="tel:@Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey]">
                         @Model.Data[StaticStrings.ContactUsPageDataCallUsSubtitleKey]
                     </a>
                 </TextEditor>
@@ -88,7 +88,17 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
-                    <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
+                    @if (Model.Data.ContainsKey(StaticStrings.ContactUsPageDatMapCoordinatesKey))
+                    {
+                        var href = $"https://www.google.com/maps/place/{Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]}";
+                        <a class="text-decoration-none" href="@href" target="_blank">
+                            @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])
+                        </a>
+                    }
+                    else
+                    {
+                        <p>@((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressSubtitleKey])</p>
+                    }
                 </HTMLEditor>
             </div>
         </div>
