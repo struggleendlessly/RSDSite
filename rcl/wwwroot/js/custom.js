@@ -9,6 +9,11 @@
     URL.revokeObjectURL(url);
 }
 
+function js_enablePopovers() {
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+}
+
 function js_showAndHideAlert(alertId, alertClass, alertMessage) {
     var alertElement = document.getElementById(alertId);
     if (alertElement) {

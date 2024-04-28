@@ -97,13 +97,15 @@
             <div class="col-lg-6 text-center mb-5 mb-sm-5 mb-lg-0 px-4">
                 <AuthorizeView>
                     <Authorized>
-                        @if (StateManager.CanEditSite())
+                        @if (StateManager.CanEditSite() && PopoversModel.Data is not null)
                         {
                             <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId"
                                         EditorType="@(StaticStrings.TextEditorTypeText)"
                                         Model="Model"
                                         FuncSave="Save"
-                                        Key="@StaticStrings.ContactUsPageDatMapCoordinatesKey">
+                                        Key="@StaticStrings.ContactUsPageDatMapCoordinatesKey"
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.ContactUsPagePopoversDataMapCoordinatesKey">
                                 <p>Map coordinates: @Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]</p>
                             </TextEditor>
 

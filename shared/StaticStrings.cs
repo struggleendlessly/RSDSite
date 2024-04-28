@@ -18,6 +18,8 @@ namespace shared
         public static string AdminPageSocialNetworksDataJsonFilePath = "{0}/data/social-networks.json";
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
 
+        public static string PopoversDataJsonFilePath = "{0}/data/popovers.json";
+
         /* Home Keys */
 
         public static string HomePageDataTitleKey = "Title";
@@ -101,6 +103,14 @@ namespace shared
         public static string AdminPageSettingsMenuDataContactUsKey = "ContactUsPageText";
         public static string AdminPageSettingsMenuDataServicesKey = "ServicesPageText";
 
+        /* Popovers Keys */
+
+        public static string PopoversTextKeyEnding = "Text";
+        public static string PopoversImageKeyEnding = "Image";
+        public static string PopoversLinkKeyEnding = "Link";
+
+        public static string ContactUsPagePopoversDataMapCoordinatesKey = "ContactUsMapCoordinates";
+
         /* Key Endings */
 
         public static string AvatarKeyEnding = "_Avatar";
@@ -148,6 +158,8 @@ namespace shared
         public static string AdminPageSettingsDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsModel";
         public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSocialNetworksModel";
         public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
+
+        public static string PopoversDataJsonMemoryCacheKey = "{0}_{1}_PopoversModel";
 
         /* Alerts Messages */
         public static string ContactUsFormSubmitted = "Form submitted successfully";

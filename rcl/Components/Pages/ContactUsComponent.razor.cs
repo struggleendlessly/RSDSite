@@ -40,6 +40,7 @@ namespace rcl.Components.Pages
         IPageDataService PageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
+        public PageModel PopoversModel { get; set; } = new PageModel();
 
         [SupplyParameterFromForm]
         private ContactUsMessageModel Input { get; set; } = new();
@@ -53,12 +54,14 @@ namespace rcl.Components.Pages
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, Configuration["Leaflet:AccessToken"], Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey], Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }
 
         protected override async Task OnInitializedAsync()
         {
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
         }
 
         [JSInvokable]
