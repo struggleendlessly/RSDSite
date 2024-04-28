@@ -88,7 +88,7 @@
                             Model="Model"
                             FuncSave="Save"
                             Key="@(StaticStrings.ContactUsPageDataAddressSubtitleKey)">
-                    @if (Model.Data.ContainsKey(StaticStrings.ContactUsPageDatMapCoordinatesKey))
+                    @if (!string.IsNullOrWhiteSpace(Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]))
                     {
                         var href = $"https://www.google.com/maps/place/{Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]}";
                         <a class="text-decoration-none" href="@href" target="_blank">

@@ -28,6 +28,12 @@ namespace rcl.Components.Layout
 
         public PageModel MenuModel { get; set; } = new PageModel();
 
+        public PageModel ServiceItemsModel { get; set; } = new PageModel();
+
+        public PageModel ServiceItemsUrlsModel { get; set; } = new PageModel();
+
+        public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
+
         protected override async Task OnInitializedAsync()
         {
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
@@ -37,6 +43,15 @@ namespace rcl.Components.Layout
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+
+            ServiceItemsModel.Data = ServiceItems
+                .SelectMany(x => x.ShortDesc)
+                .ToDictionary();
+
+            ServiceItemsUrlsModel.Data = ServiceItems
+                .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
+                .ToDictionary();
         }
 
         public string GetPageUrl(string url)
