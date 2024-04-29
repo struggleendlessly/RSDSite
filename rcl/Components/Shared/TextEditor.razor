@@ -14,12 +14,12 @@
                 @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
                 {
                     <!-- Popover -->
-                    var popoverImageKey = PopoverKey + StaticStrings.PopoversImageKeyEnding;
-                    var popoverTextKey = PopoverKey + StaticStrings.PopoversTextKeyEnding;
-                    var popoverLinkKey = PopoverKey + StaticStrings.PopoversLinkKeyEnding;
+                    var popoverImageKey = PopoverKey + StaticStrings.ImageKeyEnding;
+                    var popoverTextKey = PopoverKey + StaticStrings.TextKeyEnding;
+                    var popoverLinkKey = PopoverKey + StaticStrings.LinkKeyEnding;
 
                     var popoverHtml = $"<img src='{PopoversModel.Data[popoverImageKey]}'></img>" 
-                        + $"<h4>{PopoversModel.Data[popoverTextKey]}</h4>" 
+                        + $"<p>{PopoversModel.Data[popoverTextKey]}</p>" 
                         + $"<a href='{PopoversModel.Data[popoverLinkKey]}'>Link</a>";
 
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="popover"

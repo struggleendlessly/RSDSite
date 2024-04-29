@@ -1,14 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 
 <div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null)
     {
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorContactUsTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ContactUsPageDataTitleKey)">
+                    Key="@(StaticStrings.ContactUsPageDataTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_ContactUs_1_Title">
             <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
                 @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataTitleKey])
             </h1>
@@ -20,7 +22,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.ContactUsPageDataSubtitleKey)">
+                        Key="@(StaticStrings.ContactUsPageDataSubtitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_ContactUs_1_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataSubtitleKey])
                 </p>
@@ -34,7 +38,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)">
+                            Key="@(StaticStrings.ContactUsPageDataEmailUsTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_ContactUs_2_1_Contact">
                     <h5 class="mb-1">
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataEmailUsTitleKey])
                     </h5>
@@ -56,7 +62,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)">
+                            Key="@(StaticStrings.ContactUsPageDataCallUsTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_ContactUs_2_2_Contact">
                     <h5 class="mb-1">
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataCallUsTitleKey])
                     </h5>
@@ -78,7 +86,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)">
+                            Key="@(StaticStrings.ContactUsPageDataAddressTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_ContactUs_2_3_Contact">
                     <h5 class="mb-1">
                         @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataAddressTitleKey])
                     </h5>
@@ -107,7 +117,7 @@
             <div class="col-lg-6 text-center mb-5 mb-sm-5 mb-lg-0 px-4">
                 <AuthorizeView>
                     <Authorized>
-                        @if (StateManager.CanEditSite() && PopoversModel.Data is not null)
+                        @if (StateManager.CanEditSite())
                         {
                             <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsMapCoordinatesId"
                                         EditorType="@(StaticStrings.TextEditorTypeText)"
@@ -115,7 +125,7 @@
                                         FuncSave="Save"
                                         Key="@StaticStrings.ContactUsPageDatMapCoordinatesKey"
                                         PopoversModel="PopoversModel"
-                                        PopoverKey="@StaticStrings.ContactUsPagePopoversDataMapCoordinatesKey">
+                                        PopoverKey="@StaticStrings.Popover_ContactUs_3_1_Map">
                                 <p>Map coordinates: @Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]</p>
                             </TextEditor>
 
@@ -123,7 +133,9 @@
                                         EditorType="@(StaticStrings.TextEditorTypeText)"
                                         Model="Model"
                                         FuncSave="Save"
-                                        Key="@StaticStrings.ContactUsPageDataMapMarkerTextKey">
+                                        Key="@StaticStrings.ContactUsPageDataMapMarkerTextKey"
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_ContactUs_3_2_Map">
                                 <p>Map marker text: @Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]</p>
                             </TextEditor>
                         }
@@ -141,7 +153,9 @@
                                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                     Model="Model"
                                     FuncSave="Save"
-                                    Key="@(StaticStrings.ContactUsPageDataFormTitleKey)">
+                                    Key="@(StaticStrings.ContactUsPageDataFormTitleKey)"
+                                    PopoversModel="PopoversModel"
+                                    PopoverKey="@StaticStrings.Popover_ContactUs_4_1_Form">
                             <h5 class="card-title">
                                 @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTitleKey])
                             </h5>
@@ -238,7 +252,9 @@
                                                 EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                                                 Model="Model"
                                                 FuncSave="Save"
-                                                Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)">
+                                                Key="@(StaticStrings.ContactUsPageDataFormButtonTextKey)"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_ContactUs_4_2_Form">
                                         <button type="submit" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
                                             @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormButtonTextKey])
                                         </button>
@@ -250,7 +266,9 @@
                                                 EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                                                 Model="Model"
                                                 FuncSave="Save"
-                                                Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)">
+                                                Key="@(StaticStrings.ContactUsPageDataFormTextUnderButtonKey)"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_ContactUs_4_3_Form">
                                         <p class="form-text">
                                             @((MarkupString)Model.Data[StaticStrings.ContactUsPageDataFormTextUnderButtonKey])
                                         </p>

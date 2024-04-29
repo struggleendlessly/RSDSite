@@ -25,6 +25,12 @@ namespace rcl.Components.Shared
         public string Key { get; set; } = string.Empty;
 
         [Parameter]
+        public PageModel? PopoversModel { get; set; } = null;
+
+        [Parameter]
+        public string? PopoverKey { get; set; } = null;
+
+        [Parameter]
         public RenderFragment ChildContent { get; set; }
 
         private bool EditMode { get; set; } = false;
