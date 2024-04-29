@@ -2,7 +2,7 @@
     <Authorized>
         @if (SettingsModel.Data is not null && StateManager.CanEditSite())
         {
-            <div class="mb-2">
+            <div>
                 <!-- Edit -->
                 <button type="button" class="btn btn-outline-primary m-2"
                         data-bs-toggle="modal" data-bs-target="#Modal@(EditorId)">
@@ -22,8 +22,8 @@
                         + $"<h4>{PopoversModel.Data[popoverTextKey]}</h4>" 
                         + $"<a href='{PopoversModel.Data[popoverLinkKey]}'>Link</a>";
 
-                    <button type="button" class="btn btn-outline-primary" tabindex="0" data-bs-trigger="focus"
-                        data-bs-toggle="popover" data-bs-html="true" data-bs-title="Popover title" data-bs-content="@popoverHtml">
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="popover"
+                            data-bs-html="true" data-bs-title="Description" data-bs-content="@popoverHtml">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

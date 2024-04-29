@@ -18,7 +18,7 @@ namespace shared
         public static string AdminPageSocialNetworksDataJsonFilePath = "{0}/data/social-networks.json";
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
 
-        public static string PopoversDataJsonFilePath = "{0}/data/popovers.json";
+        public static string PopoversDataJsonFilePath = "{0}/popovers.json";
 
         /* Home Keys */
 
