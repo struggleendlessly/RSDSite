@@ -14,6 +14,12 @@ namespace rcl.Components.Shared
 {
     public partial class TestimonialsList : IDisposable
     {
+        [Parameter]
+        public PageModel? PopoversModel { get; set; } = null;
+
+        [Parameter]
+        public string? PopoverKey { get; set; } = null;
+
         [Inject]
         IJSRuntime JS { get; set; }
 

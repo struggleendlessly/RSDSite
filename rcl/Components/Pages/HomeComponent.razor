@@ -1,12 +1,14 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null)
     {
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataTitleKey)">
+                    Key="@(StaticStrings.HomePageDataTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Main_1_Title">
             <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
                 @((MarkupString)Model.Data[StaticStrings.HomePageDataTitleKey])
             </h1>
@@ -18,7 +20,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.HomePageDataSubtitleKey)">
+                        Key="@(StaticStrings.HomePageDataSubtitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_Main_1_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataSubtitleKey])
                 </p>
@@ -36,7 +40,9 @@
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
                      Model="Model"
                      FuncSave="Save"
-                     Key="@(StaticStrings.HomePageDataImageKey)">
+                     Key="@(StaticStrings.HomePageDataImageKey)"
+                     PopoversModel="PopoversModel"
+                     PopoverKey="@StaticStrings.Popover_Main_1_ImageEditor">
             <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
         </ImageEditor>
 
@@ -45,7 +51,9 @@
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)">
+                    Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Main_2_Title">
             <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                 @((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesTitleKey])
             </h2>
@@ -57,7 +65,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)">
+                        Key="@(StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_Main_2_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[StaticStrings.HomePageDataFeaturedCaseStudiesSubtitleKey])
                 </p>
@@ -65,14 +75,19 @@
         </div>
 
         <!-- List of services to show -->
-        <FeaturedCaseStudies ServiceItems="ServiceItems">
+        <FeaturedCaseStudies 
+            ServiceItems="ServiceItems"
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_Main_1_Services">
         </FeaturedCaseStudies>
 
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorHomeViewAllWorksButtonTextId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)">
+                    Key="@(StaticStrings.HomePageDataViewAllWorksButtonTextKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Main_1_Button">
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
                 <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" target="_blank">
@@ -83,6 +98,9 @@
         </HTMLEditor>
 
         <!-- List of -->
-        <TestimonialsList></TestimonialsList>
+        <TestimonialsList
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_Main_1_Card">
+        </TestimonialsList>
     }
 </div>

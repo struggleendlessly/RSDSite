@@ -36,6 +36,8 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel PopoversModel { get; set; } = new PageModel();
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         DotNetObjectReference<HomeComponent>? dotNetHelper { get; set; }
@@ -46,6 +48,7 @@ namespace rcl.Components.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }
 
@@ -62,6 +65,7 @@ namespace rcl.Components.Pages
             //await EmailService.Send(emailModel);
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
 
             var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             ServiceItems = serviceItems.Take(4).ToList();

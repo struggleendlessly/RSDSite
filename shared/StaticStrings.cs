@@ -105,6 +105,15 @@ namespace shared
 
         /* Popovers Keys */
 
+        public static string Popover_Main_1_Title = "Main_1_Title";
+        public static string Popover_Main_1_Subtitle = "Main_1_Subtitle";
+        public static string Popover_Main_1_ImageEditor = "Main_1_ImageEditor";
+        public static string Popover_Main_2_Title = "Main_2_Title";
+        public static string Popover_Main_2_Subtitle = "Main_2_Subtitle";
+        public static string Popover_Main_1_Services = "Main_1_Services";
+        public static string Popover_Main_1_Button = "Main_1_Button";
+        public static string Popover_Main_1_Card = "Main_1_Card";
+
         public static string Popover_ContactUs_1_Title = "ContactUs_1_Title";
         public static string Popover_ContactUs_1_Subtitle = "ContactUs_1_Subtitle";
         public static string Popover_ContactUs_2_1_Contact = "ContactUs_2_1_Contact";
