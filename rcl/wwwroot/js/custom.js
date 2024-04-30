@@ -1,4 +1,6 @@
-﻿window.js_downloadFileFromStream = async (fileName, contentStreamReference) => {
+﻿let activePopover = null;
+
+window.js_downloadFileFromStream = async (fileName, contentStreamReference) => {
     const arrayBuffer = await contentStreamReference.arrayBuffer();
     const blob = new Blob([arrayBuffer]);
 
@@ -10,8 +12,19 @@
 }
 
 function js_enablePopovers() {
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+
+    popoverTriggerList.forEach(popoverTriggerEl => {
+        const popover = new bootstrap.Popover(popoverTriggerEl);
+
+        popoverTriggerEl.addEventListener('shown.bs.popover', function () {
+            if (activePopover && activePopover !== popover) {
+                activePopover.hide();
+            }
+
+            activePopover = popover;
+        });
+    });
 }
 
 function js_showAndHideAlert(alertId, alertClass, alertMessage) {
