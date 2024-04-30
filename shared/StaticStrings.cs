@@ -116,14 +116,14 @@ namespace shared
 
         public static string Popover_ContactUs_1_Title = "ContactUs_1_Title";
         public static string Popover_ContactUs_1_Subtitle = "ContactUs_1_Subtitle";
-        public static string Popover_ContactUs_2_1_Contact = "ContactUs_2_1_Contact";
-        public static string Popover_ContactUs_2_2_Contact = "ContactUs_2_2_Contact";
-        public static string Popover_ContactUs_2_3_Contact = "ContactUs_2_3_Contact";
-        public static string Popover_ContactUs_3_1_Map = "ContactUs_3_1_Map";
-        public static string Popover_ContactUs_3_2_Map = "ContactUs_3_2_Map";
-        public static string Popover_ContactUs_4_1_Form = "ContactUs_4_1_Form";
-        public static string Popover_ContactUs_4_2_Form = "ContactUs_4_2_Form";
-        public static string Popover_ContactUs_4_3_Form = "ContactUs_4_3_Form";
+        public static string Popover_ContactUs_1_1_Contact = "ContactUs_1_1_Contact";
+        public static string Popover_ContactUs_1_2_Contact = "ContactUs_1_2_Contact";
+        public static string Popover_ContactUs_1_3_Contact = "ContactUs_1_3_Contact";
+        public static string Popover_ContactUs_1_1_Map = "ContactUs_1_1_Map";
+        public static string Popover_ContactUs_1_2_Map = "ContactUs_1_2_Map";
+        public static string Popover_ContactUs_1_1_Form = "ContactUs_1_1_Form";
+        public static string Popover_ContactUs_1_2_Form = "ContactUs_1_2_Form";
+        public static string Popover_ContactUs_1_3_Form = "ContactUs_1_3_Form";
 
         /* Key Endings */
 
