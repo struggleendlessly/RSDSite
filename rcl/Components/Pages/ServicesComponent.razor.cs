@@ -30,6 +30,8 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel PopoversModel { get; set; } = new PageModel();
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         DotNetObjectReference<ServicesComponent>? dotNetHelper { get; set; }
@@ -40,12 +42,14 @@ namespace rcl.Components.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }
 
         protected override async Task OnInitializedAsync()
         {
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
         }
 

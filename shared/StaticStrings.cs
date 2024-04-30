@@ -114,6 +114,14 @@ namespace shared
         public static string Popover_Main_1_Button = "Main_1_Button";
         public static string Popover_Main_1_Card = "Main_1_Card";
 
+        public static string Popover_Services_1_Title = "Services_1_Title";
+        public static string Popover_Services_1_ImageEditor = "Services_1_ImageEditor";
+        public static string Popover_Services_2_Title = "Services_2_Title";
+        public static string Popover_Services_2_Subtitle = "Services_2_Subtitle";
+        public static string Popover_Services_1_Card = "Services_1_Card";
+        public static string Popover_Services_3_Title = "Services_3_Title";
+        public static string Popover_Services_2_Card = "Services_2_Card";
+
         public static string Popover_ContactUs_1_Title = "ContactUs_1_Title";
         public static string Popover_ContactUs_1_Subtitle = "ContactUs_1_Subtitle";
         public static string Popover_ContactUs_1_1_Contact = "ContactUs_1_1_Contact";

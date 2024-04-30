@@ -1,12 +1,14 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null)
     {
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataTitleKey)">
+                    Key="@(StaticStrings.ServicesPageDataTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Services_1_Title">
             <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])
             </h1>
@@ -15,7 +17,9 @@
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServicesGalleryImage1Id"
                      Model="Model"
                      FuncSave="Save"
-                     Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)">
+                     Key="@(StaticStrings.ServicesPageDataGalleryImage1Key)"
+                     PopoversModel="PopoversModel"
+                     PopoverKey="@StaticStrings.Popover_Services_1_ImageEditor">
             <img class="img-fluid rounded my-5" src="@Model.Data[StaticStrings.ServicesPageDataGalleryImage1Key]" alt="Image Description" />
         </ImageEditor>
 
@@ -24,7 +28,9 @@
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)">
+                    Key="@(StaticStrings.ServicesPageDataServicesListTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Services_2_Title">
             <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataServicesListTitleKey])
             </h2>
@@ -35,14 +41,19 @@
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)">
+                    Key="@(StaticStrings.ServicesPageDataServicesListSubtitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Services_2_Subtitle">
             <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataServicesListSubtitleKey])
             </p>
         </HTMLEditor>
 
         <!-- List of -->
-        <ServicesList ServiceItems="ServiceItems">
+        <ServicesList 
+            ServiceItems="ServiceItems"
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_Services_1_Card">
         </ServicesList>
 
         <!-- Title and Sub for the List of -->
@@ -50,13 +61,18 @@
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.ServicesPageDataFAQTitleKey)">
+                    Key="@(StaticStrings.ServicesPageDataFAQTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Services_3_Title">
             <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataFAQTitleKey])
             </h2>
         </HTMLEditor>
 
         <!-- List of -->
-        <FAQList></FAQList>
+        <FAQList
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_Services_2_Card">
+        </FAQList>
     }
 </div>
