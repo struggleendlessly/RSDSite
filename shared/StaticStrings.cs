@@ -114,6 +114,22 @@ namespace shared
         public static string Popover_Main_1_Button = "Main_1_Button";
         public static string Popover_Main_1_Card = "Main_1_Card";
 
+        public static string Popover_AboutUs_1_Title = "AboutUs_1_Title";
+        public static string Popover_AboutUs_1_Subtitle = "AboutUs_1_Subtitle";
+        public static string Popover_AboutUs_1_ImageEditor = "AboutUs_1_ImageEditor";
+        public static string Popover_AboutUs_2_1_Title = "AboutUs_2_1_Title";
+        public static string Popover_AboutUs_2_1_Subtitle = "AboutUs_2_1_Subtitle";
+        public static string Popover_AboutUs_2_2_Title = "AboutUs_2_2_Title";
+        public static string Popover_AboutUs_2_2_Subtitle = "AboutUs_2_2_Subtitle";
+        public static string Popover_AboutUs_2_3_Title = "AboutUs_2_3_Title";
+        public static string Popover_AboutUs_2_3_Subtitle = "AboutUs_2_3_Subtitle";
+        public static string Popover_AboutUs_3_Title = "AboutUs_3_Title";
+        public static string Popover_AboutUs_3_1_Subtitle = "AboutUs_3_1_Subtitle";
+        public static string Popover_AboutUs_3_2_Subtitle = "AboutUs_3_2_Subtitle";
+        public static string Popover_AboutUs_4_Title = "AboutUs_4_Title";
+        public static string Popover_AboutUs_4_Subtitle = "AboutUs_4_Subtitle";
+        public static string Popover_AboutUs_1_Card = "AboutUs_1_Card";
+
         public static string Popover_Services_1_Title = "Services_1_Title";
         public static string Popover_Services_1_ImageEditor = "Services_1_ImageEditor";
         public static string Popover_Services_2_Title = "Services_2_Title";

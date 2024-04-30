@@ -1,12 +1,14 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null)
     {
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@(StaticStrings.AboutUsPageDataTitleKey)">
+                    Key="@(StaticStrings.AboutUsPageDataTitleKey)"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_AboutUs_1_Title">
             <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
                 @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTitleKey])
             </h1>
@@ -18,7 +20,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.AboutUsPageDataSubtitleKey)">
+                        Key="@(StaticStrings.AboutUsPageDataSubtitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_AboutUs_1_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataSubtitleKey])
                 </p>
@@ -35,7 +39,9 @@
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAboutUsCarouselImage1Id"
                      Model="Model"
                      FuncSave="Save"
-                     Key="@(StaticStrings.AboutUsPageDataCarouselImage1Key)">
+                     Key="@(StaticStrings.AboutUsPageDataCarouselImage1Key)"
+                     PopoversModel="PopoversModel"
+                     PopoverKey="@StaticStrings.Popover_AboutUs_1_ImageEditor">
         </ImageEditor>
 
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAboutUsCarouselImage2Id"
@@ -97,7 +103,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_1_Title">
                     <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstTitleKey])
                     </h2>
@@ -106,7 +114,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_1_Subtitle">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsFirstSubtitleKey])
                     </p>
@@ -119,7 +129,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_2_Title">
                     <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondTitleKey])
                     </h2>
@@ -128,7 +140,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_2_Subtitle">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsSecondSubtitleKey])
                     </p>
@@ -141,7 +155,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_3_Title">
                     <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdTitleKey])
                     </h2>
@@ -150,7 +166,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey)">
+                            Key="@(StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_2_3_Subtitle">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataFeatureStatsThirdSubtitleKey])
                     </p>
@@ -165,7 +183,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)">
+                            Key="@(StaticStrings.AboutUsPageDataInfoLeftKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_3_Title">
                     <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoLeftKey])
                     </h2>
@@ -176,7 +196,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataInfoRightFirstKey)">
+                            Key="@(StaticStrings.AboutUsPageDataInfoRightFirstKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_3_1_Subtitle">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightFirstKey])
                     </p>
@@ -185,7 +207,9 @@
                             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                             Model="Model"
                             FuncSave="Save"
-                            Key="@(StaticStrings.AboutUsPageDataInfoRightSecondKey)">
+                            Key="@(StaticStrings.AboutUsPageDataInfoRightSecondKey)"
+                            PopoversModel="PopoversModel"
+                            PopoverKey="@StaticStrings.Popover_AboutUs_3_2_Subtitle">
                     <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                         @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataInfoRightSecondKey])
                     </p>
@@ -199,7 +223,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.AboutUsPageDataTeamTitleKey)">
+                        Key="@(StaticStrings.AboutUsPageDataTeamTitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_AboutUs_4_Title">
                 <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                     @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamTitleKey])
                 </h2>
@@ -209,7 +235,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@(StaticStrings.AboutUsPageDataTeamSubtitleKey)">
+                        Key="@(StaticStrings.AboutUsPageDataTeamSubtitleKey)"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_AboutUs_4_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[StaticStrings.AboutUsPageDataTeamSubtitleKey])
                 </p>
@@ -217,6 +245,9 @@
         </div>
 
         <!-- List of -->
-        <TeamList></TeamList>
+        <TeamList 
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_AboutUs_1_Card">
+        </TeamList>
     }
 </div>

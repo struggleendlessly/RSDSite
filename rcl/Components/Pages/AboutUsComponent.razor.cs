@@ -30,6 +30,8 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel PopoversModel { get; set; } = new PageModel();
+
         DotNetObjectReference<AboutUsComponent>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -38,12 +40,14 @@ namespace rcl.Components.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }
 
         protected override async Task OnInitializedAsync()
         {
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
         }
 
         [JSInvokable]
