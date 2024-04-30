@@ -1,5 +1,5 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null)
     {
         var titleKey = Key + StaticStrings.TitleKeyEnding;
         var subtitleKey = Key + StaticStrings.SubtitleKeyEnding;
@@ -10,7 +10,9 @@
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                     Model="Model"
                     FuncSave="Save"
-                    Key="@titleKey">
+                    Key="@titleKey"
+                    PopoversModel="PopoversModel"
+                    PopoverKey="@StaticStrings.Popover_Service_1_Title">
             <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
                 @((MarkupString)Model.Data[titleKey])
             </h1>
@@ -22,7 +24,9 @@
                         EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
                         Model="Model"
                         FuncSave="Save"
-                        Key="@subtitleKey">
+                        Key="@subtitleKey"
+                        PopoversModel="PopoversModel"
+                        PopoverKey="@StaticStrings.Popover_Service_1_Subtitle">
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @((MarkupString)Model.Data[subtitleKey])
                 </p>
@@ -33,7 +37,9 @@
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServiceImageId"
                      Model="Model"
                      FuncSave="Save"
-                     Key="@imageKey">
+                     Key="@imageKey"
+                     PopoversModel="PopoversModel"
+                     PopoverKey="@StaticStrings.Popover_Service_1_ImageEditor">
             <img src="@Model.Data[imageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
         </ImageEditor>
 
@@ -42,7 +48,9 @@
             EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
             Model="Model"
             FuncSave="Save"
-            Key="@Key">
+            Key="@Key"
+            PopoversModel="PopoversModel"
+            PopoverKey="@StaticStrings.Popover_Service_1_Content">
                 <p>@((MarkupString)Model.Data[Key])</p> 
         </HTMLEditor>
     }
