@@ -70,6 +70,7 @@ var app = builder.Build();
 
 app.MapFileEndpoint();
 app.MapStripeEndpoint(app.Services);
+app.MapSitemapEndpoint();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

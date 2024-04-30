@@ -15,6 +15,13 @@ namespace shared.Managers
             _dbContext = dbContext;
         }
 
+        public async Task<List<string>> GetWebsitesNamesAsync()
+        {
+            return await _dbContext.Websites
+                .Select(x => x.Name)
+                .ToListAsync();
+        }
+
         public List<string> GetUserSites(string userId)
         {
             return _dbContext.Websites

@@ -19,6 +19,7 @@ namespace shared
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
 
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
+        public static string SitemapDataXmlFilePath = "sitemap.xml";
 
         /* Home Keys */
 
