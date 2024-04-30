@@ -23,12 +23,18 @@ function js_showAndHideAlert(alertId, alertClass, alertMessage) {
         alertElement.classList.add('d-block');
 
         setTimeout(function () {
+            alertElement.style.transition = 'opacity 2s ease-in-out';
+            alertElement.style.opacity = '0';
+        }, 3000);
+
+        setTimeout(function () {
             alertElement.classList.remove('d-block');
             alertElement.classList.remove(alertClass);
             alertElement.classList.add('d-none');
             alertElement.innerText = '';
-            
-        }, 3000);
+            alertElement.style.opacity = '1';
+            alertElement.style.transition = '';
+        }, 5000);
     }
 }
 
