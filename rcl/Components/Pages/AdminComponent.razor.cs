@@ -54,6 +54,8 @@ namespace rcl.Components.Pages
 
         public PageModel MenuModel { get; set; } = new PageModel();
 
+        public PageModel PopoversModel { get; set; } = new PageModel();
+
         public List<ContactUsMessage> ContactUsMessages { get; set; } = new List<ContactUsMessage>();
 
         DotNetObjectReference<AdminComponent>? dotNetHelper { get; set; }
@@ -72,6 +74,7 @@ namespace rcl.Components.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }
 
@@ -79,6 +82,7 @@ namespace rcl.Components.Pages
         {
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;

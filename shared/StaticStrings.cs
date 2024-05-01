@@ -155,6 +155,13 @@ namespace shared
         public static string Popover_ContactUs_1_2_Form = "ContactUs_1_2_Form";
         public static string Popover_ContactUs_1_3_Form = "ContactUs_1_3_Form";
 
+        public static string Popover_Admin_1_1_General = "Admin_1_1_General";
+        public static string Popover_Admin_1_2_General = "Admin_1_2_General";
+        public static string Popover_Admin_1_3_General = "Admin_1_3_General";
+        public static string Popover_Admin_1_4_General = "Admin_1_4_General";
+        public static string Popover_Admin_2_1_General = "Admin_2_1_General";
+        public static string Popover_Admin_2_2_General = "Admin_2_2_General";
+
         /* Key Endings */
 
         public static string AvatarKeyEnding = "_Avatar";

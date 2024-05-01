@@ -114,7 +114,7 @@
 
         <!-- Tab general -->
         <div class="tab-pane fade" id="General-tab-pane" role="tabpanel" aria-labelledby="General-tab" tabindex="0">
-            @if (Model.Data != null)
+            @if (Model.Data != null && PopoversModel.Data is not null)
             {
                 <p class="@StaticHtmlStrings.CSSMainSubTitle_p mt-5">
                     Header menu items
@@ -134,7 +134,9 @@
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataMainKey">
+                                                Key="@StaticStrings.AdminPageSettingsMenuDataMainKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_1_1_General">
                                         @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]
                                     </TextEditor>
                                 </p>
@@ -153,7 +155,9 @@
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey">
+                                                Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_1_2_General">
                                         @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]
                                     </TextEditor>
                                 </p>
@@ -172,7 +176,9 @@
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey">
+                                                Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_1_3_General">
                                         @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]
                                     </TextEditor>
                                 </p>
@@ -191,7 +197,9 @@
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="MenuModel"
                                                 FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey">
+                                                Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_1_4_General">
                                         @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]
                                     </TextEditor>
                                 </p>
@@ -238,7 +246,9 @@
                                     <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
                                                 Model="Model"
                                                 FuncSave="Save"
-                                                Key="@StaticStrings.AdminPageDataFooterTextKey">
+                                                Key="@StaticStrings.AdminPageDataFooterTextKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_2_1_General">
                                         <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
                                     </HTMLEditor>
                                 </p>
@@ -259,7 +269,9 @@
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="Model"
                                                 FuncSave="Save"
-                                                Key="@StaticStrings.AdminPageDataServicesButtonTextKey">
+                                                Key="@StaticStrings.AdminPageDataServicesButtonTextKey"
+                                                PopoversModel="PopoversModel"
+                                                PopoverKey="@StaticStrings.Popover_Admin_2_2_General">
                                         @Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]
                                     </TextEditor>
                                 </p>
