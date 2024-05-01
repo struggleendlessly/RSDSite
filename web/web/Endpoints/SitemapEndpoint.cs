@@ -87,6 +87,12 @@ namespace web.Endpoints
                                     sb.AppendLine("</url>");
                                 }
                             }
+                            else if (page == StaticRoutesStrings.EmptyRoute)
+                            {
+                                sb.AppendLine("<url>");
+                                sb.AppendLine($"<loc>{domain}/{site}/{lang}</loc>");
+                                sb.AppendLine("</url>");
+                            }
                             else
                             {
                                 sb.AppendLine("<url>");
