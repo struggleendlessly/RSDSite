@@ -28,6 +28,12 @@ namespace rcl.Components.Pages
         [Inject]
         IPageDataService PageDataService { get; set; }
 
+        [Inject]
+        ISubscriptionService SubscriptionService { get; set; }
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel PopoversModel { get; set; } = new PageModel();
@@ -48,6 +54,8 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await CheckSubscriptionStatus();
+
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
@@ -68,6 +76,15 @@ namespace rcl.Components.Pages
         public async Task Save(PageModel model)
         {
             await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
+        }
+
+        public async Task CheckSubscriptionStatus()
+        {
+            var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
+            if (!isSubscriptionActive)
+            {
+                NavigationManager.NavigateTo(StaticRoutesStrings.SubscriptionErrorPageRoute);
+            }
         }
 
         public void Dispose()

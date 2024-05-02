@@ -196,6 +196,9 @@ namespace shared
         public static string DefaultUaLang = "ua";
         public static string DefaultContainerName = "example";
 
+        /* Subscription modules names */
+        public static string SubscriptionModuleWebsite = "Website";
+
         /* Memory Cache Keys */
 
         public static string HomePageDataJsonMemoryCacheKey = "{0}_{1}_HomePageModel";
@@ -212,6 +215,8 @@ namespace shared
         public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
 
         public static string PopoversDataJsonMemoryCacheKey = "{0}_{1}_PopoversModel";
+
+        public static string ActiveWebsiteSubscription = "ActiveWebsiteSubscription_{0}";
 
         /* Alerts Messages */
         public static string ContactUsFormSubmitted = "Form submitted successfully";

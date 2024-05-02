@@ -42,6 +42,7 @@ builder.Services.AddScoped<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 builder.Services.AddScoped<IPageDataService, PageDataService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 builder.Services.AddAuthentication(options =>
     {

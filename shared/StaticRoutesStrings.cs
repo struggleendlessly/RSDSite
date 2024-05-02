@@ -13,6 +13,7 @@ namespace shared
         public const string ServicePageRoute = "/{SiteName}/{Lang}/service/{UrlKey}";
         public const string PricingPageRoute = "/{SiteName}/{Lang}/pricing";
         public const string AdminPageRoute = "/{SiteName}/{Lang}/admin";
+        public const string SubscriptionErrorPageRoute = "/subscription-error";
 
         public const string LoginPageRoute = "/{SiteName}/{Lang}/account/login";
         public const string RegisterPageRoute = "/{SiteName}/{Lang}/account/register";
@@ -31,6 +32,8 @@ namespace shared
         public const string ServicePageUrl = "service";
         public const string PricingPageUrl = "pricing";
         public const string AdminPageUrl = "admin";
+
+        public const string SubscriptionErrorUrl = "subscription-error";
 
         public const string LoginPageUrl = "account/login";    
         public const string RegisterPageUrl = "account/register";

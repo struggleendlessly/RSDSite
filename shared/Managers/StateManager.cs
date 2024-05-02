@@ -43,7 +43,8 @@ namespace shared.Managers
             {
                 var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
                 var parts = baseRelativePath.Split('/');
-                return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultSiteName;
+
+                return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticRoutesStrings.SubscriptionErrorUrl ? parts[0] : StaticStrings.DefaultSiteName;
             }
         }
 

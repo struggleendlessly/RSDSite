@@ -50,6 +50,9 @@ namespace rcl.Components.Pages
         [Inject]
         NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        ISubscriptionService SubscriptionService { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
@@ -80,6 +83,8 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await CheckSubscriptionStatus();
+
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
@@ -165,6 +170,15 @@ namespace rcl.Components.Pages
 
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
             RenameSiteModel = new RenameSiteModel();
+        }
+
+        public async Task CheckSubscriptionStatus()
+        {
+            var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
+            if (!isSubscriptionActive)
+            {
+                NavigationManager.NavigateTo(StaticRoutesStrings.SubscriptionErrorPageRoute);
+            }
         }
 
         public void Dispose()

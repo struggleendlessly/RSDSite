@@ -34,6 +34,12 @@ namespace rcl.Components.Pages
         [Inject]
         IPageDataService PageDataService { get; set; }
 
+        [Inject]
+        ISubscriptionService SubscriptionService { get; set; }
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel PopoversModel { get; set; } = new PageModel();
@@ -64,6 +70,8 @@ namespace rcl.Components.Pages
 
             //await EmailService.Send(emailModel);
 
+            await CheckSubscriptionStatus();
+
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
 
@@ -91,6 +99,15 @@ namespace rcl.Components.Pages
         public string GetPageUrl(string url)
         {
             return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
+        }
+
+        public async Task CheckSubscriptionStatus()
+        {
+            var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
+            if (!isSubscriptionActive)
+            {
+                NavigationManager.NavigateTo(StaticRoutesStrings.SubscriptionErrorPageRoute);
+            }
         }
 
         public void Dispose()
