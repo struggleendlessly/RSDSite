@@ -1,44 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 
 using shared;
+using shared.Data;
 using shared.Managers;
 using shared.DTO.Stripe;
 using shared.Interfaces;
 using shared.Data.Entities;
+using shared.ConfigurationOptions;
 
 using Stripe;
 
 using System.Text;
 using System.Text.Json;
 using System.Text.Encodings.Web;
-using Microsoft.Extensions.Options;
-using shared.ConfigurationOptions;
-using shared.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace web.Endpoints
 {
     public static class StripeEndpoint
     {
-        private static IServiceProvider _serviceProvider;
-
         public static void MapStripeEndpoint(
-            this IEndpointRouteBuilder endpoints,
-            IServiceProvider serviceProvider
+            this IEndpointRouteBuilder endpoints
             )
         {
-            _serviceProvider = serviceProvider;
-
             endpoints.MapPost("/webhook/stripe",
                 async (
                     HttpContext context,
                     IOptions<StripeOptions> stripeOptions,
-                    ApplicationDbContext dbContext
+                    ApplicationDbContext dbContext,
+                    IEmailSender<ApplicationUser> emailSender,
+                    UserManager<ApplicationUser> userManager,
+                    IWebsiteService websiteService,
+                    ISiteCreator siteCreator
                     ) =>
             {
-                using var scope = _serviceProvider.CreateScope();
-
                 var json = await new StreamReader(context.Request.Body).ReadToEndAsync();
                 try
                 {
@@ -70,9 +67,6 @@ namespace web.Endpoints
                             return Results.Ok();
                         }
 
-                        var stateManager = scope.ServiceProvider.GetRequiredService<IStateManager>();
-                        var emailSender = scope.ServiceProvider.GetRequiredService<IEmailSender<ApplicationUser>>();
-
                         //TODO: if subscription exists - do nothing, else:
 
                         var userExsist = await dbContext.Users.FirstOrDefaultAsync(s => s.Email == email);
@@ -82,15 +76,11 @@ namespace web.Endpoints
                         }
 
                         //Create user with email
-                        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                         var user = new ApplicationUser { UserName = email, Email = email };
                         var password = PasswordGenerator.GeneratePassword(8);
                         var result = await userManager.CreateAsync(user, password);
 
                         //create website with sitename
-                        var websiteService = scope.ServiceProvider.GetRequiredService<IWebsiteService>();
-                        var siteCreator = scope.ServiceProvider.GetRequiredService<ISiteCreator>();
-
                         var existingWebsite = await websiteService.GetWebsiteByName(siteName);
                         if (existingWebsite != null)
                         {
@@ -98,9 +88,15 @@ namespace web.Endpoints
                             siteName = $"{siteName}-{dateTimeNow}";
                         }
 
-                        var website = new Website { User = user, Name = siteName };
+                        var website = new Website 
+                        { 
+                            User = dbContext.Users.FirstOrDefault(x => x.Id == user.Id), 
+                            Name = siteName 
+                        };
 
-                        var createdWebsite = await websiteService.CreateWebsite(website);
+                        dbContext.Websites.Add(website);
+                        dbContext.SaveChanges();
+
                         await siteCreator.CreateSite(website.Name);
 
                         subscription = new shared.Data.Entities.Subscription()
@@ -108,7 +104,7 @@ namespace web.Endpoints
                             StripeCustomerId = stripeCustomer,
                             StripeSubscriptionId = stripeSubscription,
                             IsActive = true,
-                            Website =  dbContext.Websites.FirstOrDefault(x => x.Id == createdWebsite.Id),
+                            Website =  dbContext.Websites.FirstOrDefault(x => x.Id == website.Id),
                             SubscriptionModule = null
                         };
 
@@ -119,7 +115,7 @@ namespace web.Endpoints
                         var passwordResetCode = await userManager.GeneratePasswordResetTokenAsync(user);
                         passwordResetCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(passwordResetCode));
 
-                        var passwordResetPageUrl = $"{stateManager.SiteName}/{stateManager.Lang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
+                        var passwordResetPageUrl = $"{StaticStrings.DefaultSiteName}/{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
                         var passwordResetCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{passwordResetPageUrl}?code={passwordResetCode}";
 
                         await emailSender.SendPasswordResetLinkAsync(user, email, HtmlEncoder.Default.Encode(passwordResetCallbackUrl));
@@ -128,7 +124,7 @@ namespace web.Endpoints
                         var emailConfirmationCode = await userManager.GenerateEmailConfirmationTokenAsync(user);
                         emailConfirmationCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(emailConfirmationCode));
 
-                        var emailConfirmationPageUrl = $"{stateManager.SiteName}/{stateManager.Lang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
+                        var emailConfirmationPageUrl = $"{StaticStrings.DefaultSiteName}/{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
                         var emailConfirmationCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{emailConfirmationPageUrl}?userId={user.Id}&code={emailConfirmationCode}";
 
                         await emailSender.SendConfirmationLinkAsync(user, email, HtmlEncoder.Default.Encode(emailConfirmationCallbackUrl));
