@@ -182,7 +182,14 @@ namespace shared.Managers
             var domainWithoutProtocol = uri.Host;
             var domainParts = domainWithoutProtocol.Split('.');
 
-            return domainParts[0];
+            var topLevelDomain = domainParts.LastOrDefault();
+            if (topLevelDomain != null && domainParts.Length >= 2)
+            {
+                var domainWithoutTLD = domainWithoutProtocol.Substring(0, domainWithoutProtocol.Length - topLevelDomain.Length - 1);
+                return domainWithoutTLD;
+            }
+
+            return domainWithoutProtocol;
         }
     }
 }

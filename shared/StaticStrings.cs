@@ -195,8 +195,8 @@ namespace shared
         public static string DefaultEnLang = "en";
         public static string DefaultUaLang = "ua";
         public static string DefaultContainerName = "example";
-        public static string DefaultDomain = "myelegantpages.com";
-        public static string DefaultDevDomain = "dev.myelegantpages.com";
+        public static string DefaultDomain = "myelegantpages";
+        public static string DefaultDevDomain = "dev.myelegantpages";
         public static string DefaultLocalDomain = "localhost";
 
         /* Subscription modules names */
