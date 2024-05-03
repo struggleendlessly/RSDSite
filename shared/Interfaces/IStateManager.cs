@@ -12,5 +12,7 @@ namespace shared.Interfaces
         public List<string> UserSites { get; }
 
         bool CanEditSite();
+        string GetPageUrl(string url);
+        string GetCurrentUrlWithLanguage(string language);
     }
 }

@@ -70,11 +70,6 @@ namespace rcl.Components.Shared
             SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
         }
 
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
-
         public async Task SaveContent(PageModel model)
         {
             foreach (var serviceItem in ServiceItems)

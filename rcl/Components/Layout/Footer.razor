@@ -7,7 +7,7 @@
         <div class="col-lg-12 col-sm-12">
             @if (Model.Data != null)
             {
-                <a class="d-inline-flex align-items-center mb-3" href="@GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
+                <a class="d-inline-flex align-items-center mb-3" href="@StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute)" aria-label="Front">
                     <img class="brand" src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo" style="max-height:100px;" />
                 </a>
             }
@@ -21,10 +21,10 @@
         <div class="col-lg-4 col-sm-12  pb-3">
             @if (Model.Data != null)
             {
-                <a class="btn btn-icon" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">
+                <a class="btn btn-icon" href="@StateManager.GetCurrentUrlWithLanguage(StaticStrings.DefaultEnLang)">
                     <img style="width:32px; height:32px;" src="_content/rcl/assets/icons/american-flag-32.png" />
                 </a>
-                <a class="btn btn-icon" href="@GetCurrentUrlWithLanguage(StaticStrings.DefaultUaLang)">
+                <a class="btn btn-icon" href="@StateManager.GetCurrentUrlWithLanguage(StaticStrings.DefaultUaLang)">
                     <img style="width:32px; height:32px;" src="_content/rcl/assets/icons/ukrainian-flag-32.png" />
                 </a>
             }
@@ -64,7 +64,7 @@
         <div class="col-lg-12 col-sm-12">
             <AuthorizeView>
                 <NotAuthorized>
-                    <a href="@GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">
+                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl)" class="text-decoration-none pb-4">
                         Login
                     </a>
                 </NotAuthorized>

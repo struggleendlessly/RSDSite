@@ -5,14 +5,21 @@ namespace shared
     public static class StaticRoutesStrings
     {
         public const string EmptyRoute = "";
-        
-        public const string MainPageRoute = "/{SiteName}/{Lang}";
-        public const string AboutUsPageRoute = "/{SiteName}/{Lang}/about-us";
-        public const string ContactUsPageRoute = "/{SiteName}/{Lang}/contact-us";
-        public const string ServicesPageRoute = "/{SiteName}/{Lang}/services";
-        public const string ServicePageRoute = "/{SiteName}/{Lang}/service/{UrlKey}";
-        public const string PricingPageRoute = "/{SiteName}/{Lang}/pricing";
-        public const string AdminPageRoute = "/{SiteName}/{Lang}/admin";
+
+        public const string MainPageRouteWithLang = "/{Lang}";
+        public const string MainPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}"; 
+        public const string AboutUsPageRouteWithLang = "/{Lang}/about-us";
+        public const string AboutUsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/about-us";
+        public const string ContactUsPageRouteWithLang = "/{Lang}/contact-us";
+        public const string ContactUsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/contact-us";
+        public const string ServicesPageRouteWithLang = "/{Lang}/services";
+        public const string ServicesPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/services";
+        public const string ServicePageRouteWithLang = "/{Lang}/service/{UrlKey}";
+        public const string ServicePageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/service/{UrlKey}";
+        public const string PricingPageRouteWithLang = "/{Lang}/pricing";
+        public const string PricingPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/pricing";
+        public const string AdminPageRouteWithLang = "/{Lang}/admin";
+        public const string AdminPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/admin";
         public const string SubscriptionErrorPageRoute = "/subscription-error";
 
         public const string LoginPageRoute = "/{SiteName}/{Lang}/account/login";

@@ -41,13 +41,8 @@ namespace web.Components.Account.Pages
             }
             else
             {
-                NavigationManager.NavigateTo(GetPageUrl(StaticRoutesStrings.EmptyRoute));
+                NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute));
             }
-        }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
     }
 }

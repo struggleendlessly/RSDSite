@@ -13,10 +13,5 @@ namespace web.Components.Account.Pages
 
         [Inject]
         IStateManager StateManager { get; set; }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
     }
 }

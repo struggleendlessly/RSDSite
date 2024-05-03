@@ -54,11 +54,6 @@ namespace rcl.Components.Layout
                 .ToDictionary();
         }
 
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
-
         private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
         {
             currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
@@ -76,7 +71,7 @@ namespace rcl.Components.Layout
 
             if (!string.IsNullOrWhiteSpace(currentUrl))
             {
-                url = GetPageUrl(url);
+                url = StateManager.GetPageUrl(url);
             }
 
             if (currentUrl != url)

@@ -44,7 +44,7 @@ namespace web.Components.Account.Pages
             if (user is null || !(await UserManager.IsEmailConfirmedAsync(user)))
             {
                 // Don't reveal that the user does not exist or is not confirmed
-                RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
             }
 
             // For more information on how to enable account confirmation and password reset please
@@ -52,17 +52,12 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GeneratePasswordResetTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri(GetPageUrl(StaticRoutesStrings.AccountResetPasswordPageUrl)).AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordPageUrl)).AbsoluteUri,
                 new Dictionary<string, object?> { ["code"] = code });
 
             await EmailSender.SendPasswordResetLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-            RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
-        }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
+            RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
         }
 
         private sealed class InputModel

@@ -115,7 +115,7 @@ namespace web.Endpoints
                         var passwordResetCode = await userManager.GeneratePasswordResetTokenAsync(user);
                         passwordResetCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(passwordResetCode));
 
-                        var passwordResetPageUrl = $"{StaticStrings.DefaultSiteName}/{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
+                        var passwordResetPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
                         var passwordResetCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{passwordResetPageUrl}?code={passwordResetCode}";
 
                         await emailSender.SendPasswordResetLinkAsync(user, email, HtmlEncoder.Default.Encode(passwordResetCallbackUrl));
@@ -124,12 +124,10 @@ namespace web.Endpoints
                         var emailConfirmationCode = await userManager.GenerateEmailConfirmationTokenAsync(user);
                         emailConfirmationCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(emailConfirmationCode));
 
-                        var emailConfirmationPageUrl = $"{StaticStrings.DefaultSiteName}/{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
+                        var emailConfirmationPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
                         var emailConfirmationCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{emailConfirmationPageUrl}?userId={user.Id}&code={emailConfirmationCode}";
 
                         await emailSender.SendConfirmationLinkAsync(user, email, HtmlEncoder.Default.Encode(emailConfirmationCallbackUrl));
-
-
                     }
                     else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted ||
                              stripeEvent.Type == Events.CustomerSubscriptionPaused)

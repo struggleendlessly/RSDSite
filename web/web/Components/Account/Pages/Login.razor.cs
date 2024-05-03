@@ -94,11 +94,6 @@ namespace web.Components.Account.Pages
             }
         }
 
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
-
         private sealed class InputModel
         {
             [Required]

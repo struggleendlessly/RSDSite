@@ -32,28 +32,5 @@ namespace rcl.Components.Layout
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
         }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
-
-        public string GetCurrentUrlWithLanguage(string language)
-        {
-            var currentUrl = NavigationManager.Uri;
-            var siteAndLang = $"{StateManager.SiteName}/{StateManager.Lang}";
-            var newSiteAndLang = $"{StateManager.SiteName}/{language}";
-
-            if (currentUrl.Contains(siteAndLang))
-            {
-                currentUrl = currentUrl.Replace(siteAndLang, newSiteAndLang);
-            }
-            else
-            {
-                currentUrl += newSiteAndLang;
-            }
-
-            return currentUrl;
-        }
     }
 }

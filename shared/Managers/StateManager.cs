@@ -41,10 +41,18 @@ namespace shared.Managers
         {
             get
             {
+                var domain = GetDomainWithoutProtocol();
                 var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
                 var parts = baseRelativePath.Split('/');
 
-                return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticRoutesStrings.SubscriptionErrorUrl ? parts[0] : StaticStrings.DefaultSiteName;
+                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+                {
+                    return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticRoutesStrings.SubscriptionErrorUrl ? parts[0] : StaticStrings.DefaultSiteName;
+                }
+                else
+                {
+                    return domain;
+                }
             }
         }
 
@@ -52,9 +60,18 @@ namespace shared.Managers
         {
             get
             {
+                var domain = GetDomainWithoutProtocol();
                 var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
                 var parts = baseRelativePath.Split('/');
-                return parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
+
+                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+                {
+                    return parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
+                }
+                else
+                {
+                    return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultEnLang;
+                }
             }
         }
 
@@ -114,6 +131,58 @@ namespace shared.Managers
         public bool CanEditSite()
         {
             return UserSites.Contains(SiteName);
+        }
+
+        public string GetPageUrl(string url)
+        {
+            var domain = GetDomainWithoutProtocol();
+            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+            {
+                return $"{SiteName}/{Lang}/{url}";
+            }
+            else
+            {
+                return $"{Lang}/{url}";
+            }
+        }
+
+        public string GetCurrentUrlWithLanguage(string language)
+        {
+            var currentUrl = _navigationManager.Uri;
+            var domain = GetDomainWithoutProtocol();
+            var siteAndLang = string.Empty;
+            var newSiteAndLang = string.Empty;
+            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+            {
+                siteAndLang = $"{SiteName}/{Lang}";
+                newSiteAndLang = $"{SiteName}/{language}";
+            }
+            else
+            {
+                siteAndLang = $"{Lang}";
+                newSiteAndLang = $"{language}";
+            }
+
+            if (currentUrl.Contains(siteAndLang))
+            {
+                currentUrl = currentUrl.Replace(siteAndLang, newSiteAndLang);
+            }
+            else
+            {
+                currentUrl += newSiteAndLang;
+            }
+
+            return currentUrl;
+        }
+
+        private string GetDomainWithoutProtocol()
+        {
+            var domainWithProtocol = _navigationManager.BaseUri;
+            var uri = new Uri(domainWithProtocol);
+            var domainWithoutProtocol = uri.Host;
+            var domainParts = domainWithoutProtocol.Split('.');
+
+            return domainParts[0];
         }
     }
 }

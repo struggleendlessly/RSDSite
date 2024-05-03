@@ -42,7 +42,7 @@ namespace web.Components.Account.Pages
         {
             if (Code is null)
             {
-                RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountInvalidPasswordResetPageRoute));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountInvalidPasswordResetPageRoute));
             }
 
             Input.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
@@ -54,21 +54,16 @@ namespace web.Components.Account.Pages
             if (user is null)
             {
                 // Don't reveal that the user does not exist
-                RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
             }
 
             var result = await UserManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                RedirectManager.RedirectTo(GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
             }
 
             identityErrors = result.Errors;
-        }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
 
         private sealed class InputModel

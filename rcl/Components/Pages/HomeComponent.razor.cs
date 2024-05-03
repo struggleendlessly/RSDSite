@@ -96,11 +96,6 @@ namespace rcl.Components.Pages
             await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
         }
 
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
-        }
-
         public async Task CheckSubscriptionStatus()
         {
             var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();

@@ -125,7 +125,7 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri(GetPageUrl(StaticRoutesStrings.AccountConfirmEmailPageUrl)).AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountConfirmEmailPageUrl)).AbsoluteUri,
                 new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
             await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
@@ -133,7 +133,7 @@ namespace web.Components.Account.Pages
             if (UserManager.Options.SignIn.RequireConfirmedAccount)
             {
                 RedirectManager.RedirectTo(
-                    GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl),
+                    StateManager.GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl),
                     new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
             }
 
@@ -161,11 +161,6 @@ namespace web.Components.Account.Pages
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
             return (IUserEmailStore<ApplicationUser>)UserStore;
-        }
-
-        public string GetPageUrl(string url)
-        {
-            return $"{StateManager.SiteName}/{StateManager.Lang}/{url}";
         }
 
         private sealed class InputModel
