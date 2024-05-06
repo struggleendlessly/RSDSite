@@ -101,7 +101,7 @@ namespace rcl.Components.Pages
             var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
             if (!isSubscriptionActive)
             {
-                NavigationManager.NavigateTo(StaticRoutesStrings.SubscriptionErrorPageRoute);
+                NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
             }
         }
 

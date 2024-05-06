@@ -20,7 +20,7 @@ namespace shared
         public const string PricingPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/pricing";
         public const string AdminPageRouteWithLang = "/{Lang}/admin";
         public const string AdminPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/admin";
-        public const string SubscriptionErrorPageRoute = "/subscription-error";
+        public const string SubscriptionErrorPageRoute = "/{SiteName}/{Lang}/subscription-error";
 
         public const string LoginPageRoute = "/{Lang}/account/login";
         public const string RegisterPageRoute = "/{Lang}/account/register";
