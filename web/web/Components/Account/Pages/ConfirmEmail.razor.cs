@@ -14,10 +14,7 @@ namespace web.Components.Account.Pages
     public partial class ConfirmEmail
     {
         [Parameter]
-        public string SiteName { get; set; }
-
-        [Parameter]
-        public string Lang { get; set; }
+        public string Lang { get; set; } = string.Empty;
 
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
@@ -87,7 +84,7 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(User);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountConfirmEmailPageUrl)).AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountConfirmEmailPageUrl, false)).AbsoluteUri,
                 new Dictionary<string, object?> { ["userId"] = User.Id, ["code"] = code });
 
             await EmailSender.SendConfirmationLinkAsync(User, User.Email, HtmlEncoder.Default.Encode(callbackUrl));

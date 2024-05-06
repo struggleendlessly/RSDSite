@@ -7,10 +7,7 @@ namespace web.Components.Account.Pages
     public partial class RegisterConfirmation
     {
         [Parameter]
-        public string SiteName { get; set; }
-
-        [Parameter]
-        public string Lang { get; set; }
+        public string Lang { get; set; } = string.Empty;
 
         private string? statusMessage;
 

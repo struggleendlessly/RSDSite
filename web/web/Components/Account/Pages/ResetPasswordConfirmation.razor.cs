@@ -6,10 +6,7 @@ namespace web.Components.Account.Pages
     public partial class ResetPasswordConfirmation
     {
         [Parameter]
-        public string SiteName { get; set; }
-
-        [Parameter]
-        public string Lang { get; set; }
+        public string Lang { get; set; } = string.Empty;
 
         [Inject]
         IStateManager StateManager { get; set; }

@@ -47,7 +47,14 @@ namespace shared.Managers
 
                 if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
                 {
-                    return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticRoutesStrings.SubscriptionErrorUrl ? parts[0] : StaticStrings.DefaultSiteName;
+                    if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticStrings.DefaultEnLang && parts[0] != StaticStrings.DefaultUaLang)
+                    {
+                        return parts[0];
+                    }
+                    else
+                    {
+                        return StaticStrings.DefaultSiteName;
+                    }
                 }
                 else
                 {
@@ -66,7 +73,18 @@ namespace shared.Managers
 
                 if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
                 {
-                    return parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) ? parts[1] : StaticStrings.DefaultEnLang;
+                    if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && (parts[0] == StaticStrings.DefaultEnLang || parts[0] == StaticStrings.DefaultUaLang))
+                    {
+                        return parts[0];
+                    }
+                    else if (parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) && (parts[1] == StaticStrings.DefaultEnLang || parts[1] == StaticStrings.DefaultUaLang))
+                    {
+                        return parts[1];
+                    }
+                    else
+                    {
+                        return StaticStrings.DefaultEnLang;
+                    }
                 }
                 else
                 {
@@ -133,10 +151,10 @@ namespace shared.Managers
             return UserSites.Contains(SiteName);
         }
 
-        public string GetPageUrl(string url)
+        public string GetPageUrl(string url, bool showSiteName = true)
         {
             var domain = GetDomainWithoutProtocol();
-            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain && showSiteName)
             {
                 return $"{SiteName}/{Lang}/{url}";
             }

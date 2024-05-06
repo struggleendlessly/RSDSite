@@ -14,10 +14,7 @@ namespace web.Components.Account.Pages
     public partial class ResetPassword
     {
         [Parameter]
-        public string SiteName { get; set; }
-
-        [Parameter]
-        public string Lang { get; set; }
+        public string Lang { get; set; } = string.Empty;
 
         [Inject]
         IdentityRedirectManager RedirectManager { get; set; }
@@ -42,7 +39,7 @@ namespace web.Components.Account.Pages
         {
             if (Code is null)
             {
-                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountInvalidPasswordResetPageRoute));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountInvalidPasswordResetPageUrl, false));
             }
 
             Input.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
@@ -54,13 +51,13 @@ namespace web.Components.Account.Pages
             if (user is null)
             {
                 // Don't reveal that the user does not exist
-                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl, false));
             }
 
             var result = await UserManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordConfirmationPageUrl, false));
             }
 
             identityErrors = result.Errors;

@@ -22,16 +22,16 @@ namespace shared
         public const string AdminPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/admin";
         public const string SubscriptionErrorPageRoute = "/subscription-error";
 
-        public const string LoginPageRoute = "/{SiteName}/{Lang}/account/login";
-        public const string RegisterPageRoute = "/{SiteName}/{Lang}/account/register";
-        public const string RegisterConfirmationPageRoute = "/{SiteName}/{Lang}/account/register-confirmation";
-        public const string LogoutPageRoute = "/{SiteName}/{Lang}/account/logout";
-        public const string AccountConfirmEmailPageRoute = "/{SiteName}/{Lang}/account/confirm-email";
-        public const string ForgotPasswordPageRoute = "/{SiteName}/{Lang}/account/forgot-password";
-        public const string AccountForgotPasswordConfirmationPageRoute = "/{SiteName}/{Lang}/account/forgot-password-confirmation";
-        public const string AccountResetPasswordPageRoute = "/{SiteName}/{Lang}/account/reset-password";
-        public const string AccountResetPasswordConfirmationPageRoute = "/{SiteName}/{Lang}/account/reset-password-confirmation";
-        public const string AccountInvalidPasswordResetPageRoute = "/{SiteName}/{Lang}/account/invalid-password-reset";
+        public const string LoginPageRoute = "/{Lang}/account/login";
+        public const string RegisterPageRoute = "/{Lang}/account/register";
+        public const string RegisterConfirmationPageRoute = "/{Lang}/account/register-confirmation";
+        public const string LogoutPageRoute = "/{Lang}/account/logout";
+        public const string AccountConfirmEmailPageRoute = "/{Lang}/account/confirm-email";
+        public const string ForgotPasswordPageRoute = "/{Lang}/account/forgot-password";
+        public const string AccountForgotPasswordConfirmationPageRoute = "/{Lang}/account/forgot-password-confirmation";
+        public const string AccountResetPasswordPageRoute = "/{Lang}/account/reset-password";
+        public const string AccountResetPasswordConfirmationPageRoute = "/{Lang}/account/reset-password-confirmation";
+        public const string AccountInvalidPasswordResetPageRoute = "/{Lang}/account/invalid-password-reset";
 
         public const string AboutUsPageUrl = "about-us";
         public const string ContactUsPageUrl = "contact-us";

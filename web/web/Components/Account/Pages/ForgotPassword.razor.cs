@@ -15,10 +15,7 @@ namespace web.Components.Account.Pages
     public partial class ForgotPassword
     {
         [Parameter]
-        public string SiteName { get; set; }
-
-        [Parameter]
-        public string Lang {  get; set; }
+        public string Lang { get; set; } = string.Empty;
 
         [Inject]
         UserManager<ApplicationUser> UserManager { get; set; }
@@ -44,7 +41,7 @@ namespace web.Components.Account.Pages
             if (user is null || !(await UserManager.IsEmailConfirmedAsync(user)))
             {
                 // Don't reveal that the user does not exist or is not confirmed
-                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
+                RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl, false));
             }
 
             // For more information on how to enable account confirmation and password reset please
@@ -52,12 +49,12 @@ namespace web.Components.Account.Pages
             var code = await UserManager.GeneratePasswordResetTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordPageUrl)).AbsoluteUri,
+                NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.AccountResetPasswordPageUrl, false)).AbsoluteUri,
                 new Dictionary<string, object?> { ["code"] = code });
 
             await EmailSender.SendPasswordResetLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-            RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl));
+            RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountForgotPasswordConfirmationPageUrl, false));
         }
 
         private sealed class InputModel
