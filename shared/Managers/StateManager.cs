@@ -154,7 +154,7 @@ namespace shared.Managers
         public string GetPageUrl(string url, bool showSiteName = true)
         {
             var domain = GetDomainWithoutProtocol();
-            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain && showSiteName)
+            if ((domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain) && showSiteName)
             {
                 return $"{SiteName}/{Lang}/{url}";
             }
