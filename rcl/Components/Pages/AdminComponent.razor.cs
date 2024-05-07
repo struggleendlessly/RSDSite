@@ -53,6 +53,9 @@ namespace rcl.Components.Pages
         [Inject]
         ISubscriptionService SubscriptionService { get; set; }
 
+        [Inject]
+        IScriptRunner ScriptRunner { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
@@ -70,6 +73,8 @@ namespace rcl.Components.Pages
         public RenameSiteModel RenameSiteModel { get; set; } = new();
 
         public string SelectedSite { get; set; }
+
+        public string CustomDomain { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -91,6 +96,7 @@ namespace rcl.Components.Pages
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
+            CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
         }
 
         [JSInvokable]
@@ -170,6 +176,22 @@ namespace rcl.Components.Pages
 
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
             RenameSiteModel = new RenameSiteModel();
+        }
+
+        public async Task SaveCustomDomainAsync()
+        {
+            await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
+
+            var scriptPath = StaticStrings.AzureAddCustomDomainPowerShellScriptPath;
+
+            var parameters = new (string, string)[]
+            {
+                ("WebAppName", "devrsd"),
+                ("WebAppResourceGroup", "rsdsite"),
+                ("CustomDomain", CustomDomain)
+            };
+
+            await ScriptRunner.RunPowerShellScriptAsync(scriptPath, parameters);
         }
 
         public async Task CheckSubscriptionStatus()

@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
+﻿using shared.Interfaces;
+using System.Diagnostics;
 
 namespace shared.Managers
 {
-    public class ScriptRunner
+    public class ScriptRunner : IScriptRunner
     {
-        public void RunPowerShellScript(string scriptFilePath, params (string, string)[] parameters)
+        public async Task<string> RunPowerShellScriptAsync(string scriptFilePath, params (string, string)[] parameters)
         {
             // Create argument string dynamically
             string arguments = $"-File \"{scriptFilePath}\"";
@@ -26,20 +27,26 @@ namespace shared.Managers
                 CreateNoWindow = true
             };
 
-            // Start the process
-            using (Process process = Process.Start(psi))
+            // Start the process asynchronously
+            using (Process process = new Process())
             {
-                if (process != null)
-                {
-                    // Read output and error streams
-                    string output = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
-                    process.WaitForExit();
+                process.StartInfo = psi;
+                process.Start();
 
-                    // Display output and error messages
-                    Console.WriteLine("Output: " + output);
-                    Console.WriteLine("Error: " + error);
-                }
+                // Read output and error streams asynchronously
+                Task<string> outputTask = process.StandardOutput.ReadToEndAsync();
+                Task<string> errorTask = process.StandardError.ReadToEndAsync();
+
+                await Task.WhenAll(outputTask, errorTask);
+
+                string output = outputTask.Result;
+                string error = errorTask.Result;
+
+                // Display output and error messages
+                Console.WriteLine("Output: " + output);
+                Console.WriteLine("Error: " + error);
+
+                return output;
             }
         }
     }

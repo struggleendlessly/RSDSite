@@ -188,6 +188,7 @@ namespace shared
         /* Other */
 
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
+        public static string AzureAddCustomDomainPowerShellScriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PowerShellScripts/azure-add-custom-domain.ps1");
 
         /* Default Values */
 

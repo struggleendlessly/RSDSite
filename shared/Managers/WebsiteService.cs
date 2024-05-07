@@ -55,5 +55,21 @@ namespace shared.Managers
 
             return existingWebsite;
         }
+
+        public async Task<string> GetSiteDomainAsync(string siteName)
+        {
+            var website = await _dbContext.Websites.FirstOrDefaultAsync(w => w.Name == siteName);
+            return website.Domain;
+        }
+
+        public async Task<string> UpdateSiteDomainAsync(string siteName, string domain)
+        {
+            var website = await _dbContext.Websites.FirstOrDefaultAsync(w => w.Name == siteName);
+
+            website.Domain = domain;
+            await _dbContext.SaveChangesAsync();
+
+            return domain;
+        }
     }
 }

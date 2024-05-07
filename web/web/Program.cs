@@ -43,6 +43,7 @@ builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 builder.Services.AddScoped<IPageDataService, PageDataService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+builder.Services.AddScoped<IScriptRunner, ScriptRunner>();
 
 builder.Services.AddAuthentication(options =>
     {
