@@ -96,7 +96,7 @@ namespace rcl.Components.Pages
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
-            CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
+            //CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
         }
 
         [JSInvokable]
@@ -180,7 +180,7 @@ namespace rcl.Components.Pages
 
         public async Task SaveCustomDomainAsync()
         {
-            await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
+            //await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
 
             var scriptPath = StaticStrings.AzureAddCustomDomainPowerShellScriptPath;
 

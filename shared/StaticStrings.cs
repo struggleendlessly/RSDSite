@@ -199,6 +199,7 @@ namespace shared
         public static string DefaultDomain = "myelegantpages";
         public static string DefaultDevDomain = "dev.myelegantpages";
         public static string DefaultLocalDomain = "localhost";
+        public static string DefaultWindowsDevDomain = "web20240408144840.azurewebsites";
 
         /* Subscription modules names */
         public static string SubscriptionModuleWebsite = "Website";
