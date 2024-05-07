@@ -76,6 +76,8 @@ namespace rcl.Components.Pages
 
         public string CustomDomain { get; set; }
 
+        public string CustomDomainMessage { get; set; }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -182,16 +184,25 @@ namespace rcl.Components.Pages
         {
             //await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
 
-            var scriptPath = StaticStrings.AzureAddCustomDomainPowerShellScriptPath;
-
-            var parameters = new (string, string)[]
+            try
             {
-                ("WebAppName", "devrsd"),
-                ("WebAppResourceGroup", "rsdsite"),
-                ("CustomDomain", CustomDomain)
-            };
+                var scriptPath = StaticStrings.AzureAddCustomDomainPowerShellScriptPath;
 
-            await ScriptRunner.RunPowerShellScriptAsync(scriptPath, parameters);
+                var parameters = new (string, string)[]
+                {
+                    ("WebAppName", "web20240408144840"),
+                    ("WebAppResourceGroup", "rsdsitecouldbedeleted"),
+                    ("CustomDomain", CustomDomain)
+                };
+
+                var result = await ScriptRunner.RunPowerShellScriptAsync(scriptPath, parameters);
+                CustomDomainMessage = result;
+            }
+            catch (Exception ex)
+            {
+                CustomDomainMessage = $"{ex.Message}\n\n{ex.InnerException}";
+            }
+            
         }
 
         public async Task CheckSubscriptionStatus()

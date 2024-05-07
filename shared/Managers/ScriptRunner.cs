@@ -46,7 +46,7 @@ namespace shared.Managers
                 Console.WriteLine("Output: " + output);
                 Console.WriteLine("Error: " + error);
 
-                return output;
+                return $"{output}\n\n{error}";
             }
         }
     }
