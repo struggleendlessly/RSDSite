@@ -1,9 +1,9 @@
-﻿using System;
+﻿using shared.Models.API;
 
 namespace shared.Interfaces
 {
     public interface IScriptRunner
     {
-        Task<string> RunPowerShellScriptAsync(string scriptFilePath, params (string, string)[] parameters);
+        Task<RunPowerShellScriptResponseModel> RunPowerShellScriptAsync(RunPowerShellScriptModel model);
     }
 }

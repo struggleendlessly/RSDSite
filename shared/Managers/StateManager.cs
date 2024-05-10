@@ -45,7 +45,7 @@ namespace shared.Managers
                 var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
                 var parts = baseRelativePath.Split('/');
 
-                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain || domain == StaticStrings.DefaultWindowsDevDomain)
+                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
                 {
                     if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticStrings.DefaultEnLang && parts[0] != StaticStrings.DefaultUaLang)
                     {
@@ -71,7 +71,7 @@ namespace shared.Managers
                 var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
                 var parts = baseRelativePath.Split('/');
 
-                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain || domain == StaticStrings.DefaultWindowsDevDomain)
+                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
                 {
                     if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && (parts[0] == StaticStrings.DefaultEnLang || parts[0] == StaticStrings.DefaultUaLang))
                     {

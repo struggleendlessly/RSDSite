@@ -28,6 +28,7 @@ builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSec
 builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSection(MainSiteOwnersOptions.SectionName));
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 
+builder.Services.AddHttpClient();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<EmailSenders>();
@@ -44,6 +45,7 @@ builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 builder.Services.AddScoped<IPageDataService, PageDataService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IScriptRunner, ScriptRunner>();
+builder.Services.AddScoped<IApiService, ApiService>();
 
 builder.Services.AddAuthentication(options =>
     {

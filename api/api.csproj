@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PowerShellScripts\azure-add-custom-domain.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PowerShellScripts\azure-add-custom-domain.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\shared\shared.csproj" />
+  </ItemGroup>
+
+</Project>

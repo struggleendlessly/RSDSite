@@ -188,7 +188,7 @@ namespace shared
         /* Other */
 
         public static string WwwRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
-        public static string AzureAddCustomDomainPowerShellScriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PowerShellScripts/azure-add-custom-domain.ps1");
+        public static string PowerShellScriptsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PowerShellScripts");
 
         /* Default Values */
 
@@ -199,7 +199,6 @@ namespace shared
         public static string DefaultDomain = "myelegantpages";
         public static string DefaultDevDomain = "dev.myelegantpages";
         public static string DefaultLocalDomain = "localhost";
-        public static string DefaultWindowsDevDomain = "web20240408144840.azurewebsites";
 
         /* Subscription modules names */
         public static string SubscriptionModuleWebsite = "Website";
@@ -228,5 +227,15 @@ namespace shared
         public static string AdminCreateOrRenameSiteFormDuplicateSiteName = "The site name is already taken. Please choose a different one";
         public static string AdminCreateSiteFormSuccessfullyCreated = "The site was successfully created";
         public static string AdminRenameSiteFormSuccessfullyRenamed = "The site was successfully renamed";
+
+        /* Azure */
+
+        public static string PowerShellAzureAddCustomDomainScript = "azure-add-custom-domain.ps1";
+        public static string AzureWebAppName = "WebAppName";
+        public static string AzureWebAppResourceGroup = "WebAppResourceGroup";
+        public static string AzureCustomDomain = "CustomDomain";
+
+        public static string AzureDevWebAppNameValue = "web20240408144840";
+        public static string AzureDevWebAppResourceGroupValue = "rsdsitecouldbedeleted";
     }
 }

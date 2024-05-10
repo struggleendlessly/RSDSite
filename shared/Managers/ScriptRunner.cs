@@ -1,22 +1,21 @@
 ﻿using shared.Interfaces;
+using shared.Models.API;
 using System.Diagnostics;
 
 namespace shared.Managers
 {
     public class ScriptRunner : IScriptRunner
     {
-        public async Task<string> RunPowerShellScriptAsync(string scriptFilePath, params (string, string)[] parameters)
+        public async Task<RunPowerShellScriptResponseModel> RunPowerShellScriptAsync(RunPowerShellScriptModel model)
         {
-            // Create argument string dynamically
-            string arguments = $"-File \"{scriptFilePath}\"";
+            var scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticStrings.PowerShellScriptsPath, model.ScriptName);
+            string arguments = $"-File \"{scriptPath}\"";
 
-            // Add parameters to the argument string
-            foreach (var parameter in parameters)
+            foreach (var parameter in model.Parameters)
             {
-                arguments += $" -{parameter.Item1} \"{parameter.Item2}\"";
+                arguments += $" -{parameter.Key} \"{parameter.Value}\"";
             }
 
-            // Create a process to run PowerShell
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
@@ -27,13 +26,11 @@ namespace shared.Managers
                 CreateNoWindow = true
             };
 
-            // Start the process asynchronously
             using (Process process = new Process())
             {
                 process.StartInfo = psi;
                 process.Start();
 
-                // Read output and error streams asynchronously
                 Task<string> outputTask = process.StandardOutput.ReadToEndAsync();
                 Task<string> errorTask = process.StandardError.ReadToEndAsync();
 
@@ -42,11 +39,16 @@ namespace shared.Managers
                 string output = outputTask.Result;
                 string error = errorTask.Result;
 
-                // Display output and error messages
                 Console.WriteLine("Output: " + output);
                 Console.WriteLine("Error: " + error);
 
-                return $"{output}\n\n{error}";
+                var response = new RunPowerShellScriptResponseModel
+                {
+                    Output = output,
+                    Error = error
+                };
+
+                return response;
             }
         }
     }

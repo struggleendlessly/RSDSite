@@ -9,6 +9,7 @@ using shared.Data;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
+using shared.Models.API;
 using shared.Data.Entities;
 
 using System.Text.Json;
@@ -54,7 +55,7 @@ namespace rcl.Components.Pages
         ISubscriptionService SubscriptionService { get; set; }
 
         [Inject]
-        IScriptRunner ScriptRunner { get; set; }
+        IApiService ApiService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -75,8 +76,6 @@ namespace rcl.Components.Pages
         public string SelectedSite { get; set; }
 
         public string CustomDomain { get; set; }
-
-        public string CustomDomainMessage { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -184,25 +183,18 @@ namespace rcl.Components.Pages
         {
             //await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
 
-            try
+            var request = new RunPowerShellScriptModel
             {
-                var scriptPath = StaticStrings.AzureAddCustomDomainPowerShellScriptPath;
-
-                var parameters = new (string, string)[]
+                ScriptName = StaticStrings.PowerShellAzureAddCustomDomainScript,
+                Parameters = new Dictionary<string, string>
                 {
-                    ("WebAppName", "web20240408144840"),
-                    ("WebAppResourceGroup", "rsdsitecouldbedeleted"),
-                    ("CustomDomain", CustomDomain)
-                };
-
-                var result = await ScriptRunner.RunPowerShellScriptAsync(scriptPath, parameters);
-                CustomDomainMessage = result;
-            }
-            catch (Exception ex)
-            {
-                CustomDomainMessage = $"{ex.Message}\n\n{ex.InnerException}";
-            }
+                    { StaticStrings.AzureWebAppName, StaticStrings.AzureDevWebAppNameValue },
+                    { StaticStrings.AzureWebAppResourceGroup, StaticStrings.AzureDevWebAppResourceGroupValue },
+                    { StaticStrings.AzureCustomDomain, CustomDomain }
+                }
+            };
             
+            await ApiService.SendPostRequestAsync<RunPowerShellScriptModel, RunPowerShellScriptResponseModel>(request, StaticRoutesStrings.APIRunPowerShellScriptRoute);
         }
 
         public async Task CheckSubscriptionStatus()

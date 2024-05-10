@@ -52,5 +52,7 @@ namespace shared
         public const string AccountResetPasswordPageUrl = "account/reset-password";
         public const string AccountResetPasswordConfirmationPageUrl = "account/reset-password-confirmation";
         public const string AccountInvalidPasswordResetPageUrl = "account/invalid-password-reset";
+
+        public const string APIRunPowerShellScriptRoute = "/run-powershell-script";
     }
 }
