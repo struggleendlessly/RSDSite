@@ -27,6 +27,7 @@ builder.Services.Configure<AzureEmailCommunicationOptions>(builder.Configuration
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
 builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSection(MainSiteOwnersOptions.SectionName));
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
+builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
 
 builder.Services.AddHttpClient();
 builder.Services.AddCascadingAuthenticationState();
