@@ -56,8 +56,8 @@ namespace web.Endpoints
                     if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                     {
                         var data = JsonSerializer.Deserialize<CheckoutSessionCompleted.Rootobject>(stripeEvent.Data.ToJson());
-                        var siteName = data._object.custom_fields[0].text.value;
-                        var email = data._object.customer_details.email;
+                        var clientReferenceId = data._object.client_reference_id;
+                        var websiteId = Guid.Parse(clientReferenceId.ToString());// website id
                         var stripeCustomer = data._object.customer; // customer stripe id field
                         var stripeSubscription = data._object.subscription; // subscription stripe id field
 
@@ -67,67 +67,137 @@ namespace web.Endpoints
                             return Results.Ok();
                         }
 
-                        //TODO: if subscription exists - do nothing, else:
-
-                        var userExsist = await dbContext.Users.FirstOrDefaultAsync(s => s.Email == email);
-                        if (userExsist is not null)
+                        var website = await dbContext.Websites.FirstOrDefaultAsync(x => x.Id == websiteId);
+                        if (website is null)
                         {
-                            return Results.Ok();
+                            return Results.NotFound();
                         }
-
-                        //Create user with email
-                        var user = new ApplicationUser { UserName = email, Email = email };
-                        var password = PasswordGenerator.GeneratePassword(8);
-                        var result = await userManager.CreateAsync(user, password);
-
-                        //create website with sitename
-                        var existingWebsite = await websiteService.GetWebsiteByName(siteName);
-                        if (existingWebsite != null)
-                        {
-                            var dateTimeNow = DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss");
-                            siteName = $"{siteName}-{dateTimeNow}";
-                        }
-
-                        var website = new Website 
-                        { 
-                            User = dbContext.Users.FirstOrDefault(x => x.Id == user.Id), 
-                            Name = siteName 
-                        };
-
-                        dbContext.Websites.Add(website);
-                        dbContext.SaveChanges();
-
-                        await siteCreator.CreateSite(website.Name);
 
                         subscription = new shared.Data.Entities.Subscription()
                         {
                             StripeCustomerId = stripeCustomer,
                             StripeSubscriptionId = stripeSubscription,
                             IsActive = true,
-                            Website =  dbContext.Websites.FirstOrDefault(x => x.Id == website.Id),
+                            Website = website,
                             SubscriptionModule = null
                         };
 
-                        dbContext.Subscriptions.Add(subscription);
-                        dbContext.SaveChanges();
+                        await dbContext.Subscriptions.AddAsync(subscription);
+                        await dbContext.SaveChangesAsync();
 
-                        //send a welcome email with password reset link
-                        var passwordResetCode = await userManager.GeneratePasswordResetTokenAsync(user);
-                        passwordResetCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(passwordResetCode));
+                        //if (data._object.client_reference_id == null) // website subscription
+                        //{
+                        //    var clientReferenceId = data._object.client_reference_id;
+                        //    var websiteId = Guid.Parse(clientReferenceId.ToString());// website id
+                        //    //var email = data._object.customer_details.email;
+                        //    var stripeCustomer = data._object.customer; // customer stripe id field
+                        //    var stripeSubscription = data._object.subscription; // subscription stripe id field
 
-                        var passwordResetPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
-                        var passwordResetCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{passwordResetPageUrl}?code={passwordResetCode}";
+                        //    var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscription);
+                        //    if (subscription is not null)
+                        //    {
+                        //        return Results.Ok();
+                        //    }
 
-                        await emailSender.SendPasswordResetLinkAsync(user, email, HtmlEncoder.Default.Encode(passwordResetCallbackUrl));
+                        //    var website = await dbContext.Websites.FirstOrDefaultAsync(x => x.Id == websiteId);
+                        //    if (website is null)
+                        //    {
+                        //        return Results.NotFound();
+                        //    }
 
-                        //send email confirmation link
-                        var emailConfirmationCode = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                        emailConfirmationCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(emailConfirmationCode));
+                        //    //TODO: if subscription exists - do nothing, else:
 
-                        var emailConfirmationPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
-                        var emailConfirmationCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{emailConfirmationPageUrl}?userId={user.Id}&code={emailConfirmationCode}";
+                        //    //var userExsist = await dbContext.Users.FirstOrDefaultAsync(s => s.Email == email);
+                        //    //if (userExsist is not null)
+                        //    //{
+                        //    //    return Results.Ok();
+                        //    //}
 
-                        await emailSender.SendConfirmationLinkAsync(user, email, HtmlEncoder.Default.Encode(emailConfirmationCallbackUrl));
+                        //    ////Create user with email
+                        //    //var user = new ApplicationUser { UserName = email, Email = email };
+                        //    //var password = PasswordGenerator.GeneratePassword(8);
+                        //    //var result = await userManager.CreateAsync(user, password);
+
+                        //    ////create website with sitename
+                        //    //var existingWebsite = await websiteService.GetWebsiteByName(siteName);
+                        //    //if (existingWebsite != null)
+                        //    //{
+                        //    //    var dateTimeNow = DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss");
+                        //    //    siteName = $"{siteName}-{dateTimeNow}";
+                        //    //}
+
+                        //    //var website = new Website
+                        //    //{
+                        //    //    User = dbContext.Users.FirstOrDefault(x => x.Id == user.Id),
+                        //    //    Name = siteName
+                        //    //};
+
+                        //    //await dbContext.Websites.AddAsync(website);
+                        //    //await dbContext.SaveChangesAsync();
+
+                        //    //await siteCreator.CreateSite(website.Name);
+
+                        //    subscription = new shared.Data.Entities.Subscription()
+                        //    {
+                        //        StripeCustomerId = stripeCustomer,
+                        //        StripeSubscriptionId = stripeSubscription,
+                        //        IsActive = true,
+                        //        Website = website,
+                        //        SubscriptionModule = null
+                        //    };
+
+                        //    await dbContext.Subscriptions.AddAsync(subscription);
+                        //    await dbContext.SaveChangesAsync();
+
+                        //    ////send a welcome email with password reset link
+                        //    //var passwordResetCode = await userManager.GeneratePasswordResetTokenAsync(user);
+                        //    //passwordResetCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(passwordResetCode));
+
+                        //    //var passwordResetPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountResetPasswordPageUrl}";
+                        //    //var passwordResetCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{passwordResetPageUrl}?code={passwordResetCode}";
+
+                        //    //await emailSender.SendPasswordResetLinkAsync(user, email, HtmlEncoder.Default.Encode(passwordResetCallbackUrl));
+
+                        //    ////send email confirmation link
+                        //    //var emailConfirmationCode = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //    //emailConfirmationCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(emailConfirmationCode));
+
+                        //    //var emailConfirmationPageUrl = $"{StaticStrings.DefaultEnLang}/{StaticRoutesStrings.AccountConfirmEmailPageUrl}";
+                        //    //var emailConfirmationCallbackUrl = $"{context.Request.Scheme}://{context.Request.Host.Value}/{emailConfirmationPageUrl}?userId={user.Id}&code={emailConfirmationCode}";
+
+                        //    //await emailSender.SendConfirmationLinkAsync(user, email, HtmlEncoder.Default.Encode(emailConfirmationCallbackUrl));
+                        //}
+                        //else // custom domain subscription
+                        //{
+                        //    var clientReferenceId = data._object.client_reference_id;
+                        //    var websiteId = Guid.Parse(clientReferenceId.ToString());// website id
+                        //    var stripeCustomer = data._object.customer; // customer stripe id field
+                        //    var stripeSubscription = data._object.subscription; // subscription stripe id field
+
+                        //    var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscription);
+                        //    if (subscription is not null)
+                        //    {
+                        //        return Results.Ok();
+                        //    }
+
+                        //    var website = await dbContext.Websites.FirstOrDefaultAsync(x => x.Id == websiteId);
+                        //    if (website is null)
+                        //    {
+                        //        return Results.NotFound();
+                        //    }
+
+                        //    subscription = new shared.Data.Entities.Subscription()
+                        //    {
+                        //        StripeCustomerId = stripeCustomer,
+                        //        StripeSubscriptionId = stripeSubscription,
+                        //        IsActive = true,
+                        //        Website = website,
+                        //        SubscriptionModule = null
+                        //    };
+
+                        //    await dbContext.Subscriptions.AddAsync(subscription);
+                        //    await dbContext.SaveChangesAsync();
+                        //}
                     }
                     else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted ||
                              stripeEvent.Type == Events.CustomerSubscriptionPaused)
@@ -142,14 +212,13 @@ namespace web.Endpoints
 
                         if (subscriptionUpdatedType.Equals("subscription"))
                         {
-                            var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
-
+                            var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscriptionId);
                             if (subscription is not null)
                             {
                                 var isSubscriptionActive = data._object.status == "active" || data._object.status == "trialing";
                                 subscription.IsActive = isSubscriptionActive;
 
-                                dbContext.SaveChanges();
+                                await dbContext.SaveChangesAsync();
                             }
                         }
                     }
@@ -158,22 +227,23 @@ namespace web.Endpoints
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionCreated.Rootobject>(stripeEvent.Data.ToJson());
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
                         var stripeSubscriptionId = data._object.id;
+                        var stripeCustomer = data._object.customer;
                         var stripeSubscribedProductId = data._object.items.data[0].plan.product;
 
                         if (subscriptionUpdatedType.Equals("subscription"))
                         {
-                            var subscription = dbContext.Subscriptions.FirstOrDefault(s => s.StripeSubscriptionId == stripeSubscriptionId);
-
+                            var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscriptionId);
                             if (subscription is not null)
                             {
-                                var module = dbContext.SubscriptionStripeInfos.FirstOrDefault(m => m.Code == stripeSubscribedProductId).SubscriptionModules.FirstOrDefault();
-                                subscription.SubscriptionModule = module;
+                                var subscriptionStripeInfo = await dbContext.SubscriptionStripeInfos
+                                    .Include(x => x.SubscriptionModules)
+                                    .FirstOrDefaultAsync(m => m.Code == stripeSubscribedProductId);
 
-                                dbContext.SaveChanges();
+                                subscription.SubscriptionModule = subscriptionStripeInfo.SubscriptionModules.FirstOrDefault();
+                                await dbContext.SaveChangesAsync();
                             }
                         }
                     }
-
                     else
                     {
                         Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);

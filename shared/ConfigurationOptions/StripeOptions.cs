@@ -9,7 +9,8 @@
 
     public class PricingTable
     {
-        public string PricingTableId { get; set; }
+        public string WebsiteSubscriptionPricingTableId { get; set; }
+        public string CustomDomainSubscriptionPricingTableId { get; set; }
         public string PublishableKey { get; set; }
     }
 }

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Components.Forms;
 
-using shared.Data.Entities;
-using shared.Interfaces;
 using shared;
+using shared.Interfaces;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {
@@ -81,7 +81,6 @@ namespace web.Components.Account.Pages
             await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
             var result = await UserManager.CreateAsync(user, Input.Password);
-
             if (!result.Succeeded)
             {
                 identityErrors = result.Errors;
@@ -90,7 +89,12 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
-            var newWebsite = new Website { User = user, Name = Input.SiteName };
+            var newWebsite = new Website 
+            { 
+                UserId = user.Id, 
+                Name = Input.SiteName 
+            };
+
             await WebsiteService.CreateWebsite(newWebsite);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");

@@ -4,6 +4,7 @@ namespace shared.Interfaces
 {
     public interface ISubscriptionService
     {
-        Task<bool> IsWebsiteSubscriptionActive();
+        Task<bool> IsWebsiteSubscriptionActiveAsync();
+        Task<bool> IsCustomDomainSubscriptionActiveAsync();
     }
 }

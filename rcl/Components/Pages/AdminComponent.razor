@@ -23,6 +23,11 @@
                 Social
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="custom-domain-tab" data-bs-toggle="tab" data-bs-target="#CustomDomain-tab-pane" type="button" role="tab" aria-controls="CustomDomain-tab-pane" aria-selected="false">
+                Custom domain
+            </button>
+        </li>
     </ul>
 
     <!-- Tabs body -->
@@ -106,7 +111,7 @@
             }
             else
             {
-                <div class="alert alert-light text-center" role="alert">
+                <div class="alert alert-light text-center my-5" role="alert">
                     There are no messages yet...
                 </div>
             }
@@ -212,7 +217,7 @@
                     Others
                 </p>
 
-                <div class="row row-cols-1 row-cols-md-4 g-4 my-4">
+                <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
 
                     <!-- Logo -->
                     <div class="col">
@@ -278,21 +283,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Custom domain -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Custom domain
-                                </h5>
-                                <p class="card-text text-center mt-3">
-                                    <input @bind="CustomDomain" type="text" class="form-control" />
-                                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary mt-2">Save</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             }
         </div>
@@ -307,127 +297,233 @@
                 }
             </div>
         </div>
-    </div>
 
-    <!-- Tab settings -->
-    <div class="tab-pane fade" id="Settings-tab-pane" role="tabpanel" aria-labelledby="Settings-tab" tabindex="0">
+        <!-- Tab settings -->
+        <div class="tab-pane fade" id="Settings-tab-pane" role="tabpanel" aria-labelledby="Settings-tab" tabindex="0">
 
-        <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
 
-            <!-- Change site -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Change site
-                        </h5>
-
-                        <p class="card-text">
-                            <select @bind="SelectedSite" class="form-select" aria-label="Change site">
-                                @foreach (var site in StateManager.UserSites)
-                                {
-                                    <option value="@site">
-                                        @site
-                                    </option>
-                                }
-                            </select>
-                        </p>
-                    </div>
-
-                    <div class="card-footer">
-                        <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">
-                            Change
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Create site -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminCreateSiteFormAlertId">
-                    </div>
-                    <EditForm Model="CreateSiteModel"
-                              method="post"
-                              OnValidSubmit="CreateSite"
-                              FormName="createSite">
-
+                <!-- Change site -->
+                <div class="col">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Create site
+                                Change site
                             </h5>
 
                             <p class="card-text">
-                                <DataAnnotationsValidator />
-                                <ValidationSummary class="text-danger" role="alert" />
-                                <div class="form-floating">
-                                    <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
-                                    <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
-
-                                    <label for="createSiteName">
-                                        Name
-                                    </label>
-                                </div>
+                                <select @bind="SelectedSite" class="form-select" aria-label="Change site">
+                                    @foreach (var site in StateManager.UserSites)
+                                    {
+                                        <option value="@site">
+                                            @site
+                                        </option>
+                                    }
+                                </select>
                             </p>
                         </div>
 
                         <div class="card-footer">
-                            <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
-                                Create
+                            <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">
+                                Change
                             </button>
                         </div>
-                    </EditForm>
-                </div>
-            </div>
-
-            <!-- Rename site -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminRenameSiteFormAlertId">
                     </div>
-                    <EditForm Model="RenameSiteModel"
-                              method="post"
-                              OnValidSubmit="RenameSite"
-                              FormName="renameSite">
-
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Rename site
-                            </h5>
-
-                            <p class="card-text">
-                                <DataAnnotationsValidator />
-                                <ValidationSummary class="text-danger" role="alert" />
-                                <div class="form-floating mb-3">
-                                    <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
-                                        @foreach (var site in StateManager.UserSites)
-                                        {
-                                            <option value="@site">@site</option>
-                                        }
-                                    </select>
-                                    <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
-
-                                    <label for="renameSiteName">Select site</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
-                                    <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
-
-                                    <label for="renameNewSiteName">
-                                        New name
-                                    </label>
-                                </div>
-                            </p>
-                        </div>
-
-                        <div class="card-footer">
-                            <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
-                                Rename
-                            </button>
-                        </div>
-                    </EditForm>
                 </div>
+
+                <!-- Create site -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminCreateSiteFormAlertId">
+                        </div>
+                        <EditForm Model="CreateSiteModel"
+                                  method="post"
+                                  OnValidSubmit="CreateSite"
+                                  FormName="createSite">
+
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Create site
+                                </h5>
+
+                                <p class="card-text">
+                                    <DataAnnotationsValidator />
+                                    <ValidationSummary class="text-danger" role="alert" />
+                                    <div class="form-floating">
+                                        <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
+                                        <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
+
+                                        <label for="createSiteName">
+                                            Name
+                                        </label>
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                    Create
+                                </button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+
+                <!-- Rename site -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminRenameSiteFormAlertId">
+                        </div>
+                        <EditForm Model="RenameSiteModel"
+                                  method="post"
+                                  OnValidSubmit="RenameSite"
+                                  FormName="renameSite">
+
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Rename site
+                                </h5>
+
+                                <p class="card-text">
+                                    <DataAnnotationsValidator />
+                                    <ValidationSummary class="text-danger" role="alert" />
+                                    <div class="form-floating mb-3">
+                                        <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
+                                            @foreach (var site in StateManager.UserSites)
+                                            {
+                                                <option value="@site">@site</option>
+                                            }
+                                        </select>
+                                        <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
+
+                                        <label for="renameSiteName">Select site</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
+                                        <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
+
+                                        <label for="renameNewSiteName">
+                                            New name
+                                        </label>
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                    Rename
+                                </button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+
+                @if (!IsWebsiteSubscriptionActive)
+                {
+                    <!-- Stripe website subscription -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Website subscription
+                                </h5>
+                                <p class="card-text">
+                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
+                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                          client-reference-id="@StateManager.SiteId">
+                                    </stripe-pricing-table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
             </div>
+        </div>
+
+        <!-- Tab Custom Domain -->
+        <div class="tab-pane fade" id="CustomDomain-tab-pane" role="tabpanel" aria-labelledby="CustomDomain-tab" tabindex="0">
+            
+            <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+
+                @if (!IsWebsiteCustomDomainSubscriptionActive)
+                {
+                    <!-- Stripe custom domain subscription -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Custom domain subscription
+                                </h5>
+                                <p class="card-text">
+                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                          client-reference-id="@StateManager.SiteId">
+                                    </stripe-pricing-table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <!-- Add custom domain form -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Custom domain
+                                </h5>
+                                <p class="card-text text-center mt-3">
+                                    <input @bind="CustomDomain" type="text" class="form-control" />
+                                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary mt-2">Save</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom domain DNS data -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Domain verification
+                                </h5>
+                                <p class="card-text">
+                                    To validate your domain ownership, copy the hostname records below and enter them with your domain provider
+                                </p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Host</th>
+                                                <th scope="col">Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>A</td>
+                                                <td>@("@")</td>
+                                                <td>20.119.8.44</td>
+                                            </tr>
+                                            <tr>
+                                                <td>TXT</td>
+                                                <td>asuid</td>
+                                                <td>732D22910075D263BBAEA1340674AA32298729E1085C2162EAE6BA5FCCA182F0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
         </div>
     </div>
 </div>

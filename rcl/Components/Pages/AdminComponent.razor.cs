@@ -1,8 +1,10 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Data;
@@ -11,6 +13,7 @@ using shared.Managers;
 using shared.Interfaces;
 using shared.Models.API;
 using shared.Data.Entities;
+using shared.ConfigurationOptions;
 
 using System.Text.Json;
 
@@ -57,6 +60,12 @@ namespace rcl.Components.Pages
         [Inject]
         IApiService ApiService { get; set; }
 
+        [Inject]
+        public IOptions<StripeOptions> stripeOptions { get; set; }
+
+        [CascadingParameter]
+        Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
         public PageModel Model { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
@@ -76,6 +85,9 @@ namespace rcl.Components.Pages
         public string SelectedSite { get; set; }
 
         public string CustomDomain { get; set; }
+
+        public bool IsWebsiteSubscriptionActive { get; set; } = false;
+        public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -97,7 +109,7 @@ namespace rcl.Components.Pages
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
-            //CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
+            CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
         }
 
         [JSInvokable]
@@ -181,7 +193,7 @@ namespace rcl.Components.Pages
 
         public async Task SaveCustomDomainAsync()
         {
-            //await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
+            await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
 
             var request = new RunPowerShellScriptModel
             {
@@ -199,8 +211,11 @@ namespace rcl.Components.Pages
 
         public async Task CheckSubscriptionStatus()
         {
-            var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
-            if (!isSubscriptionActive)
+            IsWebsiteSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
+            IsWebsiteCustomDomainSubscriptionActive = await SubscriptionService.IsCustomDomainSubscriptionActiveAsync();
+
+            var authenticationState = await AuthenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated && !IsWebsiteSubscriptionActive)
             {
                 NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
             }

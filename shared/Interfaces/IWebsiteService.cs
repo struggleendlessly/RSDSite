@@ -5,6 +5,7 @@ namespace shared.Interfaces
     public interface IWebsiteService
     {
         Task<List<string>> GetWebsitesNamesAsync();
+        Guid GetWebsiteId(string siteName);
         List<string> GetUserSites(string userId);
         Task<Website> GetWebsiteByName(string siteName);
         Task<Website> CreateWebsite(Website website);

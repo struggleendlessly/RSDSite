@@ -1,6 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Models;
@@ -33,6 +34,9 @@ namespace rcl.Components.Pages
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
+
+        [CascadingParameter]
+        Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -80,10 +84,14 @@ namespace rcl.Components.Pages
 
         public async Task CheckSubscriptionStatus()
         {
-            var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActive();
-            if (!isSubscriptionActive)
+            var authenticationState = await AuthenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
+                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
+                if (!isSubscriptionActive)
+                {
+                    NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
+                }
             }
         }
 

@@ -202,6 +202,7 @@ namespace shared
 
         /* Subscription modules names */
         public static string SubscriptionModuleWebsite = "Website";
+        public static string SubscriptionModuleCustomDomain = "Custom domain";
 
         /* Memory Cache Keys */
 
@@ -221,6 +222,7 @@ namespace shared
         public static string PopoversDataJsonMemoryCacheKey = "{0}_{1}_PopoversModel";
 
         public static string ActiveWebsiteSubscription = "ActiveWebsiteSubscription_{0}";
+        public static string ActiveCustomDomainSubscription = "ActiveCustomDomainSubscription_{0}";
 
         /* Alerts Messages */
         public static string ContactUsFormSubmitted = "Form submitted successfully";

@@ -93,6 +93,14 @@ namespace shared.Managers
             }
         }
 
+        public Guid SiteId
+        {
+            get
+            {
+                return _websiteService.GetWebsiteId(SiteName);
+            }
+        }
+
         public string UserId
         {
             get

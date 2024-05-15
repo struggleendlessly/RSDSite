@@ -65,15 +65,15 @@
                 Sign in
             </button>
 
-            @*             <div class="text-center mt-3">
-            <p>
-            Don't have an account yet?
-            <a class="link text-decoration-none"
-            href="@(NavigationManager.GetUriWithQueryParameters(GetPageUrl(StaticRoutesStrings.RegisterPageUrl), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">
-            Sign up here
-            </a>
-            </p>
-            </div> *@
+            <div class="text-center mt-3">
+                <p>
+                    Don't have an account yet?
+                    <a class="link text-decoration-none"
+                       href="@(NavigationManager.GetUriWithQueryParameters(StateManager.GetPageUrl(StaticRoutesStrings.RegisterPageUrl, false), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">
+                        Sign up here
+                    </a>
+                </p>
+            </div>
 
             <div class="text-center mt-3">
                 <a class="link text-decoration-none"

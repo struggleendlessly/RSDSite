@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using shared.Data.Entities;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using shared.Data.Entities;
 
 namespace shared.Data
 {
@@ -14,6 +15,12 @@ namespace shared.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Website>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Websites)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -22,6 +22,11 @@ namespace shared.Managers
                 .ToListAsync();
         }
 
+        public Guid GetWebsiteId(string siteName)
+        {
+            return _dbContext.Websites.FirstOrDefault(x => x.Name == siteName).Id;
+        }
+
         public List<string> GetUserSites(string userId)
         {
             return _dbContext.Websites
@@ -38,7 +43,7 @@ namespace shared.Managers
 
         public async Task<Website> CreateWebsite(Website website)
         {
-            _dbContext.Websites.Add(website);
+            await _dbContext.Websites.AddAsync(website);
             await _dbContext.SaveChangesAsync();
             return website;
         }
