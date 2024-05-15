@@ -2,9 +2,16 @@
     <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
         Pricing
     </h1>
-
-    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <div>
+        <img src="_content/rcl/assets/img/pricing-monthly.png" class="img-thumbnail" alt="Pricing monthly" />
+        <img src="_content/rcl/assets/img/pricing-yearly.png" class="img-thumbnail ms-4" alt="Pricing yearly" />
+    </div>
+    
+    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white my-4 px-4 gap-3">
+        Login
+    </a>
+    @* <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
     <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
                           publishable-key="@stripeOptions.Value.PricingTable.PublishableKey">
-    </stripe-pricing-table>
+    </stripe-pricing-table> *@
 </div>

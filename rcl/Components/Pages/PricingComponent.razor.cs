@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Components;
 
+using shared.Interfaces;
 using shared.ConfigurationOptions;
 
 namespace rcl.Components.Pages
@@ -15,6 +16,9 @@ namespace rcl.Components.Pages
 
         [Inject]
         public IOptions<StripeOptions> stripeOptions { get; set; }
+
+        [Inject]
+        IStateManager StateManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
