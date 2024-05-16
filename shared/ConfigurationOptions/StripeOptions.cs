@@ -4,6 +4,7 @@
     {
         public static string SectionName { get; } = "Stripe";
         public string WebhookSigningSecret { get; set; }
+        public string ApiSecretKey { get; set; }
         public PricingTable PricingTable { get; set; }
     }
 

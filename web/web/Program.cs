@@ -47,6 +47,7 @@ builder.Services.AddScoped<IPageDataService, PageDataService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IScriptRunner, ScriptRunner>();
 builder.Services.AddScoped<IApiService, ApiService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
 
 builder.Services.AddAuthentication(options =>
     {

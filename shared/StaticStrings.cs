@@ -228,6 +228,7 @@ namespace shared
         public static string AdminPageSettingsDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsModel";
         public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSocialNetworksModel";
         public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
+        public static string PricingPageDataJsonMemoryCacheKey = "{0}_PricingPageModel";
 
         public static string PopoversDataJsonMemoryCacheKey = "{0}_{1}_PopoversModel";
 

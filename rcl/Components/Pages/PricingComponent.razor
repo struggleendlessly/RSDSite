@@ -1,17 +1,40 @@
-﻿<div class="px-2 py-1 text-center container">
+﻿@using shared.Helpers;
+
+<div class="px-2 py-1 text-center container">
     <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
         Pricing
     </h1>
-    <div>
-        <img src="_content/rcl/assets/img/pricing-monthly.png" class="img-thumbnail" alt="Pricing monthly" />
-        <img src="_content/rcl/assets/img/pricing-yearly.png" class="img-thumbnail ms-4" alt="Pricing yearly" />
-    </div>
+    @foreach (var product in ProductsWithPrices)
+    {
+        <div class="row row-cols-1 row-cols-md-4 d-flex justify-content-center mb-3 text-center">
+            @foreach (var price in product.Prices)
+            {
+                var currencySymbol = CurrencyHelper.GetCurrencySymbol(price.Currency);
+                var priceInEuros = CurrencyHelper.ConvertCentsToEuros(price.UnitAmount);
+
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">@product.Name</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">
+                                @(currencySymbol + priceInEuros)
+                                @if (price.Interval is not null)
+                                {
+                                    <small class="text-body-secondary fw-light">
+                                        /@price.Interval
+                                    </small>
+                                }
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
     
-    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white my-4 px-4 gap-3">
+    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
         Login
     </a>
-    @* <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
-                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey">
-    </stripe-pricing-table> *@
 </div>

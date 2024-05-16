@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 using shared.Interfaces;
-using shared.ConfigurationOptions;
+using shared.Models.Stripe;
 
 namespace rcl.Components.Pages
 {
@@ -15,14 +14,16 @@ namespace rcl.Components.Pages
         public string Lang { get; set; }
 
         [Inject]
-        public IOptions<StripeOptions> stripeOptions { get; set; }
+        IStateManager StateManager { get; set; }
 
         [Inject]
-        IStateManager StateManager { get; set; }
+        IStripeService StripeService { get; set; }
+
+        List<StripeProductModel> ProductsWithPrices { get; set; } = new List<StripeProductModel>();
 
         protected override async Task OnInitializedAsync()
         {
-
+            ProductsWithPrices = await StripeService.GetProductsWithPricesAsync();
         }
     }
 }
