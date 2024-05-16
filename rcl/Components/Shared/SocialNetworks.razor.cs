@@ -14,6 +14,9 @@ namespace rcl.Components.Shared
 {
     public partial class SocialNetworks
     {
+        [Parameter]
+        public PageModel PopoversModel { get; set; }
+
         [Inject]
         IJSRuntime JS { get; set; }
 

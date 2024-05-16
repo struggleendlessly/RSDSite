@@ -231,7 +231,9 @@
                                     <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
                                                  Model="Model"
                                                  FuncSave="Save"
-                                                 Key="@StaticStrings.AdminPageDataLogoKey">
+                                                 Key="@StaticStrings.AdminPageDataLogoKey"
+                                                 PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_2_1_General">
                                         <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
                                     </ImageEditor>
                                 </p>
@@ -253,7 +255,7 @@
                                                 FuncSave="Save"
                                                 Key="@StaticStrings.AdminPageDataFooterTextKey"
                                                 PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_2_1_General">
+                                                PopoverKey="@StaticStrings.Popover_Admin_2_2_General">
                                         <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
                                     </HTMLEditor>
                                 </p>
@@ -276,7 +278,7 @@
                                                 FuncSave="Save"
                                                 Key="@StaticStrings.AdminPageDataServicesButtonTextKey"
                                                 PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_2_2_General">
+                                                PopoverKey="@StaticStrings.Popover_Admin_2_3_General">
                                         @Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]
                                     </TextEditor>
                                 </p>
@@ -293,7 +295,9 @@
 
                 @if (Model.Data != null)
                 {
-                    <SocialNetworks></SocialNetworks>
+                    <SocialNetworks
+                        PopoversModel="PopoversModel">                       
+                    </SocialNetworks>
                 }
             </div>
         </div>
@@ -309,6 +313,10 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Change site
+                                <Popover 
+                                    PopoversModel="PopoversModel"
+                                    PopoverKey="@StaticStrings.Popover_Admin_1_1_Settings">
+                                </Popover>
                             </h5>
 
                             <p class="card-text">
@@ -344,6 +352,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     Create site
+                                    <Popover 
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_Admin_1_2_Settings">
+                                    </Popover>
                                 </h5>
 
                                 <p class="card-text">
@@ -382,6 +394,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     Rename site
+                                    <Popover 
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_Admin_1_3_Settings">
+                                    </Popover>
                                 </h5>
 
                                 <p class="card-text">
@@ -455,6 +471,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     Custom domain subscription
+                                    <Popover 
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain"> 
+                                    </Popover>
                                 </h5>
                                 <p class="card-text">
                                     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
@@ -475,6 +495,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     Custom domain
+                                    <Popover 
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain"> 
+                                    </Popover>
                                 </h5>
                                 <p class="card-text text-center mt-3">
                                     <input @bind="CustomDomain" type="text" class="form-control" />
@@ -490,6 +514,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     Domain verification
+                                    <Popover 
+                                        PopoversModel="PopoversModel"
+                                        PopoverKey="@StaticStrings.Popover_Admin_1_3_CustomDomain"> 
+                                    </Popover>
                                 </h5>
                                 <p class="card-text">
                                     To validate your domain ownership, copy the hostname records below and enter them with your domain provider

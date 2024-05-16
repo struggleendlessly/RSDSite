@@ -161,6 +161,16 @@ namespace shared
         public static string Popover_Admin_1_4_General = "Admin_1_4_General";
         public static string Popover_Admin_2_1_General = "Admin_2_1_General";
         public static string Popover_Admin_2_2_General = "Admin_2_2_General";
+        public static string Popover_Admin_2_3_General = "Admin_2_3_General";
+        public static string Popover_Admin_1_1_Settings = "Admin_1_1_Settings";
+        public static string Popover_Admin_1_2_Settings = "Admin_1_2_Settings";
+        public static string Popover_Admin_1_3_Settings = "Admin_1_3_Settings";
+        public static string Popover_Admin_1_Social_ImageEditor = "Admin_1_Social_ImageEditor";
+        public static string Popover_Admin_1_Social_Url = "Admin_1_Social_Url";
+        public static string Popover_Admin_1_Social_Card = "Admin_1_Social_Card";
+        public static string Popover_Admin_1_1_CustomDomain = "Admin_1_1_CustomDomain";
+        public static string Popover_Admin_1_2_CustomDomain = "Admin_1_2_CustomDomain";
+        public static string Popover_Admin_1_3_CustomDomain = "Admin_1_3_CustomDomain";
 
         /* Key Endings */
 

@@ -16,7 +16,9 @@
                             <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAdminSocialNetworksImageId + serviceKeyIndex)"
                                          Model="Model"
                                          FuncSave="SaveContent"
-                                         Key="@serviceImageKey">
+                                         Key="@serviceImageKey"
+                                         PopoversModel="PopoversModel"
+                                         PopoverKey="@StaticStrings.Popover_Admin_1_Social_ImageEditor">
                                 <img src="@Model.Data[serviceImageKey]" />
                             </ImageEditor>
                         </button>
@@ -28,7 +30,9 @@
                                     EditorType="@(StaticStrings.TextEditorTypeUrl)"
                                     Model="Model"
                                     FuncSave="SaveContent"
-                                    Key="@serviceUrlKey">
+                                    Key="@serviceUrlKey"
+                                    PopoversModel="PopoversModel"
+                                    PopoverKey="@StaticStrings.Popover_Admin_1_Social_Url">
                             <p>
                                 @Model.Data[serviceUrlKey]
                             </p>
@@ -53,6 +57,11 @@
                                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
                                 </svg>
                             </button>
+
+                            <Popover
+                                PopoversModel="PopoversModel"
+                                PopoverKey="@StaticStrings.Popover_Admin_1_Social_Card">
+                            </Popover>
                         </div>
                     }
                 </div>
