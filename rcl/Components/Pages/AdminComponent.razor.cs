@@ -143,8 +143,7 @@ namespace rcl.Components.Pages
                 return;
             }
 
-            var user = context.Users.Where(s => s.Id == StateManager.UserId).FirstOrDefault();
-            var newWebsite = new Website { User = user, Name = CreateSiteModel.Name };
+            var newWebsite = new Website { UserId = StateManager.UserId, Name = CreateSiteModel.Name };
             await WebsiteService.CreateWebsite(newWebsite);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
