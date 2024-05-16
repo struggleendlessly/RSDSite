@@ -28,9 +28,6 @@ namespace rcl.Components.Pages
         AzureBlobStorageManager BlobStorageManager { get; set; }
 
         [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
-
-        [Inject]
         IContactUsMessageService ContactUsMessageService { get; set; }
 
         [Inject]
@@ -47,9 +44,6 @@ namespace rcl.Components.Pages
 
         [Inject]
         ISiteCreator SiteCreator { get; set; }
-        
-        [Inject]
-        ApplicationDbContext context { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
@@ -85,6 +79,7 @@ namespace rcl.Components.Pages
         public string SelectedSite { get; set; }
 
         public string CustomDomain { get; set; }
+        public bool IsCustomDomainEditing { get; set; } = false;
 
         public bool IsWebsiteSubscriptionActive { get; set; } = false;
         public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
@@ -190,6 +185,11 @@ namespace rcl.Components.Pages
             RenameSiteModel = new RenameSiteModel();
         }
 
+        public void ToggleCustomDomainEditMode()
+        {
+            IsCustomDomainEditing = !IsCustomDomainEditing;
+        }
+
         public async Task SaveCustomDomainAsync()
         {
             await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
@@ -204,8 +204,10 @@ namespace rcl.Components.Pages
                     { StaticStrings.AzureCustomDomain, CustomDomain }
                 }
             };
-            
+
             await ApiService.SendPostRequestAsync<RunPowerShellScriptModel, RunPowerShellScriptResponseModel>(request, StaticRoutesStrings.APIRunPowerShellScriptRoute);
+            
+            ToggleCustomDomainEditMode();
         }
 
         public async Task CheckSubscriptionStatus()

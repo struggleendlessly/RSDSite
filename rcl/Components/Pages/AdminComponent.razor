@@ -500,9 +500,17 @@
                                         PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain"> 
                                     </Popover>
                                 </h5>
-                                <p class="card-text text-center mt-3">
-                                    <input @bind="CustomDomain" type="text" class="form-control" />
-                                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary mt-2">Save</button>
+                                <p class="card-text mt-3">
+                                    @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
+                                    {
+                                        <p>@CustomDomain</p>
+                                        <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">Edit</button>
+                                    }
+                                    else
+                                    {
+                                        <input @bind="CustomDomain" type="text" class="form-control" />
+                                        <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary btn-sm mt-2">Save</button>
+                                    }
                                 </p>
                             </div>
                         </div>
