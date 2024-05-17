@@ -19,12 +19,14 @@ app.MapGet("/", () => "Hello World!");
 app.MapPost(StaticRoutesStrings.APIRunPowerShellScriptRoute, async (RunPowerShellScriptModel model, ScriptRunner scriptRunner) =>
 {
     var result = await scriptRunner.RunPowerShellScriptAsync(model);
-    var response = new RunPowerShellScriptResponseModel()
+    if (result.Output.Contains("BadRequest"))
     {
-        Success = true
-    };
-
-    return response;
+        return new RunPowerShellScriptResponseModel { Success = false };
+    }
+    else
+    {
+        return new RunPowerShellScriptResponseModel { Success = true };
+    }
 });
 
 app.Run();

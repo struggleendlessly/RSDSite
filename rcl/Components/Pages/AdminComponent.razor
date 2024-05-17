@@ -509,15 +509,23 @@
                                     else
                                     {
                                         <input @bind="CustomDomain" type="text" class="form-control" />
-                                        <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary btn-sm mt-2">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
+                                            Save
+                                            @if (IsCustomDomainSaving)
+                                            {
+                                                <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                            }
+                                        </button>
                                     }
                                 </p>
+                                <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Custom domain DNS data -->
-                    <div class="col">
+                    <div class="col-md-8">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -560,6 +568,28 @@
 
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    To add your domain to our site, you need to add the data specified in the "Domain verification" block to your domain provider
+                </p>           
+                <h6 class="text-center mt-4">Did you add this data?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+            </div>
         </div>
     </div>
 </div>

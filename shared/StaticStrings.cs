@@ -240,6 +240,9 @@ namespace shared
         public static string AdminCreateOrRenameSiteFormDuplicateSiteName = "The site name is already taken. Please choose a different one";
         public static string AdminCreateSiteFormSuccessfullyCreated = "The site was successfully created";
         public static string AdminRenameSiteFormSuccessfullyRenamed = "The site was successfully renamed";
+        public static string AdminAddCustomDomainInProgress = "Your domain is being added, it may take some time";
+        public static string AdminAddCustomDomainSuccess = "Custom domain has been successfully added";
+        public static string AdminAddCustomDomainFailed = "Failed to add custom domain";
 
         /* Azure */
 
@@ -248,7 +251,7 @@ namespace shared
         public static string AzureWebAppResourceGroup = "WebAppResourceGroup";
         public static string AzureCustomDomain = "CustomDomain";
 
-        public static string AzureDevWebAppNameValue = "web20240408144840";
-        public static string AzureDevWebAppResourceGroupValue = "rsdsitecouldbedeleted";
+        public static string AzureDevWebAppNameValue = "devrsd";
+        public static string AzureDevWebAppResourceGroupValue = "rsdsite";
     }
 }

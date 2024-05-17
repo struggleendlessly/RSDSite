@@ -2,12 +2,10 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
-using shared.Data;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
@@ -80,6 +78,7 @@ namespace rcl.Components.Pages
 
         public string CustomDomain { get; set; }
         public bool IsCustomDomainEditing { get; set; } = false;
+        public bool IsCustomDomainSaving { get; set; } = false;
 
         public bool IsWebsiteSubscriptionActive { get; set; } = false;
         public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
@@ -192,7 +191,8 @@ namespace rcl.Components.Pages
 
         public async Task SaveCustomDomainAsync()
         {
-            await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
+            IsCustomDomainSaving = true;
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertInfo, StaticStrings.AdminAddCustomDomainInProgress);
 
             var request = new RunPowerShellScriptModel
             {
@@ -205,9 +205,19 @@ namespace rcl.Components.Pages
                 }
             };
 
-            await ApiService.SendPostRequestAsync<RunPowerShellScriptModel, RunPowerShellScriptResponseModel>(request, StaticRoutesStrings.APIRunPowerShellScriptRoute);
-            
-            ToggleCustomDomainEditMode();
+            var result = await ApiService.SendPostRequestAsync<RunPowerShellScriptModel, RunPowerShellScriptResponseModel>(request, StaticRoutesStrings.APIRunPowerShellScriptRoute);
+            if (result.Success)
+            {
+                await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminAddCustomDomainSuccess);
+                ToggleCustomDomainEditMode();
+            }
+            else
+            {
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminAddCustomDomainFailed);
+            }
+
+            IsCustomDomainSaving = false;
         }
 
         public async Task CheckSubscriptionStatus()

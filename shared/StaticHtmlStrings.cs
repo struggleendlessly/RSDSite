@@ -19,6 +19,7 @@ namespace shared
         public static string CSSButtonDarkInTheText = "btn btn-dark text-white px-4 gap-3";
         public static string CSSAlertSuccess = "alert-success";
         public static string CSSAlertDanger = "alert-danger";
+        public static string CSSAlertInfo = "alert-info";
 
         /* Home */
 
@@ -131,5 +132,6 @@ namespace shared
         public static string ContactUsFormAlertId = "contactUsFormAlert";
         public static string AdminCreateSiteFormAlertId = "adminCreateSiteFormAlert";
         public static string AdminRenameSiteFormAlertId = "adminRenameSiteFormAlert";
+        public static string AdminSaveCustomDomainAlertId = "adminSaveCustomDomainAlert";
     }
 }

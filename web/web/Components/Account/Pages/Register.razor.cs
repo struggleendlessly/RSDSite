@@ -71,7 +71,7 @@ namespace web.Components.Account.Pages
                         Description = "The site name is already taken. Please choose a different one."
                     }
                 };
-                
+
                 return;
             }
 
@@ -89,10 +89,10 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
-            var newWebsite = new Website 
-            { 
-                UserId = user.Id, 
-                Name = Input.SiteName 
+            var newWebsite = new Website
+            {
+                UserId = user.Id,
+                Name = Input.SiteName
             };
 
             await WebsiteService.CreateWebsite(newWebsite);
