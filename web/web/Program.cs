@@ -28,6 +28,7 @@ builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSec
 builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSection(MainSiteOwnersOptions.SectionName));
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
+builder.Services.Configure<AzureOptions>(builder.Configuration.GetSection(AzureOptions.SectionName));
 
 builder.Services.AddHttpClient();
 builder.Services.AddCascadingAuthenticationState();

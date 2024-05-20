@@ -14,9 +14,13 @@ if (-not $WebAppName -or -not $WebAppResourceGroup -or -not $CustomDomain) {
     exit 1
 }
 
-$Hostnames=(Get-AzWebApp -ResourceGroupName $WebAppResourceGroup -Name $WebAppName).Hostnames
+$Hostnames = (Get-AzWebApp -ResourceGroupName $WebAppResourceGroup -Name $WebAppName).Hostnames
 $Hostnames += $CustomDomain
 
 Set-AzWebApp -Name $WebAppName -ResourceGroupName $WebAppResourceGroup -HostNames @($Hostnames)
 
-Write-Host "Custom domain successfully added!"
+$CertificateName = $CustomDomain + "-" + $WebAppName
+
+New-AzWebAppCertificate -ResourceGroupName $WebAppResourceGroup -WebAppName $WebAppName -Name $CertificateName -HostName $CustomDomain -AddBinding
+
+Write-Host "Script execution is complete!"

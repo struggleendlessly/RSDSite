@@ -55,6 +55,9 @@ namespace rcl.Components.Pages
         [Inject]
         public IOptions<StripeOptions> stripeOptions { get; set; }
 
+        [Inject]
+        IOptions<AzureOptions> AzureOptions { get; set; }
+
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
@@ -199,8 +202,8 @@ namespace rcl.Components.Pages
                 ScriptName = StaticStrings.PowerShellAzureAddCustomDomainScript,
                 Parameters = new Dictionary<string, string>
                 {
-                    { StaticStrings.AzureWebAppName, StaticStrings.AzureDevWebAppNameValue },
-                    { StaticStrings.AzureWebAppResourceGroup, StaticStrings.AzureDevWebAppResourceGroupValue },
+                    { StaticStrings.AzureWebAppName, AzureOptions.Value.WebAppName },
+                    { StaticStrings.AzureWebAppResourceGroup, AzureOptions.Value.WebAppResourceGroup },
                     { StaticStrings.AzureCustomDomain, CustomDomain }
                 }
             };

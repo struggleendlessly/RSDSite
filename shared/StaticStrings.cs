@@ -250,8 +250,5 @@ namespace shared
         public static string AzureWebAppName = "WebAppName";
         public static string AzureWebAppResourceGroup = "WebAppResourceGroup";
         public static string AzureCustomDomain = "CustomDomain";
-
-        public static string AzureDevWebAppNameValue = "devrsd";
-        public static string AzureDevWebAppResourceGroupValue = "rsdsite";
     }
 }
