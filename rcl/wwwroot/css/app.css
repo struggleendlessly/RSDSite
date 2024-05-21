@@ -92,3 +92,29 @@
 .pl-0-important {
     padding-left: 0px !important;
 }
+
+.dropdown-menu-multi-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+@media only screen and (min-width: 992px) {
+    .dropdown-menu-multi-column.show {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .dropdown-menu-multi-column.show {
+        flex-wrap: wrap;
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1140px) {
+    .dropdown-menu-multi-column {
+        width: 40vw;
+        flex-wrap: wrap;
+    }
+}
