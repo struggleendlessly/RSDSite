@@ -111,7 +111,7 @@ namespace rcl.Components.Pages
                 PhoneNumber = Input.PhoneNumber,
                 Details = Input.Details,
                 Created = DateTime.UtcNow,
-                Website = currentWebsite
+                WebsiteId = currentWebsite.Id
             };
 
             await ContactUsMessageService.CreateContactUsMessage(message);

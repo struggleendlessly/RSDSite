@@ -12,6 +12,7 @@ namespace shared.Data.Entities
         public string Details { get; set; }
         public DateTime Created { get; set; }
 
+        public Guid WebsiteId { get; set; }
         public Website Website { get; set; }
     }
 }

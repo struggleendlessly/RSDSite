@@ -21,6 +21,12 @@ namespace shared.Data
                 .HasForeignKey(e => e.UserId)
                 .IsRequired();
 
+            modelBuilder.Entity<ContactUsMessage>()
+                .HasOne(e => e.Website)
+                .WithMany(e => e.ContactUsMessages)
+                .HasForeignKey(e => e.WebsiteId)
+                .IsRequired();
+
             base.OnModelCreating(modelBuilder);
         }
     }
