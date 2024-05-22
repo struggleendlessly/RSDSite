@@ -2,6 +2,8 @@
 
 @attribute [Route(StaticRoutesStrings.RegisterPageRoute)]
 
+@rendermode InteractiveServer
+
 <PageTitle>Register</PageTitle>
 
 <div class="text-center mb-5">
@@ -32,7 +34,13 @@
                 <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
                 <label for="registerSiteName">Your site name</label>
             </div>
-            <button class="w-100 btn btn-lg btn-dark" type="submit">Sign up</button>
+            <button class="w-100 btn btn-lg btn-dark" type="submit" disabled="@IsRegistering">
+                Sign up
+                @if (IsRegistering)
+                {
+                    <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                }
+            </button>
             <div class="text-center mt-3">
                 <p>Already have an account? <a class="link text-decoration-none" href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)">Log in here</a></p>
             </div>

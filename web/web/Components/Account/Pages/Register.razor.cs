@@ -58,8 +58,13 @@ namespace web.Components.Account.Pages
 
         private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
+        public bool IsRegistering { get; set; } = false;
+
         public async Task RegisterUser(EditContext editContext)
         {
+            IsRegistering = true;
+            await Task.Delay(1);
+
             var existingWebsite = await WebsiteService.GetWebsiteByName(Input.SiteName);
             if (existingWebsite != null)
             {
@@ -72,6 +77,7 @@ namespace web.Components.Account.Pages
                     }
                 };
 
+                IsRegistering = false;
                 return;
             }
 
@@ -84,6 +90,8 @@ namespace web.Components.Account.Pages
             if (!result.Succeeded)
             {
                 identityErrors = result.Errors;
+                IsRegistering = false;
+
                 return;
             }
 
@@ -101,26 +109,6 @@ namespace web.Components.Account.Pages
 
             await SiteCreator.CreateSite(newWebsite.Name);
 
-            //StateManager.UserId = user.Id;
-            //StateManager.UserEmail = user.Email;
-            //StateManager.UserSites.Add(newWebsite.Name);
-
-            // string scriptFilePath = @"D:\Work\RemSoftDev\RSDSite\web\web\create-website.ps1";
-            // string userEmail = Input.Email;
-            // string userPassword = Input.Password;
-            // string siteName = Input.SiteName;
-
-            // var parameters = new[]
-            // {
-            //     ("UserEmail", userEmail),
-            //     ("UserPassword", userPassword),
-            //     ("SiteName", siteName),
-            //     ("PublishDirectory", @"D:\Work\RemSoftDev\RSDSite\web\web\bin\Release\net8.0")
-            // };
-
-            // ScriptRunner scriptRunner = new ScriptRunner();
-            // scriptRunner.RunPowerShellScript(scriptFilePath, parameters);
-
             var userId = await UserManager.GetUserIdAsync(user);
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -132,13 +120,24 @@ namespace web.Components.Account.Pages
 
             if (UserManager.Options.SignIn.RequireConfirmedAccount)
             {
-                RedirectManager.RedirectTo(
-                    StateManager.GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl, false),
-                    new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+                var redirectUrl = NavigationManager.GetUriWithQueryParameters(
+                    NavigationManager.ToAbsoluteUri(StateManager.GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl, false)).AbsoluteUri,
+                    new Dictionary<string, object?> { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+
+                NavigationManager.NavigateTo(redirectUrl);
+
+                //RedirectManager.RedirectTo(
+                //    StateManager.GetPageUrl(StaticRoutesStrings.RegisterConfirmationPageUrl, false),
+                //    new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            }
+            else
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false);
+                NavigationManager.NavigateTo(ReturnUrl ?? StaticRoutesStrings.EmptyRoute);
             }
 
-            await SignInManager.SignInAsync(user, isPersistent: false);
-            RedirectManager.RedirectTo(ReturnUrl);
+            //await SignInManager.SignInAsync(user, isPersistent: false);
+            //RedirectManager.RedirectTo(ReturnUrl);
         }
 
         private ApplicationUser CreateUser()

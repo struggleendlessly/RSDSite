@@ -373,8 +373,12 @@
                             </div>
 
                             <div class="card-footer">
-                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteCreating">
                                     Create
+                                    @if (IsWebsiteCreating)
+                                    {
+                                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                    }
                                 </button>
                             </div>
                         </EditForm>
@@ -426,8 +430,12 @@
                             </div>
 
                             <div class="card-footer">
-                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit">
+                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteRenaming">
                                     Rename
+                                    @if (IsWebsiteRenaming)
+                                    {
+                                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                    }
                                 </button>
                             </div>
                         </EditForm>

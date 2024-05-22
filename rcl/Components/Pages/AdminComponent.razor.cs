@@ -83,6 +83,9 @@ namespace rcl.Components.Pages
         public bool IsCustomDomainEditing { get; set; } = false;
         public bool IsCustomDomainSaving { get; set; } = false;
 
+        public bool IsWebsiteCreating { get; set; } = false;
+        public bool IsWebsiteRenaming { get; set; } = false;
+
         public bool IsWebsiteSubscriptionActive { get; set; } = false;
         public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
 
@@ -133,6 +136,9 @@ namespace rcl.Components.Pages
 
         public async Task CreateSite(EditContext editContext)
         {
+            IsWebsiteCreating = true;
+            await Task.Delay(1);
+
             var existingWebsite = await WebsiteService.GetWebsiteByName(CreateSiteModel.Name);
             if (existingWebsite != null)
             {
@@ -150,7 +156,9 @@ namespace rcl.Components.Pages
             StateManager.UserSites.Add(newWebsite.Name);
 
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminCreateSiteFormSuccessfullyCreated);
+
             CreateSiteModel = new CreateSiteModel();
+            IsWebsiteCreating = false;
         }
 
         public void ChangeSite()
@@ -161,6 +169,9 @@ namespace rcl.Components.Pages
 
         public async Task RenameSite(EditContext editContext)
         {
+            IsWebsiteRenaming = true;
+            await Task.Delay(1);
+
             var existingWebsite = await WebsiteService.GetWebsiteByName(RenameSiteModel.NewName);
             if (existingWebsite != null)
             {
@@ -182,9 +193,10 @@ namespace rcl.Components.Pages
             }
 
             await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
-
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
+
             RenameSiteModel = new RenameSiteModel();
+            IsWebsiteRenaming = false;
         }
 
         public void ToggleCustomDomainEditMode()
