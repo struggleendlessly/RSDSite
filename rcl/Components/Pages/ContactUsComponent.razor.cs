@@ -95,14 +95,7 @@ namespace rcl.Components.Pages
 
         public async Task SubmitForm()
         {
-            if (StateManager.SiteName == StaticStrings.DefaultSiteName)
-            {
-                // TODO: To link messages to the main site, it must be in the database like the others
-                return;
-            }
-
             var currentWebsite = await WebsiteService.GetWebsiteByName(StateManager.SiteName);
-
             var message = new ContactUsMessage
             {
                 FirstName = Input.FirstName,
