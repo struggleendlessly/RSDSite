@@ -84,8 +84,6 @@ namespace rcl.Components.Pages
 
         public string SelectedSite { get; set; }
 
-        private Guid? SiteId;
-
         public string CustomDomain { get; set; }
         public bool IsCustomDomainEditing { get; set; } = false;
         public bool IsCustomDomainSaving { get; set; } = false;
@@ -116,7 +114,6 @@ namespace rcl.Components.Pages
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
-            SiteId = await StateManager.GetSiteIdAsync();
             CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
         }
 
@@ -154,10 +151,8 @@ namespace rcl.Components.Pages
                 return;
             }
 
-            var currentUser = await UserManager.FindByIdAsync(StateManager.UserId);
-
-            var newWebsite = new Website { Name = CreateSiteModel.Name, Users = new List<ApplicationUser> { currentUser } };
-            await WebsiteService.CreateWebsite(newWebsite);
+            var newWebsite = new Website { Name = CreateSiteModel.Name };
+            await WebsiteService.CreateWebsite(newWebsite, StateManager.UserId);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
 

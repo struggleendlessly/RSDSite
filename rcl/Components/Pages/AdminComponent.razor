@@ -444,26 +444,23 @@
 
                 @if (!IsWebsiteSubscriptionActive)
                 {
-                    @if (SiteId.HasValue)
-                    {
-                        <!-- Stripe website subscription -->
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Website subscription
-                                    </h5>
-                                    <p class="card-text">
-                                        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
-                                                              publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                              client-reference-id="@SiteId">
-                                        </stripe-pricing-table>
-                                    </p>
-                                </div>
+                    <!-- Stripe website subscription -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Website subscription
+                                </h5>
+                                <p class="card-text">
+                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
+                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                          client-reference-id="@StateManager.SiteId">
+                                    </stripe-pricing-table>
+                                </p>
                             </div>
                         </div>
-                    }
+                    </div>
                 }
 
             </div>
@@ -476,29 +473,26 @@
 
                 @if (!IsWebsiteCustomDomainSubscriptionActive)
                 {
-                    @if (SiteId.HasValue)
-                    {
-                        <!-- Stripe custom domain subscription -->
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Custom domain subscription
-                                        <Popover PopoversModel="PopoversModel"
-                                                 PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
-                                        </Popover>
-                                    </h5>
-                                    <p class="card-text">
-                                        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
-                                                              publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                              client-reference-id="@SiteId">
-                                        </stripe-pricing-table>
-                                    </p>
-                                </div>
+                    <!-- Stripe custom domain subscription -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Custom domain subscription
+                                    <Popover PopoversModel="PopoversModel"
+                                             PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
+                                    </Popover>
+                                </h5>
+                                <p class="card-text">
+                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                          client-reference-id="@StateManager.SiteId">
+                                    </stripe-pricing-table>
+                                </p>
                             </div>
                         </div>
-                    }
+                    </div>
                 }
                 else
                 {

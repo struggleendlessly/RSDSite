@@ -123,6 +123,14 @@ namespace shared.Managers
             }
         }
 
+        public Guid SiteId
+        {
+            get
+            {
+                return _websiteService.GetWebsiteId(SiteName);
+            }
+        }
+
         public List<string> UserSites 
         {
             get
@@ -149,11 +157,6 @@ namespace shared.Managers
         public bool CanEditSite()
         {
             return UserSites.Contains(SiteName);
-        }
-
-        public async Task<Guid> GetSiteIdAsync()
-        {
-            return await _websiteService.GetWebsiteIdAsync(SiteName);
         }
 
         public string GetPageUrl(string url, bool showSiteName = true)
