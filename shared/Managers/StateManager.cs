@@ -93,14 +93,6 @@ namespace shared.Managers
             }
         }
 
-        public Guid SiteId
-        {
-            get
-            {
-                return _websiteService.GetWebsiteId(SiteName);
-            }
-        }
-
         public string UserId
         {
             get
@@ -144,10 +136,10 @@ namespace shared.Managers
                 {
                     _userSites = _websiteService.GetUserSites(UserId);
 
-                    if (_mainSiteOwnersEmails.Contains(UserEmail))
-                    {
-                        _userSites.Add(StaticStrings.DefaultSiteName);
-                    }
+                    //if (_mainSiteOwnersEmails.Contains(UserEmail))
+                    //{
+                    //    _userSites.Add(StaticStrings.DefaultSiteName);
+                    //}
                 }
 
                 return _userSites;
@@ -157,6 +149,11 @@ namespace shared.Managers
         public bool CanEditSite()
         {
             return UserSites.Contains(SiteName);
+        }
+
+        public async Task<Guid> GetSiteIdAsync()
+        {
+            return await _websiteService.GetWebsiteIdAsync(SiteName);
         }
 
         public string GetPageUrl(string url, bool showSiteName = true)

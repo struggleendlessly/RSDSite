@@ -7,12 +7,12 @@ namespace shared.Interfaces
         public string SiteName { get; }
         public string Lang { get; }
 
-        public Guid SiteId { get; }
         public string UserId { get; }
         public string UserEmail { get; }
         public List<string> UserSites { get; }
 
         bool CanEditSite();
+        Task<Guid> GetSiteIdAsync();
         string GetPageUrl(string url, bool showSiteName = true);
         string GetCurrentUrlWithLanguage(string language);
     }

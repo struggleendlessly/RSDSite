@@ -10,8 +10,7 @@ namespace shared.Data.Entities
 
         public ICollection<Subscription> Subscriptions { get; set; }= new List<Subscription>();
 
-        public string UserId { get; set; } = string.Empty;
-        public ApplicationUser User { get; set; } = null!;
+        public ICollection<ApplicationUser> Users { get; set; } = [];
 
         public ICollection<ContactUsMessage> ContactUsMessages { get; set; } = new List<ContactUsMessage>();
     }

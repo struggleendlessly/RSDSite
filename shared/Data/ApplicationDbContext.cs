@@ -16,10 +16,8 @@ namespace shared.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Website>()
-                .HasOne(e => e.User)
-                .WithMany(e => e.Websites)
-                .HasForeignKey(e => e.UserId)
-                .IsRequired();
+                .HasMany(e => e.Users)
+                .WithMany(e => e.Websites);
 
             modelBuilder.Entity<ContactUsMessage>()
                 .HasOne(e => e.Website)

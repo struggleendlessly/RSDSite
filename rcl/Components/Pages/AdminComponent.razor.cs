@@ -1,6 +1,8 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -58,6 +60,9 @@ namespace rcl.Components.Pages
         [Inject]
         IOptions<AzureOptions> AzureOptions { get; set; }
 
+        [Inject]
+        UserManager<ApplicationUser> UserManager { get; set; }
+
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
@@ -78,6 +83,8 @@ namespace rcl.Components.Pages
         public RenameSiteModel RenameSiteModel { get; set; } = new();
 
         public string SelectedSite { get; set; }
+
+        private Guid? SiteId;
 
         public string CustomDomain { get; set; }
         public bool IsCustomDomainEditing { get; set; } = false;
@@ -109,6 +116,7 @@ namespace rcl.Components.Pages
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
+            SiteId = await StateManager.GetSiteIdAsync();
             CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
         }
 
@@ -146,7 +154,9 @@ namespace rcl.Components.Pages
                 return;
             }
 
-            var newWebsite = new Website { UserId = StateManager.UserId, Name = CreateSiteModel.Name };
+            var currentUser = await UserManager.FindByIdAsync(StateManager.UserId);
+
+            var newWebsite = new Website { Name = CreateSiteModel.Name, Users = new List<ApplicationUser> { currentUser } };
             await WebsiteService.CreateWebsite(newWebsite);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");

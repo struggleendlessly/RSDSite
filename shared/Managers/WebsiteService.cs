@@ -22,16 +22,21 @@ namespace shared.Managers
                 .ToListAsync();
         }
 
-        public Guid GetWebsiteId(string siteName)
+        public async Task<Guid> GetWebsiteIdAsync(string siteName)
         {
-            return _dbContext.Websites.FirstOrDefault(x => x.Name == siteName).Id;
+            var website = await _dbContext.Websites.FirstOrDefaultAsync(x => x.Name == siteName);
+            if (website == null)
+            {
+                throw new InvalidOperationException($"No website found with the name {siteName}");
+            }
+
+            return website.Id;
         }
 
         public List<string> GetUserSites(string userId)
         {
             return _dbContext.Websites
-                .Include(w => w.User)
-                .Where(w => w.User.Id == userId)
+                .Where(w => w.Users.Any(u => u.Id == userId))
                 .Select(w => w.Name)
                 .ToList();
         }
@@ -45,6 +50,7 @@ namespace shared.Managers
         {
             await _dbContext.Websites.AddAsync(website);
             await _dbContext.SaveChangesAsync();
+
             return website;
         }
 

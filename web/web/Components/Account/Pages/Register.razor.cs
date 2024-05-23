@@ -97,10 +97,12 @@ namespace web.Components.Account.Pages
 
             Logger.LogInformation("User created a new account with password.");
 
+            var createdUser = await UserManager.FindByIdAsync(user.Id);
+
             var newWebsite = new Website
             {
-                UserId = user.Id,
-                Name = Input.SiteName
+                Name = Input.SiteName,
+                Users = new List<ApplicationUser> { createdUser }
             };
 
             await WebsiteService.CreateWebsite(newWebsite);
