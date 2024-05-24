@@ -1,8 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -61,7 +59,7 @@ namespace rcl.Components.Pages
         IOptions<AzureOptions> AzureOptions { get; set; }
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        IOptions<DomainValidationOptions> DomainValidationOptions { get; set; }
 
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -71,6 +69,8 @@ namespace rcl.Components.Pages
         public PageModel MenuModel { get; set; } = new PageModel();
 
         public PageModel PopoversModel { get; set; } = new PageModel();
+
+        public PageModel SettingsModel { get; set; } = new PageModel();
 
         public List<ContactUsMessage> ContactUsMessages { get; set; } = new List<ContactUsMessage>();
 
@@ -111,6 +111,7 @@ namespace rcl.Components.Pages
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath);
+            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;

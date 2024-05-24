@@ -29,6 +29,7 @@ builder.Services.Configure<MainSiteOwnersOptions>(builder.Configuration.GetSecti
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
 builder.Services.Configure<AzureOptions>(builder.Configuration.GetSection(AzureOptions.SectionName));
+builder.Services.Configure<DomainValidationOptions>(builder.Configuration.GetSection(DomainValidationOptions.SectionName));
 
 builder.Services.AddHttpClient();
 builder.Services.AddCascadingAuthenticationState();

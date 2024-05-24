@@ -98,6 +98,11 @@ namespace shared
         public static string AdminPageDataHTMLEditorSaveButtonTextKey = "HTMLEditorSaveButtonText";
         public static string AdminPageDataHTMLEditorCancelButtonTextKey = "HTMLEditorCancelButtonText";
         public static string AdminPageDataImageEditorSaveButtonTextKey = "ImageEditorSaveButtonText";
+        public static string AdminPageDataCustomDomainValidationTitleKey = "AdminCustomDomainValidationTitle";
+        public static string AdminPageDataCustomDomainValidationTextKey = "AdminCustomDomainValidationText";
+        public static string AdminPageDataCustomDomainValidationRecordTypeKey = "AdminCustomDomainValidationRecordType";
+        public static string AdminPageDataCustomDomainValidationRecordHostKey = "AdminCustomDomainValidationRecordHost";
+        public static string AdminPageDataCustomDomainValidationRecordValueKey = "AdminCustomDomainValidationRecordValue";
 
         public static string AdminPageSettingsMenuDataMainKey = "MainPageText";
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";

@@ -469,111 +469,116 @@
         <!-- Tab Custom Domain -->
         <div class="tab-pane fade" id="CustomDomain-tab-pane" role="tabpanel" aria-labelledby="CustomDomain-tab" tabindex="0">
             
-            <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+            @if (SettingsModel.Data is not null)
+            {
+                <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
 
-                @if (!IsWebsiteCustomDomainSubscriptionActive)
-                {
-                    <!-- Stripe custom domain subscription -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Custom domain subscription
-                                    <Popover PopoversModel="PopoversModel"
-                                             PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
-                                    </Popover>
-                                </h5>
-                                <p class="card-text">
-                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
-                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                          client-reference-id="@StateManager.SiteId">
-                                    </stripe-pricing-table>
-                                </p>
+                    @if (!IsWebsiteCustomDomainSubscriptionActive)
+                    {
+                        <!-- Stripe custom domain subscription -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Custom domain subscription
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
+                                        </Popover>
+                                    </h5>
+                                    <p class="card-text">
+                                        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                                              publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                              client-reference-id="@StateManager.SiteId">
+                                        </stripe-pricing-table>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <!-- Add custom domain form -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Custom domain
-                                    <Popover 
-                                        PopoversModel="PopoversModel"
-                                        PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain"> 
-                                    </Popover>
-                                </h5>
-                                <p class="card-text mt-3">
-                                    @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
-                                    {
+                    }
+                    else
+                    {
+                        <!-- Add custom domain form -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Custom domain
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain">
+                                        </Popover>
+                                    </h5>
+                                    <p class="card-text mt-3">
+                                        @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
+                                        {
                                         <p>@CustomDomain</p>
                                         <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">Edit</button>
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                         <input @bind="CustomDomain" type="text" class="form-control" />
                                         <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
                                             Save
-                                            @if (IsCustomDomainSaving)
-                                            {
+                                                @if (IsCustomDomainSaving)
+                                                {
                                                 <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
-                                            }
+                                                }
                                         </button>
-                                    }
-                                </p>
-                                <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
+                                        }
+                                    </p>
+                                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Custom domain DNS data -->
-                    <div class="col-md-8">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Domain verification
-                                    <Popover 
-                                        PopoversModel="PopoversModel"
-                                        PopoverKey="@StaticStrings.Popover_Admin_1_3_CustomDomain"> 
-                                    </Popover>
-                                </h5>
-                                <p class="card-text">
-                                    To validate your domain ownership, copy the hostname records below and enter them with your domain provider
-                                </p>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Host</th>
-                                                <th scope="col">Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>A</td>
-                                                <td>@("@")</td>
-                                                <td>20.119.8.44</td>
-                                            </tr>
-                                            <tr>
-                                                <td>TXT</td>
-                                                <td>asuid</td>
-                                                <td>732D22910075D263BBAEA1340674AA32298729E1085C2162EAE6BA5FCCA182F0</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <!-- Custom domain DNS data -->
+                        <div class="col-md-8">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationTitleKey]
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_3_CustomDomain">
+                                        </Popover>
+                                    </h5>
+                                    <p class="card-text">
+                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationTextKey]
+                                    </p>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordTypeKey]
+                                                    </th>
+                                                    <th scope="col">
+                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordHostKey]
+                                                    </th>
+                                                    <th scope="col">
+                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordValueKey]
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in DomainValidationOptions.Value.Records)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Type</td>
+                                                        <td>@item.Host</td>
+                                                        <td>@item.Value</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
 
-            </div>
+                </div>
+            }
 
         </div>
     </div>
