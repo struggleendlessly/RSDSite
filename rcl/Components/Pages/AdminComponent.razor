@@ -473,6 +473,11 @@
             {
                 <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
 
+                    <div class="col">
+                        <button class="btn btn-primary" @onclick="RunScript">Run Script</button>
+                        <p>@RunScriptMessage</p>
+                    </div>
+
                     @if (!IsWebsiteCustomDomainSubscriptionActive)
                     {
                         <!-- Stripe custom domain subscription -->
