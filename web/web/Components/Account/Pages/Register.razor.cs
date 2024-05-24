@@ -178,6 +178,7 @@ namespace web.Components.Account.Pages
             [Required]
             [StringLength(63, MinimumLength = 3)]
             [Display(Name = "Site name")]
+            [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "The site name can only contain letters and numbers.")]
             public string SiteName { get; set; } = "";
         }
     }
