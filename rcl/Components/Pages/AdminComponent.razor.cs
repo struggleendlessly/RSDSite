@@ -14,7 +14,6 @@ using shared.Data.Entities;
 using shared.ConfigurationOptions;
 
 using System.Text.Json;
-using System.Diagnostics;
 
 namespace rcl.Components.Pages
 {
@@ -95,8 +94,6 @@ namespace rcl.Components.Pages
         public bool IsWebsiteSubscriptionActive { get; set; } = false;
         public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
 
-        public string RunScriptMessage { get; set; } = string.Empty;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -131,44 +128,6 @@ namespace rcl.Components.Pages
 
             using (MemoryStream stream = new MemoryStream(bytes))
             return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
-        }
-
-        public async Task RunScript()
-        {
-            try
-            {
-                var directoryPath = StaticStrings.WwwRootPath;
-                string scriptPath = Path.Combine(directoryPath, "test-azure-cli.sh");
-
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = "/bin/bash",
-                    Arguments = scriptPath,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                var process = new Process { StartInfo = processStartInfo };
-                process.Start();
-
-                string result = await process.StandardOutput.ReadToEndAsync();
-                string error = await process.StandardError.ReadToEndAsync();
-
-                process.WaitForExit();
-
-                if (process.ExitCode != 0)
-                {
-                    RunScriptMessage = $"Script execution failed with error: {error}";
-                }
-
-                RunScriptMessage = $"Result: {result}\n\n\nError: {error}";
-            }
-            catch (Exception ex)
-            {
-                RunScriptMessage = ex.Message;
-            }
         }
 
         public async Task Save(PageModel model)
