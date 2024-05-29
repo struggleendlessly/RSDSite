@@ -22,12 +22,12 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="Modal@(EditorId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="Modal@(EditorId)" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header border-0">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Text editor</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" disabled="@IsSaving"></button>
                         </div>
 
                         <div class="modal-body">
@@ -40,15 +40,17 @@
                         <div class="modal-footer border-0">
                             <!-- Save -->
                             <button class="btn btn-outline-success"
-                                    data-bs-dismiss="modal"
-                                    @onclick="SaveChangesAsync">
+                                    @onclick="SaveChangesAsync"
+                                    disabled="@IsSaving">
                                 @SettingsModel.Data[StaticStrings.AdminPageDataHTMLEditorSaveButtonTextKey]
+                                <span class="spinner-border spinner-border-sm ms-1 @(IsSaving ? StaticHtmlStrings.CSSDisplayInlineBlock : StaticHtmlStrings.CSSDisplayNone)" aria-hidden="true"></span>
                             </button>
 
                             <!-- Cancel -->
                             <button class="btn btn-outline-dark"
                                     data-bs-dismiss="modal"
-                                    @onclick="CancelEditAsync">
+                                    @onclick="CancelEditAsync"
+                                    disabled="@IsSaving">
                                 @SettingsModel.Data[StaticStrings.AdminPageDataHTMLEditorCancelButtonTextKey]
                             </button>
                         </div>

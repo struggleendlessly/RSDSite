@@ -25,6 +25,7 @@
         public static string leafletActivate = "js_leafletActivate";
         public static string showAndHideAlert = "js_showAndHideAlert";
         public static string enablePopovers = "js_enablePopovers";
+        public static string closeModal = "js_closeModal";
 
         public static string dotNetHelpersSetDotNetHelper = "DotNetHelpers.setDotNetHelper";
     }

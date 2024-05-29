@@ -11,6 +11,16 @@ window.js_downloadFileFromStream = async (fileName, contentStreamReference) => {
     URL.revokeObjectURL(url);
 }
 
+function js_closeModal(modalId) {
+    var modalElement = document.getElementById(modalId);
+    if (modalElement) {
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
+    } else {
+        console.error("Modal with ID " + modalId + " not found.");
+    }
+}
+
 function js_enablePopovers() {
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 

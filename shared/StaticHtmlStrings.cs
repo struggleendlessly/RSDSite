@@ -12,6 +12,7 @@ namespace shared
         public static string СSSActiveClass = "active";
         public static string CSSDisplayNone = "d-none";
         public static string CSSDisplayInline = "inline";
+        public static string CSSDisplayInlineBlock = "inline-block";
         public static string CSSDisplayBlock = "d-block";
         public static string CSSMainTitle_h1 = "display-4 fw-bold mb-4";
         public static string CSSMainTitle_h2 = "display-5 fw-bold mb-4 mt-5";

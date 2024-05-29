@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
 
 using shared;
 using shared.Models;
@@ -40,7 +41,12 @@ namespace rcl.Components.Shared
         [Inject]
         IPageDataService PageDataService { get; set; }
 
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
+
         public PageModel SettingsModel { get; set; } = new PageModel();
+
+        private bool IsSaving = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -50,8 +56,14 @@ namespace rcl.Components.Shared
 
         private async Task SaveChangesAsync()
         {
+            IsSaving = true;
+
             Model.Data[Key] = Value;
             await FuncSave(Model);
+
+            await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.closeModal, $"Modal{EditorId}");
+
+            IsSaving = false;
         }
     }
 }

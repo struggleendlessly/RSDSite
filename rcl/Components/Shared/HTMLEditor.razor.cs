@@ -50,6 +50,8 @@ namespace rcl.Components.Shared
 
         public PageModel SettingsModel { get; set; } = new PageModel();
 
+        private bool IsSaving = false;
+
         protected override async Task OnInitializedAsync()
         {
             SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
@@ -86,12 +88,18 @@ namespace rcl.Components.Shared
 
         private async Task SaveChangesAsync()
         {
-            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.editorGetContent, EditorId, EditorContentFormat);
+            IsSaving = true;
 
+            var content = await JSRuntime.InvokeAsync<string>(JSInvokeMethodList.editorGetContent, EditorId, EditorContentFormat);
+            
             Model.Data[Key] = content;
             await FuncSave(Model);
 
             await ToggleEditModeAsync();
+
+            await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.closeModal, $"Modal{EditorId}");
+
+            IsSaving = false;
         }
 
         private async Task CancelEditAsync()
