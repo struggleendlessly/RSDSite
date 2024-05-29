@@ -50,6 +50,8 @@ builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IScriptRunner, ScriptRunner>();
 builder.Services.AddScoped<IApiService, ApiService>();
 builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<ICustomDomainService, CustomDomainService>();
+builder.Services.AddScoped<IDomainChecker, DomainChecker>();
 
 builder.Services.AddAuthentication(options =>
     {

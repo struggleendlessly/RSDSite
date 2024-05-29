@@ -9,7 +9,6 @@ using shared;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
-using shared.Models.API;
 using shared.Data.Entities;
 using shared.ConfigurationOptions;
 
@@ -50,16 +49,13 @@ namespace rcl.Components.Pages
         ISubscriptionService SubscriptionService { get; set; }
 
         [Inject]
-        IApiService ApiService { get; set; }
-
-        [Inject]
         public IOptions<StripeOptions> stripeOptions { get; set; }
 
         [Inject]
-        IOptions<AzureOptions> AzureOptions { get; set; }
+        IOptions<DomainValidationOptions> DomainValidationOptions { get; set; }
 
         [Inject]
-        IOptions<DomainValidationOptions> DomainValidationOptions { get; set; }
+        ICustomDomainService CustomDomainService { get; set; }
 
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -94,6 +90,8 @@ namespace rcl.Components.Pages
         public bool IsWebsiteSubscriptionActive { get; set; } = false;
         public bool IsWebsiteCustomDomainSubscriptionActive { get; set; } = false;
 
+        public string CustomDomainVerificationMessage { get; set; } = string.Empty;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -116,6 +114,11 @@ namespace rcl.Components.Pages
 
             SelectedSite = StateManager.SiteName;
             CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
+
+            if (!string.IsNullOrWhiteSpace(CustomDomain))
+            {
+                CustomDomainVerificationMessage = await CustomDomainService.CheckCustomDomainVerificationAsync();
+            }
         }
 
         [JSInvokable]
@@ -213,30 +216,11 @@ namespace rcl.Components.Pages
         public async Task SaveCustomDomainAsync()
         {
             IsCustomDomainSaving = true;
-            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertInfo, StaticStrings.AdminAddCustomDomainInProgress);
 
-            var request = new RunPowerShellScriptModel
-            {
-                ScriptName = StaticStrings.PowerShellAzureAddCustomDomainScript,
-                Parameters = new Dictionary<string, string>
-                {
-                    { StaticStrings.AzureWebAppName, AzureOptions.Value.WebAppName },
-                    { StaticStrings.AzureWebAppResourceGroup, AzureOptions.Value.WebAppResourceGroup },
-                    { StaticStrings.AzureCustomDomain, CustomDomain }
-                }
-            };
+            await CustomDomainService.SaveCustomDomainAsync(CustomDomain);
 
-            var result = await ApiService.SendPostRequestAsync<RunPowerShellScriptModel, RunPowerShellScriptResponseModel>(request, StaticRoutesStrings.APIRunPowerShellScriptRoute);
-            if (result.Success)
-            {
-                await WebsiteService.UpdateSiteDomainAsync(StateManager.SiteName, CustomDomain);
-                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminAddCustomDomainSuccess);
-                ToggleCustomDomainEditMode();
-            }
-            else
-            {
-                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminSaveCustomDomainAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminAddCustomDomainFailed);
-            }
+            ToggleCustomDomainEditMode();
+            CustomDomainVerificationMessage = await CustomDomainService.CheckCustomDomainVerificationAsync();
 
             IsCustomDomainSaving = false;
         }

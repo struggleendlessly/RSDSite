@@ -21,6 +21,9 @@ namespace shared
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
         public static string SitemapDataXmlFilePath = "sitemap.xml";
 
+        public static string NewDomainsContainerName = "new-domains";
+        public static string NewDomainsDataJsonFilePath = "{0}.json";
+
         /* Home Keys */
 
         public static string HomePageDataTitleKey = "Title";

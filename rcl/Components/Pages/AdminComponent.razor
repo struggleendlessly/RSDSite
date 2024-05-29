@@ -528,6 +528,12 @@
                                     </p>
                                     <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
                                     </div>
+                                    @if (!string.IsNullOrWhiteSpace(CustomDomainVerificationMessage))
+                                    {
+                                        <div class="alert alert-info" role="alert">
+                                            @CustomDomainVerificationMessage
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>

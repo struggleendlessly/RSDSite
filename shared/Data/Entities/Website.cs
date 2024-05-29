@@ -7,6 +7,7 @@ namespace shared.Data.Entities
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Domain {  get; set; }
+        public bool IsNewDomainInProcess { get; set; }
 
         public ICollection<Subscription> Subscriptions { get; set; }= new List<Subscription>();
 

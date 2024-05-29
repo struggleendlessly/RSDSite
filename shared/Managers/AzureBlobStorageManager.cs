@@ -25,6 +25,9 @@ namespace shared.Managers
 
             BlobClient blobClient = containerClient.GetBlobClient(blobName);
 
+            if (!await blobClient.ExistsAsync())
+                return string.Empty;
+
             await EnsureContainerPublicAccessAsync(containerClient);
 
             using (MemoryStream memoryStream = new MemoryStream())
@@ -40,7 +43,7 @@ namespace shared.Managers
         }
 
         public async Task<string> UploadFile(string blobContainerName, string blobName, Stream fileStream)
-        {          
+        {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
 
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
