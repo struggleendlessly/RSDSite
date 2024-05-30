@@ -92,6 +92,8 @@ namespace rcl.Components.Pages
 
         public string CustomDomainVerificationMessage { get; set; } = string.Empty;
 
+        public Guid? CurrentSiteId { get; set; } = null!;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -99,7 +101,9 @@ namespace rcl.Components.Pages
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
-            }
+
+                CurrentSiteId = StateManager.SiteId;
+            } 
         }
 
         protected override async Task OnInitializedAsync()
@@ -202,10 +206,19 @@ namespace rcl.Components.Pages
             }
 
             await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
-            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
 
-            RenameSiteModel = new RenameSiteModel();
-            IsWebsiteRenaming = false;
+            if (StateManager.SiteName == RenameSiteModel.SiteName)
+            {
+                var newUrl = NavigationManager.Uri.Replace(RenameSiteModel.SiteName, RenameSiteModel.NewName);
+                NavigationManager.NavigateTo(newUrl);
+            }
+            else
+            {
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
+                
+                RenameSiteModel = new RenameSiteModel();
+                IsWebsiteRenaming = false;
+            }
         }
 
         public void ToggleCustomDomainEditMode()
