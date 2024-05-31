@@ -92,8 +92,6 @@ namespace rcl.Components.Pages
 
         public string CustomDomainVerificationMessage { get; set; } = string.Empty;
 
-        public Guid? CurrentSiteId { get; set; } = null!;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -101,8 +99,6 @@ namespace rcl.Components.Pages
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
-
-                CurrentSiteId = StateManager.SiteId;
             } 
         }
 
@@ -166,7 +162,7 @@ namespace rcl.Components.Pages
 
             await SiteCreator.CreateSite(newWebsite.Name);
 
-            StateManager.UserSites.Add(newWebsite.Name);
+            StateManager.AddUserSite(newWebsite);
 
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminCreateSiteFormSuccessfullyCreated);
 
@@ -195,15 +191,9 @@ namespace rcl.Components.Pages
             var website = await WebsiteService.GetWebsiteByName(RenameSiteModel.SiteName);
             website.Name = RenameSiteModel.NewName;
 
-            var result = await WebsiteService.UpdateAsync(website);
+            await WebsiteService.UpdateAsync(website);
 
-            for (int i = 0; i < StateManager.UserSites.Count; i++)
-            {
-                if (StateManager.UserSites[i] == RenameSiteModel.SiteName)
-                {
-                    StateManager.UserSites[i] = RenameSiteModel.NewName;
-                }
-            }
+            StateManager.RenameUserSite(website.Id, RenameSiteModel.NewName);
 
             await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
 

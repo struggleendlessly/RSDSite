@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared.Interfaces;
+using shared.Data.Entities;
 using shared.ConfigurationOptions;
 
 using System.Security.Claims;
@@ -17,7 +18,7 @@ namespace shared.Managers
         private readonly IWebsiteService _websiteService;
 
         private readonly List<string> _mainSiteOwnersEmails;
-        private List<string> _userSites;
+        private List<Website> _userSites;
         private readonly ClaimsPrincipal _user;
 
         public StateManager(
@@ -31,7 +32,7 @@ namespace shared.Managers
             _authenticationStateProvider = authenticationStateProvider;
             _websiteService = websiteService;
 
-            _userSites = new List<string>();
+            _userSites = new List<Website>();
 
             var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
             _user = authState.User;
@@ -123,11 +124,11 @@ namespace shared.Managers
             }
         }
 
-        public Guid SiteId
+        public Guid? SiteId
         {
             get
             {
-                return _websiteService.GetWebsiteId(SiteName);
+                return _userSites.FirstOrDefault(x => x.Name == SiteName)?.Id;
             }
         }
 
@@ -150,13 +151,29 @@ namespace shared.Managers
                     //}
                 }
 
-                return _userSites;
+                return _userSites.Select(x => x.Name).ToList();
             }
         }
 
         public bool CanEditSite()
         {
             return UserSites.Contains(SiteName);
+        }
+
+        public void AddUserSite(Website website)
+        {
+            _userSites.Add(website);
+        }
+
+        public void RenameUserSite(Guid siteId, string newName)
+        {
+            foreach (var site in _userSites)
+            {
+                if (site.Id == siteId)
+                {
+                    site.Name = newName;
+                }
+            }
         }
 
         public string GetPageUrl(string url, bool showSiteName = true)
