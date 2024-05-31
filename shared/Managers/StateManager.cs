@@ -124,11 +124,11 @@ namespace shared.Managers
             }
         }
 
-        public Guid SiteId
+        public Guid? SiteId
         {
             get
             {
-                return _userSites.FirstOrDefault(x => x.Name == SiteName).Id;
+                return _userSites.FirstOrDefault(x => x.Name == SiteName)?.Id;
             }
         }
 
@@ -158,6 +158,22 @@ namespace shared.Managers
         public bool CanEditSite()
         {
             return UserSites.Contains(SiteName);
+        }
+
+        public void AddUserSite(Website website)
+        {
+            _userSites.Add(website);
+        }
+
+        public void RenameUserSite(Guid siteId, string newName)
+        {
+            foreach (var site in _userSites)
+            {
+                if (site.Id == siteId)
+                {
+                    site.Name = newName;
+                }
+            }
         }
 
         public string GetPageUrl(string url, bool showSiteName = true)
