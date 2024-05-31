@@ -21,7 +21,7 @@ $VerificationFailedStatus = "VerificationFailed"
 $AzureOperationSuccessStatus = "Success"
 
 # Context for accessing Azure Storage
-$Context = New-AzStorageContext -StorageAccountName $StorageAccountName -UseConnectedAccount
+$Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey "J1gUxVk+6VL5kw+q3Q6C0lpvrCdsPSD2UuRdz4CkGiUAu6JBSdbd2eCkAmJIfbPT/Jc4w5QFMd+B+AStwCRqvQ=="
 
 # Function to get a specific blob by name from a given container
 function Get-BlobByName {

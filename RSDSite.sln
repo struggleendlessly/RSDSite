@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8207095-D6F6-4488-A4F5-C93BA5084D0D}"
 	ProjectSection(SolutionItems) = preProject
+		powershell\azure-add-custom-domain.ps1 = powershell\azure-add-custom-domain.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -24,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clean-noChanges.Client", "c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcl", "rcl\rcl.csproj", "{D7C20094-6CCE-444F-B4F5-2D7ACB54063C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "api\api.csproj", "{60623C81-7C80-4A89-AA65-C762DCBE0A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api\api.csproj", "{60623C81-7C80-4A89-AA65-C762DCBE0A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,6 +6,8 @@ https://htmlstream.com/preview/front-v4.3.1/documentation/index.html
 dotnet ef migrations add Initial -o Data/Migrations --project shared --startup-project web/web
 dotnet ef database update --project shared --startup-project web/web
 
+Connect-AzAccount -UseDeviceAuthentication
+
  sudo reboot
  sudo poweroff
 
@@ -39,7 +41,7 @@ Description=domainsetup-dev
 Type=notify
 WorkingDirectory=/home/strug/buildir-api-dev
 
-ExecStart=pwsh -file /home/strug/buildir-api-dev/azure-add-custom-domain.ps1 -WebAppName devrsd -ContainerName new-domains
+ExecStart=pwsh -file H:\RSDSite\powershell/azure-add-custom-domain.ps1 -WebAppName devrsd -ContainerName new-domains-dev
 Restart=always
 RestartSec=3
 
@@ -48,3 +50,4 @@ Environment=DOTNET_ENVIRONMENT=Production
 WantedBy=multi-user.target
 
 ////////////////////////////////////////////////////////
+
