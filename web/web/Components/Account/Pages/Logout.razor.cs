@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
-using shared;
 using shared.Interfaces;
 using shared.Data.Entities;
 
@@ -27,18 +26,11 @@ namespace web.Components.Account.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            if (SignInManager.IsSignedIn(authstate.User))
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            if (SignInManager.IsSignedIn(authState.User))
             {
                 await SignInManager.SignOutAsync();
-
-                //StateManager.UserId = null;
-                //StateManager.UserEmail = null;
-                //StateManager.UserSites.Clear();
-            }
-            else
-            {
-                NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute));
+                NavigationManager.Refresh(forceReload: true);
             }
         }
     }
