@@ -23,7 +23,7 @@ sudo systemctl stop appbackground-domainsetup-dev.service
 
 sudo systemctl status appbackground-domainsetup-dev.service
 
-
+journalctl -xeu appbackground-domainsetup-dev.service
 //////////////////////////////////////////////////////// auto start on boot
 
 sudo systemctl enable appbackground-domainsetup-dev.service
@@ -39,9 +39,10 @@ Description=domainsetup-dev
 
 [Service]
 Type=notify
-WorkingDirectory=/home/strug/buildir-api-dev
+WorkingDirectory=/home/strug/powershell
+User=strug
 
-ExecStart=pwsh -file H:\RSDSite\powershell/azure-add-custom-domain.ps1 -WebAppName devrsd -ContainerName new-domains-dev
+ExecStart=pwsh -file /home/strug/buildir-api-dev/azure-add-custom-domain.ps1 -WebAppName devrsd -ContainerName new-domains-dev
 Restart=always
 RestartSec=3
 
