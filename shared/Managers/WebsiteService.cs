@@ -27,11 +27,10 @@ namespace shared.Managers
             return _dbContext.Websites.FirstOrDefault(x => x.Name == siteName).Id;
         }
 
-        public List<string> GetUserSites(string userId)
+        public List<Website> GetUserSites(string userId)
         {
             return _dbContext.Websites
                 .Where(w => w.Users.Any(u => u.Id == userId))
-                .Select(w => w.Name)
                 .ToList();
         }
 

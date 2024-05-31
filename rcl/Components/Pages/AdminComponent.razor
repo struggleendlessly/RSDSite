@@ -442,7 +442,7 @@
                     </div>
                 </div>
 
-                @if (!IsWebsiteSubscriptionActive && CurrentSiteId is not null)
+                @if (!IsWebsiteSubscriptionActive)
                 {
                     <!-- Stripe website subscription -->
                     <div class="col">
@@ -455,7 +455,7 @@
                                     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
                                     <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
                                                           publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                          client-reference-id="@CurrentSiteId.Value">
+                                                          client-reference-id="@StateManager.SiteId">
                                     </stripe-pricing-table>
                                 </p>
                             </div>
@@ -473,7 +473,7 @@
             {
                 <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
 
-                    @if (!IsWebsiteCustomDomainSubscriptionActive && CurrentSiteId is not null)
+                    @if (!IsWebsiteCustomDomainSubscriptionActive)
                     {
                         <!-- Stripe custom domain subscription -->
                         <div class="col">
@@ -489,7 +489,7 @@
                                         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
                                         <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
                                                               publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                              client-reference-id="@CurrentSiteId.Value">
+                                                              client-reference-id="@StateManager.SiteId">
                                         </stripe-pricing-table>
                                     </p>
                                 </div>

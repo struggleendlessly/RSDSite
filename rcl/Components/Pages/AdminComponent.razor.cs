@@ -92,8 +92,6 @@ namespace rcl.Components.Pages
 
         public string CustomDomainVerificationMessage { get; set; } = string.Empty;
 
-        public Guid? CurrentSiteId { get; set; } = null!;
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -101,8 +99,6 @@ namespace rcl.Components.Pages
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
-
-                CurrentSiteId = StateManager.SiteId;
             } 
         }
 

@@ -6,7 +6,7 @@ namespace shared.Interfaces
     {
         Task<List<string>> GetWebsitesNamesAsync();
         Guid GetWebsiteId(string siteName);
-        List<string> GetUserSites(string userId);
+        List<Website> GetUserSites(string userId);
         Task<Website> GetWebsiteByName(string siteName);
         Task<Website> CreateWebsite(Website website, string userId);
         Task<Website> UpdateAsync(Website website);
