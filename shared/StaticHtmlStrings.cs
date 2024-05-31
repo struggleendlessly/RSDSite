@@ -134,5 +134,14 @@ namespace shared
         public static string AdminCreateSiteFormAlertId = "adminCreateSiteFormAlert";
         public static string AdminRenameSiteFormAlertId = "adminRenameSiteFormAlert";
         public static string AdminSaveCustomDomainAlertId = "adminSaveCustomDomainAlert";
+
+        /* Items */
+        public static string ItemsListItemShortDescDefaultKey = "Item_{0}_{1}";
+        public static string ItemsListItemShortDescDefaultTitleValue = "Title";
+        public static string ItemsListItemShortDescDefaultSubtitleValue = "Subtitle";
+        public static string ItemsListItemLongDescDefaultValue = "Item content";
+        public static string ItemsListItemLongDescTitleDefaultValue = "Item title";
+        public static string ItemsListItemLongDescSubtitleDefaultValue = "Item subtitle";
+        public static string ItemsListItemLongDescImageDefaultValue = "https://cdn.pixabay.com/photo/2017/02/13/23/03/planet-2064152_640.jpg";
     }
 }

@@ -60,7 +60,7 @@
                             @if (ServiceItems.Count == 0)
                             {
                                 <li class="nav-item">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
+                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
                                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
                                     </a>
                                 </li>
@@ -68,7 +68,7 @@
                             else if (ServiceItems.Count <= 9)
                             {
                                 <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
+                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
                                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
                                     </a>
                                     <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -80,7 +80,7 @@
                                             var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
                                             var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
                                             var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
-                                            var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ServicePageUrl + "/" + serviceUrlValue);
+                                            var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ItemPageUrl + "/" + serviceUrlValue);
 
                                             <li>
                                                 <a class="dropdown-item" href="@serviceFullUrl">
@@ -94,7 +94,7 @@
                             else
                             {
                                 <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ServicesPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ServicesPageUrl))">
+                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
                                         @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
                                     </a>
                                     <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -113,7 +113,7 @@
                                                         var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
                                                         var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
                                                         var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
-                                                        var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ServicePageUrl + "/" + serviceUrlValue);
+                                                        var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ItemPageUrl + "/" + serviceUrlValue);
 
                                                         <li>
                                                             <a class="dropdown-item" href="@serviceFullUrl">

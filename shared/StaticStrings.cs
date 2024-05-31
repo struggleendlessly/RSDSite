@@ -88,6 +88,7 @@ namespace shared
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
         /* Admin Keys */
+        public static string Admin_General_HeaderMenuItems_ItemsPageText = "Admin_General_HeaderMenuItems_ItemsPageText";
         public static string AdminPageDataLogoLabelKey = "LogoLabel";
         public static string AdminPageDataLogoKey = "Logo";
         public static string AdminPageDataFooterTextLabelKey = "FooterTextLabel";

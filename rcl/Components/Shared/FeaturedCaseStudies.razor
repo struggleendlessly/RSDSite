@@ -30,7 +30,7 @@
             var url = item.LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
             var title = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
             var subtitle = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;
-            var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ServicePageUrl}/{url}";
+            var href = $"{StateManager.SiteName}/{StateManager.Lang}/{StaticRoutesStrings.ItemPageUrl}/{url}";
 
             <div class="col mt-3 mt-lg-5">
                 <div class="card border-light bg-light h-100 py-3">

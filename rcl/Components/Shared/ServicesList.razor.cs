@@ -129,28 +129,28 @@ namespace rcl.Components.Shared
             isAdding = true;
 
             var dateTime = DateTime.Now;
-            var serviceItemKey = string.Format(StaticHtmlStrings.ServicesListServiceShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
+            var serviceItemKey = string.Format(StaticHtmlStrings.ItemsListItemShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
             var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
 
             Model.Data.AddAfter(key + StaticStrings.SubtitleKeyEnding, serviceItemKey, serviceItemKey);
-            Model.Data.AddAfter(serviceItemKey, serviceTitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultTitleValue);
-            Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultSubtitleValue);
+            Model.Data.AddAfter(serviceItemKey, serviceTitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultTitleValue);
+            Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultSubtitleValue);
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string> 
             { 
                 { serviceItemKey, serviceItemKey },
-                { serviceTitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultTitleValue },
-                { serviceSubtitleKey, StaticHtmlStrings.ServicesListServiceShortDescDefaultSubtitleValue }
+                { serviceTitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultTitleValue },
+                { serviceSubtitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultSubtitleValue }
             };
             serviceItem.LongDesc = new Dictionary<string, string>
             {
-                { serviceItemKey,  StaticHtmlStrings.ServicesListServiceLongDescDefaultValue },
+                { serviceItemKey,  StaticHtmlStrings.ItemsListItemLongDescDefaultValue },
                 { serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey },
-                { serviceItemKey + StaticStrings.TitleKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescTitleDefaultValue },
-                { serviceItemKey + StaticStrings.SubtitleKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescSubtitleDefaultValue },
-                { serviceItemKey + StaticStrings.ImageKeyEnding, StaticHtmlStrings.ServicesListServiceLongDescImageDefaultValue }
+                { serviceItemKey + StaticStrings.TitleKeyEnding, StaticHtmlStrings.ItemsListItemLongDescTitleDefaultValue },
+                { serviceItemKey + StaticStrings.SubtitleKeyEnding, StaticHtmlStrings.ItemsListItemLongDescSubtitleDefaultValue },
+                { serviceItemKey + StaticStrings.ImageKeyEnding, StaticHtmlStrings.ItemsListItemLongDescImageDefaultValue }
             };
 
             ModelUrls.Data.Add(serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey);

@@ -33,7 +33,7 @@ namespace web.Endpoints
                     ) =>
             {
                 var pagesWithoutSiteName = new List<string>() { StaticRoutesStrings.LoginPageUrl, StaticRoutesStrings.ForgotPasswordPageUrl };
-                var duplicatePages = new List<string>() { StaticRoutesStrings.EmptyRoute, StaticRoutesStrings.AboutUsPageUrl, StaticRoutesStrings.ContactUsPageUrl, StaticRoutesStrings.ServicesPageUrl, StaticRoutesStrings.ServicePageUrl };
+                var duplicatePages = new List<string>() { StaticRoutesStrings.EmptyRoute, StaticRoutesStrings.AboutUsPageUrl, StaticRoutesStrings.ContactUsPageUrl, StaticRoutesStrings.ItemsPageUrl, StaticRoutesStrings.ItemPageUrl };
                 var languages = new List<string>() { StaticStrings.DefaultEnLang, StaticStrings.DefaultUaLang };
 
                 var websites = await websiteService.GetWebsitesNamesAsync();
@@ -71,7 +71,7 @@ namespace web.Endpoints
                     {
                         foreach (var lang in languages)
                         {
-                            if (page == StaticRoutesStrings.ServicePageUrl)
+                            if (page == StaticRoutesStrings.ItemPageUrl)
                             {
                                 var blobName = string.Format(StaticStrings.ServicesPageServicesListDataJsonFilePath, lang);
                                 var jsonContent = await azureBlobStorageManager.DownloadFile(site, blobName);

@@ -12,10 +12,10 @@ namespace shared
         public const string AboutUsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/about-us";
         public const string ContactUsPageRouteWithLang = "/{Lang}/contact-us";
         public const string ContactUsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/contact-us";
-        public const string ServicesPageRouteWithLang = "/{Lang}/services";
-        public const string ServicesPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/services";
-        public const string ServicePageRouteWithLang = "/{Lang}/service/{UrlKey}";
-        public const string ServicePageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/service/{UrlKey}";
+        public const string ItemsPageRouteWithLang = "/{Lang}/items";
+        public const string ItemsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/items";
+        public const string ItemPageRouteWithLang = "/{Lang}/item/{UrlKey}";
+        public const string ItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/item/{UrlKey}";
         public const string PricingPageRouteWithLang = "/{Lang}/pricing";
         public const string PricingPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/pricing";
         public const string AdminPageRouteWithLang = "/{Lang}/admin";
@@ -35,8 +35,8 @@ namespace shared
 
         public const string AboutUsPageUrl = "about-us";
         public const string ContactUsPageUrl = "contact-us";
-        public const string ServicesPageUrl = "services";
-        public const string ServicePageUrl = "service";
+        public const string ItemsPageUrl = "items";
+        public const string ItemPageUrl = "item";
         public const string PricingPageUrl = "pricing";
         public const string AdminPageUrl = "admin";
 
