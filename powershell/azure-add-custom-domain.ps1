@@ -8,7 +8,7 @@ param (
 
 # Global variables
 $WebAppResourceGroup = "rsdsite"
-$StorageAccountName = "csb100320036e70384e"
+$StorageAccountName = "rsdsite"
 $DateFormat = "MM-dd-yyyy"
 $ArchivedContainerName = "archived"
 
@@ -21,7 +21,7 @@ $VerificationFailedStatus = "VerificationFailed"
 $AzureOperationSuccessStatus = "Success"
 
 # Context for accessing Azure Storage
-$Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey "J1gUxVk+6VL5kw+q3Q6C0lpvrCdsPSD2UuRdz4CkGiUAu6JBSdbd2eCkAmJIfbPT/Jc4w5QFMd+B+AStwCRqvQ=="
+$Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey "UJPfCRxbkT8mo66RnZWzqnZzm8zOrrrTSz9x9EbdKF8TUE5RMlN9Veho3XvoL9PPDRGYH0g3diO/+AStPZO7EQ=="
 
 # Function to get a specific blob by name from a given container
 function Get-BlobByName {
