@@ -18,13 +18,14 @@ namespace shared.Managers
             _stateManager = stateManager;
         }
 
-        public async Task<T> GetDataAsync<T>(string memoryCacheKey, string filePath)
+        public async Task<T> GetDataAsync<T>(string memoryCacheKey, string filePath, string? blobContainerName = null)
         {
             var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
             if (!_memoryCache.TryGetValue(key, out T model))
             {
+                var containerName = blobContainerName ?? _stateManager.SiteName;
                 var blobName = string.Format(filePath, _stateManager.Lang);
-                var jsonContent = await _blobStorageManager.DownloadFile(_stateManager.SiteName, blobName);
+                var jsonContent = await _blobStorageManager.DownloadFile(containerName, blobName);
                 model = JsonConvert.DeserializeObject<T>(jsonContent);
 
                 _memoryCache.Set(key, model);

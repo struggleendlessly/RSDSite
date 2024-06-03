@@ -1,4 +1,6 @@
-﻿<AuthorizeView>
+﻿@using System.Text
+
+<AuthorizeView>
     <Authorized>
         @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
         {
@@ -7,12 +9,22 @@
             var popoverTextKey = PopoverKey + StaticStrings.TextKeyEnding;
             var popoverLinkKey = PopoverKey + StaticStrings.LinkKeyEnding;
 
-            var popoverHtml = $"<img src='{PopoversModel.Data[popoverImageKey]}'></img>"
-                            + $"<p>{PopoversModel.Data[popoverTextKey]}</p>"
-                            + $"<a href='{PopoversModel.Data[popoverLinkKey]}'>Link</a>";
+            var popoverHtmlBuilder = new StringBuilder();
+            if (PopoversModel.Data.TryGetValue(popoverImageKey, out string imageValue) && !string.IsNullOrWhiteSpace(imageValue))
+            {
+                popoverHtmlBuilder.Append($"<img src='{imageValue}'></img>");
+            }
+            if (PopoversModel.Data.TryGetValue(popoverTextKey, out string textValue) && !string.IsNullOrWhiteSpace(textValue))
+            {
+                popoverHtmlBuilder.Append($"<p>{textValue}</p>");
+            }
+            if (PopoversModel.Data.TryGetValue(popoverLinkKey, out string linkValue) && !string.IsNullOrWhiteSpace(linkValue))
+            {
+                popoverHtmlBuilder.Append($"<a href='{linkValue}'>Link</a>");
+            }
 
             <button type="button" class="btn btn-outline-info" data-bs-toggle="popover"
-                    data-bs-html="true" data-bs-title="Description" data-bs-content="@popoverHtml">
+                    data-bs-html="true" data-bs-title="Description" data-bs-content="@popoverHtmlBuilder.ToString()">
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

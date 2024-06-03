@@ -21,7 +21,7 @@ namespace shared
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
         public static string SitemapDataXmlFilePath = "sitemap.xml";
 
-        public static string NewDomainsContainerName = "new-domains";
+        public static string NewDomainsContainerName = "new-domains-dev";
         public static string NewDomainsDataJsonFilePath = "{0}.json";
 
         /* Home Keys */
@@ -218,6 +218,9 @@ namespace shared
         public static string DefaultDomain = "myelegantpages";
         public static string DefaultDevDomain = "dev.myelegantpages";
         public static string DefaultLocalDomain = "localhost";
+
+        /* Containers */
+        public static string PopoversContainerName = "popovers";
 
         /* Subscription modules names */
         public static string SubscriptionModuleWebsite = "Website";
