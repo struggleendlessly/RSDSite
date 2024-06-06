@@ -78,8 +78,7 @@ namespace shared
         /* Services */
 
         public static string HTMLEditorServicesTitleId = "htmlEditorServicesTitle";
-        public static string ImageEditorServicesGalleryImage1Id = "imageEditorServicesGalleryImage1";
-        public static string ImageEditorServicesGalleryImage2Id = "imageEditorServicesGalleryImage2";
+        public static string ImageEditorServicesImageId = "imageEditorServicesGalleryImage";
         public static string HTMLEditorServicesListTitleId = "htmlEditorServicesListTitle";
         public static string HTMLEditorServicesListSubtitleId = "htmlEditorServicesListSubtitle";
         public static string HTMLEditorServicesListServiceTitleId = "htmlEditorServicesListServiceTitle";
