@@ -2,7 +2,7 @@
 
 <AuthorizeView>
     <Authorized>
-        @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
+        @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey) && LocalizationModel is not null)
         {
             <!-- Popover -->
             var popoverImageKey = PopoverKey + StaticStrings.ImageKeyEnding;
@@ -24,7 +24,7 @@
             }
 
             <button type="button" class="btn btn-outline-info" data-bs-toggle="popover"
-                    data-bs-html="true" data-bs-title="Description" data-bs-content="@popoverHtmlBuilder.ToString()">
+                    data-bs-html="true" data-bs-title="@LocalizationModel.Data[StaticStrings.Localization_Popover_Header_Key]" data-bs-content="@popoverHtmlBuilder.ToString()">
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

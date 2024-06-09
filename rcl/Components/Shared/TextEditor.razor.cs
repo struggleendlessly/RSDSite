@@ -44,13 +44,14 @@ namespace rcl.Components.Shared
         [Inject]
         IJSRuntime JSRuntime { get; set; }
 
-        public PageModel SettingsModel { get; set; } = new PageModel();
+        public PageModel LocalizationModel { get; set; } = new PageModel();
 
         private bool IsSaving = false;
 
         protected override async Task OnInitializedAsync()
         {
-            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+
             Value = Model.Data[Key];
         }
 

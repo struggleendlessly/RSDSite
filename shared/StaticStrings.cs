@@ -2,7 +2,7 @@
 
 namespace shared
 {
-    public static class StaticStrings
+    public static partial class StaticStrings
     {
         /* Paths to JSON files */
 
@@ -59,16 +59,6 @@ namespace shared
         public static string ContactUsPageDatMapCoordinatesKey = "MapCoordinates";
         public static string ContactUsPageDataMapMarkerTextKey = "MapMarkerText";
         public static string ContactUsPageDataFormTitleKey = "FormTitle";
-        public static string ContactUsPageDataFormFirstNameFieldLabelKey = "FormFirstNameFieldLabel";
-        public static string ContactUsPageDataFormFirstNameFieldPlaceholderKey = "FormFirstNameFieldPlaceholder";
-        public static string ContactUsPageDataFormLastNameFieldLabelKey = "FormLastNameFieldLabel";
-        public static string ContactUsPageDataFormLastNameFieldPlaceholderKey = "FormLastNameFieldPlaceholder";
-        public static string ContactUsPageDataFormEmailAddressFieldLabelKey = "FormEmailAddressFieldLabel";
-        public static string ContactUsPageDataFormEmailAddressFieldPlaceholderKey = "FormEmailAddressFieldPlaceholder";
-        public static string ContactUsPageDataFormPhoneFieldLabelKey = "FormPhoneFieldLabel";
-        public static string ContactUsPageDataFormPhoneFieldPlaceholderKey = "FormPhoneFieldPlaceholder";
-        public static string ContactUsPageDataFormDetailsFieldLabelKey = "FormDetailsFieldLabel";
-        public static string ContactUsPageDataFormDetailsFieldPlaceholderKey = "FormDetailsFieldPlaceholder";
         public static string ContactUsPageDataFormButtonTextKey = "FormButtonText";
         public static string ContactUsPageDataFormTextUnderButtonKey = "FormTextUnderButton";
         public static string ContactUsPageDataCallUsTitleKey = "CallUsTitle";
@@ -87,25 +77,9 @@ namespace shared
         public static string ServicesPageDataFAQTitleKey = "FAQTitle";
 
         /* Admin Keys */
-        public static string Admin_General_HeaderMenuItems_ItemsPageText = "Admin_General_HeaderMenuItems_ItemsPageText";
-        public static string AdminPageDataLogoLabelKey = "LogoLabel";
         public static string AdminPageDataLogoKey = "Logo";
-        public static string AdminPageDataFooterTextLabelKey = "FooterTextLabel";
         public static string AdminPageDataFooterTextKey = "FooterText";
-        public static string AdminPageDataFooterSocialNetworksLabelKey = "FooterSocialNetworksLabel";
-        public static string AdminPageDataHeaderMenuLabelKey = "HeaderMenuLabel";
-        public static string AdminPageDataServicesButtonTextLabelKey = "ServicesButtonTextLabel";    
         public static string AdminPageDataServicesButtonTextKey = "ServicesButtonText";
-        public static string AdminPageDataContactUsMessagesLabelKey = "ContactUsMessagesLabel";
-        public static string AdminPageDataHTMLEditorEditButtonTextKey = "HTMLEditorEditButtonText";
-        public static string AdminPageDataHTMLEditorSaveButtonTextKey = "HTMLEditorSaveButtonText";
-        public static string AdminPageDataHTMLEditorCancelButtonTextKey = "HTMLEditorCancelButtonText";
-        public static string AdminPageDataImageEditorSaveButtonTextKey = "ImageEditorSaveButtonText";
-        public static string AdminPageDataCustomDomainValidationTitleKey = "AdminCustomDomainValidationTitle";
-        public static string AdminPageDataCustomDomainValidationTextKey = "AdminCustomDomainValidationText";
-        public static string AdminPageDataCustomDomainValidationRecordTypeKey = "AdminCustomDomainValidationRecordType";
-        public static string AdminPageDataCustomDomainValidationRecordHostKey = "AdminCustomDomainValidationRecordHost";
-        public static string AdminPageDataCustomDomainValidationRecordValueKey = "AdminCustomDomainValidationRecordValue";
 
         public static string AdminPageSettingsMenuDataMainKey = "MainPageText";
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";
@@ -240,8 +214,6 @@ namespace shared
         public static string AdminPageSocialNetworksDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSocialNetworksModel";
         public static string AdminPageSettingsMenuDataJsonMemoryCacheKey = "{0}_{1}_AdminPageSettingsMenuModel";
         public static string PricingPageDataJsonMemoryCacheKey = "{0}_PricingPageModel";
-
-        public static string PopoversDataJsonMemoryCacheKey = "{0}_{1}_PopoversModel";
 
         public static string ActiveWebsiteSubscription = "ActiveWebsiteSubscription_{0}";
         public static string ActiveCustomDomainSubscription = "ActiveCustomDomainSubscription_{0}";

@@ -42,6 +42,8 @@ namespace rcl.Components.Pages
 
         public PageModel PopoversModel { get; set; } = new PageModel();
 
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         DotNetObjectReference<AboutUsComponent>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -59,7 +61,8 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         [JSInvokable]

@@ -1,6 +1,6 @@
 ﻿<AuthorizeView>
     <Authorized>
-        @if (SettingsModel.Data is not null && StateManager.CanEditSite())
+        @if (LocalizationModel.Data is not null && StateManager.CanEditSite())
         {
             <div class="text-center">
                 @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
@@ -32,7 +32,7 @@
                         }
                         else
                         {
-                            @SettingsModel.Data[StaticStrings.AdminPageDataImageEditorSaveButtonTextKey]
+                            @LocalizationModel.Data[StaticStrings.Localization_ImageEditor_Button_Save_Key]
                         }
 
                     </button>

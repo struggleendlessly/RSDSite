@@ -1,493 +1,453 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 
-<div class="container">
-    <!-- Tabs headers -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Messages-tab-pane" type="button" role="tab" aria-controls="Messages-tab-pane" aria-selected="true">
-                Messages
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#General-tab-pane" type="button" role="tab" aria-controls="General-tab-pane" aria-selected="false">
-                General
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Settings-tab-pane" type="button" role="tab" aria-controls="Settings-tab-pane" aria-selected="false">
-                Settings
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Social-tab-pane" type="button" role="tab" aria-controls="Social-tab-pane" aria-selected="false">
-                Social
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="custom-domain-tab" data-bs-toggle="tab" data-bs-target="#CustomDomain-tab-pane" type="button" role="tab" aria-controls="CustomDomain-tab-pane" aria-selected="false">
-                Custom domain
-            </button>
-        </li>
-    </ul>
+@if (LocalizationModel.Data is not null)
+{
+    <div class="container">
+        <!-- Tabs headers -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Messages-tab-pane" type="button" role="tab" aria-controls="Messages-tab-pane" aria-selected="true">
+                    @LocalizationModel.Data[StaticStrings.Localization_Admin_Messages_Key]
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#General-tab-pane" type="button" role="tab" aria-controls="General-tab-pane" aria-selected="false">
+                    @LocalizationModel.Data[StaticStrings.Localization_Admin_General_Key]
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Settings-tab-pane" type="button" role="tab" aria-controls="Settings-tab-pane" aria-selected="false">
+                    @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_Key]
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Social-tab-pane" type="button" role="tab" aria-controls="Social-tab-pane" aria-selected="false">
+                    @LocalizationModel.Data[StaticStrings.Localization_Admin_Social_Key]
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="custom-domain-tab" data-bs-toggle="tab" data-bs-target="#CustomDomain-tab-pane" type="button" role="tab" aria-controls="CustomDomain-tab-pane" aria-selected="false">
+                    @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Key]
+                </button>
+            </li>
+        </ul>
 
-    <!-- Tabs body -->
-    <div class="tab-content" id="myTabContent">
+        <!-- Tabs body -->
+        <div class="tab-content" id="myTabContent">
 
-        <!-- Tab message -->
-        <div class="tab-pane fade show active" id="Messages-tab-pane" role="tabpanel" aria-labelledby="Messages-tab" tabindex="0">
-            @*             @if (Model.Data != null)
-            {
-            <h5>@Model.Data[StaticStrings.AdminPageDataContactUsMessagesLabelKey]</h5>
-            } *@
+            <!-- Tab message -->
+            <div class="tab-pane fade show active" id="Messages-tab-pane" role="tabpanel" aria-labelledby="Messages-tab" tabindex="0">
+                
+                @if (ContactUsMessages.Any())
+                {
+                    <div class="accordion my-5" id="accordionContactUsMessages">
+                        @for (int i = 0; i < ContactUsMessages.Count; i++)
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
+                                        @($"{ContactUsMessages[i].FirstName} {ContactUsMessages[i].LastName} ({ContactUsMessages[i].Email})")
+                                    </button>
+                                </h2>
 
-            @if (ContactUsMessages.Any())
-            {
-                <div class="accordion my-5" id="accordionContactUsMessages">
-                    @for (int i = 0; i < ContactUsMessages.Count; i++)
-                    {
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
-                                    @($"{ContactUsMessages[i].FirstName} {ContactUsMessages[i].LastName} ({ContactUsMessages[i].Email})")
-                                </button>
-                            </h2>
+                                <div id="collapse-@i" class="accordion-collapse collapse" data-bs-parent="#accordionContactUsMessages">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-3">
+                                                <strong class="d-block h5 mb-0">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_FirstName_Label_Key]
+                                                </strong>
+                                                <span class="text-secondary">
+                                                    @ContactUsMessages[i].FirstName
+                                                </span>
+                                            </div>
 
-                            <div id="collapse-@i" class="accordion-collapse collapse" data-bs-parent="#accordionContactUsMessages">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-12 col-lg-3">
-                                            <strong class="d-block h5 mb-0">
-                                                First name
-                                            </strong>
-                                            <span class="text-secondary">
-                                                @ContactUsMessages[i].FirstName
-                                            </span>
+                                            <div class="col-12 col-lg-3">
+                                                <strong class="d-block h5 mb-0">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_LastName_Label_Key]
+                                                </strong>
+                                                <span class="text-secondary">
+                                                    @ContactUsMessages[i].LastName
+                                                </span>
+                                            </div>
+
+                                            <div class="col-12 col-lg-3">
+                                                <strong class="d-block h5 mb-0">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_Phone_Label_Key]
+                                                </strong>
+                                                <span class="text-secondary">
+                                                    @ContactUsMessages[i].PhoneNumber
+                                                </span>
+                                            </div>
+
+                                            <div class="col-12 col-lg-3">
+                                                <strong class="d-block h5 mb-0">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_Email_Label_Key]
+                                                </strong>
+                                                <span class="text-secondary">
+                                                    @ContactUsMessages[i].Email
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div class="col-12 col-lg-3">
-                                            <strong class="d-block h5 mb-0">
-                                                Last name
-                                            </strong>
-                                            <span class="text-secondary">
-                                                @ContactUsMessages[i].LastName
-                                            </span>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-3">
+                                                <strong class="d-block h5 mb-0">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_Details_Label_Key]
+                                                </strong>
+                                                <span class="text-secondary">
+                                                    @ContactUsMessages[i].Details
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div class="col-12 col-lg-3">
-                                            <strong class="d-block h5 mb-0">
-                                                Phone
-                                            </strong>
-                                            <span class="text-secondary">
-                                                @ContactUsMessages[i].PhoneNumber
-                                            </span>
-                                        </div>
-
-                                        <div class="col-12 col-lg-3">
-                                            <strong class="d-block h5 mb-0">
-                                                Email
-                                            </strong>
-                                            <span class="text-secondary">
-                                                @ContactUsMessages[i].Email
-                                            </span>
-                                        </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-lg-3">
-                                            <strong class="d-block h5 mb-0">
-                                                Details
-                                            </strong>
-                                            <span class="text-secondary">
-                                                @ContactUsMessages[i].Details
-                                            </span>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-light text-center my-5" role="alert">
-                    There are no messages yet...
-                </div>
-            }
-        </div>
-
-        <!-- Tab general -->
-        <div class="tab-pane fade" id="General-tab-pane" role="tabpanel" aria-labelledby="General-tab" tabindex="0">
-            @if (Model.Data != null && PopoversModel.Data is not null)
-            {
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p mt-5">
-                    Header menu items
-                </p>
-
-                <!-- Header menu -->
-                <div class="row row-cols-1 row-cols-md-4 g-4 my-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Main page text
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
-                                                EditorType="@(StaticStrings.TextEditorTypeText)"
-                                                Model="MenuModel"
-                                                FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataMainKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_1_1_General">
-                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]
-                                    </TextEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    About us page text
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
-                                                EditorType="@(StaticStrings.TextEditorTypeText)"
-                                                Model="MenuModel"
-                                                FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_1_2_General">
-                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]
-                                    </TextEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Contact us page text
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
-                                                EditorType="@(StaticStrings.TextEditorTypeText)"
-                                                Model="MenuModel"
-                                                FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_1_3_General">
-                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]
-                                    </TextEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    @SettingsModel.Data[StaticStrings.Admin_General_HeaderMenuItems_ItemsPageText]
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
-                                                EditorType="@(StaticStrings.TextEditorTypeText)"
-                                                Model="MenuModel"
-                                                FuncSave="SaveMenu"
-                                                Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_1_4_General">
-                                        @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]
-                                    </TextEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="@StaticHtmlStrings.CSSMainSubTitle_p mt-5">
-                    Others
-                </p>
-
-                <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
-
-                    <!-- Logo -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    @Model.Data[StaticStrings.AdminPageDataLogoLabelKey]
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
-                                                 Model="Model"
-                                                 FuncSave="Save"
-                                                 Key="@StaticStrings.AdminPageDataLogoKey"
-                                                 PopoversModel="PopoversModel"
-                                                 PopoverKey="@StaticStrings.Popover_Admin_2_1_General">
-                                        <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
-                                    </ImageEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer text -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    @Model.Data[StaticStrings.AdminPageDataFooterTextLabelKey]
-                                </h5>
-
-                                <p class="card-text  text-center">
-                                    <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
-                                                Model="Model"
-                                                FuncSave="Save"
-                                                Key="@StaticStrings.AdminPageDataFooterTextKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_2_2_General">
-                                        <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
-                                    </HTMLEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Services button text -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    @Model.Data[StaticStrings.AdminPageDataServicesButtonTextLabelKey]
-                                </h5>
-
-                                <p class="card-text text-center">
-                                    <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
-                                                EditorType="@(StaticStrings.TextEditorTypeText)"
-                                                Model="Model"
-                                                FuncSave="Save"
-                                                Key="@StaticStrings.AdminPageDataServicesButtonTextKey"
-                                                PopoversModel="PopoversModel"
-                                                PopoverKey="@StaticStrings.Popover_Admin_2_3_General">
-                                        @Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]
-                                    </TextEditor>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-
-        <!-- Tab Social -->
-        <div class="tab-pane fade" id="Social-tab-pane" role="tabpanel" aria-labelledby="Social-tab" tabindex="0">
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
-
-                @if (Model.Data != null)
-                {
-                    <SocialNetworks
-                        PopoversModel="PopoversModel">                       
-                    </SocialNetworks>
-                }
-            </div>
-        </div>
-
-        <!-- Tab settings -->
-        <div class="tab-pane fade" id="Settings-tab-pane" role="tabpanel" aria-labelledby="Settings-tab" tabindex="0">
-
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
-
-                <!-- Change site -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Change site
-                                <Popover 
-                                    PopoversModel="PopoversModel"
-                                    PopoverKey="@StaticStrings.Popover_Admin_1_1_Settings">
-                                </Popover>
-                            </h5>
-
-                            <p class="card-text">
-                                <select @bind="SelectedSite" class="form-select" aria-label="Change site">
-                                    @foreach (var site in StateManager.UserSites)
-                                    {
-                                        <option value="@site">
-                                            @site
-                                        </option>
-                                    }
-                                </select>
-                            </p>
-                        </div>
-
-                        <div class="card-footer">
-                            <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">
-                                Change
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Create site -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminCreateSiteFormAlertId">
-                        </div>
-                        <EditForm Model="CreateSiteModel"
-                                  method="post"
-                                  OnValidSubmit="CreateSite"
-                                  FormName="createSite">
-
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Create site
-                                    <Popover 
-                                        PopoversModel="PopoversModel"
-                                        PopoverKey="@StaticStrings.Popover_Admin_1_2_Settings">
-                                    </Popover>
-                                </h5>
-
-                                <p class="card-text">
-                                    <DataAnnotationsValidator />
-                                    <ValidationSummary class="text-danger" role="alert" />
-                                    <div class="form-floating">
-                                        <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
-                                        <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
-
-                                        <label for="createSiteName">
-                                            Name
-                                        </label>
-                                    </div>
-                                </p>
-                            </div>
-
-                            <div class="card-footer">
-                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteCreating">
-                                    Create
-                                    @if (IsWebsiteCreating)
-                                    {
-                                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
-                                    }
-                                </button>
-                            </div>
-                        </EditForm>
-                    </div>
-                </div>
-
-                <!-- Rename site -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminRenameSiteFormAlertId">
-                        </div>
-                        <EditForm Model="RenameSiteModel"
-                                  method="post"
-                                  OnValidSubmit="RenameSite"
-                                  FormName="renameSite">
-
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Rename site
-                                    <Popover 
-                                        PopoversModel="PopoversModel"
-                                        PopoverKey="@StaticStrings.Popover_Admin_1_3_Settings">
-                                    </Popover>
-                                </h5>
-
-                                <p class="card-text">
-                                    <DataAnnotationsValidator />
-                                    <ValidationSummary class="text-danger" role="alert" />
-                                    <div class="form-floating mb-3">
-                                        <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
-                                            @foreach (var site in StateManager.UserSites)
-                                            {
-                                                <option value="@site">@site</option>
-                                            }
-                                        </select>
-                                        <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
-
-                                        <label for="renameSiteName">Select site</label>
-                                    </div>
-                                    <div class="form-floating">
-                                        <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
-                                        <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
-
-                                        <label for="renameNewSiteName">
-                                            New name
-                                        </label>
-                                    </div>
-                                </p>
-                            </div>
-
-                            <div class="card-footer">
-                                <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteRenaming">
-                                    Rename
-                                    @if (IsWebsiteRenaming)
-                                    {
-                                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
-                                    }
-                                </button>
-                            </div>
-                        </EditForm>
-                    </div>
-                </div>
-
-                @if (!IsWebsiteSubscriptionActive)
-                {
-                    <!-- Stripe website subscription -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Website subscription
-                                </h5>
-                                <p class="card-text">
-                                    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                    <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
-                                                          publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
-                                                          client-reference-id="@StateManager.SiteId">
-                                    </stripe-pricing-table>
-                                </p>
-                            </div>
-                        </div>
+                        }
                     </div>
                 }
-
+                else
+                {
+                    <div class="alert alert-light text-center my-5" role="alert">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Messages_Empty_Key]
+                    </div>
+                }
             </div>
-        </div>
 
-        <!-- Tab Custom Domain -->
-        <div class="tab-pane fade" id="CustomDomain-tab-pane" role="tabpanel" aria-labelledby="CustomDomain-tab" tabindex="0">
-            
-            @if (SettingsModel.Data is not null)
-            {
-                <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+            <!-- Tab general -->
+            <div class="tab-pane fade" id="General-tab-pane" role="tabpanel" aria-labelledby="General-tab" tabindex="0">
+                @if (Model.Data != null && PopoversModel.Data is not null)
+                {
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p mt-5">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_HeaderMenuTtems_Key]
+                    </p>
 
-                    @if (!IsWebsiteCustomDomainSubscriptionActive)
-                    {
-                        <!-- Stripe custom domain subscription -->
+                    <!-- Header menu -->
+                    <div class="row row-cols-1 row-cols-md-4 g-4 my-4">
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Custom domain subscription
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_HeaderMenuItems_MainPage_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuMainId"
+                                                    EditorType="@(StaticStrings.TextEditorTypeText)"
+                                                    Model="MenuModel"
+                                                    FuncSave="SaveMenu"
+                                                    Key="@StaticStrings.AdminPageSettingsMenuDataMainKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_1_1_General">
+                                            @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey]
+                                        </TextEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_HeaderMenuItems_AboutUsPage_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuAboutUsId"
+                                                    EditorType="@(StaticStrings.TextEditorTypeText)"
+                                                    Model="MenuModel"
+                                                    FuncSave="SaveMenu"
+                                                    Key="@StaticStrings.AdminPageSettingsMenuDataAboutUsKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_1_2_General">
+                                            @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey]
+                                        </TextEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_HeaderMenuItems_ContactUsPage_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuContactUsId"
+                                                    EditorType="@(StaticStrings.TextEditorTypeText)"
+                                                    Model="MenuModel"
+                                                    FuncSave="SaveMenu"
+                                                    Key="@StaticStrings.AdminPageSettingsMenuDataContactUsKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_1_3_General">
+                                            @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataContactUsKey]
+                                        </TextEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_HeaderMenuItems_ItemsPage_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminSettingsMenuServicesId"
+                                                    EditorType="@(StaticStrings.TextEditorTypeText)"
+                                                    Model="MenuModel"
+                                                    FuncSave="SaveMenu"
+                                                    Key="@StaticStrings.AdminPageSettingsMenuDataServicesKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_1_4_General">
+                                            @MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]
+                                        </TextEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p mt-5">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_Others_Key]
+                    </p>
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+
+                        <!-- Logo -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_Others_Logo_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorAdminLogoId"
+                                                     Model="Model"
+                                                     FuncSave="Save"
+                                                     Key="@StaticStrings.AdminPageDataLogoKey"
+                                                     PopoversModel="PopoversModel"
+                                                     PopoverKey="@StaticStrings.Popover_Admin_2_1_General">
+                                            <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" alt="Logo image" style="max-height:100px;" />
+                                        </ImageEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer text -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_Others_FooterText_Key]
+                                    </h5>
+
+                                    <p class="card-text  text-center">
+                                        <HTMLEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminFooterTextId"
+                                                    Model="Model"
+                                                    FuncSave="Save"
+                                                    Key="@StaticStrings.AdminPageDataFooterTextKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_2_2_General">
+                                            <p>@((MarkupString)Model.Data[StaticStrings.AdminPageDataFooterTextKey])</p>
+                                        </HTMLEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services button text -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_General_Others_ItemsButtonText_Key]
+                                    </h5>
+
+                                    <p class="card-text text-center">
+                                        <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorAdminServicesButtonTextId"
+                                                    EditorType="@(StaticStrings.TextEditorTypeText)"
+                                                    Model="Model"
+                                                    FuncSave="Save"
+                                                    Key="@StaticStrings.AdminPageDataServicesButtonTextKey"
+                                                    PopoversModel="PopoversModel"
+                                                    PopoverKey="@StaticStrings.Popover_Admin_2_3_General">
+                                            @Model.Data[StaticStrings.AdminPageDataServicesButtonTextKey]
+                                        </TextEditor>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Tab Social -->
+            <div class="tab-pane fade" id="Social-tab-pane" role="tabpanel" aria-labelledby="Social-tab" tabindex="0">
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
+
+                    @if (Model.Data != null)
+                    {
+                        <SocialNetworks PopoversModel="PopoversModel">
+                        </SocialNetworks>
+                    }
+                </div>
+            </div>
+
+            <!-- Tab settings -->
+            <div class="tab-pane fade" id="Settings-tab-pane" role="tabpanel" aria-labelledby="Settings-tab" tabindex="0">
+
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 mb-5">
+
+                    <!-- Change site -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_ChangeSite_Key]
+                                    <Popover PopoversModel="PopoversModel"
+                                             PopoverKey="@StaticStrings.Popover_Admin_1_1_Settings">
+                                    </Popover>
+                                </h5>
+
+                                <p class="card-text">
+                                    <select @bind="SelectedSite" class="form-select" aria-label="Change site">
+                                        @foreach (var site in StateManager.UserSites)
+                                        {
+                                            <option value="@site">
+                                                @site
+                                            </option>
+                                        }
+                                    </select>
+                                </p>
+                            </div>
+
+                            <div class="card-footer">
+                                <button @onclick="ChangeSite" class="w-100 btn btn-sm btn-primary mt-2" type="button">
+                                    @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_ChangeSite_Button_Key]
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Create site -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminCreateSiteFormAlertId">
+                            </div>
+                            <EditForm Model="CreateSiteModel"
+                                      method="post"
+                                      OnValidSubmit="CreateSite"
+                                      FormName="createSite">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_CreateSite_Key]
                                         <Popover PopoversModel="PopoversModel"
-                                                 PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_2_Settings">
                                         </Popover>
+                                    </h5>
+
+                                    <p class="card-text">
+                                        <DataAnnotationsValidator />
+                                        <ValidationSummary class="text-danger" role="alert" />
+                                        <div class="form-floating">
+                                            <input @bind="CreateSiteModel.Name" type="text" class="form-control form-control-sm" id="createSiteName" placeholder="Your site name" aria-label="Your site name" required />
+                                            <ValidationMessage For="() => CreateSiteModel.Name" class="invalid-feedback" />
+
+                                            <label for="createSiteName">
+                                                Name
+                                            </label>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteCreating">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_CreateSite_Button_Key]
+                                        @if (IsWebsiteCreating)
+                                        {
+                                            <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                        }
+                                    </button>
+                                </div>
+                            </EditForm>
+                        </div>
+                    </div>
+
+                    <!-- Rename site -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminRenameSiteFormAlertId">
+                            </div>
+                            <EditForm Model="RenameSiteModel"
+                                      method="post"
+                                      OnValidSubmit="RenameSite"
+                                      FormName="renameSite">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_RenameSite_Key]
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_3_Settings">
+                                        </Popover>
+                                    </h5>
+
+                                    <p class="card-text">
+                                        <DataAnnotationsValidator />
+                                        <ValidationSummary class="text-danger" role="alert" />
+                                        <div class="form-floating mb-3">
+                                            <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
+                                                @foreach (var site in StateManager.UserSites)
+                                                {
+                                                    <option value="@site">@site</option>
+                                                }
+                                            </select>
+                                            <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
+
+                                            <label for="renameSiteName">Select site</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <input @bind="RenameSiteModel.NewName" type="text" class="form-control form-control-sm" id="renameNewSiteName" placeholder="Your new site name" aria-label="Your new site name" required />
+                                            <ValidationMessage For="() => RenameSiteModel.NewName" class="invalid-feedback" />
+
+                                            <label for="renameNewSiteName">
+                                                New name
+                                            </label>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="w-100 btn btn-sm btn-primary mt-2" type="submit" disabled="@IsWebsiteRenaming">
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_RenameSite_Button_Key]
+                                        @if (IsWebsiteRenaming)
+                                        {
+                                            <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                        }
+                                    </button>
+                                </div>
+                            </EditForm>
+                        </div>
+                    </div>
+
+                    @if (!IsWebsiteSubscriptionActive)
+                    {
+                        <!-- Stripe website subscription -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Website subscription
                                     </h5>
                                     <p class="card-text">
                                         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
                                                               publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
                                                               client-reference-id="@StateManager.SiteId">
                                         </stripe-pricing-table>
@@ -496,118 +456,153 @@
                             </div>
                         </div>
                     }
-                    else
-                    {
-                        <!-- Add custom domain form -->
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Custom domain
-                                        <Popover PopoversModel="PopoversModel"
-                                                 PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain">
-                                        </Popover>
-                                    </h5>
-                                    <p class="card-text mt-3">
-                                        @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
-                                        {
-                                        <p>@CustomDomain</p>
-                                        <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">Edit</button>
-                                        }
-                                        else
-                                        {
-                                        <input @bind="CustomDomain" type="text" class="form-control" />
-                                        <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
-                                            Save
-                                                @if (IsCustomDomainSaving)
-                                                {
-                                                <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
-                                                }
-                                        </button>
-                                        }
-                                    </p>
-                                    <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
-                                    </div>
-                                    @if (!string.IsNullOrWhiteSpace(CustomDomainVerificationMessage))
-                                    {
-                                        <div class="alert alert-info" role="alert">
-                                            @CustomDomainVerificationMessage
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Custom domain DNS data -->
-                        <div class="col-md-8">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationTitleKey]
-                                        <Popover PopoversModel="PopoversModel"
-                                                 PopoverKey="@StaticStrings.Popover_Admin_1_3_CustomDomain">
-                                        </Popover>
-                                    </h5>
-                                    <p class="card-text">
-                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationTextKey]
-                                    </p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordTypeKey]
-                                                    </th>
-                                                    <th scope="col">
-                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordHostKey]
-                                                    </th>
-                                                    <th scope="col">
-                                                        @SettingsModel.Data[StaticStrings.AdminPageDataCustomDomainValidationRecordValueKey]
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in DomainValidationOptions.Value.Records)
-                                                {
-                                                    <tr>
-                                                        <td>@item.Type</td>
-                                                        <td>@item.Host</td>
-                                                        <td>@item.Value</td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
 
                 </div>
-            }
+            </div>
 
+            <!-- Tab Custom Domain -->
+            <div class="tab-pane fade" id="CustomDomain-tab-pane" role="tabpanel" aria-labelledby="CustomDomain-tab" tabindex="0">
+
+                @if (SettingsModel.Data is not null)
+                {
+                    <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+
+                        @if (!IsWebsiteCustomDomainSubscriptionActive)
+                        {
+                            <!-- Stripe custom domain subscription -->
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Custom domain subscription
+                                            <Popover PopoversModel="PopoversModel"
+                                                     PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
+                                            </Popover>
+                                        </h5>
+                                        <p class="card-text">
+                                            <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                                            <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                                                  publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                                                  client-reference-id="@StateManager.SiteId">
+                                            </stripe-pricing-table>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Add custom domain form -->
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Custom domain
+                                            <Popover PopoversModel="PopoversModel"
+                                                     PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain">
+                                            </Popover>
+                                        </h5>
+                                        <p class="card-text mt-3">
+                                            @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
+                                            {
+                                            <p>@CustomDomain</p>
+                                            <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">Edit</button>
+                                            }
+                                            else
+                                            {
+                                            <input @bind="CustomDomain" type="text" class="form-control" />
+                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
+                                                Save
+                                                    @if (IsCustomDomainSaving)
+                                                    {
+                                                    <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                                    }
+                                            </button>
+                                            }
+                                        </p>
+                                        <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
+                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(CustomDomainVerificationMessage))
+                                        {
+                                            <div class="alert alert-info" role="alert">
+                                                @CustomDomainVerificationMessage
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Custom domain DNS data -->
+                            <div class="col-md-8">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Validation_Title_Key]
+                                            <Popover PopoversModel="PopoversModel"
+                                                     PopoverKey="@StaticStrings.Popover_Admin_1_3_CustomDomain">
+                                            </Popover>
+                                        </h5>
+                                        <p class="card-text">
+                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Validation_Subtitle_Key]
+                                        </p>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Validation_RecordType_Key]
+                                                        </th>
+                                                        <th scope="col">
+                                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Validation_RecordHost_Key]
+                                                        </th>
+                                                        <th scope="col">
+                                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Validation_RecordValue_Key]
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in DomainValidationOptions.Value.Records)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Type</td>
+                                                            <td>@item.Host</td>
+                                                            <td>@item.Value</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="text-center">
-                    To add your domain to our site, you need to add the data specified in the "Domain verification" block to your domain provider
-                </p>           
-                <h6 class="text-center mt-4">Did you add this data?</h6>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">
+                        To add your domain to our site, you need to add the data specified in the "Domain verification" block to your domain provider
+                    </p>
+                    <h6 class="text-center mt-4">Did you add this data?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

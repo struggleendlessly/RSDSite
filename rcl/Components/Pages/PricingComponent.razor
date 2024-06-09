@@ -1,64 +1,67 @@
 ﻿@using shared.Helpers;
 
 <div class="px-2 py-1 text-center container">
-    <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
-        Pricing
-    </h1>
-    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
-        Login
-    </a>
-    @foreach (var product in ProductsWithPrices)
+    @if (LocalizationModel.Data is not null)
     {
-        <!-- CSSMainTitle_h2 -->
-        <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@product.Name</h2>
-        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-            <ul class="list-unstyled mt-3 mb-4">
-                <li>
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                        10 users included
-                    </p>
-                </li>
-                <li>
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                        2 GB of storage
-                    </p>
-                </li>
-                <li>
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                        Email support
-                    </p>
-                </li>
-                <li>
-                    <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                        Help center access
-                    </p>
-                </li>
-            </ul>
-        </p>
-        <div class="row row-cols-1 row-cols-md-4 d-flex justify-content-center mb-3 text-center">
-            @foreach (var price in product.Prices)
-            {
-                var currencySymbol = CurrencyHelper.GetCurrencySymbol(price.Currency);
-                var priceInEuros = CurrencyHelper.ConvertCentsToEuros(price.UnitAmount);
-                var interval = !string.IsNullOrWhiteSpace(price.Interval) ? price.Interval : "one time";
+        <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
+            @LocalizationModel.Data[StaticStrings.Localization_Pricing_Key]
+        </h1>
+        <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
+            @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
+        </a>
+        @foreach (var product in ProductsWithPrices)
+        {
+            <!-- CSSMainTitle_h2 -->
+            <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">@product.Name</h2>
+            <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                            10 users included
+                        </p>
+                    </li>
+                    <li>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                            2 GB of storage
+                        </p>
+                    </li>
+                    <li>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                            Email support
+                        </p>
+                    </li>
+                    <li>
+                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                            Help center access
+                        </p>
+                    </li>
+                </ul>
+            </p>
+            <div class="row row-cols-1 row-cols-md-4 d-flex justify-content-center mb-3 text-center">
+                @foreach (var price in product.Prices)
+                {
+                    var currencySymbol = CurrencyHelper.GetCurrencySymbol(price.Currency);
+                    var priceInEuros = CurrencyHelper.ConvertCentsToEuros(price.UnitAmount);
+                    var interval = !string.IsNullOrWhiteSpace(price.Interval) ? price.Interval : "one time";
 
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">@interval</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">
-                                @(currencySymbol + priceInEuros)
-                            </h1>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">@interval</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    @(currencySymbol + priceInEuros)
+                                </h1>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
+
+        <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
+            @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
+        </a>
     }
-    
-    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
-        Login
-    </a>
 </div>

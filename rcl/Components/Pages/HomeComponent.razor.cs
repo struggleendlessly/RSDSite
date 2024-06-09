@@ -48,6 +48,8 @@ namespace rcl.Components.Pages
 
         public PageModel PopoversModel { get; set; } = new PageModel();
 
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         DotNetObjectReference<HomeComponent>? dotNetHelper { get; set; }
@@ -77,7 +79,8 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             ServiceItems = serviceItems.Take(4).ToList();

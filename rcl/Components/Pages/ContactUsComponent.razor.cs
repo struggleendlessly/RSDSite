@@ -51,6 +51,7 @@ namespace rcl.Components.Pages
 
         public PageModel Model { get; set; } = new PageModel();
         public PageModel PopoversModel { get; set; } = new PageModel();
+        public PageModel LocalizationModel { get; set; } = new PageModel();
 
         [SupplyParameterFromForm]
         private ContactUsMessageModel Input { get; set; } = new();
@@ -73,7 +74,8 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversDataJsonMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         [JSInvokable]

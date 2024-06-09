@@ -1,5 +1,5 @@
 ﻿<div class="px-2 py-1 text-center container">
-    @if (Model.Data is not null && PopoversModel.Data is not null)
+    @if (Model.Data is not null && PopoversModel.Data is not null && LocalizationModel.Data is not null)
     {
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTitleId)"
@@ -31,7 +31,7 @@
 
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-5">
             <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ContactUsPageUrl)" class="@StaticHtmlStrings.CSSButtonDarkInTheText">
-                Get in touch
+                @LocalizationModel.Data[StaticStrings.Localization_GetInTouch_Key]
             </a>
         </div>
 

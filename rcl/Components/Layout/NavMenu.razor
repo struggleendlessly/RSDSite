@@ -3,25 +3,28 @@
         <header class="p-1 bg-primary text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <div class=" col-3 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        Admin Panel
-                    </div>
+                    @if (LocalizationModel.Data is not null)
+                    {
+                        <div class=" col-3 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            @LocalizationModel.Data[StaticStrings.Localization_AdminPanel_Key]
+                        </div>
 
-                    <div class="text-end">
-                        <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LogoutPageUrl, false)" class="btn btn-outline-light btn-transition mx-3">
-                            Logout
-                        </a>
-
-                        @if (StateManager.CanEditSite())
-                        {
-                            <a href="@StateManager.GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-outline-light btn-transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"></path>
-                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"></path>
-                                </svg>
+                        <div class="text-end">
+                            <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LogoutPageUrl, false)" class="btn btn-outline-light btn-transition mx-3">
+                                @LocalizationModel.Data[StaticStrings.Localization_Logout_Key]
                             </a>
-                        }
-                    </div>
+
+                            @if (StateManager.CanEditSite())
+                            {
+                                <a href="@StateManager.GetPageUrl(StaticRoutesStrings.AdminPageUrl)" class="btn btn-outline-light btn-transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"></path>
+                                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"></path>
+                                    </svg>
+                                </a>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </header>
@@ -33,9 +36,9 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a href="@StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute)" class="navbar-brand">
-                    @if (Model.Data != null)
+                    @if (SettingsModel.Data != null)
                     {
-                        <img src="@Model.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
+                        <img src="@SettingsModel.Data[StaticStrings.AdminPageDataLogoKey]" style="max-height: 50px;" />
                     }
                 </a>
 
@@ -131,7 +134,7 @@
                             {
                                 <li class="nav-item">
                                     <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">
-                                        Pricing
+                                        @LocalizationModel.Data[StaticStrings.Localization_Pricing_Key]
                                     </a>
                                 </li>
                             }

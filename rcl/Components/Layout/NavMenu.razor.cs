@@ -24,7 +24,9 @@ namespace rcl.Components.Layout
         [Inject]
         IPageDataService PageDataService { get; set; }
 
-        public PageModel Model { get; set; } = new PageModel();
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
+        public PageModel SettingsModel { get; set; } = new PageModel();
 
         public PageModel MenuModel { get; set; } = new PageModel();
 
@@ -41,7 +43,8 @@ namespace rcl.Components.Layout
 
             NavigationManager.LocationChanged += OnLocationChanged;
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
 
