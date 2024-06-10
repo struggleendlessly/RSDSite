@@ -45,6 +45,7 @@ namespace shared
         public static string Localization_Admin_Settings_RenameSite_Button_Key = "Admin_Settings_RenameSite_Button";
         public static string Localization_Admin_Settings_RenameSite_Success_Message_Key = "Admin_Settings_RenameSite_Success_Message";
         public static string Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key = "Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message";
+        public static string Localization_Admin_Settings_SiteSubscription_Key = "Admin_Settings_SiteSubscription";
 
         public static string Localization_Admin_Social_Link_Key = "Admin_Social_Link";
 
@@ -65,6 +66,8 @@ namespace shared
         public static string Localization_Admin_CustomDomain_Validation_RecordType_Key = "Admin_CustomDomain_Validation_RecordType";
         public static string Localization_Admin_CustomDomain_Validation_RecordHost_Key = "Admin_CustomDomain_Validation_RecordHost";
         public static string Localization_Admin_CustomDomain_Validation_RecordValue_Key = "Admin_CustomDomain_Validation_RecordValue";
+
+        public static string Localization_Admin_CustomDomain_DomainSubscription_Key = "Admin_CustomDomain_DomainSubscription";
 
         /* ContactUs Page Keys */
 

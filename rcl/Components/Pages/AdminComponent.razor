@@ -443,7 +443,10 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Website subscription
+                                        @LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_SiteSubscription_Key]
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@StaticStrings.Popover_Admin_1_4_Settings">
+                                        </Popover>
                                     </h5>
                                     <p class="card-text">
                                         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
@@ -474,7 +477,7 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            Custom domain subscription
+                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_DomainSubscription_Key]
                                             <Popover PopoversModel="PopoversModel"
                                                      PopoverKey="@StaticStrings.Popover_Admin_1_1_CustomDomain">
                                             </Popover>

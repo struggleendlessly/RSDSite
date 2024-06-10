@@ -85,9 +85,7 @@ namespace web.Endpoints
                         await dbContext.Subscriptions.AddAsync(subscription);
                         await dbContext.SaveChangesAsync();
 
-                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine($"[Stripe] [CheckoutSessionCompleted] Subscription - {subscription.StripeSubscriptionId} has been created.");
-                        Console.ResetColor();
 
                         //if (data._object.client_reference_id == null) // website subscription
                         //{
@@ -228,33 +226,32 @@ namespace web.Endpoints
                     }
                     else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                     {
+                        Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] Event received");
                         var data = JsonSerializer.Deserialize<CustomerSubscriptionCreated.Rootobject>(stripeEvent.Data.ToJson());
                         var subscriptionUpdatedType = data._object._object;// = "subscription";
+                        Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] subscriptionUpdatedType - {subscriptionUpdatedType}");
                         var stripeSubscriptionId = data._object.id;
+                        Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] stripeSubscriptionId - {stripeSubscriptionId}");
                         var stripeCustomer = data._object.customer;
+                        Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] stripeCustomer - {stripeCustomer}");
                         var stripeSubscribedProductId = data._object.items.data[0].plan.product;
+                        Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] stripeSubscribedProductId - {stripeSubscribedProductId}");
 
                         if (subscriptionUpdatedType.Equals("subscription"))
                         {
                             var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscriptionId);
-                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] Subscription - {subscription.StripeSubscriptionId}");
-                            Console.ResetColor();
                             if (subscription is not null)
                             {
                                 var subscriptionStripeInfo = await dbContext.SubscriptionStripeInfos
                                     .Include(x => x.SubscriptionModules)
                                     .FirstOrDefaultAsync(m => m.Code == stripeSubscribedProductId);
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] SubscriptionStripeInfo - {subscriptionStripeInfo.Name}");
-                                Console.ResetColor();
 
                                 subscription.SubscriptionModule = subscriptionStripeInfo.SubscriptionModules.FirstOrDefault();
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] SubscriptionModule - {subscription.SubscriptionModule?.Name}");
-                                Console.ResetColor();
 
                                 await dbContext.SaveChangesAsync();
                             }

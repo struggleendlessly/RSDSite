@@ -147,6 +147,7 @@ namespace shared
         public static string Popover_Admin_1_1_Settings = "Admin_1_1_Settings";
         public static string Popover_Admin_1_2_Settings = "Admin_1_2_Settings";
         public static string Popover_Admin_1_3_Settings = "Admin_1_3_Settings";
+        public static string Popover_Admin_1_4_Settings = "Admin_1_4_Settings";
         public static string Popover_Admin_1_Social_ImageEditor = "Admin_1_Social_ImageEditor";
         public static string Popover_Admin_1_Social_Url = "Admin_1_Social_Url";
         public static string Popover_Admin_1_Social_Card = "Admin_1_Social_Card";
