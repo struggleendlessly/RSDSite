@@ -218,15 +218,6 @@ namespace shared
         public static string ActiveWebsiteSubscription = "ActiveWebsiteSubscription_{0}";
         public static string ActiveCustomDomainSubscription = "ActiveCustomDomainSubscription_{0}";
 
-        /* Alerts Messages */
-        public static string ContactUsFormSubmitted = "Form submitted successfully";
-        public static string AdminCreateOrRenameSiteFormDuplicateSiteName = "The site name is already taken. Please choose a different one";
-        public static string AdminCreateSiteFormSuccessfullyCreated = "The site was successfully created";
-        public static string AdminRenameSiteFormSuccessfullyRenamed = "The site was successfully renamed";
-        public static string AdminAddCustomDomainInProgress = "Your domain is being added, it may take some time";
-        public static string AdminAddCustomDomainSuccess = "Custom domain has been successfully added";
-        public static string AdminAddCustomDomainFailed = "Failed to add custom domain";
-
         /* Azure */
 
         public static string PowerShellAzureAddCustomDomainScript = "azure-add-custom-domain.ps1";

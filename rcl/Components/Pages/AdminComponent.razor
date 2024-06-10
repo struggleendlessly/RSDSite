@@ -497,7 +497,7 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            Custom domain
+                                            @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Header_Key]
                                             <Popover PopoversModel="PopoversModel"
                                                      PopoverKey="@StaticStrings.Popover_Admin_1_2_CustomDomain">
                                             </Popover>
@@ -505,19 +505,21 @@
                                         <p class="card-text mt-3">
                                             @if (!IsCustomDomainEditing && !string.IsNullOrWhiteSpace(CustomDomain))
                                             {
-                                            <p>@CustomDomain</p>
-                                            <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">Edit</button>
+                                                <p>@CustomDomain</p>
+                                                <button @onclick="ToggleCustomDomainEditMode" type="button" class="btn btn-primary btn-sm mt-2">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Button_Edit_Key]
+                                                </button>
                                             }
                                             else
                                             {
-                                            <input @bind="CustomDomain" type="text" class="form-control" />
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
-                                                Save
+                                                <input @bind="CustomDomain" type="text" class="form-control" />
+                                                <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled="@IsCustomDomainSaving">
+                                                    @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Button_Save_Key]
                                                     @if (IsCustomDomainSaving)
                                                     {
-                                                    <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                                                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
                                                     }
-                                            </button>
+                                                </button>
                                             }
                                         </p>
                                         <div class="alert d-none" role="alert" id="@StaticHtmlStrings.AdminSaveCustomDomainAlertId">
@@ -589,18 +591,26 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Popup_Header_Key]
+                    </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p class="text-center">
-                        To add your domain to our site, you need to add the data specified in the "Domain verification" block to your domain provider
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Popup_Text_1_Key]
                     </p>
-                    <h6 class="text-center mt-4">Did you add this data?</h6>
+                    <h6 class="text-center mt-4">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Popup_Text_2_Key]
+                    </h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Popup_Button_No_Key]
+                    </button>
+                    <button @onclick="SaveCustomDomainAsync" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        @LocalizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Form_Popup_Button_Yes_Key]
+                    </button>
                 </div>
             </div>
         </div>

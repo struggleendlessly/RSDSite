@@ -12,18 +12,21 @@ namespace shared.Managers
     {    
         private readonly IStateManager _stateManager;
         private readonly IDomainChecker _domainChecker;
+        private readonly IPageDataService _pageDataService;
         private readonly ApplicationDbContext _dbContext;
         private readonly AzureBlobStorageManager _blobStorageManager;
 
         public CustomDomainService(
             IStateManager stateManager,
             IDomainChecker domainChecker,
+            IPageDataService pageDataService,
             ApplicationDbContext dbContext,
             AzureBlobStorageManager blobStorageManager
             )
         {    
             _stateManager = stateManager;
             _domainChecker = domainChecker;
+            _pageDataService = pageDataService;
             _dbContext = dbContext;
             _blobStorageManager = blobStorageManager;
         }
@@ -65,6 +68,8 @@ namespace shared.Managers
             if (website == null || !website.IsNewDomainInProcess)
                 return string.Empty;
 
+            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+
             var newDomainsBlobName = string.Format(StaticStrings.NewDomainsDataJsonFilePath, DateTime.UtcNow.ToString("MM-dd-yyyy"));
             var jsonContent = await _blobStorageManager.DownloadFile(StaticStrings.NewDomainsContainerName, newDomainsBlobName);
             if (!string.IsNullOrWhiteSpace(jsonContent))
@@ -78,13 +83,13 @@ namespace shared.Managers
                         case nameof(CustomDomainValidationStatus.Verified):
                             website.IsNewDomainInProcess = false;
                             await _dbContext.SaveChangesAsync();
-                            return StaticStrings.AdminAddCustomDomainSuccess;
+                            return localizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Success_Message_Key];
 
                         case nameof(CustomDomainValidationStatus.PendingVerification):
-                            return StaticStrings.AdminAddCustomDomainInProgress;
+                            return localizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_InProgress_Message_Key];
 
                         case nameof(CustomDomainValidationStatus.VerificationFailed):
-                            return StaticStrings.AdminAddCustomDomainFailed;
+                            return localizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Failed_Message_Key];
                     }
                 }
             }
@@ -94,10 +99,10 @@ namespace shared.Managers
             {
                 website.IsNewDomainInProcess = false;
                 await _dbContext.SaveChangesAsync();
-                return StaticStrings.AdminAddCustomDomainSuccess;
+                return localizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Success_Message_Key];
             }
 
-            return StaticStrings.AdminAddCustomDomainFailed;
+            return localizationModel.Data[StaticStrings.Localization_Admin_CustomDomain_Failed_Message_Key];
         }
     }
 }

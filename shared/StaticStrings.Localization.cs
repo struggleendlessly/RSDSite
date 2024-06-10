@@ -40,8 +40,23 @@ namespace shared
         public static string Localization_Admin_Settings_ChangeSite_Button_Key = "Admin_Settings_ChangeSite_Button";
         public static string Localization_Admin_Settings_CreateSite_Key = "Admin_Settings_CreateSite";
         public static string Localization_Admin_Settings_CreateSite_Button_Key = "Admin_Settings_CreateSite_Button";
+        public static string Localization_Admin_Settings_CreateSite_Success_Message_Key = "Admin_Settings_CreateSite_Success_Message";
         public static string Localization_Admin_Settings_RenameSite_Key = "Admin_Settings_RenameSite";
         public static string Localization_Admin_Settings_RenameSite_Button_Key = "Admin_Settings_RenameSite_Button";
+        public static string Localization_Admin_Settings_RenameSite_Success_Message_Key = "Admin_Settings_RenameSite_Success_Message";
+        public static string Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key = "Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message";
+
+        public static string Localization_Admin_CustomDomain_Form_Header_Key = "Admin_CustomDomain_Form_Header";
+        public static string Localization_Admin_CustomDomain_Form_Button_Save_Key = "Admin_CustomDomain_Form_Button_Save";
+        public static string Localization_Admin_CustomDomain_Form_Button_Edit_Key = "Admin_CustomDomain_Form_Button_Edit";
+        public static string Localization_Admin_CustomDomain_Form_Popup_Header_Key = "Admin_CustomDomain_Form_Popup_Header";
+        public static string Localization_Admin_CustomDomain_Form_Popup_Text_1_Key = "Admin_CustomDomain_Form_Popup_Text_1";
+        public static string Localization_Admin_CustomDomain_Form_Popup_Text_2_Key = "Admin_CustomDomain_Form_Popup_Text_2";
+        public static string Localization_Admin_CustomDomain_Form_Popup_Button_Yes_Key = "Admin_CustomDomain_Form_Popup_Button_Yes";
+        public static string Localization_Admin_CustomDomain_Form_Popup_Button_No_Key = "Admin_CustomDomain_Form_Popup_Button_No";
+        public static string Localization_Admin_CustomDomain_InProgress_Message_Key = "Admin_CustomDomain_InProgress_Message";
+        public static string Localization_Admin_CustomDomain_Success_Message_Key = "Admin_CustomDomain_Success_Message";
+        public static string Localization_Admin_CustomDomain_Failed_Message_Key = "Admin_CustomDomain_Failed_Message";
 
         public static string Localization_Admin_CustomDomain_Validation_Title_Key = "Admin_CustomDomain_Validation_Title";
         public static string Localization_Admin_CustomDomain_Validation_Subtitle_Key = "Admin_CustomDomain_Validation_Subtitle";
@@ -61,6 +76,7 @@ namespace shared
         public static string Localization_ContactUs_Form_Phone_Placeholder_Key = "ContactUs_Form_Phone_Placeholder";
         public static string Localization_ContactUs_Form_Details_Label_Key = "ContactUs_Form_Details_Label";
         public static string Localization_ContactUs_Form_Details_Placeholder_Key = "ContactUs_Form_Details_Placeholder";
+        public static string Localization_ContactUs_Form_Success_Message_Key = "ContactUs_Form_Success_Message";
 
         /* Pricing Page Keys */
 

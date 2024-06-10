@@ -111,7 +111,7 @@ namespace rcl.Components.Pages
 
             await ContactUsMessageService.CreateContactUsMessage(message);
 
-            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.ContactUsFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.ContactUsFormSubmitted);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.ContactUsFormAlertId, StaticHtmlStrings.CSSAlertSuccess, LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_Success_Message_Key]);
 
             Input = new ContactUsMessageModel();
         }

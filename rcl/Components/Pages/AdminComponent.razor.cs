@@ -154,7 +154,7 @@ namespace rcl.Components.Pages
             var existingWebsite = await WebsiteService.GetWebsiteByName(CreateSiteModel.Name);
             if (existingWebsite != null)
             {
-                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminCreateOrRenameSiteFormDuplicateSiteName);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key]);
                 return;
             }
 
@@ -167,7 +167,7 @@ namespace rcl.Components.Pages
 
             StateManager.AddUserSite(newWebsite);
 
-            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminCreateSiteFormSuccessfullyCreated);
+            await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.Localization_Admin_Settings_CreateSite_Success_Message_Key);
 
             CreateSiteModel = new CreateSiteModel();
             IsWebsiteCreating = false;
@@ -187,7 +187,7 @@ namespace rcl.Components.Pages
             var existingWebsite = await WebsiteService.GetWebsiteByName(RenameSiteModel.NewName);
             if (existingWebsite != null)
             {
-                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.AdminCreateOrRenameSiteFormDuplicateSiteName);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key);
                 return;
             }
 
@@ -207,7 +207,7 @@ namespace rcl.Components.Pages
             }
             else
             {
-                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.AdminRenameSiteFormSuccessfullyRenamed);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertSuccess, StaticStrings.Localization_Admin_Settings_RenameSite_Success_Message_Key);
                 
                 RenameSiteModel = new RenameSiteModel();
                 IsWebsiteRenaming = false;
