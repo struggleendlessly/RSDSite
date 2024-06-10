@@ -85,6 +85,10 @@ namespace web.Endpoints
                         await dbContext.Subscriptions.AddAsync(subscription);
                         await dbContext.SaveChangesAsync();
 
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"[Stripe] [CheckoutSessionCompleted] Subscription - {subscription.StripeSubscriptionId} has been created.");
+                        Console.ResetColor();
+
                         //if (data._object.client_reference_id == null) // website subscription
                         //{
                         //    var clientReferenceId = data._object.client_reference_id;
@@ -233,13 +237,25 @@ namespace web.Endpoints
                         if (subscriptionUpdatedType.Equals("subscription"))
                         {
                             var subscription = await dbContext.Subscriptions.FirstOrDefaultAsync(s => s.StripeSubscriptionId == stripeSubscriptionId);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] Subscription - {subscription.StripeSubscriptionId}");
+                            Console.ResetColor();
                             if (subscription is not null)
                             {
                                 var subscriptionStripeInfo = await dbContext.SubscriptionStripeInfos
                                     .Include(x => x.SubscriptionModules)
                                     .FirstOrDefaultAsync(m => m.Code == stripeSubscribedProductId);
 
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] SubscriptionStripeInfo - {subscriptionStripeInfo.Name}");
+                                Console.ResetColor();
+
                                 subscription.SubscriptionModule = subscriptionStripeInfo.SubscriptionModules.FirstOrDefault();
+
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine($"[Stripe] [CustomerSubscriptionCreated] SubscriptionModule - {subscription.SubscriptionModule?.Name}");
+                                Console.ResetColor();
+
                                 await dbContext.SaveChangesAsync();
                             }
                         }
