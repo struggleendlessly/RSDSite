@@ -44,6 +44,8 @@ namespace web.Endpoints
 
                     string jsonString = JsonSerializer.Serialize(stripeEvent);
 
+                    Console.WriteLine($"[Stripe] [Root] Event with name - {stripeEvent.Type} received");
+
                     //System.IO.File.WriteAllText(@$"H:\jsonString-{stripeEvent.Type}.json", jsonString);
                     // Handle the event
                     if (stripeEvent.Type == Events.CustomerCreated)
