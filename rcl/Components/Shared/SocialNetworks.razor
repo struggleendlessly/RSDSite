@@ -1,4 +1,4 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0)
+﻿@if (Model.Data is not null && Model.Data.Count > 0 && LocalizationModel.Data is not null)
 {
     @for (int i = 0; i < ServiceItems.Count; i++)
     {
@@ -23,9 +23,8 @@
                             </ImageEditor>
                         </button>
                     </p>
-
-                    <p class="card-text">
-                        Url:
+                    <hr />
+                    <p class="card-text text-center">
                         <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId + serviceKeyIndex)"
                                     EditorType="@(StaticStrings.TextEditorTypeUrl)"
                                     Model="Model"
@@ -34,7 +33,7 @@
                                     PopoversModel="PopoversModel"
                                     PopoverKey="@StaticStrings.Popover_Admin_1_Social_Url">
                             <p>
-                                @Model.Data[serviceUrlKey]
+                                @LocalizationModel.Data[StaticStrings.Localization_Admin_Social_Link_Key]: @Model.Data[serviceUrlKey]
                             </p>
                         </TextEditor>
                     </p>

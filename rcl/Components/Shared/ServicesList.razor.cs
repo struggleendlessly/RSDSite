@@ -44,6 +44,8 @@ namespace rcl.Components.Shared
 
         public PageModel SettingsModel { get; set; } = new PageModel();
 
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         DotNetObjectReference<ServicesList>? dotNetHelper { get; set; }
 
         private bool isAdding = false;
@@ -68,6 +70,7 @@ namespace rcl.Components.Shared
                 .ToDictionary();
 
             SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         public async Task SaveContent(PageModel model)

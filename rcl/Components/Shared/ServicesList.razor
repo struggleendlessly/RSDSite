@@ -1,4 +1,4 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0 && ModelUrls.Data is not null && ModelUrls.Data.Count > 0 && SettingsModel.Data is not null && SettingsModel.Data.Count > 0)
+﻿@if (Model.Data is not null && Model.Data.Count > 0 && ModelUrls.Data is not null && ModelUrls.Data.Count > 0 && SettingsModel.Data is not null && LocalizationModel.Data is not null)
 {
     <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto mt-1">
 
@@ -59,7 +59,9 @@
                                                 Model="ModelUrls"
                                                 FuncSave="SaveUrl"
                                                 Key="@serviceUrlKey">
-                                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p fw-bold">Page url:</p>
+                                        <p class="@StaticHtmlStrings.CSSMainSubTitle_p fw-bold">
+                                            @LocalizationModel.Data[StaticStrings.Localization_Items_Item_Link_Key]:
+                                        </p>
                                         <span class="@StaticHtmlStrings.CSSMainSubTitle_p">
                                             @ModelUrls.Data[serviceUrlKey]
                                         </span>

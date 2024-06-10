@@ -46,6 +46,8 @@ namespace shared
         public static string Localization_Admin_Settings_RenameSite_Success_Message_Key = "Admin_Settings_RenameSite_Success_Message";
         public static string Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key = "Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message";
 
+        public static string Localization_Admin_Social_Link_Key = "Admin_Social_Link";
+
         public static string Localization_Admin_CustomDomain_Form_Header_Key = "Admin_CustomDomain_Form_Header";
         public static string Localization_Admin_CustomDomain_Form_Button_Save_Key = "Admin_CustomDomain_Form_Button_Save";
         public static string Localization_Admin_CustomDomain_Form_Button_Edit_Key = "Admin_CustomDomain_Form_Button_Edit";
@@ -66,6 +68,8 @@ namespace shared
 
         /* ContactUs Page Keys */
 
+        public static string Localization_ContactUs_Map_Coordinates_Key = "ContactUs_Map_Coordinates";
+        public static string Localization_ContactUs_Map_MarkerText_Key = "ContactUs_Map_MarkerText";
         public static string Localization_ContactUs_Form_FirstName_Label_Key = "ContactUs_Form_FirstName_Label";
         public static string Localization_ContactUs_Form_FirstName_Placeholder_Key = "ContactUs_Form_FirstName_Placeholder";
         public static string Localization_ContactUs_Form_LastName_Label_Key = "ContactUs_Form_LastName_Label";
@@ -88,5 +92,9 @@ namespace shared
         public static string Localization_Editor_Button_Save_Key = "Editor_Button_Save";
         public static string Localization_Editor_Button_Cancel_Key = "Editor_Button_Cancel";
         public static string Localization_ImageEditor_Button_Save_Key = "ImageEditor_Button_Save";
+
+        /* Items Page Keys */
+
+        public static string Localization_Items_Item_Link_Key = "Items_Item_Link";
     }
 }

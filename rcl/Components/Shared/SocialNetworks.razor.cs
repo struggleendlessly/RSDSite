@@ -36,6 +36,8 @@ namespace rcl.Components.Shared
 
         public PageModel Model { get; set; } = new PageModel();
 
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         DotNetObjectReference<SocialNetworks>? dotNetHelper { get; set; }
 
         private bool isAdding = false;
@@ -52,6 +54,7 @@ namespace rcl.Components.Shared
         protected override async Task OnInitializedAsync()
         {
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)

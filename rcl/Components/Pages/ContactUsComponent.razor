@@ -126,7 +126,7 @@
                                         Key="@StaticStrings.ContactUsPageDatMapCoordinatesKey"
                                         PopoversModel="PopoversModel"
                                         PopoverKey="@StaticStrings.Popover_ContactUs_1_1_Map">
-                                <p>Map coordinates: @Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]</p>
+                                <p>@LocalizationModel.Data[StaticStrings.Localization_ContactUs_Map_Coordinates_Key]: @Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey]</p>
                             </TextEditor>
 
                             <TextEditor EditorId="@StaticHtmlStrings.HTMLEditorContactUsMapMarkerTextId"
@@ -136,7 +136,7 @@
                                         Key="@StaticStrings.ContactUsPageDataMapMarkerTextKey"
                                         PopoversModel="PopoversModel"
                                         PopoverKey="@StaticStrings.Popover_ContactUs_1_2_Map">
-                                <p>Map marker text: @Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]</p>
+                                <p>@LocalizationModel.Data[StaticStrings.Localization_ContactUs_Map_MarkerText_Key]: @Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]</p>
                             </TextEditor>
                         }
                     </Authorized>
