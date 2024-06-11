@@ -6,44 +6,64 @@
 
 <PageTitle>Register</PageTitle>
 
-<div class="text-center mb-5">
-    <div class="form-signin">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <h1 class="h3 mb-3 fw-normal">Welcome to MEP</h1>
-            <p>Fill out the form to get started</p>
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating">
-                <InputText @bind-Value="Input.Email" type="email" class="form-control" id="registerEmail" placeholder="name@example.com" aria-label="name@example.com" required />
-                <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
-                <label for="registerEmail">Your email</label>
-            </div>
-            <div class="form-floating">
-                <InputText @bind-Value="Input.Password" type="password" class="form-control" id="registerPassword" placeholder="Password" aria-label="Password" required />
-                <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
-                <label for="registerPassword">Password</label>
-            </div>
-            <div class="form-floating">
-                <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" required />
-                <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
-                <label for="registerConfirmPassword">Confirm password</label>
-            </div>
-            <div class="form-floating">
-                <InputText @bind-Value="Input.SiteName" type="text" class="form-control" id="registerSiteName" placeholder="mywebsite" aria-label="mywebsite" required />
-                <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
-                <label for="registerSiteName">Your site name</label>
-            </div>
-            <button class="w-100 btn btn-lg btn-dark" type="submit" disabled="@IsRegistering">
-                Sign up
-                @if (IsRegistering)
-                {
-                    <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
-                }
-            </button>
-            <div class="text-center mt-3">
-                <p>Already have an account? <a class="link text-decoration-none" href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)">Log in here</a></p>
-            </div>
-        </EditForm>
+@if (LocalizationModel.Data is not null)
+{
+    <div class="text-center mb-5">
+        <div class="form-signin">
+            <StatusMessage Message="@Message" />
+            <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                <h1 class="h3 mb-3 fw-normal">
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Title_Key]
+                </h1>
+                <p>
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Subtitle_Key]
+                </p>
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.Email" type="email" class="form-control" id="registerEmail" placeholder="name@example.com" aria-label="name@example.com" required />
+                    <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+                    <label for="registerEmail">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Email_Placeholder_Key]
+                    </label>
+                </div>
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.Password" type="password" class="form-control" id="registerPassword" placeholder="Password" aria-label="Password" required />
+                    <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
+                    <label for="registerPassword">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Password_Placeholder_Key]
+                    </label>
+                </div>
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" required />
+                    <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
+                    <label for="registerConfirmPassword">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_ConfirmPassword_Placeholder_Key]
+                    </label>
+                </div>
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.SiteName" type="text" class="form-control" id="registerSiteName" placeholder="mywebsite" aria-label="mywebsite" required />
+                    <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
+                    <label for="registerSiteName">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_SiteName_Placeholder_Key]
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-dark" type="submit" disabled="@IsRegistering">
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Button_SignUp_Key]
+                    @if (IsRegistering)
+                    {
+                        <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
+                    }
+                </button>
+                <div class="text-center mt-3">
+                    <p>
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Register_AlreadyHaveAccount_Key] 
+                        <a class="link text-decoration-none" href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)">
+                            @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Link_Login_Key]
+                        </a>
+                    </p>
+                </div>
+            </EditForm>
+        </div>
     </div>
-</div>
+}

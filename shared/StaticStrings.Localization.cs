@@ -99,5 +99,33 @@ namespace shared
         /* Items Page Keys */
 
         public static string Localization_Items_Item_Link_Key = "Items_Item_Link";
+
+        /* Account Page Keys */
+
+        public static string Localization_Account_Login_Title_Key = "Account_Login_Title";
+        public static string Localization_Account_Login_Subtitle_Key = "Account_Login_Subtitle";
+        public static string Localization_Account_Login_Form_Email_Placeholder_Key = "Account_Login_Form_Email_Placeholder";
+        public static string Localization_Account_Login_Form_Password_Placeholder_Key = "Account_Login_Form_Password_Placeholder";
+        public static string Localization_Account_Login_Form_RememberMe_Key = "Account_Login_Form_RememberMe";
+        public static string Localization_Account_Login_Form_Button_SignIn_Key = "Account_Login_Form_Button_SignIn";
+        public static string Localization_Account_Login_DontHaveAccount_Key = "Account_Login_DontHaveAccount";
+        public static string Localization_Account_Login_Link_SignUp_Key = "Account_Login_Link_SignUp";
+        public static string Localization_Account_Login_Link_ForgotPassword_Key = "Account_Login_Link_ForgotPassword";
+
+        public static string Localization_Account_Register_Title_Key = "Account_Register_Title";
+        public static string Localization_Account_Register_Subtitle_Key = "Account_Register_Subtitle";
+        public static string Localization_Account_Register_Form_Email_Placeholder_Key = "Account_Register_Form_Email_Placeholder";
+        public static string Localization_Account_Register_Form_Password_Placeholder_Key = "Account_Register_Form_Password_Placeholder";
+        public static string Localization_Account_Register_Form_ConfirmPassword_Placeholder_Key = "Account_Register_Form_ConfirmPassword_Placeholder";
+        public static string Localization_Account_Register_Form_SiteName_Placeholder_Key = "Account_Register_Form_SiteName_Placeholder";
+        public static string Localization_Account_Register_Form_Button_SignUp_Key = "Account_Register_Form_Button_SignUp";
+        public static string Localization_Account_Register_AlreadyHaveAccount_Key = "Account_Register_AlreadyHaveAccount";
+        public static string Localization_Account_Register_Link_Login_Key = "Account_Register_Link_Login";
+
+        public static string Localization_Account_ForgotPassword_Title_Key = "Account_ForgotPassword_Title";
+        public static string Localization_Account_ForgotPassword_Subtitle_Key = "Account_ForgotPassword_Subtitle";
+        public static string Localization_Account_ForgotPassword_Form_Email_Placeholder_Key = "Account_ForgotPassword_Form_Email_Placeholder";
+        public static string Localization_Account_ForgotPassword_Form_Button_Submit_Key = "Account_ForgotPassword_Form_Button_Submit";
+        public static string Localization_Account_ForgotPassword_Link_Login_Key = "Account_ForgotPassword_Link_Login";
     }
 }

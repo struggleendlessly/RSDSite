@@ -4,83 +4,86 @@
 
 <PageTitle>Log in </PageTitle>
 
-<div class="text-center mb-5">
-    <div class="form-signin">
-        <StatusMessage Message="@errorMessage" />
-        <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
-            <h1 class="@StaticHtmlStrings.CSSMainTitle_h2">
-                Welcome back
-            </h1>
+@if (LocalizationModel.Data is not null)
+{
+    <div class="text-center mb-5">
+        <div class="form-signin">
+            <StatusMessage Message="@errorMessage" />
+            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+                <h1 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Title_Key]
+                </h1>
 
-            <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
-                Login to manage your account
-            </p>
-
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-
-            <div class="form-floating">
-                <InputText @bind-Value="Input.Email"
-                           type="email"
-                           class="form-control"
-                           id="loginEmail"
-                           placeholder="name@example.com"
-                           aria-label="name@example.com"
-                           required />
-
-                <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
-
-                <label for="loginEmail">
-                    Your email
-                </label>
-            </div>
-
-            <div class="form-floating">
-                <InputText @bind-Value="Input.Password"
-                           type="password"
-                           class="form-control"
-                           id="loginPassword"
-                           placeholder="Password"
-                           aria-label="Password"
-                           required />
-
-                <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
-
-                <label for="loginPassword">
-                    Password
-                </label>
-            </div>
-
-            <div class="checkbox mb-3 mt-3">
-                <label>
-                    <InputCheckbox @bind-Value="Input.RememberMe"
-                                   type="checkbox"
-                                   id="loginRememberMe"
-                                   class="form-check-input" />
-                    Remember me
-                </label>
-            </div>
-
-            <button class="w-100 btn btn-lg btn btn-dark text-white px-4 gap-3" type="submit">
-                Sign in
-            </button>
-
-            <div class="text-center mt-3">
-                <p>
-                    Don't have an account yet?
-                    <a class="link text-decoration-none"
-                       href="@(NavigationManager.GetUriWithQueryParameters(StateManager.GetPageUrl(StaticRoutesStrings.RegisterPageUrl, false), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">
-                        Sign up here
-                    </a>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Subtitle_Key]
                 </p>
-            </div>
 
-            <div class="text-center mt-3">
-                <a class="link text-decoration-none"
-                   href="@StateManager.GetPageUrl(StaticRoutesStrings.ForgotPasswordPageUrl, false)">
-                    Forgot Password?
-                </a>
-            </div>
-        </EditForm>
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.Email"
+                               type="email"
+                               class="form-control"
+                               id="loginEmail"
+                               placeholder="name@example.com"
+                               aria-label="name@example.com"
+                               required />
+
+                    <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
+
+                    <label for="loginEmail">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Form_Email_Placeholder_Key]
+                    </label>
+                </div>
+
+                <div class="form-floating">
+                    <InputText @bind-Value="Input.Password"
+                               type="password"
+                               class="form-control"
+                               id="loginPassword"
+                               placeholder="Password"
+                               aria-label="Password"
+                               required />
+
+                    <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
+
+                    <label for="loginPassword">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Form_Password_Placeholder_Key]
+                    </label>
+                </div>
+
+                <div class="checkbox mb-3 mt-3">
+                    <label>
+                        <InputCheckbox @bind-Value="Input.RememberMe"
+                                       type="checkbox"
+                                       id="loginRememberMe"
+                                       class="form-check-input" />
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Form_RememberMe_Key]
+                    </label>
+                </div>
+
+                <button class="w-100 btn btn-lg btn btn-dark text-white px-4 gap-3" type="submit">
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Form_Button_SignIn_Key]
+                </button>
+
+                <div class="text-center mt-3">
+                    <p>
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Login_DontHaveAccount_Key]
+                        <a class="link text-decoration-none"
+                           href="@(NavigationManager.GetUriWithQueryParameters(StateManager.GetPageUrl(StaticRoutesStrings.RegisterPageUrl, false), new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">
+                            @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Link_SignUp_Key]
+                        </a>
+                    </p>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a class="link text-decoration-none"
+                       href="@StateManager.GetPageUrl(StaticRoutesStrings.ForgotPasswordPageUrl, false)">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Login_Link_ForgotPassword_Key]
+                    </a>
+                </div>
+            </EditForm>
+        </div>
     </div>
-</div>
+}

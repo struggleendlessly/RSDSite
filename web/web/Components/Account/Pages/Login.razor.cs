@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Authentication;
+
 using System.ComponentModel.DataAnnotations;
-using shared.Data.Entities;
+
+using shared;
+using shared.Models;
 using shared.Interfaces;
+using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
 {
@@ -31,6 +35,9 @@ namespace web.Components.Account.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         private string? errorMessage;
 
         [CascadingParameter]
@@ -42,6 +49,8 @@ namespace web.Components.Account.Pages
         [SupplyParameterFromQuery]
         private string? ReturnUrl { get; set; }
 
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         protected override async Task OnInitializedAsync()
         {
             if (HttpMethods.IsGet(HttpContext.Request.Method))
@@ -49,6 +58,8 @@ namespace web.Components.Account.Pages
                 // Clear the existing external cookie to ensure a clean login process
                 await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             }
+
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         public async Task LoginUser()

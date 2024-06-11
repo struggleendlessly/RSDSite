@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Components.Forms;
 
 using shared;
+using shared.Models;
 using shared.Interfaces;
 using shared.Data.Entities;
 
@@ -48,6 +49,9 @@ namespace web.Components.Account.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         private IEnumerable<IdentityError>? identityErrors;
 
         [SupplyParameterFromForm]
@@ -59,6 +63,13 @@ namespace web.Components.Account.Pages
         private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
         public bool IsRegistering { get; set; } = false;
+
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
+        protected override async Task OnInitializedAsync()
+        {
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+        }
 
         public async Task RegisterUser(EditContext editContext)
         {
