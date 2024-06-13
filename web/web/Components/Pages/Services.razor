@@ -9,11 +9,16 @@
 
 @if (GetPageType() == shared.Enums.ServicesPageType.Services)
 {
-    <ServicesComponent PageType="shared.Enums.ServicesPageType.Services">
-    </ServicesComponent>
+        <CascadingValue Value="theme">
+            <ServicesComponent PageType="shared.Enums.ServicesPageType.Services">
+            </ServicesComponent>
+    </CascadingValue>
+
 }
 else
 {
-    <ServicesComponent PageType="shared.Enums.ServicesPageType.Portfolio">
-    </ServicesComponent>
+           <CascadingValue Value="theme">
+            <ServicesComponent PageType="shared.Enums.ServicesPageType.Services">
+            </ServicesComponent>
+    </CascadingValue>
 }

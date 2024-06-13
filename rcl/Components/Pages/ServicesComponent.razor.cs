@@ -15,6 +15,9 @@ namespace rcl.Components.Pages
 {
     public partial class ServicesComponent : IDisposable
     {
+        [CascadingParameter]
+        protected ServicesPageType ThemeInfo { get; set; }
+
         [Parameter]
         public ServicesPageType PageType { get; set; }
 

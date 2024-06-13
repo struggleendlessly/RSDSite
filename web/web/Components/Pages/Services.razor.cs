@@ -2,6 +2,7 @@
 using shared.Enums;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 
 namespace web.Components.Pages
 {
@@ -18,6 +19,7 @@ namespace web.Components.Pages
 
         public ServicesPageType PageType { get; set; }
 
+        private ServicesPageType theme;
         protected override void OnInitialized()
         {
 
@@ -28,16 +30,21 @@ namespace web.Components.Pages
         {
             var uri = new Uri(NavigationManager.Uri);
             var pageName = uri.Segments[3];
-
+            var res = ServicesPageType.Services;
             switch (pageName)
             {
                 case StaticRoutesStrings.ItemsPageUrl:
-                    return ServicesPageType.Services;
+                    res=  ServicesPageType.Services;
+                    break;
                 case StaticRoutesStrings.PortfolioPageUrl:
-                    return ServicesPageType.Portfolio;
+                    res=  ServicesPageType.Portfolio;
+                    break;
                 default:
-                    return ServicesPageType.Services;
+                    res =  ServicesPageType.Services;
+                    break;
             }
+            theme = res;
+            return res;
         }
     }
 }
