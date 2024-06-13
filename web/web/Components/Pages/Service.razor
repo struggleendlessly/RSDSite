@@ -3,7 +3,11 @@
 
 @attribute [Route(StaticRoutesStrings.ItemPageRouteWithLang)]
 @attribute [Route(StaticRoutesStrings.ItemPageRouteWithSitenameAndLang)]
+@attribute [Route(StaticRoutesStrings.PortfolioItemPageRouteWithSitenameAndLang)]
 
 @rendermode InteractiveServer
 
-<ServiceComponent UrlKey="@UrlKey"></ServiceComponent>
+<ServiceComponent 
+    PageType="PageType" 
+    UrlKey="@UrlKey">
+</ServiceComponent>

@@ -17,6 +17,8 @@ namespace shared
         public static string AdminPageSettingsDataJsonFilePath = "{0}/data/settings.json";
         public static string AdminPageSocialNetworksDataJsonFilePath = "{0}/data/social-networks.json";
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
+        public static string PortfolioPageDataJsonFilePath = "{0}/data/portfolio.json";
+        public static string PortfolioPageServicesListDataJsonFilePath = "{0}/data/portfolio-list.json";
 
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
         public static string SitemapDataXmlFilePath = "sitemap.xml";
@@ -85,6 +87,7 @@ namespace shared
         public static string AdminPageSettingsMenuDataAboutUsKey = "AboutUsPageText";
         public static string AdminPageSettingsMenuDataContactUsKey = "ContactUsPageText";
         public static string AdminPageSettingsMenuDataServicesKey = "ServicesPageText";
+        public static string AdminPageSettingsMenuDataPortfolioKey = "PortfolioPageText";
 
         /* Popovers Keys */
 
@@ -164,6 +167,8 @@ namespace shared
         public static string TextKeyEnding = "_Text";
         public static string ImageKeyEnding = "_Image";
         public static string LinkKeyEnding = "_Link";
+
+        public static string PortfolioPageKeyEnding = "_Portfolio";
 
         /* Editor Content Formats */
 

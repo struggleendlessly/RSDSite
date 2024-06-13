@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
+using shared.Enums;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
@@ -14,6 +15,9 @@ namespace rcl.Components.Pages
 {
     public partial class ServiceComponent
     {
+        [Parameter]
+        public ServicesPageType PageType { get; set; }
+
         [Inject]
         IJSRuntime JS { get; set; }
 
@@ -51,6 +55,9 @@ namespace rcl.Components.Pages
 
         DotNetObjectReference<ServiceComponent>? dotNetHelper { get; set; }
 
+        public string ServicePageKeyEnding = string.Empty;
+        public string ServicePageServicesListDataJsonFilePath { get; set; } = string.Empty;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -64,8 +71,9 @@ namespace rcl.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             await CheckSubscriptionStatus();
+            SetJSONPaths();
 
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, ServicePageServicesListDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
 
             var keyValuePairUrl = ServiceItems.SelectMany(x => x.LongDesc).FirstOrDefault(x => x.Value == UrlKey);
@@ -99,7 +107,7 @@ namespace rcl.Components.Pages
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, ServicePageServicesListDataJsonFilePath);
         }
 
         [JSInvokable]
@@ -124,6 +132,20 @@ namespace rcl.Components.Pages
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
                 }
+            }
+        }
+
+        public void SetJSONPaths()
+        {
+            if (PageType == ServicesPageType.Services)
+            {
+                ServicePageKeyEnding = string.Empty;
+                ServicePageServicesListDataJsonFilePath = StaticStrings.ServicesPageServicesListDataJsonFilePath;
+            }
+            else if (PageType == ServicesPageType.Portfolio)
+            {
+                ServicePageKeyEnding = StaticStrings.PortfolioPageKeyEnding;
+                ServicePageServicesListDataJsonFilePath = StaticStrings.PortfolioPageServicesListDataJsonFilePath;
             }
         }
 

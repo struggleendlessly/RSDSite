@@ -14,13 +14,15 @@ namespace shared
         public const string ContactUsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/contact-us";
         public const string ItemsPageRouteWithLang = "/{Lang}/items";
         public const string ItemsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/items";
-        public const string ItemPageRouteWithLang = "/{Lang}/item/{UrlKey}";
-        public const string ItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/item/{UrlKey}";
+        public const string ItemPageRouteWithLang = "/{Lang}/items/{UrlKey}";
+        public const string ItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/items/{UrlKey}";
         public const string PricingPageRouteWithLang = "/{Lang}/pricing";
         public const string PricingPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/pricing";
         public const string AdminPageRouteWithLang = "/{Lang}/admin";
         public const string AdminPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/admin";
         public const string SubscriptionErrorPageRoute = "/{SiteName}/{Lang}/subscription-error";
+        public const string PortfolioPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/portfolio";
+        public const string PortfolioItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/portfolio/{UrlKey}";
 
         public const string LoginPageRoute = "/{Lang}/account/login";
         public const string RegisterPageRoute = "/{Lang}/account/register";
@@ -39,6 +41,7 @@ namespace shared
         public const string ItemPageUrl = "item";
         public const string PricingPageUrl = "pricing";
         public const string AdminPageUrl = "admin";
+        public const string PortfolioPageUrl = "portfolio";
 
         public const string SubscriptionErrorUrl = "subscription-error";
 

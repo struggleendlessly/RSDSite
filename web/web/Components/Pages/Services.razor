@@ -3,7 +3,17 @@
 
 @attribute [Route(StaticRoutesStrings.ItemsPageRouteWithLang)]
 @attribute [Route(StaticRoutesStrings.ItemsPageRouteWithSitenameAndLang)]
+@attribute [Route(StaticRoutesStrings.PortfolioPageRouteWithSitenameAndLang)]
 
 @rendermode InteractiveServer
 
-<ServicesComponent></ServicesComponent>
+@if (GetPageType() == shared.Enums.ServicesPageType.Services)
+{
+    <ServicesComponent PageType="shared.Enums.ServicesPageType.Services">
+    </ServicesComponent>
+}
+else
+{
+    <ServicesComponent PageType="shared.Enums.ServicesPageType.Portfolio">
+    </ServicesComponent>
+}

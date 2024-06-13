@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
+using shared.Enums;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
@@ -14,6 +15,9 @@ namespace rcl.Components.Pages
 {
     public partial class ServicesComponent : IDisposable
     {
+        [Parameter]
+        public ServicesPageType PageType { get; set; }
+
         [Inject]
         IJSRuntime JS { get; set; }
 
@@ -46,6 +50,10 @@ namespace rcl.Components.Pages
 
         DotNetObjectReference<ServicesComponent>? dotNetHelper { get; set; }
 
+        public string ServicesPageKeyEnding = string.Empty;
+        public string ServicesPageDataJsonFilePath {  get; set; } = string.Empty;
+        public string ServicesPageServicesListDataJsonFilePath { get; set; } = string.Empty;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -59,10 +67,18 @@ namespace rcl.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             await CheckSubscriptionStatus();
+            SetJSONPaths();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageServicesListDataJsonFilePath);
+
+            StateHasChanged();
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            StateHasChanged();
         }
 
         [JSInvokable]
@@ -79,7 +95,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey, StaticStrings.ServicesPageDataJsonFilePath);
+            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
         }
 
         public async Task CheckSubscriptionStatus()
@@ -92,6 +108,22 @@ namespace rcl.Components.Pages
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
                 }
+            }
+        }
+
+        public void SetJSONPaths()
+        {
+            if (PageType == ServicesPageType.Services)
+            {
+                ServicesPageKeyEnding = string.Empty;
+                ServicesPageDataJsonFilePath = StaticStrings.ServicesPageDataJsonFilePath;
+                ServicesPageServicesListDataJsonFilePath = StaticStrings.ServicesPageServicesListDataJsonFilePath;
+            }
+            else if (PageType == ServicesPageType.Portfolio)
+            {
+                ServicesPageKeyEnding = StaticStrings.PortfolioPageKeyEnding;
+                ServicesPageDataJsonFilePath = StaticStrings.PortfolioPageDataJsonFilePath;
+                ServicesPageServicesListDataJsonFilePath = StaticStrings.PortfolioPageServicesListDataJsonFilePath;
             }
         }
 
