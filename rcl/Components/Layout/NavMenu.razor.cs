@@ -34,13 +34,19 @@ namespace rcl.Components.Layout
 
         public PageModel PortfolioItemsModel { get; set; } = new PageModel();
 
+        public PageModel DocumentsItemsModel { get; set; } = new PageModel();
+
         public PageModel ServiceItemsUrlsModel { get; set; } = new PageModel();
 
         public PageModel PortfolioItemsUrlsModel { get; set; } = new PageModel();
 
+        public PageModel DocumentsItemsUrlsModel { get; set; } = new PageModel();
+
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
         public List<ServiceItem> PortfolioServiceItems { get; set; } = new List<ServiceItem>();
+
+        public List<ServiceItem> DocumentsServiceItems { get; set; } = new List<ServiceItem>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -67,10 +73,20 @@ namespace rcl.Components.Layout
                 PortfolioServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
                 
                 PortfolioItemsModel.Data = PortfolioServiceItems
-                .SelectMany(x => x.ShortDesc)
-                .ToDictionary();
+                    .SelectMany(x => x.ShortDesc)
+                    .ToDictionary();
 
                 PortfolioItemsUrlsModel.Data = PortfolioServiceItems
+                    .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
+                    .ToDictionary();
+
+                DocumentsServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.DocumentsPageKeyEnding, StaticStrings.DocumentsPageServicesListDataJsonFilePath);
+
+                DocumentsItemsModel.Data = DocumentsServiceItems
+                    .SelectMany(x => x.ShortDesc)
+                    .ToDictionary();
+
+                DocumentsItemsUrlsModel.Data = DocumentsServiceItems
                     .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                     .ToDictionary();
             }

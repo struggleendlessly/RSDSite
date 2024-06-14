@@ -5,6 +5,7 @@ namespace shared.Enums
     public enum ServicesPageType
     {
         Services,
-        Portfolio
+        Portfolio,
+        Documents
     }
 }

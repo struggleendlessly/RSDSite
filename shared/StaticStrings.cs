@@ -20,6 +20,9 @@ namespace shared
         public static string PortfolioPageDataJsonFilePath = "{0}/data/portfolio.json";
         public static string PortfolioPageServicesListDataJsonFilePath = "{0}/data/portfolio-list.json";
         public static string PortfolioPageFAQListDataJsonFilePath = "{0}/data/portfolio-faq-list.json";
+        public static string DocumentsPageDataJsonFilePath = "{0}/data/documents.json";
+        public static string DocumentsPageServicesListDataJsonFilePath = "{0}/data/documents-list.json";
+        public static string DocumentsPageFAQListDataJsonFilePath = "{0}/data/documents-faq-list.json";
 
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
         public static string SitemapDataXmlFilePath = "sitemap.xml";
@@ -89,6 +92,7 @@ namespace shared
         public static string AdminPageSettingsMenuDataContactUsKey = "ContactUsPageText";
         public static string AdminPageSettingsMenuDataServicesKey = "ServicesPageText";
         public static string AdminPageSettingsMenuDataPortfolioKey = "PortfolioPageText";
+        public static string AdminPageSettingsMenuDataDocumentsKey = "DocumentsPageText";
 
         /* Popovers Keys */
 
@@ -170,6 +174,7 @@ namespace shared
         public static string LinkKeyEnding = "_Link";
 
         public static string PortfolioPageKeyEnding = "_Portfolio";
+        public static string DocumentsPageKeyEnding = "_Documents";
 
         /* Editor Content Formats */
 

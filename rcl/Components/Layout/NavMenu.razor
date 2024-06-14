@@ -84,6 +84,16 @@
                                     PageUrl="@StaticRoutesStrings.PortfolioPageUrl">
                                 </NavMenuDropdown>
 
+                                <!-- Documents menu item  -->
+                                <NavMenuDropdown
+                                    ServiceItems="DocumentsServiceItems"
+                                    ServiceItemsModel="DocumentsItemsModel"
+                                    ServiceItemsUrlsModel="DocumentsItemsUrlsModel"
+                                    MenuItemText="@MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataDocumentsKey]"
+                                    MenuItemClass="@HighlightActiveMenuItem(StaticRoutesStrings.DocumentsPageUrl)"
+                                    PageUrl="@StaticRoutesStrings.DocumentsPageUrl">
+                                </NavMenuDropdown>
+
                                 <!-- Pricing menu item  -->
                                 <li class="nav-item">
                                     <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">

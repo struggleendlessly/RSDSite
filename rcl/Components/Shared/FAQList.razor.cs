@@ -171,6 +171,11 @@ namespace rcl.Components.Shared
                 FAQListKeyEnding = StaticStrings.PortfolioPageKeyEnding;
                 FAQListDataJsonFilePath = StaticStrings.PortfolioPageFAQListDataJsonFilePath;
             }
+            else if (PageType == ServicesPageType.Documents)
+            {
+                FAQListKeyEnding = StaticStrings.DocumentsPageKeyEnding;
+                FAQListDataJsonFilePath = StaticStrings.DocumentsPageFAQListDataJsonFilePath;
+            }
         }
 
         public void Dispose()

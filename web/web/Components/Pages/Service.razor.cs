@@ -34,6 +34,9 @@ namespace web.Components.Pages
                 case StaticRoutesStrings.PortfolioPageUrl:
                     PageType = ServicesPageType.Portfolio;
                     break;
+                case StaticRoutesStrings.DocumentsPageUrl:
+                    PageType = ServicesPageType.Documents;
+                    break;
                 default:
                     PageType = ServicesPageType.Services;
                     break;

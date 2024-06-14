@@ -147,6 +147,11 @@ namespace rcl.Components.Pages
                 ServicePageKeyEnding = StaticStrings.PortfolioPageKeyEnding;
                 ServicePageServicesListDataJsonFilePath = StaticStrings.PortfolioPageServicesListDataJsonFilePath;
             }
+            else if (PageType == ServicesPageType.Documents)
+            {
+                ServicePageKeyEnding = StaticStrings.DocumentsPageKeyEnding;
+                ServicePageServicesListDataJsonFilePath = StaticStrings.DocumentsPageServicesListDataJsonFilePath;
+            }
         }
 
         public void Dispose()

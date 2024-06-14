@@ -112,6 +112,10 @@
                             {
                                 url = StateManager.GetPageUrl($"{StaticRoutesStrings.PortfolioPageUrl}/{serviceUrlValue}");
                             }
+                            else if (PageType == ServicesPageType.Documents)
+                            {
+                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.DocumentsPageUrl}/{serviceUrlValue}");
+                            }
                         }
                         <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@url">
                             @((MarkupString)serviceButtonTextValue)
