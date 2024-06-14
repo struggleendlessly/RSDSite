@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
 
 using shared;
+using shared.Enums;
 using shared.Models;
 using shared.Managers;
 using shared.Extensions;
+using shared.Interfaces;
 
 using System.Text.Json;
-using shared.Interfaces;
 
 namespace rcl.Components.Shared
 {
@@ -19,6 +20,9 @@ namespace rcl.Components.Shared
 
         [Parameter]
         public string? PopoverKey { get; set; } = null;
+
+        [Parameter]
+        public ServicesPageType PageType { get; set; }
 
         [Inject]
         IJSRuntime JS { get; set; }
@@ -50,6 +54,9 @@ namespace rcl.Components.Shared
 
         private bool isAdding = false;
 
+        public string ServicesListKeyEnding = string.Empty;
+        public string ServicesListDataJsonFilePath { get; set; } = string.Empty;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -61,6 +68,8 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            SetJSONPaths();
+
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
@@ -86,7 +95,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
         }
 
         public async Task SaveUrl(PageModel model)
@@ -102,7 +111,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
             StateHasChanged();
         }
 
@@ -122,7 +131,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
                 }
             }
         }
@@ -168,7 +177,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
 
             await Task.Delay(1000);
 
@@ -185,6 +194,20 @@ namespace rcl.Components.Shared
 
             using (MemoryStream stream = new MemoryStream(bytes))
             return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+        }
+
+        public void SetJSONPaths()
+        {
+            if (PageType == ServicesPageType.Services)
+            {
+                ServicesListKeyEnding = string.Empty;
+                ServicesListDataJsonFilePath = StaticStrings.ServicesPageServicesListDataJsonFilePath;
+            }
+            else if (PageType == ServicesPageType.Portfolio)
+            {
+                ServicesListKeyEnding = StaticStrings.PortfolioPageKeyEnding;
+                ServicesListDataJsonFilePath = StaticStrings.PortfolioPageServicesListDataJsonFilePath;
+            }
         }
 
         public void Dispose()

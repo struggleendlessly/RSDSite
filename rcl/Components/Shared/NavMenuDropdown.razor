@@ -1,0 +1,70 @@
+﻿@if (ServiceItems.Count == 0)
+{
+    <li class="nav-item">
+        <a href="@StateManager.GetPageUrl(PageUrl)" class="nav-link @MenuItemClass">
+            @((MarkupString)MenuItemText)
+        </a>
+    </li>
+}
+else if (ServiceItems.Count <= 9)
+{
+    <li class="nav-item dropdown">
+        <a href="@StateManager.GetPageUrl(PageUrl)" class="nav-link d-inline-block @MenuItemClass">
+            @((MarkupString)MenuItemText)
+        </a>
+        <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+        <ul class="dropdown-menu">
+            @for (int i = 0; i < ServiceItems.Count; i++)
+            {
+                var serviceKeyIndex = i * 3;
+                var serviceKey = ServiceItemsModel.Data.ElementAt(serviceKeyIndex).Value;
+                var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+                var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
+                var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
+                var serviceFullUrl = StateManager.GetPageUrl(PageUrl + "/" + serviceUrlValue);
+
+                <li>
+                    <a class="dropdown-item" href="@serviceFullUrl">
+                        @ServiceItemsModel.Data[serviceTitleKey]
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+}
+else
+{
+    <li class="nav-item dropdown">
+        <a href="@StateManager.GetPageUrl(PageUrl)" class="nav-link d-inline-block @MenuItemClass">
+            @((MarkupString)MenuItemText)
+        </a>
+        <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+        <div class="dropdown-menu dropdown-menu-multi-column">
+            @{
+                int itemsPerColumn = 6;
+                int numberOfColumns = (int)Math.Ceiling((double)ServiceItems.Count / itemsPerColumn);
+
+                for (int column = 0; column < numberOfColumns; column++)
+                {
+                    <ul>
+                        @for (int i = column * itemsPerColumn; i < (column + 1) * itemsPerColumn && i < ServiceItems.Count; i++)
+                        {
+                            var serviceKeyIndex = i * 3;
+                            var serviceKey = ServiceItemsModel.Data.ElementAt(serviceKeyIndex).Value;
+                            var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+                            var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
+                            var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
+                            var serviceFullUrl = StateManager.GetPageUrl(PageUrl + "/" + serviceUrlValue);
+
+                            <li>
+                                <a class="dropdown-item" href="@serviceFullUrl">
+                                    @ServiceItemsModel.Data[serviceTitleKey]
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </li>
+}

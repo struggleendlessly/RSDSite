@@ -19,6 +19,7 @@ namespace shared
         public static string AdminPageSettingsMenuDataJsonFilePath = "{0}/data/settings-menu.json";
         public static string PortfolioPageDataJsonFilePath = "{0}/data/portfolio.json";
         public static string PortfolioPageServicesListDataJsonFilePath = "{0}/data/portfolio-list.json";
+        public static string PortfolioPageFAQListDataJsonFilePath = "{0}/data/portfolio-faq-list.json";
 
         public static string PopoversDataJsonFilePath = "{0}/popovers.json";
         public static string SitemapDataXmlFilePath = "sitemap.xml";

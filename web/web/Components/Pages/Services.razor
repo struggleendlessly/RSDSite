@@ -1,19 +1,13 @@
-﻿@using rcl.Components.Pages
-@using shared
+﻿@using shared
+@using shared.Enums
+
+@using rcl.Components.Pages
 
 @attribute [Route(StaticRoutesStrings.ItemsPageRouteWithLang)]
 @attribute [Route(StaticRoutesStrings.ItemsPageRouteWithSitenameAndLang)]
-@attribute [Route(StaticRoutesStrings.PortfolioPageRouteWithSitenameAndLang)]
 
 @rendermode InteractiveServer
 
-@if (GetPageType() == shared.Enums.ServicesPageType.Services)
-{
-    <ServicesComponent PageType="shared.Enums.ServicesPageType.Services">
-    </ServicesComponent>
-}
-else
-{
-    <ServicesComponent PageType="shared.Enums.ServicesPageType.Portfolio">
-    </ServicesComponent>
-}
+<ServicesComponent 
+    PageType="ServicesPageType.Services">
+</ServicesComponent>

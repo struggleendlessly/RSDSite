@@ -1,7 +1,6 @@
 ﻿<div class="px-2 py-1 text-center container">
     @if (Model.Data is not null && PopoversModel.Data is not null)
     {
-        var a = Model.Data;
         <!-- CSSMainTitle_h1 -->
         <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesTitleId)"
                     EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
@@ -14,8 +13,6 @@
                 @((MarkupString)Model.Data[StaticStrings.ServicesPageDataTitleKey])
             </h1>
         </HTMLEditor>
-
-        <h1>Title -> @a[StaticStrings.ServicesPageDataTitleKey]</h1>
 
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorServicesImageId"
                      Model="Model"
@@ -56,7 +53,8 @@
         <ServicesList 
             ServiceItems="ServiceItems"
             PopoversModel="PopoversModel"
-            PopoverKey="@StaticStrings.Popover_Services_1_Card">
+            PopoverKey="@StaticStrings.Popover_Services_1_Card"
+            PageType="PageType">
         </ServicesList>
 
         <!-- Title and Sub for the List of -->
@@ -75,7 +73,8 @@
         <!-- List of -->
         <FAQList
             PopoversModel="PopoversModel"
-            PopoverKey="@StaticStrings.Popover_Services_2_Card">
+            PopoverKey="@StaticStrings.Popover_Services_2_Card"
+            PageType="PageType">
         </FAQList>
     }
 </div>

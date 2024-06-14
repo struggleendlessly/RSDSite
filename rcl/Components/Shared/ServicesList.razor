@@ -1,4 +1,6 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0 && ModelUrls.Data is not null && ModelUrls.Data.Count > 0 && SettingsModel.Data is not null && LocalizationModel.Data is not null)
+﻿@using shared.Enums;
+
+@if (Model.Data is not null && Model.Data.Count > 0 && ModelUrls.Data is not null && ModelUrls.Data.Count > 0 && SettingsModel.Data is not null && LocalizationModel.Data is not null)
 {
     <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto mt-1">
 
@@ -100,7 +102,18 @@
 
                     <!-- Card footer -->
                     <div class="card-footer bg-light border-0">
-                        <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@StateManager.GetPageUrl($"{StaticRoutesStrings.ItemPageUrl}/{serviceUrlValue}")">
+                        @{
+                            var url = string.Empty;
+                            if (PageType == ServicesPageType.Services)
+                            {
+                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.ItemsPageUrl}/{serviceUrlValue}");
+                            }
+                            else if (PageType == ServicesPageType.Portfolio)
+                            {
+                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.PortfolioPageUrl}/{serviceUrlValue}");
+                            }
+                        }
+                        <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@url">
                             @((MarkupString)serviceButtonTextValue)
                         </a>
                     </div>

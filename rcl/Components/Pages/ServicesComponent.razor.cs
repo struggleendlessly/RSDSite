@@ -72,13 +72,6 @@ namespace rcl.Components.Pages
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageServicesListDataJsonFilePath);
-
-            StateHasChanged();
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            StateHasChanged();
         }
 
         [JSInvokable]

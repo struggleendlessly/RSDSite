@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
 
 using shared;
+using shared.Enums;
 using shared.Models;
 using shared.Managers;
 using shared.Extensions;
@@ -19,6 +20,9 @@ namespace rcl.Components.Shared
 
         [Parameter]
         public string? PopoverKey { get; set; } = null;
+
+        [Parameter]
+        public ServicesPageType PageType { get; set; }
 
         [Inject]
         IJSRuntime JS { get; set; }
@@ -43,6 +47,9 @@ namespace rcl.Components.Shared
 
         private bool isAdding = false;
 
+        public string FAQListKeyEnding = string.Empty;
+        public string FAQListDataJsonFilePath { get; set; } = string.Empty;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -54,7 +61,9 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+            SetJSONPaths();
+
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -74,7 +83,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             StateHasChanged();
         }
@@ -95,7 +104,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
                 }
             }
         }
@@ -131,7 +140,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey, StaticStrings.ServicesPageFAQListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             await Task.Delay(1000);
 
@@ -148,6 +157,20 @@ namespace rcl.Components.Shared
 
             using (MemoryStream stream = new MemoryStream(bytes))
             return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+        }
+
+        public void SetJSONPaths()
+        {
+            if (PageType == ServicesPageType.Services)
+            {
+                FAQListKeyEnding = string.Empty;
+                FAQListDataJsonFilePath = StaticStrings.ServicesPageFAQListDataJsonFilePath;
+            }
+            else if (PageType == ServicesPageType.Portfolio)
+            {
+                FAQListKeyEnding = StaticStrings.PortfolioPageKeyEnding;
+                FAQListDataJsonFilePath = StaticStrings.PortfolioPageFAQListDataJsonFilePath;
+            }
         }
 
         public void Dispose()

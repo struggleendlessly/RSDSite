@@ -2,7 +2,7 @@
 
 namespace web.Components.Pages
 {
-    public partial class Services
+    public partial class Portfolio
     {
         [Parameter]
         public string? SiteName { get; set; } = null;

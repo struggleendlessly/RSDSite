@@ -55,153 +55,36 @@
                                     @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataMainKey])
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a href="@StateManager.GetPageUrl(StaticRoutesStrings.AboutUsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.AboutUsPageUrl))">
                                     @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataAboutUsKey])
                                 </a>
                             </li>
-                            @if (ServiceItems.Count == 0)
-                            {
-                                <li class="nav-item">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
-                                    </a>
-                                </li>
-                            }
-                            else if (ServiceItems.Count <= 9)
-                            {
-                                <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
-                                    </a>
-                                    <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                                    <ul class="dropdown-menu">
-                                        @for (int i = 0; i < ServiceItems.Count; i++)
-                                        {
-                                            var serviceKeyIndex = i * 3;
-                                            var serviceKey = ServiceItemsModel.Data.ElementAt(serviceKeyIndex).Value;
-                                            var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
-                                            var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
-                                            var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
-                                            var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl + "/" + serviceUrlValue);
 
-                                            <li>
-                                                <a class="dropdown-item" href="@serviceFullUrl">
-                                                    @ServiceItemsModel.Data[serviceTitleKey]
-                                                </a>
-                                            </li>
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey])
-                                    </a>
-                                    <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                                    <div class="dropdown-menu dropdown-menu-multi-column">
-                                        @{
-                                            int itemsPerColumn = 6;
-                                            int numberOfColumns = (int)Math.Ceiling((double)ServiceItems.Count / itemsPerColumn);
+                            <!-- Items menu item  -->
+                            <NavMenuDropdown
+                                ServiceItems="ServiceItems"
+                                ServiceItemsModel="ServiceItemsModel"
+                                ServiceItemsUrlsModel="ServiceItemsUrlsModel"
+                                MenuItemText="@MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataServicesKey]"
+                                MenuItemClass="@HighlightActiveMenuItem(StaticRoutesStrings.ItemsPageUrl)"
+                                PageUrl="@StaticRoutesStrings.ItemsPageUrl">
+                            </NavMenuDropdown>
 
-                                            for (int column = 0; column < numberOfColumns; column++)
-                                            {
-                                                <ul>
-                                                    @for (int i = column * itemsPerColumn; i < (column + 1) * itemsPerColumn && i < ServiceItems.Count; i++)
-                                                    {
-                                                        var serviceKeyIndex = i * 3;
-                                                        var serviceKey = ServiceItemsModel.Data.ElementAt(serviceKeyIndex).Value;
-                                                        var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
-                                                        var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
-                                                        var serviceUrlValue = ServiceItemsUrlsModel.Data[serviceUrlKey];
-                                                        var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.ItemsPageUrl + "/" + serviceUrlValue);
-
-                                                        <li>
-                                                            <a class="dropdown-item" href="@serviceFullUrl">
-                                                                @ServiceItemsModel.Data[serviceTitleKey]
-                                                            </a>
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            }
-                                        }
-                                    </div>
-                                </li>
-                            }
-                            @if (PortfolioServiceItems.Count == 0)
-                            {
-                                <li class="nav-item">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PortfolioPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PortfolioPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataPortfolioKey])
-                                    </a>
-                                </li>
-                            }
-                            else if (PortfolioServiceItems.Count <= 9)
-                            {
-                                <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PortfolioPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.PortfolioPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataPortfolioKey])
-                                    </a>
-                                    <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                                    <ul class="dropdown-menu">
-                                        @for (int i = 0; i < PortfolioServiceItems.Count; i++)
-                                        {
-                                            var serviceKeyIndex = i * 3;
-                                            var serviceKey = PortfolioItemsModel.Data.ElementAt(serviceKeyIndex).Value;
-                                            var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
-                                            var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
-                                            var serviceUrlValue = PortfolioItemsUrlsModel.Data[serviceUrlKey];
-                                            var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.PortfolioPageUrl + "/" + serviceUrlValue);
-
-                                            <li>
-                                                <a class="dropdown-item" href="@serviceFullUrl">
-                                                    @PortfolioItemsModel.Data[serviceTitleKey]
-                                                </a>
-                                            </li>
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item dropdown">
-                                    <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PortfolioPageUrl)" class="nav-link d-inline-block @(HighlightActiveMenuItem(StaticRoutesStrings.PortfolioPageUrl))">
-                                        @((MarkupString)MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataPortfolioKey])
-                                    </a>
-                                    <a class="nav-link d-inline-block dropdown-toggle pl-0-important" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                                    <div class="dropdown-menu dropdown-menu-multi-column">
-                                        @{
-                                            int itemsPerColumn = 6;
-                                            int numberOfColumns = (int)Math.Ceiling((double)PortfolioServiceItems.Count / itemsPerColumn);
-
-                                            for (int column = 0; column < numberOfColumns; column++)
-                                            {
-                                                <ul>
-                                                    @for (int i = column * itemsPerColumn; i < (column + 1) * itemsPerColumn && i < PortfolioServiceItems.Count; i++)
-                                                    {
-                                                        var serviceKeyIndex = i * 3;
-                                                        var serviceKey = PortfolioItemsModel.Data.ElementAt(serviceKeyIndex).Value;
-                                                        var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
-                                                        var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
-                                                        var serviceUrlValue = PortfolioItemsUrlsModel.Data[serviceUrlKey];
-                                                        var serviceFullUrl = StateManager.GetPageUrl(StaticRoutesStrings.PortfolioPageUrl + "/" + serviceUrlValue);
-
-                                                        <li>
-                                                            <a class="dropdown-item" href="@serviceFullUrl">
-                                                                @PortfolioItemsModel.Data[serviceTitleKey]
-                                                            </a>
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            }
-                                        }
-                                    </div>
-                                </li>
-                            }
                             @if (StateManager.SiteName == StaticStrings.DefaultSiteName)
                             {
+                                <!-- Portfolio menu item  -->
+                                <NavMenuDropdown
+                                    ServiceItems="PortfolioServiceItems"
+                                    ServiceItemsModel="PortfolioItemsModel"
+                                    ServiceItemsUrlsModel="PortfolioItemsUrlsModel"
+                                    MenuItemText="@MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataPortfolioKey]"
+                                    MenuItemClass="@HighlightActiveMenuItem(StaticRoutesStrings.PortfolioPageUrl)"
+                                    PageUrl="@StaticRoutesStrings.PortfolioPageUrl">
+                                </NavMenuDropdown>
+
+                                <!-- Pricing menu item  -->
                                 <li class="nav-item">
                                     <a href="@StateManager.GetPageUrl(StaticRoutesStrings.PricingPageUrl)" class="nav-link @(HighlightActiveMenuItem(StaticRoutesStrings.PricingPageUrl))">
                                         @LocalizationModel.Data[StaticStrings.Localization_Pricing_Key]

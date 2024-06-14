@@ -53,7 +53,6 @@ namespace rcl.Components.Layout
             LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
             ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
-            PortfolioServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
 
             ServiceItemsModel.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -63,13 +62,18 @@ namespace rcl.Components.Layout
                 .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
 
-            PortfolioItemsModel.Data = PortfolioServiceItems
+            if (StateManager.SiteName == StaticStrings.DefaultSiteName)
+            {
+                PortfolioServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
+                
+                PortfolioItemsModel.Data = PortfolioServiceItems
                 .SelectMany(x => x.ShortDesc)
                 .ToDictionary();
 
-            PortfolioItemsUrlsModel.Data = PortfolioServiceItems
-                .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
-                .ToDictionary();
+                PortfolioItemsUrlsModel.Data = PortfolioServiceItems
+                    .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
+                    .ToDictionary();
+            }
         }
 
         private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
