@@ -23,8 +23,8 @@ namespace shared
         public const string SubscriptionErrorPageRoute = "/{SiteName}/{Lang}/subscription-error";
         public const string PortfolioPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/portfolio";
         public const string PortfolioItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/portfolio/{UrlKey}";
-        public const string DocumentsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/documents";
-        public const string DocumentsItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/documents/{UrlKey}";
+        public const string DocumentsPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/docs";
+        public const string DocumentsItemPageRouteWithSitenameAndLang = "/{SiteName}/{Lang}/docs/{UrlKey}";
 
         public const string LoginPageRoute = "/{Lang}/account/login";
         public const string RegisterPageRoute = "/{Lang}/account/register";
@@ -44,7 +44,7 @@ namespace shared
         public const string PricingPageUrl = "pricing";
         public const string AdminPageUrl = "admin";
         public const string PortfolioPageUrl = "portfolio";
-        public const string DocumentsPageUrl = "documents";
+        public const string DocumentsPageUrl = "docs";
 
         public const string SubscriptionErrorUrl = "subscription-error";
 
