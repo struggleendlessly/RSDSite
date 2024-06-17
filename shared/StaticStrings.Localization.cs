@@ -132,5 +132,12 @@ namespace shared
         public static string Localization_Account_ForgotPassword_Form_Email_Placeholder_Key = "Account_ForgotPassword_Form_Email_Placeholder";
         public static string Localization_Account_ForgotPassword_Form_Button_Submit_Key = "Account_ForgotPassword_Form_Button_Submit";
         public static string Localization_Account_ForgotPassword_Link_Login_Key = "Account_ForgotPassword_Link_Login";
+
+        public static string Localization_Account_ConfirmEmail_Title_Key = "Account_ConfirmEmail_Title";
+        public static string Localization_Account_ConfirmEmail_Message_ErrorLoadingUser_Key = "Account_ConfirmEmail_Message_ErrorLoadingUser";
+        public static string Localization_Account_ConfirmEmail_Message_ErrorConfirmingEmail_Key = "Account_ConfirmEmail_Message_ErrorConfirmingEmail";
+        public static string Localization_Account_ConfirmEmail_Message_ConfirmingSuccess_Key = "Account_ConfirmEmail_Message_ConfirmingSuccess";
+        public static string Localization_Account_ConfirmEmail_Message_CheckEmailToConfirm_Key = "Account_ConfirmEmail_Message_CheckEmailToConfirm";
+        public static string Localization_Account_ConfirmEmail_Link_ResendEmail_Key = "Account_ConfirmEmail_Link_ResendEmail";
     }
 }

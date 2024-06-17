@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 
 using shared;
+using shared.Models;
 using shared.Interfaces;
 using shared.Data.Entities;
 
@@ -31,6 +32,11 @@ namespace web.Components.Account.Pages
         [Inject]
         IEmailSender<ApplicationUser> EmailSender { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         private string? statusMessage;
 
         private bool ShowEmailResendLink { get; set; } = false;
@@ -52,14 +58,16 @@ namespace web.Components.Account.Pages
         {
             if (UserId is null || Code is null)
             {
-                RedirectManager.RedirectTo("");
+                RedirectManager.RedirectTo(StaticRoutesStrings.EmptyRoute);
             }
+
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             User = await UserManager.FindByIdAsync(UserId);
             if (User is null)
             {
                 HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-                statusMessage = $"Error loading user with ID {UserId}";
+                statusMessage = $"{LocalizationModel.Data[StaticStrings.Localization_Account_ConfirmEmail_Message_ErrorLoadingUser_Key]} {UserId}";
             }
             else
             {
@@ -67,11 +75,11 @@ namespace web.Components.Account.Pages
                 var result = await UserManager.ConfirmEmailAsync(User, code);
                 if (result.Succeeded)
                 {
-                    statusMessage = "Thank you for confirming your email.";
+                    statusMessage = LocalizationModel.Data[StaticStrings.Localization_Account_ConfirmEmail_Message_ConfirmingSuccess_Key];
                 }
                 else
                 {
-                    statusMessage = "Error confirming your email.";
+                    statusMessage = LocalizationModel.Data[StaticStrings.Localization_Account_ConfirmEmail_Message_ErrorConfirmingEmail_Key];
                     ShowEmailResendLink = true;
                 }
             }
@@ -90,7 +98,7 @@ namespace web.Components.Account.Pages
             await EmailSender.SendConfirmationLinkAsync(User, User.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
             ShowEmailResendLink = false;
-            statusMessage = "Please check your email to confirm your account.";
+            statusMessage = LocalizationModel.Data[StaticStrings.Localization_Account_ConfirmEmail_Message_CheckEmailToConfirm_Key];
 
             StateHasChanged();
         }
