@@ -2,15 +2,26 @@
 
 @attribute [Route(StaticRoutesStrings.LogoutPageRoute)]
 
-<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Hero -->
-    <div class="container content-space-t-3 content-space-t-lg-4 content-space-b-2">
-        <div class="w-lg-75 text-center mx-auto">
-            <h2>You have successfully logged out</h2>
-            <p>Now you can go to the <a class="link text-decoration-none" href="@StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute)">main</a> page.</p>
+@if (LocalizationModel.Data is not null)
+{
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Hero -->
+        <div class="container content-space-t-3 content-space-t-lg-4 content-space-b-2">
+            <div class="w-lg-75 text-center mx-auto">
+                <h2>
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Logout_Title_Key]
+                </h2>
+                <p>
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Logout_Subtitle_1_Key]
+                    <a class="link text-decoration-none" href="@StateManager.GetPageUrl(StaticRoutesStrings.EmptyRoute)">
+                        @LocalizationModel.Data[StaticStrings.Localization_Account_Logout_Link_Key]
+                    </a>
+                    @LocalizationModel.Data[StaticStrings.Localization_Account_Logout_Subtitle_2_Key]
+                </p>
+            </div>
         </div>
-    </div>
-    <!-- End Hero -->
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+        <!-- End Hero -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+}
