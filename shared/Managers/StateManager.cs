@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared.Interfaces;
 using shared.Data.Entities;
-using shared.ConfigurationOptions;
 
+using System.Globalization;
 using System.Security.Claims;
 
 namespace shared.Managers
@@ -17,22 +16,21 @@ namespace shared.Managers
         private readonly AuthenticationStateProvider _authenticationStateProvider;
         private readonly IWebsiteService _websiteService;
 
-        private readonly List<string> _mainSiteOwnersEmails;
         private List<Website> _userSites;
+        private Dictionary<string, string> _userDomains;
         private readonly ClaimsPrincipal _user;
 
         public StateManager(
-            IOptions<MainSiteOwnersOptions> _mainSiteOwnersOptions, 
             NavigationManager navigationManager, 
             AuthenticationStateProvider authenticationStateProvider,
             IWebsiteService websiteService)
         {
-            _mainSiteOwnersEmails = _mainSiteOwnersOptions.Value.Emails;
             _navigationManager = navigationManager;
             _authenticationStateProvider = authenticationStateProvider;
             _websiteService = websiteService;
 
             _userSites = new List<Website>();
+            _userDomains = new Dictionary<string, string>();
 
             var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
             _user = authState.User;
@@ -42,56 +40,72 @@ namespace shared.Managers
         {
             get
             {
-                var domain = GetDomainWithoutProtocol();
-                var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
-                var parts = baseRelativePath.Split('/');
-
-                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+                var siteName = StaticStrings.MainSiteName;
+                var domain = GetDomain();
+                if (StaticStrings.Domains.Contains(domain))
                 {
-                    if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && parts[0] != StaticStrings.DefaultEnLang && parts[0] != StaticStrings.DefaultUaLang)
+                    var segments = GetUriSegments();
+                    if (segments.Length > 1)
                     {
-                        return parts[0];
-                    }
-                    else
-                    {
-                        return StaticStrings.DefaultSiteName;
+                        var cleanedFirstSegment = segments[1].Trim('/');
+                        if (!string.IsNullOrWhiteSpace(cleanedFirstSegment) && !IsSupportedLanguage(cleanedFirstSegment))
+                        {
+                            siteName = cleanedFirstSegment;
+                        }
                     }
                 }
                 else
                 {
-                    return domain;
+                    var domainWithTld = GetDomain(true);
+                    if (_userDomains.ContainsKey(domainWithTld))
+                    {
+                        return _userDomains[domainWithTld];
+                    }
+                    
+                    siteName = _websiteService.GetWebsiteName(domainWithTld);
+                    _userDomains[domainWithTld] = siteName;
                 }
+
+                return siteName;
             }
         }
 
-        public string Lang
+        public CultureInfo Lang
         {
             get
             {
-                var domain = GetDomainWithoutProtocol();
-                var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
-                var parts = baseRelativePath.Split('/');
+                var segments = GetUriSegments();
+                var languageCode = StaticStrings.EnLanguageCode;
 
-                if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+                foreach (var segment in segments)
                 {
-                    if (parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) && (parts[0] == StaticStrings.DefaultEnLang || parts[0] == StaticStrings.DefaultUaLang))
+                    var cleanedSegment = segment.Trim('/');
+                    if (!string.IsNullOrWhiteSpace(cleanedSegment) && IsSupportedLanguage(cleanedSegment))
                     {
-                        return parts[0];
-                    }
-                    else if (parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]) && (parts[1] == StaticStrings.DefaultEnLang || parts[1] == StaticStrings.DefaultUaLang))
-                    {
-                        return parts[1];
-                    }
-                    else
-                    {
-                        return StaticStrings.DefaultEnLang;
+                        languageCode = cleanedSegment;
+                        break;
                     }
                 }
-                else
-                {
-                    return parts.Length >= 1 && !string.IsNullOrWhiteSpace(parts[0]) ? parts[0] : StaticStrings.DefaultEnLang;
-                }
+
+                return GetCultureInfo(languageCode);
             }
+        }
+
+        private string[] GetUriSegments()
+        {
+            var uri = new Uri(_navigationManager.Uri);
+            return uri.Segments;
+        }
+
+        private bool IsSupportedLanguage(string languageCode)
+        {
+            return StaticStrings.Languages.Any(lang => lang.TwoLetterISOLanguageName.Equals(languageCode, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private CultureInfo GetCultureInfo(string languageCode)
+        {
+            var culture = StaticStrings.Languages.FirstOrDefault(lang => lang.TwoLetterISOLanguageName.Equals(languageCode, StringComparison.OrdinalIgnoreCase));
+            return culture ?? StaticStrings.DefaultLanguage;
         }
 
         public string UserId
@@ -101,21 +115,6 @@ namespace shared.Managers
                 if (_user.Identity is not null && _user.Identity.IsAuthenticated)
                 {
                     return _user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public string UserEmail 
-        {
-            get
-            {
-                if (_user.Identity is not null && _user.Identity.IsAuthenticated)
-                {
-                    return _user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
                 }
                 else
                 {
@@ -144,11 +143,6 @@ namespace shared.Managers
                 if (_userSites.Count == 0)
                 {
                     _userSites = _websiteService.GetUserSites(UserId);
-
-                    //if (_mainSiteOwnersEmails.Contains(UserEmail))
-                    //{
-                    //    _userSites.Add(StaticStrings.DefaultSiteName);
-                    //}
                 }
 
                 return _userSites.Select(x => x.Name).ToList();
@@ -178,61 +172,45 @@ namespace shared.Managers
 
         public string GetPageUrl(string url, bool showSiteName = true)
         {
-            var domain = GetDomainWithoutProtocol();
-            if ((domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain) && showSiteName)
-            {
-                return $"{SiteName}/{Lang}/{url}";
-            }
-            else
-            {
-                return $"{Lang}/{url}";
-            }
+            var domain = GetDomain();
+            var languageSegment = Lang.TwoLetterISOLanguageName;
+            var siteNameSegment = showSiteName && StaticStrings.Domains.Contains(domain) ? SiteName : string.Empty;
+
+            return string.IsNullOrEmpty(siteNameSegment)
+                ? $"{languageSegment}/{url}"
+                : $"{siteNameSegment}/{languageSegment}/{url}";
         }
 
         public string GetCurrentUrlWithLanguage(string language)
         {
-            var currentUrl = _navigationManager.Uri;
-            var domain = GetDomainWithoutProtocol();
-            var siteAndLang = string.Empty;
-            var newSiteAndLang = string.Empty;
-            if (domain == StaticStrings.DefaultDomain || domain == StaticStrings.DefaultDevDomain || domain == StaticStrings.DefaultLocalDomain)
+            var domain = GetDomain();
+            var baseRelativePath = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+            var languageSegment = Lang.TwoLetterISOLanguageName;
+            if (StaticStrings.Languages.Any(x => baseRelativePath.Contains(x.TwoLetterISOLanguageName, StringComparison.OrdinalIgnoreCase)))
             {
-                siteAndLang = $"{SiteName}/{Lang}";
-                newSiteAndLang = $"{SiteName}/{language}";
-            }
-            else
-            {
-                siteAndLang = $"{Lang}";
-                newSiteAndLang = $"{language}";
+                return baseRelativePath.Replace(languageSegment, language);
             }
 
-            if (currentUrl.Contains(siteAndLang))
-            {
-                currentUrl = currentUrl.Replace(siteAndLang, newSiteAndLang);
-            }
-            else
-            {
-                currentUrl += newSiteAndLang;
-            }
-
-            return currentUrl;
+            return StaticStrings.Domains.Contains(domain)
+                ? $"{baseRelativePath}/{SiteName}/{language}"
+                : $"{baseRelativePath}/{language}";
         }
 
-        private string GetDomainWithoutProtocol()
+        private string GetDomain(bool includeTld = false)
         {
-            var domainWithProtocol = _navigationManager.BaseUri;
-            var uri = new Uri(domainWithProtocol);
-            var domainWithoutProtocol = uri.Host;
-            var domainParts = domainWithoutProtocol.Split('.');
+            var uri = new Uri(_navigationManager.BaseUri);
+            var domain = uri.Host;
 
-            var topLevelDomain = domainParts.LastOrDefault();
-            if (topLevelDomain != null && domainParts.Length >= 2)
+            if (!includeTld)
             {
-                var domainWithoutTLD = domainWithoutProtocol.Substring(0, domainWithoutProtocol.Length - topLevelDomain.Length - 1);
-                return domainWithoutTLD;
+                var domainParts = domain.Split('.');
+                if (domainParts.Length > 1)
+                {
+                    domain = string.Join('.', domainParts.Take(domainParts.Length - 1));
+                }
             }
 
-            return domainWithoutProtocol;
+            return domain;
         }
     }
 }

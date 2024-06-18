@@ -15,7 +15,7 @@ namespace shared.Managers
         {
             siteName = siteName.ToLower();
 
-            string sourceContainerName = StaticStrings.DefaultContainerName;
+            string sourceContainerName = StaticStrings.ExampleContainerName;
             string destinationContainerName = siteName;
 
             try

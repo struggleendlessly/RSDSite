@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace shared
 {
@@ -196,13 +197,15 @@ namespace shared
 
         /* Default Values */
 
-        public static string DefaultSiteName = "main";
-        public static string DefaultEnLang = "en";
-        public static string DefaultUaLang = "ua";
-        public static string DefaultContainerName = "example";
-        public static string DefaultDomain = "myelegantpages";
-        public static string DefaultDevDomain = "dev.myelegantpages";
-        public static string DefaultLocalDomain = "localhost";
+        public static string MainSiteName = "main";
+        public static string EnLanguageCode = "en";
+        public static string UaLanguageCode = "ua";
+        public static string ExampleContainerName = "example";
+        public static string ProdDomain = "myelegantpages";
+        public static string DevDomain = "dev.myelegantpages";
+        public static string LocalDomain = "localhost";
+
+        public static List<string> Domains = new List<string>() { ProdDomain, DevDomain, LocalDomain };
 
         /* Containers */
         public static string PopoversContainerName = "popovers";
@@ -236,5 +239,14 @@ namespace shared
         public static string AzureWebAppName = "WebAppName";
         public static string AzureWebAppResourceGroup = "WebAppResourceGroup";
         public static string AzureCustomDomain = "CustomDomain";
+
+        /* Languages */
+        public static readonly List<CultureInfo> Languages = new List<CultureInfo>
+        {
+            new CultureInfo("en"),
+            new CultureInfo("ua")
+        };
+
+        public static readonly CultureInfo DefaultLanguage = new CultureInfo("en");
     }
 }

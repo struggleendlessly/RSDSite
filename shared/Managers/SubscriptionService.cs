@@ -21,7 +21,7 @@ namespace shared.Managers
 
         public async Task<bool> IsWebsiteSubscriptionActiveAsync()
         {
-            if (_stateManager.SiteName == StaticStrings.DefaultSiteName)
+            if (_stateManager.SiteName == StaticStrings.MainSiteName)
             {
                 return true;
             }
@@ -53,7 +53,7 @@ namespace shared.Managers
 
         public async Task<bool> IsCustomDomainSubscriptionActiveAsync()
         {
-            if (_stateManager.SiteName == StaticStrings.DefaultSiteName)
+            if (_stateManager.SiteName == StaticStrings.MainSiteName)
             {
                 return true;
             }

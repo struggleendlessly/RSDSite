@@ -19,7 +19,7 @@ namespace web.Endpoints
                     AzureBlobStorageManager azureBlobStorageManager
                     ) =>
             {
-                var sitemap = await azureBlobStorageManager.DownloadFile(StaticStrings.DefaultSiteName, StaticStrings.SitemapDataXmlFilePath);
+                var sitemap = await azureBlobStorageManager.DownloadFile(StaticStrings.MainSiteName, StaticStrings.SitemapDataXmlFilePath);
 
                 context.Response.ContentType = "application/xml";
                 await context.Response.WriteAsync(sitemap);
@@ -34,10 +34,10 @@ namespace web.Endpoints
             {
                 var pagesWithoutSiteName = new List<string>() { StaticRoutesStrings.LoginPageUrl, StaticRoutesStrings.ForgotPasswordPageUrl };
                 var duplicatePages = new List<string>() { StaticRoutesStrings.EmptyRoute, StaticRoutesStrings.AboutUsPageUrl, StaticRoutesStrings.ContactUsPageUrl, StaticRoutesStrings.ItemsPageUrl, StaticRoutesStrings.ItemPageUrl };
-                var languages = new List<string>() { StaticStrings.DefaultEnLang, StaticStrings.DefaultUaLang };
+                var languages = new List<string>() { StaticStrings.EnLanguageCode, StaticStrings.UaLanguageCode };
 
                 var websites = await websiteService.GetWebsitesNamesAsync();
-                websites.Add(StaticStrings.DefaultSiteName);
+                websites.Add(StaticStrings.MainSiteName);
 
                 var sb = new StringBuilder();
                 var domain = "https://myelegantpages.com";
@@ -62,7 +62,7 @@ namespace web.Endpoints
                 foreach (var site in websites)
                 {
                     var sitePages = duplicatePages;
-                    if (site == StaticStrings.DefaultSiteName)
+                    if (site == StaticStrings.MainSiteName)
                     {
                         sitePages.Add(StaticRoutesStrings.PricingPageUrl);
                     }
@@ -108,7 +108,7 @@ namespace web.Endpoints
                 var byteArray = Encoding.UTF8.GetBytes(sb.ToString());
                 using (var stream = new MemoryStream(byteArray))
                 {
-                    await azureBlobStorageManager.UploadFile(StaticStrings.DefaultSiteName, StaticStrings.SitemapDataXmlFilePath, stream);
+                    await azureBlobStorageManager.UploadFile(StaticStrings.MainSiteName, StaticStrings.SitemapDataXmlFilePath, stream);
                 }
 
                 context.Response.StatusCode = StatusCodes.Status200OK;

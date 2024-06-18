@@ -1,14 +1,14 @@
 ﻿using shared.Data.Entities;
+using System.Globalization;
 
 namespace shared.Interfaces
 {
     public interface IStateManager
     {
         public string SiteName { get; }
-        public string Lang { get; }
+        public CultureInfo Lang { get; }
 
         public string UserId { get; }
-        public string UserEmail { get; }
         public Guid? SiteId { get; }
         public List<string> UserSites { get; }
 

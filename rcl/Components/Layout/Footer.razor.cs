@@ -12,9 +12,6 @@ namespace rcl.Components.Layout
         IStateManager StateManager { get; set; }
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
-
-        [Inject]
         IPageDataService PageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();

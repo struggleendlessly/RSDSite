@@ -68,7 +68,7 @@ namespace rcl.Components.Layout
                 .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
 
-            if (StateManager.SiteName == StaticStrings.DefaultSiteName)
+            if (StateManager.SiteName == StaticStrings.MainSiteName)
             {
                 PortfolioServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
                 

@@ -39,6 +39,11 @@ namespace shared.Managers
             return await _dbContext.Websites.FirstOrDefaultAsync(w => w.Name == siteName);
         }
 
+        public string GetWebsiteName(string domain)
+        {
+            return _dbContext.Websites.FirstOrDefault(x => x.Domain == domain).Name;
+        }
+
         public async Task<Website> CreateWebsite(Website website, string userId)
         {
             await _dbContext.Websites.AddAsync(website);

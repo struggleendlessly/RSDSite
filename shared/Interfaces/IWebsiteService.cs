@@ -8,6 +8,7 @@ namespace shared.Interfaces
         Guid GetWebsiteId(string siteName);
         List<Website> GetUserSites(string userId);
         Task<Website> GetWebsiteByName(string siteName);
+        string GetWebsiteName(string domain);
         Task<Website> CreateWebsite(Website website, string userId);
         Task<Website> UpdateAsync(Website website);
         Task<string> GetSiteDomainAsync(string siteName);
