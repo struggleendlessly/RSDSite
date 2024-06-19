@@ -4,16 +4,23 @@
 
 <PageTitle>Register confirmation</PageTitle>
 
-<!-- ========== MAIN CONTENT ========== -->
-<main id="content" role="main">
-    <!-- Form -->
-    <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
-        <h1>Register confirmation</h1>
+@if (LocalizationModel.Data is not null)
+{
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Form -->
+        <div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
+            <h1>
+                @LocalizationModel.Data[StaticStrings.Localization_Account_RegisterConfirmation_Title_Key]
+            </h1>
 
-        <StatusMessage Message="@statusMessage" />
+            <StatusMessage Message="@statusMessage" />
 
-        <p>Please check your email to confirm your account.</p>
-    </div>
-    <!-- End Form -->
-</main>
-<!-- ========== END MAIN CONTENT ========== -->
+            <p>
+                @LocalizationModel.Data[StaticStrings.Localization_Account_RegisterConfirmation_Subtitle_Key]
+            </p>
+        </div>
+        <!-- End Form -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+}

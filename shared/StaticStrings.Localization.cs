@@ -139,5 +139,20 @@ namespace shared
         public static string Localization_Account_ConfirmEmail_Message_ConfirmingSuccess_Key = "Account_ConfirmEmail_Message_ConfirmingSuccess";
         public static string Localization_Account_ConfirmEmail_Message_CheckEmailToConfirm_Key = "Account_ConfirmEmail_Message_CheckEmailToConfirm";
         public static string Localization_Account_ConfirmEmail_Link_ResendEmail_Key = "Account_ConfirmEmail_Link_ResendEmail";
+
+        public static string Localization_Account_RegisterConfirmation_Title_Key = "Account_RegisterConfirmation_Title";
+        public static string Localization_Account_RegisterConfirmation_Message_ErrorFindingUser_Key = "Account_RegisterConfirmation_Message_ErrorFindingUser";
+        public static string Localization_Account_RegisterConfirmation_Subtitle_Key = "Account_RegisterConfirmation_Subtitle";
+
+        public static string Localization_Account_ForgotPasswordConfirmation_Title_Key = "Account_ForgotPasswordConfirmation_Title";
+        public static string Localization_Account_ForgotPasswordConfirmation_Subtitle_Key = "Account_ForgotPasswordConfirmation_Subtitle";
+
+        public static string Localization_Account_InvalidPasswordReset_Title_Key = "Account_InvalidPasswordReset_Title";
+        public static string Localization_Account_InvalidPasswordReset_Subtitle_Key = "Account_InvalidPasswordReset_Subtitle";
+
+        /* Subscription Error Page Keys */
+
+        public static string Localization_SubscriptionError_Title_Key = "SubscriptionError_Title";
+        public static string Localization_SubscriptionError_Subtitle_Key = "SubscriptionError_Subtitle";
     }
 }

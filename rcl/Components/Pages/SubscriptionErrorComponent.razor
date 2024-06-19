@@ -1,10 +1,17 @@
-﻿<div class="container mt-5">
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="alert alert-secondary" role="alert">
-                <h4 class="alert-heading">WARNING!</h4>
-                <p>Your subscription has expired, renew it to continue using the website</p>
+﻿@if (LocalizationModel.Data is not null)
+{
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="alert alert-secondary" role="alert">
+                    <h4 class="alert-heading">
+                        @LocalizationModel.Data[StaticStrings.Localization_SubscriptionError_Title_Key]
+                    </h4>
+                    <p>
+                        @LocalizationModel.Data[StaticStrings.Localization_SubscriptionError_Subtitle_Key]
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

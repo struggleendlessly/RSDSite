@@ -74,7 +74,7 @@
 
                             @if (StateManager.SiteName == StaticStrings.MainSiteName)
                             {
-                                <!-- Portfolio menu item  -->
+                                @* <!-- Portfolio menu item  -->
                                 <NavMenuDropdown
                                     ServiceItems="PortfolioServiceItems"
                                     ServiceItemsModel="PortfolioItemsModel"
@@ -82,7 +82,7 @@
                                     MenuItemText="@MenuModel.Data[StaticStrings.AdminPageSettingsMenuDataPortfolioKey]"
                                     MenuItemClass="@HighlightActiveMenuItem(StaticRoutesStrings.PortfolioPageUrl)"
                                     PageUrl="@StaticRoutesStrings.PortfolioPageUrl">
-                                </NavMenuDropdown>
+                                </NavMenuDropdown> *@
 
                                 <!-- Documents menu item  -->
                                 <NavMenuDropdown

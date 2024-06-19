@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components;
+
+using shared;
+using shared.Models;
+using shared.Interfaces;
 using shared.Data.Entities;
 
 namespace web.Components.Account.Pages
@@ -17,6 +21,11 @@ namespace web.Components.Account.Pages
         [Inject]
         IdentityRedirectManager RedirectManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
         [CascadingParameter]
         private HttpContext HttpContext { get; set; } = default!;
 
@@ -27,14 +36,16 @@ namespace web.Components.Account.Pages
         {
             if (Email is null)
             {
-                RedirectManager.RedirectTo("");
+                RedirectManager.RedirectTo(StaticRoutesStrings.EmptyRoute);
             }
+
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             var user = await UserManager.FindByEmailAsync(Email);
             if (user is null)
             {
                 HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-                statusMessage = "Error finding user for unspecified email";
+                statusMessage = LocalizationModel.Data[StaticStrings.Localization_Account_RegisterConfirmation_Message_ErrorFindingUser_Key];
             }
         }
     }
