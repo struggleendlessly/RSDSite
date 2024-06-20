@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using shared;
+using shared.Models;
 using shared.Interfaces;
+
+using Microsoft.AspNetCore.Components;
 
 namespace web.Components.Account.Pages
 {
@@ -10,5 +13,15 @@ namespace web.Components.Account.Pages
 
         [Inject]
         IStateManager StateManager { get; set; }
+
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
+        public PageModel LocalizationModel { get; set; } = new PageModel();
+
+        protected override async Task OnInitializedAsync()
+        {
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+        }
     }
 }

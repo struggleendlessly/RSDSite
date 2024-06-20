@@ -12,14 +12,16 @@
         <div class="form-signin">
             <StatusMessage Message="@Message" />
             <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-                <h1 class="h3 mb-3 fw-normal">
+                <h1 class="@StaticHtmlStrings.CSSMainTitle_h2">
                     @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Title_Key]
                 </h1>
-                <p>
+                <p class="@StaticHtmlStrings.CSSMainSubTitle_p">
                     @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Subtitle_Key]
                 </p>
+
                 <DataAnnotationsValidator />
                 <ValidationSummary class="text-danger" role="alert" />
+
                 <div class="form-floating">
                     <InputText @bind-Value="Input.Email" type="email" class="form-control" id="registerEmail" placeholder="name@example.com" aria-label="name@example.com" required />
                     <ValidationMessage For="() => Input.Email" class="invalid-feedback" />
@@ -27,6 +29,7 @@
                         @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Email_Placeholder_Key]
                     </label>
                 </div>
+
                 <div class="form-floating">
                     <InputText @bind-Value="Input.Password" type="password" class="form-control" id="registerPassword" placeholder="Password" aria-label="Password" required />
                     <ValidationMessage For="() => Input.Password" class="invalid-feedback" />
@@ -34,6 +37,7 @@
                         @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Password_Placeholder_Key]
                     </label>
                 </div>
+
                 <div class="form-floating">
                     <InputText @bind-Value="Input.ConfirmPassword" type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" required />
                     <ValidationMessage For="() => Input.ConfirmPassword" class="invalid-feedback" />
@@ -41,6 +45,7 @@
                         @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_ConfirmPassword_Placeholder_Key]
                     </label>
                 </div>
+
                 <div class="form-floating">
                     <InputText @bind-Value="Input.SiteName" type="text" class="form-control" id="registerSiteName" placeholder="mywebsite" aria-label="mywebsite" required />
                     <ValidationMessage For="() => Input.SiteName" class="invalid-feedback" />
@@ -48,6 +53,7 @@
                         @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_SiteName_Placeholder_Key]
                     </label>
                 </div>
+
                 <button class="w-100 btn btn-lg btn-dark" type="submit" disabled="@IsRegistering">
                     @LocalizationModel.Data[StaticStrings.Localization_Account_Register_Form_Button_SignUp_Key]
                     @if (IsRegistering)
@@ -55,6 +61,7 @@
                         <span class="spinner-border spinner-border-sm ms-1" aria-hidden="true"></span>
                     }
                 </button>
+
                 <div class="text-center mt-3">
                     <p>
                         @LocalizationModel.Data[StaticStrings.Localization_Account_Register_AlreadyHaveAccount_Key] 

@@ -6,6 +6,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 using shared;
+using shared.Models;
 using shared.Interfaces;
 using shared.Data.Entities;
 
@@ -25,7 +26,12 @@ namespace web.Components.Account.Pages
         [Inject]
         IStateManager StateManager { get; set; }
 
+        [Inject]
+        IPageDataService PageDataService { get; set; }
+
         private IEnumerable<IdentityError>? identityErrors;
+
+        public PageModel LocalizationModel { get; set; } = new PageModel();
 
         [SupplyParameterFromForm]
         private InputModel Input { get; set; } = new();
@@ -35,12 +41,14 @@ namespace web.Components.Account.Pages
 
         private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             if (Code is null)
             {
                 RedirectManager.RedirectTo(StateManager.GetPageUrl(StaticRoutesStrings.AccountInvalidPasswordResetPageUrl, false));
             }
+
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             Input.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
         }

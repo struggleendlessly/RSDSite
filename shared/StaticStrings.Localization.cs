@@ -150,6 +150,16 @@ namespace shared
         public static string Localization_Account_InvalidPasswordReset_Title_Key = "Account_InvalidPasswordReset_Title";
         public static string Localization_Account_InvalidPasswordReset_Subtitle_Key = "Account_InvalidPasswordReset_Subtitle";
 
+        public static string Localization_Account_ResetPassword_Title_Key = "Account_ResetPassword_Title";
+        public static string Localization_Account_ResetPassword_Form_Email_Label_Key = "Account_ResetPassword_Form_Email_Label";
+        public static string Localization_Account_ResetPassword_Form_Password_Label_Key = "Account_ResetPassword_Form_Password_Label";
+        public static string Localization_Account_ResetPassword_Form_ConfirmPassword_Label_Key = "Account_ResetPassword_Form_ConfirmPassword_Label";
+        public static string Localization_Account_ResetPassword_Form_Button_Reset_Key = "Account_ResetPassword_Form_Button_Reset";
+
+        public static string Localization_Account_ResetPasswordConfirmation_Title_Key = "Account_ResetPasswordConfirmation_Title";
+        public static string Localization_Account_ResetPasswordConfirmation_Subtitle_1_Key = "Account_ResetPasswordConfirmation_Subtitle_1";
+        public static string Localization_Account_ResetPasswordConfirmation_Subtitle_2_Key = "Account_ResetPasswordConfirmation_Subtitle_2";
+
         /* Subscription Error Page Keys */
 
         public static string Localization_SubscriptionError_Title_Key = "SubscriptionError_Title";
