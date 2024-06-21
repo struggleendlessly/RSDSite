@@ -164,5 +164,9 @@ namespace shared
 
         public static string Localization_SubscriptionError_Title_Key = "SubscriptionError_Title";
         public static string Localization_SubscriptionError_Subtitle_Key = "SubscriptionError_Subtitle";
+
+        /* Emails Keys */
+        public static string Localization_Email_ConfirmEmail_Subject_Key = "Email_ConfirmEmail_Subject";
+        public static string Localization_Email_PasswordReset_Subject_Key = "Email_PasswordReset_Subject";
     }
 }

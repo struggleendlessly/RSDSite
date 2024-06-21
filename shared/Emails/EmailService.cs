@@ -9,15 +9,15 @@ namespace shared.Emails
 {
     public class EmailService
     {
-        AzureEmailCommunicationOptions arureEmailCummunicationOptions;
+        AzureEmailCommunicationOptions azureEmailCommunicationOptions;
         public EmailService(IOptions<AzureEmailCommunicationOptions> _arureEmailCummunicationOptions)
         {
-                arureEmailCummunicationOptions = _arureEmailCummunicationOptions.Value;
+                azureEmailCommunicationOptions = _arureEmailCummunicationOptions.Value;
         }
 
         public async Task<EmailSendResult> Send(EmailModel emailModel)
         {
-            EmailClient emailClient = new EmailClient(arureEmailCummunicationOptions.ConnectionString);
+            EmailClient emailClient = new EmailClient(azureEmailCommunicationOptions.ConnectionString);
 
             var subject = emailModel.Subject;
             var htmlContent = emailModel.HtmlContent;

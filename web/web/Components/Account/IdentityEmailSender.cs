@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-
+﻿using shared;
 using shared.Emails;
+using shared.Models;
+using shared.Interfaces;
 using shared.Data.Entities;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Components;
 
 namespace web.Components.Account
 {
@@ -9,19 +13,41 @@ namespace web.Components.Account
     {
         private readonly EmailService _emailService;
         private readonly EmailSenders _emailSenders;
+        private readonly ITemplateService _templateService;
+        private readonly IPageDataService _pageDataService;
+        private readonly NavigationManager _navigationManager;
 
-        public IdentityEmailSender(EmailService emailService, EmailSenders emailSenders) 
+        public IdentityEmailSender(
+            EmailService emailService, 
+            EmailSenders emailSenders, 
+            ITemplateService templateService, 
+            IPageDataService pageDataService,
+            NavigationManager navigationManager) 
         {
             _emailService = emailService;
             _emailSenders = emailSenders;
+            _templateService = templateService;
+            _pageDataService = pageDataService;
+            _navigationManager = navigationManager;
         }
 
         public async Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink)
         {
+            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+
+            var placeholders = new Dictionary<string, string>
+            {
+                { "ConfirmationLink", confirmationLink },
+                { "MainLink", _navigationManager.BaseUri },
+                { "LogoUrl", _navigationManager.BaseUri + StaticStrings.LogoFilePath }
+            };
+
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.ConfirmEmailTemplateFileName, placeholders);
+
             var emailModel = new EmailModel
             {
-                Subject = "Confirm your email",
-                HtmlContent = $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.",
+                Subject = localizationModel.Data[StaticStrings.Localization_Email_ConfirmEmail_Subject_Key],
+                HtmlContent = htmlContent,
                 Recipient = email,
                 Sender = _emailSenders.DoNotReply
             };
@@ -44,10 +70,21 @@ namespace web.Components.Account
 
         public async Task SendPasswordResetLinkAsync(ApplicationUser user, string email, string resetLink)
         {
+            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+
+            var placeholders = new Dictionary<string, string>
+            {
+                { "ResetLink", resetLink },
+                { "MainLink", _navigationManager.BaseUri },
+                { "LogoUrl", _navigationManager.BaseUri + StaticStrings.LogoFilePath }
+            };
+
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.ResetPasswordTemplateFileName, placeholders);
+
             var emailModel = new EmailModel
             {
-                Subject = "Reset your password",
-                HtmlContent = $"Please reset your password by <a href='{resetLink}'>clicking here</a>.",
+                Subject = localizationModel.Data[StaticStrings.Localization_Email_PasswordReset_Subject_Key],
+                HtmlContent = htmlContent,
                 Recipient = email,
                 Sender = _emailSenders.DoNotReply
             };

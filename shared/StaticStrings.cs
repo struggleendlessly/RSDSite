@@ -31,6 +31,8 @@ namespace shared
         public static string NewDomainsContainerName = "new-domains-dev";
         public static string NewDomainsDataJsonFilePath = "{0}.json";
 
+        public static string LogoFilePath = "_content/rcl/assets/images/logo.png";
+
         /* Home Keys */
 
         public static string HomePageDataTitleKey = "Title";
@@ -241,6 +243,7 @@ namespace shared
         public static string AzureCustomDomain = "CustomDomain";
 
         /* Languages */
+
         public static readonly List<CultureInfo> Languages = new List<CultureInfo>
         {
             new CultureInfo("en"),
@@ -248,5 +251,11 @@ namespace shared
         };
 
         public static readonly CultureInfo DefaultLanguage = new CultureInfo("en");
+
+        /* Emails */
+
+        public static string EmailTemplatesFolder = "email-templates";
+        public static string ConfirmEmailTemplateFileName = "confirm-email-template.html";
+        public static string ResetPasswordTemplateFileName = "reset-password-template.html";
     }
 }
