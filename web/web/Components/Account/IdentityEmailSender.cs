@@ -43,7 +43,7 @@ namespace web.Components.Account
                 { "LogoUrl", settingsModel.Data[StaticStrings.AdminPageDataLogoKey] }
             };
 
-            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesConfirmEmailDataHtmlFilePath, placeholders);
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesConfirmEmailDataHtmlFilePath, StaticStrings.EmailTemplatesConfirmEmailMemoryCacheKey, placeholders);
 
             var emailModel = new EmailModel
             {
@@ -81,7 +81,7 @@ namespace web.Components.Account
                 { "LogoUrl", settingsModel.Data[StaticStrings.AdminPageDataLogoKey] }
             };
 
-            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesResetPasswordDataHtmlFilePath, placeholders);
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesResetPasswordDataHtmlFilePath, StaticStrings.EmailTemplatesResetPasswordMemoryCacheKey, placeholders);
 
             var emailModel = new EmailModel
             {

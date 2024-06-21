@@ -11,9 +11,9 @@ namespace shared.Managers
             _pageDataService = pageDataService;
         }
 
-        public async Task<string> GetTemplateHtmlAsync(string templateName, Dictionary<string, string> placeholders)
+        public async Task<string> GetTemplateHtmlAsync(string templateFilePath, string templateMemoryCacheKey, Dictionary<string, string> placeholders)
         {
-            var templateContent = await _pageDataService.GetStringDataAsync(StaticStrings.EmailTemplatesMemoryCacheKey, templateName, StaticStrings.EmailTemplatesContainerName);
+            var templateContent = await _pageDataService.GetStringDataAsync(templateMemoryCacheKey, templateFilePath, StaticStrings.EmailTemplatesContainerName);
 
             foreach (var placeholder in placeholders)
             {
