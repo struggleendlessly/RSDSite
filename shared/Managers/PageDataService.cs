@@ -34,6 +34,22 @@ namespace shared.Managers
             return model;
         }
 
+        public async Task<string> GetStringDataAsync(string memoryCacheKey, string filePath, string? blobContainerName = null)
+        {
+            var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
+            if (!_memoryCache.TryGetValue(key, out string data))
+            {
+                var containerName = blobContainerName ?? _stateManager.SiteName;
+                var blobName = string.Format(filePath, _stateManager.Lang);
+                var content = await _blobStorageManager.DownloadFile(containerName, blobName);
+                data = content;
+
+                _memoryCache.Set(key, data);
+            }
+
+            return data;
+        }
+
         public async Task SaveDataAsync<T>(T model, string memoryCacheKey, string filePath)
         {
             var jsonModel = JsonConvert.SerializeObject(model);

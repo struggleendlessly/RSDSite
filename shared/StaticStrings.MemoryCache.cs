@@ -6,5 +6,6 @@ namespace shared
     {
         public static string LocalizationMemoryCacheKey = "{0}_{1}_LocalizationMemoryCache";
         public static string PopoversMemoryCacheKey = "{0}_{1}_PopoversMemoryCache";
+        public static string EmailTemplatesMemoryCacheKey = "{0}_{1}_EmailTemplatesMemoryCache";
     }
 }

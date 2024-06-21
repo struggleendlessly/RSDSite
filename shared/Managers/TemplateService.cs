@@ -4,17 +4,16 @@ namespace shared.Managers
 {
     public class TemplateService : ITemplateService
     {
-        private readonly IStateManager _stateManager;
+        private readonly IPageDataService _pageDataService;
 
-        public TemplateService(IStateManager stateManager)
+        public TemplateService(IPageDataService pageDataService)
         {
-            _stateManager = stateManager;
+            _pageDataService = pageDataService;
         }
 
         public async Task<string> GetTemplateHtmlAsync(string templateName, Dictionary<string, string> placeholders)
         {
-            var path = Path.Combine(StaticStrings.WwwRootPath, StaticStrings.EmailTemplatesFolder, _stateManager.Lang.TwoLetterISOLanguageName, templateName);
-            var templateContent = await File.ReadAllTextAsync(path);
+            var templateContent = await _pageDataService.GetStringDataAsync(StaticStrings.EmailTemplatesMemoryCacheKey, templateName, StaticStrings.EmailTemplatesContainerName);
 
             foreach (var placeholder in placeholders)
             {

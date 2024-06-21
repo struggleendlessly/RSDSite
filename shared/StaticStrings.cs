@@ -31,8 +31,6 @@ namespace shared
         public static string NewDomainsContainerName = "new-domains-dev";
         public static string NewDomainsDataJsonFilePath = "{0}.json";
 
-        public static string LogoFilePath = "_content/rcl/assets/images/logo.png";
-
         /* Home Keys */
 
         public static string HomePageDataTitleKey = "Title";
@@ -254,8 +252,8 @@ namespace shared
 
         /* Emails */
 
-        public static string EmailTemplatesFolder = "email-templates";
-        public static string ConfirmEmailTemplateFileName = "confirm-email-template.html";
-        public static string ResetPasswordTemplateFileName = "reset-password-template.html";
+        public static string EmailTemplatesContainerName = "email-templates";
+        public static string EmailTemplatesConfirmEmailDataHtmlFilePath = "{0}/confirm-email-template.html";
+        public static string EmailTemplatesResetPasswordDataHtmlFilePath = "{0}/reset-password-template.html";
     }
 }

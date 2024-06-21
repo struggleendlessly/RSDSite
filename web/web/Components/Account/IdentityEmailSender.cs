@@ -34,15 +34,16 @@ namespace web.Components.Account
         public async Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink)
         {
             var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            var settingsModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
 
             var placeholders = new Dictionary<string, string>
             {
                 { "ConfirmationLink", confirmationLink },
                 { "MainLink", _navigationManager.BaseUri },
-                { "LogoUrl", _navigationManager.BaseUri + StaticStrings.LogoFilePath }
+                { "LogoUrl", settingsModel.Data[StaticStrings.AdminPageDataLogoKey] }
             };
 
-            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.ConfirmEmailTemplateFileName, placeholders);
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesConfirmEmailDataHtmlFilePath, placeholders);
 
             var emailModel = new EmailModel
             {
@@ -71,15 +72,16 @@ namespace web.Components.Account
         public async Task SendPasswordResetLinkAsync(ApplicationUser user, string email, string resetLink)
         {
             var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            var settingsModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
 
             var placeholders = new Dictionary<string, string>
             {
                 { "ResetLink", resetLink },
                 { "MainLink", _navigationManager.BaseUri },
-                { "LogoUrl", _navigationManager.BaseUri + StaticStrings.LogoFilePath }
+                { "LogoUrl", settingsModel.Data[StaticStrings.AdminPageDataLogoKey] }
             };
 
-            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.ResetPasswordTemplateFileName, placeholders);
+            var htmlContent = await _templateService.GetTemplateHtmlAsync(StaticStrings.EmailTemplatesResetPasswordDataHtmlFilePath, placeholders);
 
             var emailModel = new EmailModel
             {
