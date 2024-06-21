@@ -154,6 +154,12 @@ namespace shared.Managers
             return UserSites.Contains(SiteName);
         }
 
+        public bool IsCustomDomain()
+        {
+            var domain = GetDomain();
+            return !StaticStrings.Domains.Contains(domain);
+        }
+
         public void AddUserSite(Website website)
         {
             _userSites.Add(website);

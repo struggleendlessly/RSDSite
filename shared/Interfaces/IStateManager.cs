@@ -13,6 +13,7 @@ namespace shared.Interfaces
         public List<string> UserSites { get; }
 
         bool CanEditSite();
+        bool IsCustomDomain();
         void AddUserSite(Website website);
         void RenameUserSite(Guid siteId, string newName);
         string GetPageUrl(string url, bool showSiteName = true);
