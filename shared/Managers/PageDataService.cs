@@ -1,6 +1,11 @@
 ﻿using System.Text;
+
 using Newtonsoft.Json;
+
+using shared.Models;
+using shared.Helpers;
 using shared.Interfaces;
+
 using Microsoft.Extensions.Caching.Memory;
 
 namespace shared.Managers
@@ -31,6 +36,11 @@ namespace shared.Managers
                 _memoryCache.Set(key, model);
             }
 
+            if (model is PageModel pageModel)
+            {
+                SearchAndReplaceInPageModel(pageModel, "{{{container}}}", _stateManager.SiteName);
+            }
+
             return model;
         }
 
@@ -52,7 +62,14 @@ namespace shared.Managers
 
         public async Task SaveDataAsync<T>(T model, string memoryCacheKey, string filePath)
         {
-            var jsonModel = JsonConvert.SerializeObject(model);
+            T modelCopy = ObjectHelpers.DeepCopy(model);
+
+            if (modelCopy is PageModel pageModelCopy)
+            {
+                SearchAndReplaceInPageModel(pageModelCopy, _stateManager.SiteName, "{{{container}}}");
+            }
+
+            var jsonModel = JsonConvert.SerializeObject(modelCopy);
             var blobName = string.Format(filePath, _stateManager.Lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
@@ -60,6 +77,18 @@ namespace shared.Managers
 
             var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
             _memoryCache.Remove(key);
+        }
+
+        private void SearchAndReplaceInPageModel(PageModel pageModel, string target, string replacement)
+        {
+            foreach (var key in pageModel.Data.Keys.ToList())
+            {
+                if (pageModel.Data[key].Contains(target))
+                {
+                    var newValue = pageModel.Data[key].Replace(target, replacement);
+                    pageModel.Data[key] = newValue;
+                }
+            }
         }
     }
 }
