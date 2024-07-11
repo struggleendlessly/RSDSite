@@ -164,6 +164,11 @@ namespace rcl.Components.Shared
                 { serviceItemKey + StaticStrings.SubtitleKeyEnding, StaticHtmlStrings.ItemsListItemLongDescSubtitleDefaultValue },
                 { serviceItemKey + StaticStrings.ImageKeyEnding, StaticHtmlStrings.ItemsListItemLongDescImageDefaultValue }
             };
+            serviceItem.SEO = new Dictionary<string, string>
+            {
+                { serviceItemKey + StaticStrings.TitleKeyEnding, StaticHtmlStrings.ItemsListItemSEODefaultTitleValue },
+                { serviceItemKey + StaticStrings.MetaDescriptionKeyEnding, StaticHtmlStrings.ItemsListItemSEODefaultMetaDescriptionValue }
+            };
 
             ModelUrls.Data.Add(serviceItemKey + StaticStrings.UrlKeyEnding, serviceItemKey);
 

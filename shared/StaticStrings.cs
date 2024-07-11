@@ -164,6 +164,11 @@ namespace shared
         public static string Popover_Admin_1_2_CustomDomain = "Admin_1_2_CustomDomain";
         public static string Popover_Admin_1_3_CustomDomain = "Admin_1_3_CustomDomain";
 
+        /* SEO Keys */
+
+        public static string SEO_Title_Key = "Title";
+        public static string SEO_Meta_Description_Key = "Meta_Description";
+
         /* Key Endings */
 
         public static string AvatarKeyEnding = "_Avatar";
@@ -173,6 +178,7 @@ namespace shared
         public static string TextKeyEnding = "_Text";
         public static string ImageKeyEnding = "_Image";
         public static string LinkKeyEnding = "_Link";
+        public static string MetaDescriptionKeyEnding = "_Meta_Description";
 
         public static string PortfolioPageKeyEnding = "_Portfolio";
         public static string DocumentsPageKeyEnding = "_Documents";

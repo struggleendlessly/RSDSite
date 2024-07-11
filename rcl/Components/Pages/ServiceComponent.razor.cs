@@ -92,6 +92,19 @@ namespace rcl.Components.Pages
                 .SelectMany(x => x.LongDesc)
                 .Where(x => x.Key == Key || x.Key == titleKey || x.Key == subtitleKey || x.Key == imageKey)
                 .ToDictionary();
+
+            var seoTitleKey = Key + StaticStrings.TitleKeyEnding;
+            var seoMetaDescriptionKey = Key + StaticStrings.MetaDescriptionKeyEnding;
+
+            var seo = ServiceItems
+                .SelectMany(x => x.SEO)
+                .Where(x => x.Key == seoTitleKey || x.Key == seoMetaDescriptionKey)
+                .ToDictionary();
+
+            Model.SEO = seo.ToDictionary(
+                x => x.Key.Replace(Key, string.Empty).TrimStart('_'), 
+                x => x.Value
+            );
         }
 
         public async Task Save(PageModel model)
@@ -103,6 +116,15 @@ namespace rcl.Components.Pages
                     if (model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
                     {
                         serviceItem.LongDesc[longDesc.Key] = modelData;
+                    }
+                }
+
+                foreach (var seo in serviceItem.SEO.ToList())
+                {
+                    var key = seo.Key.Replace(Key, string.Empty).TrimStart('_');
+                    if (model.SEO.TryGetValue(key, out var modelData) && modelData != seo.Value)
+                    {
+                        serviceItem.SEO[seo.Key] = modelData;
                     }
                 }
             }

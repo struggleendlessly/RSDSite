@@ -6,5 +6,6 @@ namespace shared.Models
     {
         public Dictionary<string, string> ShortDesc { get; set; }
         public Dictionary<string, string> LongDesc { get; set; }
+        public Dictionary<string, string> SEO { get; set; }
     }
 }

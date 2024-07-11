@@ -22,6 +22,9 @@ namespace rcl.Components.Shared
         public PageModel Model { get; set; } = new PageModel();
 
         [Parameter]
+        public string PropertyName { get; set; } = nameof(PageModel.Data);
+
+        [Parameter]
         public string Key { get; set; } = string.Empty;
 
         [Parameter]
@@ -52,19 +55,45 @@ namespace rcl.Components.Shared
         {
             LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
-            Value = Model.Data[Key];
+            Value = GetPropertyValue(Model, PropertyName, Key);
         }
 
         private async Task SaveChangesAsync()
         {
             IsSaving = true;
 
-            Model.Data[Key] = Value;
+            SetPropertyValue(Model, PropertyName, Key, Value);
             await FuncSave(Model);
 
             await JSRuntime.InvokeVoidAsync(JSInvokeMethodList.closeModal, $"Modal{EditorId}");
 
             IsSaving = false;
+        }
+
+        private string GetPropertyValue(PageModel model, string propertyName, string key)
+        {
+            if (propertyName == nameof(PageModel.Data))
+            {
+                return model.Data.ContainsKey(key) ? model.Data[key] : string.Empty;
+            }
+            else if (propertyName == nameof(PageModel.SEO))
+            {
+                return model.SEO.ContainsKey(key) ? model.SEO[key] : string.Empty;
+            }
+
+            return string.Empty;
+        }
+
+        private void SetPropertyValue(PageModel model, string propertyName, string key, string value)
+        {
+            if (propertyName == nameof(PageModel.Data))
+            {
+                model.Data[key] = value;
+            }
+            else if (propertyName == nameof(PageModel.SEO))
+            {
+                model.SEO[key] = value;
+            }
         }
     }
 }

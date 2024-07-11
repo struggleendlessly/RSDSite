@@ -1,0 +1,61 @@
+﻿@using shared.Models
+
+@if (Model.SEO is not null && Model.SEO.Count > 0)
+{
+    <PageTitle>@Model.SEO[StaticStrings.SEO_Title_Key]</PageTitle>
+
+    <HeadContent>
+        <meta name="description" content="@Model.SEO[StaticStrings.SEO_Meta_Description_Key]">
+    </HeadContent>
+
+    <AuthorizeView>
+        <Authorized>
+            @if (Model.SEO is not null && Model.SEO.Count > 0)
+            {
+                <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                    SEO
+                </h2>
+                <div class="accordion my-5" id="accordionSEO">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTitle" aria-expanded="false" aria-controls="collapseTitle">
+                                @LocalizationModel.Data[StaticStrings.Localization_SEO_Title_Key]
+                            </button>
+                        </h2>
+                        <div id="collapseTitle" class="accordion-collapse collapse" data-bs-parent="#accordionSEO">
+                            <div class="accordion-body">
+                                <TextEditor EditorId="@(StaticStrings.TextEditor_SEO_Title_Id)"
+                                            EditorType="@(StaticStrings.TextEditorTypeText)"
+                                            Model="Model"
+                                            FuncSave="FuncSave"
+                                            PropertyName="@nameof(PageModel.SEO)"
+                                            Key="@StaticStrings.SEO_Title_Key">
+                                    @Model.SEO[StaticStrings.SEO_Title_Key]
+                                </TextEditor>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMetaDescription" aria-expanded="false" aria-controls="collapseMetaDescription">
+                                @LocalizationModel.Data[StaticStrings.Localization_SEO_Meta_Description_Key]
+                            </button>
+                        </h2>
+                        <div id="collapseMetaDescription" class="accordion-collapse collapse" data-bs-parent="#accordionSEO">
+                            <div class="accordion-body">
+                                <TextEditor EditorId="@(StaticStrings.TextEditor_SEO_Meta_Description_Id)"
+                                            EditorType="@(StaticStrings.TextEditorTypeText)"
+                                            Model="Model"
+                                            FuncSave="FuncSave"
+                                            PropertyName="@nameof(PageModel.SEO)"
+                                            Key="@StaticStrings.SEO_Meta_Description_Key">
+                                    @Model.SEO[StaticStrings.SEO_Meta_Description_Key]
+                                </TextEditor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </Authorized>
+    </AuthorizeView>
+}

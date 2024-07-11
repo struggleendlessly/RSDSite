@@ -142,5 +142,7 @@ namespace shared
         public static string ItemsListItemLongDescTitleDefaultValue = "Item title";
         public static string ItemsListItemLongDescSubtitleDefaultValue = "Item subtitle";
         public static string ItemsListItemLongDescImageDefaultValue = "https://cdn.pixabay.com/photo/2017/02/13/23/03/planet-2064152_640.jpg";
+        public static string ItemsListItemSEODefaultTitleValue = "Title";
+        public static string ItemsListItemSEODefaultMetaDescriptionValue = "Meta description";
     }
 }
