@@ -103,7 +103,7 @@ async function js_editorGetContent(id, format) {
             var resizedBase64 = await scaleImageToFullHD(base64Data);
             var azureBlobLink = await DotNetHelpers.uploadImage(resizedBase64);
 
-            content = content.replace(base64Images[i], `<img src="${azureBlobLink}" alt="Uploaded Image">`);
+            content = content.replace(base64Images[i], `<img src="${azureBlobLink}" class="img-fluid" alt="Uploaded Image">`);
         }
     }
 
