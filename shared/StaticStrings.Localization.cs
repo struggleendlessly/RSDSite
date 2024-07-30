@@ -95,6 +95,7 @@ namespace shared
         public static string Localization_Editor_Button_Save_Key = "Editor_Button_Save";
         public static string Localization_Editor_Button_Cancel_Key = "Editor_Button_Cancel";
         public static string Localization_ImageEditor_Button_Save_Key = "ImageEditor_Button_Save";
+        public static string Localization_VisibilityEditor_Checkbox_Key = "VisibilityEditor_Checkbox";
 
         /* Items Page Keys */
 

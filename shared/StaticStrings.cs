@@ -179,7 +179,7 @@ namespace shared
         public static string ImageKeyEnding = "_Image";
         public static string LinkKeyEnding = "_Link";
         public static string MetaDescriptionKeyEnding = "_Meta_Description";
-
+        public static string IsVisibleKeyEnding = "_IsVisible";
         public static string PortfolioPageKeyEnding = "_Portfolio";
         public static string DocumentsPageKeyEnding = "_Documents";
 

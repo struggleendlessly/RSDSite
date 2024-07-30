@@ -87,10 +87,11 @@ namespace rcl.Components.Pages
             var titleKey = Key + StaticStrings.TitleKeyEnding;
             var subtitleKey = Key + StaticStrings.SubtitleKeyEnding;
             var imageKey = Key + StaticStrings.ImageKeyEnding;
+            var imageIsVisibleKey = Key + StaticStrings.ImageKeyEnding + StaticStrings.IsVisibleKeyEnding;
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.LongDesc)
-                .Where(x => x.Key == Key || x.Key == titleKey || x.Key == subtitleKey || x.Key == imageKey)
+                .Where(x => x.Key == Key || x.Key == titleKey || x.Key == subtitleKey || x.Key == imageKey || x.Key == imageIsVisibleKey)
                 .ToDictionary();
 
             var seoTitleKey = Key + StaticStrings.TitleKeyEnding;
@@ -111,11 +112,18 @@ namespace rcl.Components.Pages
         {
             foreach (var serviceItem in ServiceItems)
             {
-                foreach (var longDesc in serviceItem.LongDesc.ToList())
+                foreach (var modelDataEntry in model.Data)
                 {
-                    if (model.Data.TryGetValue(longDesc.Key, out var modelData) && modelData != longDesc.Value)
+                    if (serviceItem.LongDesc.TryGetValue(modelDataEntry.Key, out var longDescValue))
                     {
-                        serviceItem.LongDesc[longDesc.Key] = modelData;
+                        if (modelDataEntry.Value != longDescValue)
+                        {
+                            serviceItem.LongDesc[modelDataEntry.Key] = modelDataEntry.Value;
+                        }
+                    }
+                    else if (serviceItem.LongDesc.ContainsKey(Key))
+                    {
+                        serviceItem.LongDesc[modelDataEntry.Key] = modelDataEntry.Value;
                     }
                 }
 

@@ -22,6 +22,9 @@ namespace rcl.Components.Shared
         public string Key { get; set; } = string.Empty;
 
         [Parameter]
+        public bool AllowVisibilityChange { get; set; } = false;
+
+        [Parameter]
         public PageModel? PopoversModel { get; set; } = null;
 
         [Parameter]

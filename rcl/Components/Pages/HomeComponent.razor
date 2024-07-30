@@ -40,9 +40,10 @@
         <ImageEditor EditorId="@StaticHtmlStrings.ImageEditorHomeImageId"
                      Model="Model"
                      FuncSave="Save"
-                     Key="@(StaticStrings.HomePageDataImageKey)"
+                     Key="@StaticStrings.HomePageDataImageKey"
                      PopoversModel="PopoversModel"
-                     PopoverKey="@StaticStrings.Popover_Main_1_ImageEditor">
+                     PopoverKey="@StaticStrings.Popover_Main_1_ImageEditor"
+                     AllowVisibilityChange="true">
             <img src="@Model.Data[StaticStrings.HomePageDataImageKey]" class="img-fluid rounded mb-5" alt="Example image" loading="lazy" />
         </ImageEditor>
 

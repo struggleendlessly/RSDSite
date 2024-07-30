@@ -1,4 +1,6 @@
-﻿<AuthorizeView>
+﻿@using shared.Helpers
+
+<AuthorizeView>
     <Authorized>
         @if (LocalizationModel.Data is not null && StateManager.CanEditSite())
         {
@@ -37,9 +39,21 @@
 
                     </button>
                 </div>
+                @if (AllowVisibilityChange)
+                {
+                    <VisibilityEditor 
+                        EditorId="@EditorId"
+                        Model="Model"
+                        FuncSave="FuncSave"
+                        Key="@Key">
+                    </VisibilityEditor>
+                }
             </div>
         }
     </Authorized>
 </AuthorizeView>
 
-@ChildContent
+@if (VisibilityHelpers.IsVisible(Model, Key))
+{
+    @ChildContent
+}
