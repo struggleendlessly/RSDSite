@@ -1,10 +1,8 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
-using shared.Emails;
 using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
@@ -14,20 +12,12 @@ using System.Text.Json;
 namespace rcl.Components.Pages
 {
     public partial class HomeComponent : IDisposable
-    {
-        [Inject]
-        EmailService EmailService { get; set; }
-        [Inject]
-        EmailSenders EmailSenders { get; set; }
-        
+    {    
         [Inject]
         IJSRuntime JS { get; set; }
 
         [Inject]
         AzureBlobStorageManager BlobStorageManager { get; set; }
-
-        [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }
@@ -50,8 +40,6 @@ namespace rcl.Components.Pages
 
         public PageModel LocalizationModel { get; set; } = new PageModel();
 
-        public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
-
         DotNetObjectReference<HomeComponent>? dotNetHelper { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -66,24 +54,11 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            //var emailModel = new EmailModel
-            //{
-            //    Subject = "Hello from the Home Page",
-            //    HtmlContent = "This is a test email from the Home Page",
-            //    Recipient = "struggleendlessly@hotmail.com",
-            //    Sender = EmailSenders.DoNotReply
-            //};
-
-            //await EmailService.Send(emailModel);
-
             await CheckSubscriptionStatus();
 
             Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
             PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
             LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
-
-            var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
-            ServiceItems = serviceItems.Take(4).ToList();
         }
 
         [JSInvokable]

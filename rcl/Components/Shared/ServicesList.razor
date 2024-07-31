@@ -1,29 +1,35 @@
-﻿@using shared.Enums;
+﻿@using shared.Enums
+﻿@using shared.Helpers
 
 @if (Model.Data is not null && Model.Data.Count > 0 && ModelUrls.Data is not null && ModelUrls.Data.Count > 0 && SettingsModel.Data is not null && LocalizationModel.Data is not null)
 {
     <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto mt-1">
 
-        @for (int i = 0; i < ServiceItems.Count; i++)
+        @foreach (var item in ServiceItems)
         {
-            var serviceKeyIndex = i * 3;
-            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceKey = item.ShortDesc.FirstOrDefault().Key;
             var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
             var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
             var serviceUrlValue = ModelUrls.Data[serviceUrlKey];
             var serviceButtonTextValue = SettingsModel.Data[StaticStrings.AdminPageDataServicesButtonTextKey];
 
-            <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+            <AuthorizeView>
+                <Authorized>
+                    <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+                        <div class="card border-light bg-light h-100 py-3">
 
-
-                <div class="card border-light bg-light h-100 py-3">
-                    <AuthorizeView>
-                        <Authorized>
                             <!-- Card add or remove -->
                             @if (StateManager.CanEditSite())
                             {
-                                <div class="mb-2 mt-2">
+                                <div class="mt-2">
+                                    <VisibilityEditor EditorId="@(StaticStrings.VisibilityEditor_ServicesList_Id + serviceKey)"
+                                                      Model="Model"
+                                                      FuncSave="SaveContent"
+                                                      Key="@serviceKey">
+                                    </VisibilityEditor>
+                                </div>
+                                <div class="mb-2">
                                     <button type="button" class="btn btn-outline-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
@@ -40,23 +46,18 @@
 
                                     @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
                                     {
-                                        <Popover 
-                                            PopoversModel="PopoversModel"
-                                            PopoverKey="@PopoverKey">
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@PopoverKey">
                                         </Popover>
                                     }
                                 </div>
                             }
-                        </Authorized>
-                    </AuthorizeView>
 
-                    <AuthorizeView>
-                        <Authorized>
                             <!-- Card add or remove -->
                             @if (StateManager.CanEditSite())
                             {
                                 <div class="card-header bg-transparent border-dark">
-                                    <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKeyIndex)"
+                                    <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceUrlId + serviceKey)"
                                                 EditorType="@(StaticStrings.TextEditorTypeText)"
                                                 Model="ModelUrls"
                                                 FuncSave="SaveUrl"
@@ -70,59 +71,114 @@
                                     </TextEditor>
                                 </div>
                             }
-                        </Authorized>
-                    </AuthorizeView>
 
+                            <div class="card-body">
+                                <!-- Card main title -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceTitleKey">
+                                    <h5 class="card-title">
+                                        @((MarkupString)Model.Data[serviceTitleKey])
+                                    </h5>
+                                </HTMLEditor>
 
-                    <div class="card-body">
-                        <!-- Card main title -->
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceTitleKey">
-                            <h5 class="card-title">
-                                @((MarkupString)Model.Data[serviceTitleKey])
-                            </h5>
-                        </HTMLEditor>
+                                <!-- Card text -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceSubtitleKey">
+                                    <p class="card-text">
+                                        @((MarkupString)Model.Data[serviceSubtitleKey])
+                                    </p>
+                                </HTMLEditor>
 
-                        <!-- Card text -->
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceSubtitleKey">
-                            <p class="card-text">
-                                @((MarkupString)Model.Data[serviceSubtitleKey])
-                            </p>
-                        </HTMLEditor>
+                            </div>
 
+                            <!-- Card footer -->
+                            <div class="card-footer bg-light border-0">
+                                @{
+                                    var url = string.Empty;
+                                    if (PageType == ServicesPageType.Services)
+                                    {
+                                        url = StateManager.GetPageUrl($"{StaticRoutesStrings.ItemsPageUrl}/{serviceUrlValue}");
+                                    }
+                                    else if (PageType == ServicesPageType.Portfolio)
+                                    {
+                                        url = StateManager.GetPageUrl($"{StaticRoutesStrings.PortfolioPageUrl}/{serviceUrlValue}");
+                                    }
+                                    else if (PageType == ServicesPageType.Documents)
+                                    {
+                                        url = StateManager.GetPageUrl($"{StaticRoutesStrings.DocumentsPageUrl}/{serviceUrlValue}");
+                                    }
+                                }
+                                <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@url">
+                                    @((MarkupString)serviceButtonTextValue)
+                                </a>
+                            </div>
 
+                        </div>
                     </div>
+                </Authorized>
+                <NotAuthorized>
+                    @if (VisibilityHelpers.IsVisible(Model.Data, serviceKey))
+                    {
+                        <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+                            <div class="card border-light bg-light h-100 py-3">
+                                <div class="card-body">
 
-                    <!-- Card footer -->
-                    <div class="card-footer bg-light border-0">
-                        @{
-                            var url = string.Empty;
-                            if (PageType == ServicesPageType.Services)
-                            {
-                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.ItemsPageUrl}/{serviceUrlValue}");
-                            }
-                            else if (PageType == ServicesPageType.Portfolio)
-                            {
-                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.PortfolioPageUrl}/{serviceUrlValue}");
-                            }
-                            else if (PageType == ServicesPageType.Documents)
-                            {
-                                url = StateManager.GetPageUrl($"{StaticRoutesStrings.DocumentsPageUrl}/{serviceUrlValue}");
-                            }
-                        }
-                        <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@url">
-                            @((MarkupString)serviceButtonTextValue)
-                        </a>
-                    </div>
-                </div>
-            </div>
+                                    <!-- Card main title -->
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceTitleId + serviceKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatText)"
+                                                Model="Model"
+                                                FuncSave="SaveContent"
+                                                Key="@serviceTitleKey">
+                                        <h5 class="card-title">
+                                            @((MarkupString)Model.Data[serviceTitleKey])
+                                        </h5>
+                                    </HTMLEditor>
+
+                                    <!-- Card text -->
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorServicesListServiceSubtitleId + serviceKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                                Model="Model"
+                                                FuncSave="SaveContent"
+                                                Key="@serviceSubtitleKey">
+                                        <p class="card-text">
+                                            @((MarkupString)Model.Data[serviceSubtitleKey])
+                                        </p>
+                                    </HTMLEditor>
+
+                                </div>
+
+                                <!-- Card footer -->
+                                <div class="card-footer bg-light border-0">
+                                    @{
+                                        var url = string.Empty;
+                                        if (PageType == ServicesPageType.Services)
+                                        {
+                                            url = StateManager.GetPageUrl($"{StaticRoutesStrings.ItemsPageUrl}/{serviceUrlValue}");
+                                        }
+                                        else if (PageType == ServicesPageType.Portfolio)
+                                        {
+                                            url = StateManager.GetPageUrl($"{StaticRoutesStrings.PortfolioPageUrl}/{serviceUrlValue}");
+                                        }
+                                        else if (PageType == ServicesPageType.Documents)
+                                        {
+                                            url = StateManager.GetPageUrl($"{StaticRoutesStrings.DocumentsPageUrl}/{serviceUrlValue}");
+                                        }
+                                    }
+                                    <a class="@StaticHtmlStrings.CSSButtonDarkInTheText" href="@url">
+                                        @((MarkupString)serviceButtonTextValue)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </NotAuthorized>
+            </AuthorizeView>
         }
     </div>
 }

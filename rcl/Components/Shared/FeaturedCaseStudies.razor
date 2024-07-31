@@ -1,12 +1,5 @@
 ﻿@if (ServiceItems.Count > 0)
 {
-    var length = ServiceItems.Count;
-
-    if (ServiceItems.Count > 3)
-    {
-        length = 4;
-    }
-
     <AuthorizeView>
         <Authorized>
             @if (StateManager.CanEditSite() && PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
@@ -24,9 +17,8 @@
     </AuthorizeView>
     <div class="row row-cols-1 row-cols-md-2 g-5 py-5">
 
-        @for (int i = 0; i < length; i++)
+        @foreach (var item in ServiceItems)
         {
-            var item = ServiceItems[i];
             var url = item.LongDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.UrlKeyEnding)).Value;
             var title = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.TitleKeyEnding)).Value;
             var subtitle = item.ShortDesc.FirstOrDefault(x => x.Key.Contains(StaticStrings.SubtitleKeyEnding)).Value;

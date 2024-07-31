@@ -86,11 +86,20 @@ namespace rcl.Components.Shared
         {
             foreach (var serviceItem in ServiceItems)
             {
-                foreach (var shortDesc in serviceItem.ShortDesc.ToList())
+                var serviceItemKey = serviceItem.ShortDesc.FirstOrDefault().Key;
+
+                foreach (var modelDataEntry in model.Data)
                 {
-                    if (model.Data.TryGetValue(shortDesc.Key, out var modelData) && modelData != shortDesc.Value)
+                    if (serviceItem.ShortDesc.TryGetValue(modelDataEntry.Key, out var shortDescValue))
                     {
-                        serviceItem.ShortDesc[shortDesc.Key] = modelData;
+                        if (modelDataEntry.Value != shortDescValue)
+                        {
+                            serviceItem.ShortDesc[modelDataEntry.Key] = modelDataEntry.Value;
+                        }
+                    }
+                    else if (modelDataEntry.Key.Contains(serviceItemKey))
+                    {
+                        serviceItem.ShortDesc[modelDataEntry.Key] = modelDataEntry.Value;
                     }
                 }
             }
@@ -121,10 +130,12 @@ namespace rcl.Components.Shared
             {
                 var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
                 var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
+                var serviceIsVisibleKey = key + StaticStrings.IsVisibleKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceTitleKey);
                 Model.Data.Remove(serviceSubtitleKey);
+                Model.Data.Remove(serviceIsVisibleKey);
 
                 var serviceItem = ServiceItems.FirstOrDefault(x => x.ShortDesc.ContainsKey(key));
                 if (serviceItem != null)
@@ -144,17 +155,20 @@ namespace rcl.Components.Shared
             var serviceItemKey = string.Format(StaticHtmlStrings.ItemsListItemShortDescDefaultKey, dateTime.ToString("mm"), dateTime.ToString("ss"));
             var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
+            var serviceIsVisibleKey = serviceItemKey + StaticStrings.IsVisibleKeyEnding;
 
             Model.Data.AddAfter(key + StaticStrings.SubtitleKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceTitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultSubtitleValue);
+            Model.Data.AddAfter(serviceSubtitleKey, serviceIsVisibleKey, bool.TrueString.ToLower());
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string> 
             { 
                 { serviceItemKey, serviceItemKey },
                 { serviceTitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultTitleValue },
-                { serviceSubtitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultSubtitleValue }
+                { serviceSubtitleKey, StaticHtmlStrings.ItemsListItemShortDescDefaultSubtitleValue },
+                { serviceIsVisibleKey, bool.TrueString.ToLower() }
             };
             serviceItem.LongDesc = new Dictionary<string, string>
             {

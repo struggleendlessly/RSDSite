@@ -1,9 +1,10 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0 && LocalizationModel.Data is not null)
+﻿@using shared.Helpers
+
+@if (Model.Data is not null && Model.Data.Count > 0 && LocalizationModel.Data is not null)
 {
-    @for (int i = 0; i < ServiceItems.Count; i++)
+    @foreach (var item in ServiceItems)
     {
-        var serviceKeyIndex = i * 3;
-        var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+        var serviceKey = item.ShortDesc.FirstOrDefault().Key;
         var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
         var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
 
@@ -13,7 +14,7 @@
 
                     <p class="card-text">
                         <button class="btn btn-ghost-secondary btn-sm btn-icon rounded-circle">
-                            <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAdminSocialNetworksImageId + serviceKeyIndex)"
+                            <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAdminSocialNetworksImageId + serviceKey)"
                                          Model="Model"
                                          FuncSave="SaveContent"
                                          Key="@serviceImageKey"
@@ -23,9 +24,11 @@
                             </ImageEditor>
                         </button>
                     </p>
+
                     <hr />
+
                     <p class="card-text text-center">
-                        <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId + serviceKeyIndex)"
+                        <TextEditor EditorId="@(StaticHtmlStrings.HTMLEditorAdminSocialNetworksUrlId + serviceKey)"
                                     EditorType="@(StaticStrings.TextEditorTypeUrl)"
                                     Model="Model"
                                     FuncSave="SaveContent"
@@ -37,12 +40,20 @@
                             </p>
                         </TextEditor>
                     </p>
+
                 </div>
 
                 <div class="card-footer text-center">
                     @if (StateManager.CanEditSite())
                     {
-                        <div class="mb-2 mt-2">
+                        <div class="mt-2">
+                            <VisibilityEditor EditorId="@(StaticStrings.VisibilityEditor_SocialNetworks_Id + serviceKey)"
+                                              Model="Model"
+                                              FuncSave="SaveContent"
+                                              Key="@serviceKey">
+                            </VisibilityEditor>
+                        </div>
+                        <div class="mb-2">
                             <button type="button" class="btn btn-outline-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>

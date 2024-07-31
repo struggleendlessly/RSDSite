@@ -65,11 +65,20 @@ namespace rcl.Components.Shared
         {
             foreach (var serviceItem in ServiceItems)
             {
-                foreach (var shortDesc in serviceItem.ShortDesc.ToList())
+                var serviceItemKey = serviceItem.ShortDesc.FirstOrDefault().Key;
+
+                foreach (var modelDataEntry in model.Data)
                 {
-                    if (model.Data.TryGetValue(shortDesc.Key, out var modelData) && modelData != shortDesc.Value)
+                    if (serviceItem.ShortDesc.TryGetValue(modelDataEntry.Key, out var shortDescValue))
                     {
-                        serviceItem.ShortDesc[shortDesc.Key] = modelData;
+                        if (modelDataEntry.Value != shortDescValue)
+                        {
+                            serviceItem.ShortDesc[modelDataEntry.Key] = modelDataEntry.Value;
+                        }
+                    }
+                    else if (modelDataEntry.Key.Contains(serviceItemKey))
+                    {
+                        serviceItem.ShortDesc[modelDataEntry.Key] = modelDataEntry.Value;
                     }
                 }
             }
@@ -85,12 +94,14 @@ namespace rcl.Components.Shared
                 var serviceTitleKey = key + StaticStrings.TitleKeyEnding;
                 var serviceSubtitleKey = key + StaticStrings.SubtitleKeyEnding;
                 var serviceTextKey = key + StaticStrings.TextKeyEnding;
+                var serviceIsVisibleKey = key + StaticStrings.IsVisibleKeyEnding;
 
                 Model.Data.Remove(key);
                 Model.Data.Remove(serviceImageKey);
                 Model.Data.Remove(serviceTitleKey);
                 Model.Data.Remove(serviceSubtitleKey);
                 Model.Data.Remove(serviceTextKey);
+                Model.Data.Remove(serviceIsVisibleKey);
 
                 var serviceItem = ServiceItems.FirstOrDefault(x => x.ShortDesc.ContainsKey(key));
                 if (serviceItem != null)
@@ -112,12 +123,14 @@ namespace rcl.Components.Shared
             var serviceTitleKey = serviceItemKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceItemKey + StaticStrings.SubtitleKeyEnding;
             var serviceTextKey = serviceItemKey + StaticStrings.TextKeyEnding;
+            var serviceIsVisibleKey = serviceItemKey + StaticStrings.IsVisibleKeyEnding;
 
             Model.Data.AddAfter(key + StaticStrings.TextKeyEnding, serviceItemKey, serviceItemKey);
             Model.Data.AddAfter(serviceItemKey, serviceImageKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultImageValue);
             Model.Data.AddAfter(serviceImageKey, serviceTitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTitleValue);
             Model.Data.AddAfter(serviceTitleKey, serviceSubtitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultSubtitleValue);
             Model.Data.AddAfter(serviceSubtitleKey, serviceTextKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTextValue);
+            Model.Data.AddAfter(serviceTextKey, serviceIsVisibleKey, bool.TrueString.ToLower());
 
             var serviceItem = new ServiceItem();
             serviceItem.ShortDesc = new Dictionary<string, string>
@@ -126,7 +139,8 @@ namespace rcl.Components.Shared
                 { serviceImageKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultImageValue },
                 { serviceTitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTitleValue },
                 { serviceSubtitleKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultSubtitleValue },
-                { serviceTextKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTextValue }
+                { serviceTextKey, StaticHtmlStrings.AboutUsTeamListServiceShortDescDefaultTextValue },
+                { serviceIsVisibleKey, bool.TrueString.ToLower() }
             };
 
             if (!string.IsNullOrWhiteSpace(key))

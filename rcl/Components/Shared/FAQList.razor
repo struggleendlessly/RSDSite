@@ -1,21 +1,28 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0)
+﻿﻿@using shared.Helpers
+
+@if (Model.Data is not null && Model.Data.Count > 0)
 {
     <div class="accordion my-5 pt-4" id="accordionFAQ">
-
-        @for (int i = 0; i < ServiceItems.Count; i++)
+        @foreach (var item in ServiceItems)
         {
-            var serviceKeyIndex = i * 3;
-            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceKey = item.ShortDesc.FirstOrDefault().Key;
             var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
 
-            <!-- Accordion Item -->
-            <div class="accordion-item">
-                <AuthorizeView>
-                    <Authorized>
+            <AuthorizeView>
+                <Authorized>
+                    <!-- Accordion Item -->
+                    <div class="accordion-item">
                         @if (StateManager.CanEditSite())
                         {
-                            <div class="mb-2 mt-2">
+                            <div class="mt-2">
+                                <VisibilityEditor EditorId="@(StaticStrings.VisibilityEditor_FAQList_Id + serviceKey)"
+                                                  Model="Model"
+                                                  FuncSave="SaveContent"
+                                                  Key="@serviceKey">
+                                </VisibilityEditor>
+                            </div>
+                            <div class="mb-2">
                                 <button type="button" class="btn btn-outline-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
@@ -32,56 +39,101 @@
 
                                 @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
                                 {
-                                    <Popover 
-                                        PopoversModel="PopoversModel"
-                                        PopoverKey="@PopoverKey">
+                                    <Popover PopoversModel="PopoversModel"
+                                             PopoverKey="@PopoverKey">
                                     </Popover>
                                 }
                             </div>
                         }
-                    </Authorized>
-                </AuthorizeView>
+                        <h2 class="accordion-header"
+                            id="panelsStayOpen-heading-@serviceKey">
 
-                <h2 class="accordion-header"
-                    id="panelsStayOpen-heading-@serviceKeyIndex">
+                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKey)"
+                                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                        Model="Model"
+                                        FuncSave="SaveContent"
+                                        Key="@serviceTitleKey">
+                            </HTMLEditor>
 
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKeyIndex)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@serviceTitleKey">
-                    </HTMLEditor>
+                            <button class="accordion-button collapsed bg-light display-5 fw-bold"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapse-@serviceKey"
+                                    aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapse-@serviceKey">
+                                @((MarkupString)Model.Data[serviceTitleKey])
+                            </button>
 
-                    <button class="accordion-button collapsed bg-light display-5 fw-bold"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapse-@serviceKeyIndex"
-                            aria-expanded="false"
-                            aria-controls="panelsStayOpen-collapse-@serviceKeyIndex">
-                        @((MarkupString)Model.Data[serviceTitleKey])
-                    </button>
+                        </h2>
 
-                </h2>
+                        <div id="panelsStayOpen-collapse-@serviceKey"
+                             class="accordion-collapse collapse py-3"
+                             aria-labelledby="panelsStayOpen-heading-@serviceKey"
+                             data-bs-parent="#accordionFAQ">
 
-                <div id="panelsStayOpen-collapse-@serviceKeyIndex"
-                     class="accordion-collapse collapse py-3"
-                     aria-labelledby="panelsStayOpen-heading-@serviceKeyIndex"
-                     data-bs-parent="#accordionFAQ">
+                            <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKey)"
+                                        EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                        Model="Model"
+                                        FuncSave="SaveContent"
+                                        Key="@serviceSubtitleKey">
 
-                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKeyIndex)"
-                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                Model="Model"
-                                FuncSave="SaveContent"
-                                Key="@serviceSubtitleKey">
+                                <div class="accordion-body">
+                                    @((MarkupString)Model.Data[serviceSubtitleKey])
+                                </div>
 
-                        <div class="accordion-body">
-                            @((MarkupString)Model.Data[serviceSubtitleKey])
+                            </HTMLEditor>
                         </div>
+                    </div>
+                    <!-- End Accordion Item -->
+                </Authorized>
+                <NotAuthorized>
+                    @if (VisibilityHelpers.IsVisible(Model.Data, serviceKey))
+                    {
+                        <!-- Accordion Item -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"
+                                id="panelsStayOpen-heading-@serviceKey">
 
-                    </HTMLEditor>
-                </div>
-            </div>
-            <!-- End Accordion Item -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListTitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceTitleKey">
+                                </HTMLEditor>
+
+                                <button class="accordion-button collapsed bg-light display-5 fw-bold"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapse-@serviceKey"
+                                        aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapse-@serviceKey">
+                                    @((MarkupString)Model.Data[serviceTitleKey])
+                                </button>
+
+                            </h2>
+
+                            <div id="panelsStayOpen-collapse-@serviceKey"
+                                 class="accordion-collapse collapse py-3"
+                                 aria-labelledby="panelsStayOpen-heading-@serviceKey"
+                                 data-bs-parent="#accordionFAQ">
+
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorFAQListSubtitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceSubtitleKey">
+
+                                    <div class="accordion-body">
+                                        @((MarkupString)Model.Data[serviceSubtitleKey])
+                                    </div>
+
+                                </HTMLEditor>
+                            </div>
+                        </div>
+                        <!-- End Accordion Item -->
+                    }
+                </NotAuthorized>
+            </AuthorizeView>
         }
     </div>
 }

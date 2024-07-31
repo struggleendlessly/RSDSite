@@ -5,7 +5,7 @@
         @if (LocalizationModel.Data is not null)
         {
             <div class="form-check d-inline-block mb-3">
-                <input class="form-check-input" type="checkbox" id="@EditorId" checked="@VisibilityHelpers.IsVisible(Model, Key)" @oninput="CheckboxChangedAsync">
+                <input class="form-check-input" type="checkbox" id="@EditorId" checked="@VisibilityHelpers.IsVisible(Model.Data, Key)" @oninput="CheckboxChangedAsync">
                 <label class="form-check-label" for="@EditorId">
                     @LocalizationModel.Data[StaticStrings.Localization_VisibilityEditor_Checkbox_Key]
                 </label>

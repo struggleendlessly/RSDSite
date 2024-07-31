@@ -1,26 +1,33 @@
-﻿@if (Model.Data is not null && Model.Data.Count > 0)
+﻿﻿@using shared.Helpers
+
+@if (Model.Data is not null && Model.Data.Count > 0)
 {
     <div class="row row-cols-1 row-cols-md-3 g-5 py-5 mx-auto">
 
-        @for (int i = 0; i < ServiceItems.Count; i++)
+        @foreach (var item in ServiceItems)
         {
-            var serviceKeyIndex = i * 5;
-            var serviceKey = Model.Data.ElementAt(serviceKeyIndex).Value;
+            var serviceKey = item.ShortDesc.FirstOrDefault().Key;
             var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
             var serviceTitleKey = serviceKey + StaticStrings.TitleKeyEnding;
             var serviceSubtitleKey = serviceKey + StaticStrings.SubtitleKeyEnding;
             var serviceTextKey = serviceKey + StaticStrings.TextKeyEnding;
 
-            <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+            <AuthorizeView>
+                <Authorized>
+                    <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+                        <div class="card border-opacity-100 h-100">
 
-
-                <div class="card border-opacity-100 h-100">
-                    <AuthorizeView>
-                        <Authorized>
                             <!-- Card add or remove -->
                             @if (StateManager.CanEditSite())
                             {
-                                <div class="my-2 pt-3">
+                                <div class="mt-2">
+                                    <VisibilityEditor EditorId="@(StaticStrings.VisibilityEditor_TeamList_Id + serviceKey)"
+                                                      Model="Model"
+                                                      FuncSave="SaveContent"
+                                                      Key="@serviceKey">
+                                    </VisibilityEditor>
+                                </div>
+                                <div class="mb-2">
                                     <button type="button" class="btn btn-outline-success" @onclick="() => Add(serviceKey)" disabled="@isAdding">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
@@ -37,59 +44,113 @@
 
                                     @if (PopoversModel is not null && PopoversModel.Data is not null && !string.IsNullOrWhiteSpace(PopoverKey))
                                     {
-                                        <Popover 
-                                            PopoversModel="PopoversModel"
-                                            PopoverKey="@PopoverKey">
+                                        <Popover PopoversModel="PopoversModel"
+                                                 PopoverKey="@PopoverKey">
                                         </Popover>
                                     }
                                 </div>
                             }
-                        </Authorized>
-                    </AuthorizeView>
-                    <!-- Card image -->
-                    <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAboutUsTeamListImageId + serviceKeyIndex)"
-                                 Model="Model"
-                                 FuncSave="SaveContent"
-                                 Key="@serviceImageKey">
-                        <img src="@Model.Data[serviceImageKey]" class="card-img-top img-fluid" style="" />
-                    </ImageEditor>
 
-                    <div class="card-body">
-                        <!-- Card main title -->
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceTitleKey">
-                            <h5 class="card-title">
-                                @((MarkupString)Model.Data[serviceTitleKey])
-                            </h5>
-                        </HTMLEditor>
+                            <!-- Card image -->
+                            <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAboutUsTeamListImageId + serviceKey)"
+                                         Model="Model"
+                                         FuncSave="SaveContent"
+                                         Key="@serviceImageKey">
+                                <img src="@Model.Data[serviceImageKey]" class="card-img-top img-fluid" style="" />
+                            </ImageEditor>
 
-                        <!-- Card sub titli -->
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListSubtitleId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceSubtitleKey">
-                            <h6 class="card-title">
-                                @((MarkupString)Model.Data[serviceSubtitleKey])
-                            </h6>
-                        </HTMLEditor>
+                            <div class="card-body">
+                                <!-- Card main title -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceTitleKey">
+                                    <h5 class="card-title">
+                                        @((MarkupString)Model.Data[serviceTitleKey])
+                                    </h5>
+                                </HTMLEditor>
 
-                        <!-- Card text -->
-                        <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTextId + serviceKeyIndex)"
-                                    EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
-                                    Model="Model"
-                                    FuncSave="SaveContent"
-                                    Key="@serviceTextKey">
-                            <p class="card-text">
-                                @((MarkupString)Model.Data[serviceTextKey])
-                            </p>
-                        </HTMLEditor>
+                                <!-- Card sub titli -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListSubtitleId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceSubtitleKey">
+                                    <h6 class="card-title">
+                                        @((MarkupString)Model.Data[serviceSubtitleKey])
+                                    </h6>
+                                </HTMLEditor>
+
+                                <!-- Card text -->
+                                <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTextId + serviceKey)"
+                                            EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                            Model="Model"
+                                            FuncSave="SaveContent"
+                                            Key="@serviceTextKey">
+                                    <p class="card-text">
+                                        @((MarkupString)Model.Data[serviceTextKey])
+                                    </p>
+                                </HTMLEditor>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-            </div>
+                </Authorized>
+                <NotAuthorized>
+                    @if (VisibilityHelpers.IsVisible(Model.Data, serviceKey))
+                    {
+                        <div class="col mx-auto text-center mt-0 mb-3 mb-lg-5" style="">
+                            <div class="card border-opacity-100 h-100">
+
+                                <!-- Card image -->
+                                <ImageEditor EditorId="@(StaticHtmlStrings.ImageEditorAboutUsTeamListImageId + serviceKey)"
+                                             Model="Model"
+                                             FuncSave="SaveContent"
+                                             Key="@serviceImageKey">
+                                    <img src="@Model.Data[serviceImageKey]" class="card-img-top img-fluid" style="" />
+                                </ImageEditor>
+
+                                <div class="card-body">
+                                    <!-- Card main title -->
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTitleId + serviceKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                                Model="Model"
+                                                FuncSave="SaveContent"
+                                                Key="@serviceTitleKey">
+                                        <h5 class="card-title">
+                                            @((MarkupString)Model.Data[serviceTitleKey])
+                                        </h5>
+                                    </HTMLEditor>
+
+                                    <!-- Card sub titli -->
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListSubtitleId + serviceKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                                Model="Model"
+                                                FuncSave="SaveContent"
+                                                Key="@serviceSubtitleKey">
+                                        <h6 class="card-title">
+                                            @((MarkupString)Model.Data[serviceSubtitleKey])
+                                        </h6>
+                                    </HTMLEditor>
+
+                                    <!-- Card text -->
+                                    <HTMLEditor EditorId="@(StaticHtmlStrings.HTMLEditorAboutUsTeamListTextId + serviceKey)"
+                                                EditorContentFormat="@(StaticStrings.EditorContentFormatHtml)"
+                                                Model="Model"
+                                                FuncSave="SaveContent"
+                                                Key="@serviceTextKey">
+                                        <p class="card-text">
+                                            @((MarkupString)Model.Data[serviceTextKey])
+                                        </p>
+                                    </HTMLEditor>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </NotAuthorized>
+            </AuthorizeView>
         }
     </div>
 }

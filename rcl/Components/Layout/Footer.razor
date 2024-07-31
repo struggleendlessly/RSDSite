@@ -1,4 +1,6 @@
-﻿<footer class="footer mt-auto content-space-2 text-center">
+﻿@using shared.Helpers
+
+<footer class="footer mt-auto content-space-2 text-center">
 
     <div class="border-top mx-auto pb-5" style="max-width: 100%"></div>
     @if (Model.Data is not null && LocalizationModel.Data is not null)
@@ -29,16 +31,18 @@
             <div class="col-lg-4 col-sm-12  pb-3">
                 @if (SocialNetworksModel.Data is not null && SocialNetworksModel.Data.Count > 0)
                 {
-                    @for (int i = 0; i < SocialNetworks.Count; i++)
+                    @foreach (var item in SocialNetworks)
                     {
-                        var serviceKeyIndex = i * 3;
-                        var serviceKey = SocialNetworksModel.Data.ElementAt(serviceKeyIndex).Value;
-                        var serviceImageKey = serviceKey + StaticStrings.ImageKeyEnding;
-                        var serviceUrlKey = serviceKey + StaticStrings.UrlKeyEnding;
+                        var serviceItemKey = item.ShortDesc.FirstOrDefault().Key;
+                        var serviceImageKey = serviceItemKey + StaticStrings.ImageKeyEnding;
+                        var serviceUrlKey = serviceItemKey + StaticStrings.UrlKeyEnding;
 
-                        <a class="btn btn-icon" href="@SocialNetworksModel.Data[serviceUrlKey]">
-                            <img style="width:32px; height:32px;" src="@SocialNetworksModel.Data[serviceImageKey]" />
-                        </a>
+                        @if (VisibilityHelpers.IsVisible(item.ShortDesc, serviceItemKey))
+                        {
+                            <a class="btn btn-icon" href="@SocialNetworksModel.Data[serviceUrlKey]">
+                                <img style="width:32px; height:32px;" src="@SocialNetworksModel.Data[serviceImageKey]" />
+                            </a>
+                        }
                     }
                 }
             </div>

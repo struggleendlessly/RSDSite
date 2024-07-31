@@ -53,7 +53,7 @@
     </Authorized>
 </AuthorizeView>
 
-@if (VisibilityHelpers.IsVisible(Model, Key))
+@if (VisibilityHelpers.IsVisible(Model.Data, Key))
 {
     @ChildContent
 }
