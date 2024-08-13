@@ -16,6 +16,9 @@ namespace shared.Managers
         private readonly AuthenticationStateProvider _authenticationStateProvider;
         private readonly IWebsiteService _websiteService;
 
+        [CascadingParameter]
+        private Task<AuthenticationState>? AuthState { get; set; }
+
         private List<Website> _userSites;
         private Dictionary<string, string> _userDomains;
         private readonly ClaimsPrincipal _user;
@@ -32,8 +35,13 @@ namespace shared.Managers
             _userSites = new List<Website>();
             _userDomains = new Dictionary<string, string>();
 
-            var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
-            _user = authState.User;
+            //var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
+            //_user = authState.User;
+            if (AuthState != null)
+            {
+                var authState = AuthState.Result;
+                _user = authState.User;
+            }
         }
 
         public string SiteName

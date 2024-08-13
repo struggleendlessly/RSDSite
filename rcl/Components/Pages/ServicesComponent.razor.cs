@@ -69,9 +69,9 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
             SetJSONPaths();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageServicesListDataJsonFilePath);
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, "main", "en", ServicesPageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, "main", "en", StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, "main", "en", ServicesPageServicesListDataJsonFilePath);
         }
 
         [JSInvokable]
@@ -88,7 +88,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
+            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, "main", "en", ServicesPageDataJsonFilePath);
         }
 
         public async Task CheckSubscriptionStatus()

@@ -60,9 +60,9 @@ namespace rcl.Components.Pages
         {
             await CheckSubscriptionStatus();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AboutUsPageDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageDataJsonFilePath);
+            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, "main", "en", StaticStrings.PopoversDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, "main", "en", StaticStrings.LocalizationJsonFilePath);
         }
 
         [JSInvokable]
@@ -79,7 +79,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.AboutUsPageDataJsonMemoryCacheKey, StaticStrings.AboutUsPageDataJsonFilePath);
+            await PageDataService.SaveDataAsync(model, StaticStrings.AboutUsPageDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageDataJsonFilePath);
             StateHasChanged();
         }
 

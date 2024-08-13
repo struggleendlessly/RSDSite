@@ -24,9 +24,9 @@ namespace rcl.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);  
-            SocialNetworks = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);      
+            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, "main", "en", StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, "main", "en", StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);  
+            SocialNetworks = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, "main", "en", StaticStrings.AdminPageSocialNetworksDataJsonFilePath);      
             
             SocialNetworksModel.Data = SocialNetworks
                 .SelectMany(x => x.ShortDesc)

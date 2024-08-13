@@ -13,7 +13,8 @@ namespace shared.Managers
 
         public async Task<string> GetTemplateHtmlAsync(string templateFilePath, string templateMemoryCacheKey, Dictionary<string, string> placeholders)
         {
-            var templateContent = await _pageDataService.GetStringDataAsync(templateMemoryCacheKey, templateFilePath, StaticStrings.EmailTemplatesContainerName);
+            //var templateContent = await _pageDataService.GetStringDataAsync(templateMemoryCacheKey, templateFilePath, StaticStrings.EmailTemplatesContainerName);
+            var templateContent = string.Empty;
 
             foreach (var placeholder in placeholders)
             {

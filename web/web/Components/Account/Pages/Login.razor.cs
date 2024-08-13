@@ -59,7 +59,7 @@ namespace web.Components.Account.Pages
                 await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             }
 
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, "main", "en", StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         public async Task LoginUser()

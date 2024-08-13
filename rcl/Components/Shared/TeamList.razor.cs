@@ -54,7 +54,7 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageTeamListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -74,7 +74,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageTeamListDataJsonFilePath);
         }
 
         public async Task Remove(string key)
@@ -97,7 +97,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageTeamListDataJsonFilePath);
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, StaticStrings.AboutUsPageTeamListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.AboutUsPageTeamListDataJsonMemoryCacheKey, "main", "en", StaticStrings.AboutUsPageTeamListDataJsonFilePath);
 
             await Task.Delay(1000);
 

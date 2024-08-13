@@ -1,6 +1,7 @@
 ﻿using shared.Data;
 using shared.Models;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using System.Text;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ namespace shared.Managers
         private readonly IStateManager _stateManager;
         private readonly IDomainChecker _domainChecker;
         private readonly IPageDataService _pageDataService;
+        private readonly IApiPageDataService _apiPageDataService;
         private readonly ApplicationDbContext _dbContext;
         private readonly AzureBlobStorageManager _blobStorageManager;
 
@@ -20,6 +22,7 @@ namespace shared.Managers
             IStateManager stateManager,
             IDomainChecker domainChecker,
             IPageDataService pageDataService,
+            IApiPageDataService apiPageDataService,
             ApplicationDbContext dbContext,
             AzureBlobStorageManager blobStorageManager
             )
@@ -27,6 +30,7 @@ namespace shared.Managers
             _stateManager = stateManager;
             _domainChecker = domainChecker;
             _pageDataService = pageDataService;
+            _apiPageDataService = apiPageDataService;
             _dbContext = dbContext;
             _blobStorageManager = blobStorageManager;
         }
@@ -68,7 +72,8 @@ namespace shared.Managers
             if (website == null || !website.IsNewDomainInProcess)
                 return string.Empty;
 
-            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            var localizationModel = await _apiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, _stateManager.SiteName, _stateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            //var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             var newDomainsBlobName = string.Format(StaticStrings.NewDomainsDataJsonFilePath, DateTime.UtcNow.ToString("MM-dd-yyyy"));
             var jsonContent = await _blobStorageManager.DownloadFile(StaticStrings.NewDomainsContainerName, newDomainsBlobName);

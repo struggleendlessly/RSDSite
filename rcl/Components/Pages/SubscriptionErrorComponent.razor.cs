@@ -15,7 +15,7 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, "main", "en", StaticStrings.LocalizationContainerName);
         }
     }
 }

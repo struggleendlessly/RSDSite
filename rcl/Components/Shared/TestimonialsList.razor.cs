@@ -54,7 +54,7 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, "main", "en", StaticStrings.HomePageTestimonialsListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -74,7 +74,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, "main", "en", StaticStrings.HomePageTestimonialsListDataJsonFilePath);
         }
 
         public async Task Remove(string key)
@@ -97,7 +97,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, "main", "en", StaticStrings.HomePageTestimonialsListDataJsonFilePath);
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, "main", "en", StaticStrings.HomePageTestimonialsListDataJsonFilePath);
 
             await Task.Delay(1000);
 

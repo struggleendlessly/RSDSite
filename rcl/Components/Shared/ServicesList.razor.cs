@@ -78,8 +78,8 @@ namespace rcl.Components.Shared
                 .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                 .ToDictionary();
 
-            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, "main", "en", StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, "main", "en", StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         public async Task SaveContent(PageModel model)
@@ -95,7 +95,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, "main", "en", ServicesListDataJsonFilePath);
         }
 
         public async Task SaveUrl(PageModel model)
@@ -111,7 +111,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, "main", "en", ServicesListDataJsonFilePath);
             StateHasChanged();
         }
 
@@ -131,7 +131,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
+                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, "main", "en", ServicesListDataJsonFilePath);
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, ServicesListDataJsonFilePath);
+            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesListKeyEnding, "main", "en", ServicesListDataJsonFilePath);
 
             await Task.Delay(1000);
 

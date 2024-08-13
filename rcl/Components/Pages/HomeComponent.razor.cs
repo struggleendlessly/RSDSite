@@ -10,6 +10,7 @@ using shared.Managers;
 using shared.Interfaces;
 
 using System.Text.Json;
+using shared.Interfaces.Api;
 
 namespace rcl.Components.Pages
 {
@@ -40,6 +41,9 @@ namespace rcl.Components.Pages
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        IApiPageDataService ApiPageDataService { get; set; }
 
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -78,11 +82,12 @@ namespace rcl.Components.Pages
 
             await CheckSubscriptionStatus();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            Model = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageDataJsonFilePath);
+            PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
 
-            var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+
+            var serviceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             ServiceItems = serviceItems.Take(4).ToList();
         }
 
@@ -100,7 +105,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
+            //await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
         }
 
         public async Task CheckSubscriptionStatus()
