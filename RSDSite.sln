@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcl", "rcl\rcl.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api\api.csproj", "{60623C81-7C80-4A89-AA65-C762DCBE0A68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webassembly", "webassembly\webassembly.csproj", "{720E2FAD-60C9-425E-87AD-A89A35D8C6A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{60623C81-7C80-4A89-AA65-C762DCBE0A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60623C81-7C80-4A89-AA65-C762DCBE0A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60623C81-7C80-4A89-AA65-C762DCBE0A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720E2FAD-60C9-425E-87AD-A89A35D8C6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720E2FAD-60C9-425E-87AD-A89A35D8C6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720E2FAD-60C9-425E-87AD-A89A35D8C6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720E2FAD-60C9-425E-87AD-A89A35D8C6A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,26 @@
 using shared;
-using api.Middleware;
 using shared.Managers;
 using shared.Models.API;
 using shared.ConfigurationOptions;
 
+using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using api.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddCors(
+    options => options.AddPolicy(
+        "wasm",
+        policy => policy.WithOrigins("http://localhost:5000", "https://localhost:7042")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()));
 
 builder.Services.AddScoped<ScriptRunner>();
 
@@ -12,9 +28,30 @@ builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptio
 
 var app = builder.Build();
 
-app.UseMiddleware<TokenAuthorizationMiddleware>();
+app.UseCors("wasm");
+
+//app.UseMiddleware<TokenAuthorizationMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
+
+var summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
+
+app.MapGet("/weatherforecast", (HttpContext httpContext) =>
+{
+    var forecast = Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast
+        (
+            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            Random.Shared.Next(-20, 55),
+            summaries[Random.Shared.Next(summaries.Length)]
+        ))
+        .ToArray();
+    return forecast;
+})
+.RequireAuthorization();
 
 app.MapPost(StaticRoutesStrings.APIRunPowerShellScriptRoute, async (RunPowerShellScriptModel model, ScriptRunner scriptRunner) =>
 {
@@ -30,3 +67,14 @@ app.MapPost(StaticRoutesStrings.APIRunPowerShellScriptRoute, async (RunPowerShel
 });
 
 app.Run();
+
+internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+{
+    public DateOnly Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public string? Summary { get; set; }
+
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}
