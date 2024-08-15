@@ -21,7 +21,7 @@ namespace web.Components.Account.Pages
         IdentityRedirectManager RedirectManager { get; set; }
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace web.Components.Account
 {
-    public class IdentityEmailSender : IEmailSender<ApplicationUser>
+    public class IdentityEmailSender : IEmailSender<User>
     {
         private readonly EmailService _emailService;
         private readonly EmailSenders _emailSenders;
@@ -31,7 +31,7 @@ namespace web.Components.Account
             _navigationManager = navigationManager;
         }
 
-        public async Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink)
+        public async Task SendConfirmationLinkAsync(User user, string email, string confirmationLink)
         {
             var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             var settingsModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
@@ -56,7 +56,7 @@ namespace web.Components.Account
             await _emailService.Send(emailModel);
         }
 
-        public async Task SendPasswordResetCodeAsync(ApplicationUser user, string email, string resetCode)
+        public async Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
         {
             var emailModel = new EmailModel
             {
@@ -69,7 +69,7 @@ namespace web.Components.Account
             await _emailService.Send(emailModel);
         }
 
-        public async Task SendPasswordResetLinkAsync(ApplicationUser user, string email, string resetLink)
+        public async Task SendPasswordResetLinkAsync(User user, string email, string resetLink)
         {
             var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             var settingsModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);

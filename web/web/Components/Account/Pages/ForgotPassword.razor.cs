@@ -19,10 +19,10 @@ namespace web.Components.Account.Pages
         public string Lang { get; set; } = string.Empty;
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject]
-        IEmailSender<ApplicationUser> EmailSender { get; set; }
+        IEmailSender<User> EmailSender { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }

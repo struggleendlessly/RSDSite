@@ -11,7 +11,7 @@ namespace shared.Data.Entities
 
         public ICollection<Subscription> Subscriptions { get; set; }= new List<Subscription>();
 
-        public ICollection<ApplicationUser> Users { get; set; } = [];
+        public ICollection<User> Users { get; set; } = [];
 
         public ICollection<ContactUsMessage> ContactUsMessages { get; set; } = new List<ContactUsMessage>();
     }

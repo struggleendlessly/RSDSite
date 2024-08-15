@@ -30,8 +30,8 @@ namespace web.Endpoints
                     HttpContext context,
                     IOptions<StripeOptions> stripeOptions,
                     ApplicationDbContext dbContext,
-                    IEmailSender<ApplicationUser> emailSender,
-                    UserManager<ApplicationUser> userManager,
+                    IEmailSender<User> emailSender,
+                    UserManager<User> userManager,
                     IWebsiteService websiteService,
                     ISiteCreator siteCreator
                     ) =>

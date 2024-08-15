@@ -18,7 +18,7 @@ namespace web.Components.Account.Pages
         public string Lang { get; set; } = string.Empty;
 
         [Inject]
-        SignInManager<ApplicationUser> SignInManager { get; set; }
+        SignInManager<User> SignInManager { get; set; }
 
         [Inject]
         ILogger<Login> Logger { get; set; }
@@ -30,7 +30,7 @@ namespace web.Components.Account.Pages
         IdentityRedirectManager RedirectManager { get; set; }
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }

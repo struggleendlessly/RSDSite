@@ -18,7 +18,7 @@ namespace web.Components.Account.Pages
         public string Lang { get; set; } = string.Empty;
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject] 
         IdentityRedirectManager RedirectManager { get; set; }
@@ -30,7 +30,7 @@ namespace web.Components.Account.Pages
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IEmailSender<ApplicationUser> EmailSender { get; set; }
+        IEmailSender<User> EmailSender { get; set; }
 
         [Inject]
         IPageDataService PageDataService { get; set; }
@@ -43,7 +43,7 @@ namespace web.Components.Account.Pages
 
         private bool DisableEmailResendLink { get; set; } = false;
 
-        private ApplicationUser? User { get; set; }
+        private User? User { get; set; }
 
         [CascadingParameter]
         private HttpContext HttpContext { get; set; } = default!;

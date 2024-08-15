@@ -20,16 +20,16 @@ namespace web.Components.Account.Pages
         public string Lang { get; set; } = string.Empty;
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject]
-        IUserStore<ApplicationUser> UserStore { get; set; }
+        IUserStore<User> UserStore { get; set; }
 
         [Inject]
-        SignInManager<ApplicationUser> SignInManager { get; set; }
+        SignInManager<User> SignInManager { get; set; }
 
         [Inject]
-        IEmailSender<ApplicationUser> EmailSender { get; set; }
+        IEmailSender<User> EmailSender { get; set; }
 
         [Inject]
         ILogger<Register> Logger { get; set; }
@@ -146,26 +146,26 @@ namespace web.Components.Account.Pages
             //RedirectManager.RedirectTo(ReturnUrl);
         }
 
-        private ApplicationUser CreateUser()
+        private User CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<ApplicationUser>();
+                return Activator.CreateInstance<User>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(User)}'. " +
+                    $"Ensure that '{nameof(User)}' is not an abstract class and has a parameterless constructor.");
             }
         }
 
-        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        private IUserEmailStore<User> GetEmailStore()
         {
             if (!UserManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<ApplicationUser>)UserStore;
+            return (IUserEmailStore<User>)UserStore;
         }
 
         private sealed class InputModel

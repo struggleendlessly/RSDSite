@@ -30,7 +30,7 @@ namespace shared.Managers
         public List<Website> GetUserSites(string userId)
         {
             return _dbContext.Websites
-                .Where(w => w.Users.Any(u => u.Id == userId))
+                .Where(w => w.Users.Any(/*u => u.Id == userId*/))
                 .ToList();
         }
 
@@ -48,7 +48,7 @@ namespace shared.Managers
         {
             await _dbContext.Websites.AddAsync(website);
 
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(/*x => x.Id == userId*/);
             user.Websites.Add(website);
 
             await _dbContext.SaveChangesAsync();

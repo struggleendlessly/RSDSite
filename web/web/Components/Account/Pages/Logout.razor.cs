@@ -15,7 +15,7 @@ namespace web.Components.Account.Pages
         public string Lang { get; set; } = string.Empty;
 
         [Inject]
-        SignInManager<ApplicationUser> SignInManager { get; set; }
+        SignInManager<User> SignInManager { get; set; }
 
         [Inject]
         AuthenticationStateProvider AuthenticationStateProvider { get; set; }

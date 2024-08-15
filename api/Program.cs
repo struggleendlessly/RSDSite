@@ -1,11 +1,15 @@
 using shared;
+using shared.Data;
 using shared.Managers;
+using shared.Interfaces;
 using shared.Models.API;
 using shared.ConfigurationOptions;
 
+using api.Endpoints.Private;
+
 using Microsoft.Identity.Web;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +27,21 @@ builder.Services.AddCors(
             .AllowCredentials()));
 
 builder.Services.AddScoped<ScriptRunner>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
 app.UseCors("wasm");
 
 //app.UseMiddleware<TokenAuthorizationMiddleware>();
+
+app.MapUserEndpoints();
 
 app.MapGet("/", () => "Hello World!");
 

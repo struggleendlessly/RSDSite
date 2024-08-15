@@ -39,7 +39,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 builder.Services.AddTransient<AzureBlobStorageManager>();
 builder.Services.AddTransient<IFileManager, LocalJsonFileManager>();
-builder.Services.AddScoped<UserManager<ApplicationUser>>();
+builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddTransient<ISiteCreator, SiteCreator>();
 builder.Services.AddScoped<IStateManager, StateManager>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
@@ -65,12 +65,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString), ServiceLifetime.Transient);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IEmailSender<ApplicationUser>, IdentityEmailSender>();
+builder.Services.AddScoped<IEmailSender<User>, IdentityEmailSender>();
 builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
 {
     ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]

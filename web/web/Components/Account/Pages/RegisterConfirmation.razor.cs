@@ -16,7 +16,7 @@ namespace web.Components.Account.Pages
         private string? statusMessage;
 
         [Inject]
-        UserManager<ApplicationUser> UserManager { get; set; }
+        UserManager<User> UserManager { get; set; }
 
         [Inject]
         IdentityRedirectManager RedirectManager { get; set; }
