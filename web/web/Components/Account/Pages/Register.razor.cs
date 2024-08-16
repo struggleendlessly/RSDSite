@@ -109,7 +109,7 @@ namespace web.Components.Account.Pages
             Logger.LogInformation("User created a new account with password.");
 
             var newWebsite = new Website { Name = Input.SiteName };
-            await WebsiteService.CreateWebsite(newWebsite, user.Id);
+            await WebsiteService.CreateAsync(newWebsite, user.Id);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
 

@@ -7,6 +7,8 @@ using shared.ConfigurationOptions;
 
 using api.Endpoints.Private;
 
+using System.Text.Json.Serialization;
+
 using Microsoft.Identity.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,12 +30,20 @@ builder.Services.AddCors(
 
 builder.Services.AddScoped<ScriptRunner>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWebsiteService, WebsiteService>();
+builder.Services.AddScoped<AzureBlobStorageManager>();
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
+builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 
@@ -42,27 +52,9 @@ app.UseCors("wasm");
 //app.UseMiddleware<TokenAuthorizationMiddleware>();
 
 app.MapUserEndpoints();
+app.MapWebsiteEndpoints();
 
 app.MapGet("/", () => "Hello World!");
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.RequireAuthorization();
 
 app.MapPost(StaticRoutesStrings.APIRunPowerShellScriptRoute, async (RunPowerShellScriptModel model, ScriptRunner scriptRunner) =>
 {
@@ -78,14 +70,3 @@ app.MapPost(StaticRoutesStrings.APIRunPowerShellScriptRoute, async (RunPowerShel
 });
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public DateOnly Date { get; set; }
-
-    public int TemperatureC { get; set; }
-
-    public string? Summary { get; set; }
-
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

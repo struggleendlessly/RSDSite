@@ -1,18 +1,56 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using shared.Data;
+﻿using shared.Data;
 using shared.Interfaces;
 using shared.Data.Entities;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace shared.Managers
 {
     public class WebsiteService : IWebsiteService
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IUserService _userService;
+        private readonly AzureBlobStorageManager _azureBlobStorageManager;
 
-        public WebsiteService(ApplicationDbContext dbContext)
+        public WebsiteService(
+            ApplicationDbContext dbContext, 
+            IUserService userService, 
+            AzureBlobStorageManager azureBlobStorageManager)
         {
             _dbContext = dbContext;
+            _userService = userService;
+            _azureBlobStorageManager = azureBlobStorageManager;
+        }
+
+        public async Task<List<Website>> GetAllOrCreateAsync(string idpName, Guid idpUserId)
+        {
+            var websites = await GetAllAsync(idpName, idpUserId);
+            if (websites.Count == 0)
+            {
+                var user = await _userService.GetAsync(idpName, idpUserId);
+                if (user is null)
+                {
+                    return websites;
+                }
+
+                var websiteName = GenerateRandomWebsiteName();
+                var website = new Website { Name = websiteName };
+                await CreateAsync(website, user.Id);
+
+                websites.Add(website);
+            }
+
+            return websites;
+        }
+
+        public async Task<List<Website>> GetAllAsync(string idpName, Guid idpUserId)
+        {
+            return await _dbContext.Websites
+                .Where(w => w.Users.Any(u =>
+                    (idpName.Equals(StaticStrings.MSAL_IDP_Facebook, StringComparison.InvariantCultureIgnoreCase) && u.FacebookId == idpUserId) ||
+                    (idpName.Equals(StaticStrings.MSAL_IDP_Google, StringComparison.InvariantCultureIgnoreCase) && u.GoogleId == idpUserId) ||
+                    (idpName.Equals(StaticStrings.MSAL_IDP_Microsoft, StringComparison.InvariantCultureIgnoreCase) && u.MicrosoftId == idpUserId)))
+                .ToListAsync();
         }
 
         public async Task<List<string>> GetWebsitesNamesAsync()
@@ -44,14 +82,16 @@ namespace shared.Managers
             return _dbContext.Websites.FirstOrDefault(x => x.Domain == domain).Name;
         }
 
-        public async Task<Website> CreateWebsite(Website website, string userId)
+        public async Task<Website> CreateAsync(Website website, Guid userId)
         {
             await _dbContext.Websites.AddAsync(website);
 
-            var user = await _dbContext.Users.FirstOrDefaultAsync(/*x => x.Id == userId*/);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
             user.Websites.Add(website);
 
             await _dbContext.SaveChangesAsync();
+
+            await _azureBlobStorageManager.CopyAllFilesAsync(StaticStrings.ExampleContainerName, website.Name.ToLower());
 
             return website;
         }
@@ -83,6 +123,14 @@ namespace shared.Managers
             await _dbContext.SaveChangesAsync();
 
             return domain;
+        }
+
+        private string GenerateRandomWebsiteName()
+        {
+            var random = new Random();
+            var randomNumbers = random.Next(100000, 999999);
+
+            return $"website{randomNumbers}";
         }
     }
 }

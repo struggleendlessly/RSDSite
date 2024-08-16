@@ -15,6 +15,7 @@
 
     public async Task OnLogInSucceeded()
     {
-        var user = await Http.GetFromJsonAsync<User>(StaticStrings.Route_API_User); 
+        var user = await Http.GetFromJsonAsync<User>(StaticStrings.Route_API_User);
+        var websites = await Http.GetFromJsonAsync<List<Website>>(StaticStrings.Route_API_Website);
     }
 }
