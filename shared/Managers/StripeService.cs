@@ -12,21 +12,19 @@ namespace shared.Managers
     public class StripeService : IStripeService
     {
         private readonly IMemoryCache _memoryCache;
-        private readonly IStateManager _stateManager;
         private readonly StripeOptions _stripeOptions;
 
-        public StripeService(IMemoryCache memoryCache, IStateManager stateManager, IOptions<StripeOptions> stripeOptions)
+        public StripeService(IMemoryCache memoryCache, IOptions<StripeOptions> stripeOptions)
         {
             _memoryCache = memoryCache;
-            _stateManager = stateManager;
             _stripeOptions = stripeOptions.Value;
 
             StripeConfiguration.ApiKey = _stripeOptions.ApiSecretKey;
         }
 
-        public async Task<List<StripeProductModel>> GetProductsWithPricesAsync()
+        public async Task<List<StripeProductModel>> GetProductsWithPricesAsync(string lang)
         {
-            var key = string.Format(StaticStrings.PricingPageDataJsonMemoryCacheKey, _stateManager.Lang);
+            var key = string.Format(StaticStrings.PricingPageDataJsonMemoryCacheKey, lang);
             if (_memoryCache.TryGetValue(key, out List<StripeProductModel> cachedProductsWithPrices))
             {
                 return cachedProductsWithPrices;

@@ -4,6 +4,6 @@ namespace shared.Interfaces
 {
     public interface IStripeService
     {
-        Task<List<StripeProductModel>> GetProductsWithPricesAsync();
+        Task<List<StripeProductModel>> GetProductsWithPricesAsync(string lang);
     }
 }

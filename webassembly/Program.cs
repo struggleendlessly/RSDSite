@@ -22,6 +22,8 @@ builder.Services.AddScoped<IApiService, ApiService>();
 builder.Services.AddScoped<IApiPageDataService, ApiPageDataService>();
 builder.Services.AddScoped<IApiSubscriptionService, ApiSubscriptionService>();
 builder.Services.AddScoped<IApiAzureBlobStorageService, ApiAzureBlobStorageService>();
+builder.Services.AddScoped<IApiStripeService, ApiStripeService>();
+builder.Services.AddScoped<IApiContactUsMessageService, ApiContactUsMessageService>();
 
 var apiUrl = builder.Configuration["Api:Url"];
 var apiScope = builder.Configuration["Api:Scope"];

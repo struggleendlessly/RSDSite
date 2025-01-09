@@ -37,9 +37,12 @@ builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<AzureBlobStorageManager>();
 builder.Services.AddScoped<IPageDataService, PageDataService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -60,6 +63,9 @@ app.MapUserEndpoints();
 app.MapWebsiteEndpoints();
 app.MapPageDataEndpoints();
 app.MapSubscriptionEndpoints();
+app.MapFileEndpoints();
+app.MapPricingEndpoints();
+app.MapContactUsMessageEndpoints();
 
 app.MapGet("/", () => "Hello World!");
 

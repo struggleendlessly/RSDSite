@@ -1,13 +1,13 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Enums;
 using shared.Models;
-using shared.Managers;
+using shared.Models.API;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using System.Text.Json;
 
@@ -22,10 +22,7 @@ namespace rcl.Components.Pages
         IJSRuntime JS { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
-
-        [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
+        IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; }
 
         [Parameter]
         public string UrlKey { get; set; } = string.Empty;
@@ -34,10 +31,10 @@ namespace rcl.Components.Pages
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         [Inject]
-        ISubscriptionService SubscriptionService { get; set; }
+        IApiSubscriptionService ApiSubscriptionService { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
@@ -73,8 +70,8 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
             SetJSONPaths();
 
-            //ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, ServicePageServicesListDataJsonFilePath);
-            //PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            ServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, StateManager.SiteName, StateManager.Lang, ServicePageServicesListDataJsonFilePath);
+            PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
 
             var keyValuePairUrl = ServiceItems.SelectMany(x => x.LongDesc).FirstOrDefault(x => x.Value == UrlKey);
             if (string.IsNullOrWhiteSpace(keyValuePairUrl.Key) || string.IsNullOrWhiteSpace(keyValuePairUrl.Value))
@@ -137,7 +134,7 @@ namespace rcl.Components.Pages
                 }
             }
 
-            //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, ServicePageServicesListDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicePageKeyEnding, StateManager.SiteName, StateManager.Lang, ServicePageServicesListDataJsonFilePath);
         }
 
         [JSInvokable]
@@ -147,9 +144,15 @@ namespace rcl.Components.Pages
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
             var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public async Task CheckSubscriptionStatus()
@@ -157,7 +160,7 @@ namespace rcl.Components.Pages
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
+                var isSubscriptionActive = await ApiSubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
                 if (!isSubscriptionActive)
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));

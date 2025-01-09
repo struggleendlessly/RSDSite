@@ -20,7 +20,7 @@ namespace rcl.Components.Pages
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IStripeService StripeService { get; set; }
+        IApiStripeService ApiStripeService { get; set; }
 
         [Inject]
         IApiPageDataService ApiPageDataService { get; set; }
@@ -32,7 +32,7 @@ namespace rcl.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
-            ProductsWithPrices = await StripeService.GetProductsWithPricesAsync();
+            ProductsWithPrices = await ApiStripeService.GetProductsWithPricesAsync(StateManager.Lang);
         }
     }
 }

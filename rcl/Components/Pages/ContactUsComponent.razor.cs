@@ -11,6 +11,7 @@ using shared.Data.Entities;
 using shared.Interfaces.Api;
 
 using System.Text.Json;
+using shared.Models.API;
 
 namespace rcl.Components.Pages
 {
@@ -20,7 +21,7 @@ namespace rcl.Components.Pages
         IJSRuntime JS { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
+        IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; }
 
         [Inject]
         private IConfiguration Configuration { get; set; }
@@ -29,7 +30,7 @@ namespace rcl.Components.Pages
         IWebsiteService WebsiteService { get; set; }
 
         [Inject]
-        IContactUsMessageService ContactUsMessageService { get; set; }
+        IApiContactUsMessageService ApiContactUsMessageService { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }
@@ -38,7 +39,7 @@ namespace rcl.Components.Pages
         IApiPageDataService ApiPageDataService { get; set; }
 
         [Inject]
-        ISubscriptionService SubscriptionService { get; set; }
+        IApiSubscriptionService ApiSubscriptionService { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
@@ -82,9 +83,15 @@ namespace rcl.Components.Pages
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
             var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public async Task Save(PageModel model)
@@ -106,7 +113,7 @@ namespace rcl.Components.Pages
                 WebsiteId = currentWebsite.Id
             };
 
-            await ContactUsMessageService.CreateContactUsMessage(message);
+            await ApiContactUsMessageService.CreateAsync(message);
 
             await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.ContactUsFormAlertId, StaticHtmlStrings.CSSAlertSuccess, LocalizationModel.Data[StaticStrings.Localization_ContactUs_Form_Success_Message_Key]);
 
@@ -118,7 +125,7 @@ namespace rcl.Components.Pages
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
+                var isSubscriptionActive = await ApiSubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
                 if (!isSubscriptionActive)
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));
