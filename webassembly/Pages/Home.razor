@@ -1,7 +1,5 @@
-﻿@page "/"
+﻿@attribute [Route(StaticRoutesStrings.EmptyRoute)]
+@attribute [Route(StaticRoutesStrings.MainPageRouteWithLang)]
+@attribute [Route(StaticRoutesStrings.MainPageRouteWithSitenameAndLang)]
 
-<PageTitle>Home</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<HomeComponent></HomeComponent>

@@ -1,16 +1,32 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Net.Http.Headers;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace webassembly.Handlers
 {
-    public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
+    public class CustomAuthorizationMessageHandler : DelegatingHandler
     {
-        public CustomAuthorizationMessageHandler(IAccessTokenProvider provider, NavigationManager navigation) 
-            : base(provider, navigation)
+        private readonly IAccessTokenProvider _provider;
+        private readonly NavigationManager _navigation;
+
+        public CustomAuthorizationMessageHandler(
+            IAccessTokenProvider provider, 
+            NavigationManager navigation)
         {
-            ConfigureHandler(
-                authorizedUrls: ["http://localhost:5000"],
-                scopes: ["https://myelegantpages.onmicrosoft.com/4ea2c845-d4df-4e8f-8c31-544858f64153/Api.ReadWrite"]);
+            _provider = provider;
+            _navigation = navigation;
+        }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            var tokenResult = await _provider.RequestAccessToken();
+            if (tokenResult.TryGetToken(out var token))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+            }
+
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

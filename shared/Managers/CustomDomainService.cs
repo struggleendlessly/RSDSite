@@ -68,7 +68,7 @@ namespace shared.Managers
             if (website == null || !website.IsNewDomainInProcess)
                 return string.Empty;
 
-            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, _stateManager.SiteName, _stateManager.Lang.TwoLetterISOLanguageName, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             var newDomainsBlobName = string.Format(StaticStrings.NewDomainsDataJsonFilePath, DateTime.UtcNow.ToString("MM-dd-yyyy"));
             var jsonContent = await _blobStorageManager.DownloadFile(StaticStrings.NewDomainsContainerName, newDomainsBlobName);

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Routing;
 
 using shared;
 using shared.Models;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 namespace rcl.Components.Layout
 {
@@ -16,13 +16,10 @@ namespace rcl.Components.Layout
         NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
-
-        [Inject]
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public PageModel LocalizationModel { get; set; } = new PageModel();
 
@@ -55,10 +52,10 @@ namespace rcl.Components.Layout
 
             NavigationManager.LocationChanged += OnLocationChanged;
 
-            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
-            MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            SettingsModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            MenuModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+            ServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.ServicesPageServicesListDataJsonFilePath);
 
             ServiceItemsModel.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -70,7 +67,7 @@ namespace rcl.Components.Layout
 
             if (StateManager.SiteName == StaticStrings.MainSiteName)
             {
-                PortfolioServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
+                PortfolioServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.PortfolioPageKeyEnding, StateManager.SiteName, StateManager.Lang, StaticStrings.PortfolioPageServicesListDataJsonFilePath);
                 
                 PortfolioItemsModel.Data = PortfolioServiceItems
                     .SelectMany(x => x.ShortDesc)
@@ -80,7 +77,7 @@ namespace rcl.Components.Layout
                     .SelectMany(x => x.LongDesc.Where(x => x.Key.Contains(StaticStrings.UrlKeyEnding)))
                     .ToDictionary();
 
-                DocumentsServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.DocumentsPageKeyEnding, StaticStrings.DocumentsPageServicesListDataJsonFilePath);
+                DocumentsServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + StaticStrings.DocumentsPageKeyEnding, StateManager.SiteName, StateManager.Lang, StaticStrings.DocumentsPageServicesListDataJsonFilePath);
 
                 DocumentsItemsModel.Data = DocumentsServiceItems
                     .SelectMany(x => x.ShortDesc)

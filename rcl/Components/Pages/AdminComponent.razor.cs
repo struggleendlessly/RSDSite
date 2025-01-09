@@ -10,6 +10,7 @@ using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
 using shared.Data.Entities;
+using shared.Interfaces.Api;
 using shared.ConfigurationOptions;
 
 using System.Text.Json;
@@ -31,7 +32,7 @@ namespace rcl.Components.Pages
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         [Inject]
         IWebsiteService WebsiteService { get; set; }
@@ -108,11 +109,11 @@ namespace rcl.Components.Pages
         {
             await CheckSubscriptionStatus();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            MenuModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            SettingsModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            Model = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            MenuModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+            PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            SettingsModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
@@ -138,12 +139,12 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(model, StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
         }
 
         public async Task SaveMenu(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(model, StaticStrings.AdminPageSettingsMenuDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsMenuDataJsonFilePath);
         }
 
         public async Task CreateSite(EditContext editContext)
@@ -159,7 +160,7 @@ namespace rcl.Components.Pages
             }
 
             var newWebsite = new Website { Name = CreateSiteModel.Name };
-            await WebsiteService.CreateWebsite(newWebsite, StateManager.UserId);
+            await WebsiteService.CreateAsync(newWebsite, StateManager.User.Id);
 
             Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
 
@@ -233,8 +234,8 @@ namespace rcl.Components.Pages
 
         public async Task CheckSubscriptionStatus()
         {
-            IsWebsiteSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
-            IsWebsiteCustomDomainSubscriptionActive = await SubscriptionService.IsCustomDomainSubscriptionActiveAsync();
+            IsWebsiteSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
+            IsWebsiteCustomDomainSubscriptionActive = await SubscriptionService.IsCustomDomainSubscriptionActiveAsync(StateManager.SiteName);
 
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated && !IsWebsiteSubscriptionActive)

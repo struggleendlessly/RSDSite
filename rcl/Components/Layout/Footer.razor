@@ -62,13 +62,19 @@
                     <NotAuthorized>
                         @if (StateManager.IsCustomDomain())
                         {
-                            <a href="@($"https://myelegantpages.com/{StateManager.Lang}/{StaticRoutesStrings.LoginPageUrl}")" class="text-decoration-none pb-4">
+                            @* <a href="@($"https://myelegantpages.com/{StateManager.Lang}/{StaticRoutesStrings.LoginPageUrl}")" class="text-decoration-none pb-4">
+                                @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
+                            </a> *@
+                            <a href="@StaticRoutesStrings.AzureLoginPageUrl" class="text-decoration-none pb-4">
                                 @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
                             </a>
                         }
                         else
                         {
-                            <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="text-decoration-none pb-4">
+                            @* <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="text-decoration-none pb-4">
+                                @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
+                            </a> *@
+                            <a href="@StaticRoutesStrings.AzureLoginPageUrl" class="text-decoration-none pb-4">
                                 @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
                             </a>
                         }

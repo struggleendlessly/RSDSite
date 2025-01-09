@@ -69,9 +69,9 @@ namespace rcl.Components.Pages
             await CheckSubscriptionStatus();
             SetJSONPaths();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageServicesListDataJsonFilePath);
+            //Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
+            //PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            //ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageServicesListDataJsonFilePath);
         }
 
         [JSInvokable]
@@ -88,7 +88,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
+            //await PageDataService.SaveDataAsync(model, StaticStrings.ServicesPageDataJsonMemoryCacheKey + ServicesPageKeyEnding, ServicesPageDataJsonFilePath);
         }
 
         public async Task CheckSubscriptionStatus()
@@ -96,7 +96,7 @@ namespace rcl.Components.Pages
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
+                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
                 if (!isSubscriptionActive)
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));

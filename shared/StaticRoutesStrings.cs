@@ -48,7 +48,8 @@ namespace shared
 
         public const string SubscriptionErrorUrl = "subscription-error";
 
-        public const string LoginPageUrl = "account/login";    
+        public const string LoginPageUrl = "account/login";
+        public const string AzureLoginPageUrl = "authentication/login";
         public const string RegisterPageUrl = "account/register";
         public const string RegisterConfirmationPageUrl = "account/register-confirmation";
         public const string LogoutPageUrl = "account/logout";

@@ -8,9 +8,9 @@ namespace shared.Interfaces
         public string SiteName { get; }
         public CultureInfo Lang { get; }
 
-        public string UserId { get; }
+        public User User { get; set; }
         public Guid? SiteId { get; }
-        public List<string> UserSites { get; }
+        public List<Website> UserWebsites { get; set; }
 
         bool CanEditSite();
         bool IsCustomDomain();

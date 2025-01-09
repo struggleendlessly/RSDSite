@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Models;
-using shared.Managers;
+using shared.Models.API;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using System.Text.Json;
 
@@ -17,16 +18,16 @@ namespace rcl.Components.Pages
         IJSRuntime JS { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
+        IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         [Inject]
-        ISubscriptionService SubscriptionService { get; set; }
+        IApiSubscriptionService ApiSubscriptionService { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
@@ -56,9 +57,9 @@ namespace rcl.Components.Pages
         {
             await CheckSubscriptionStatus();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            Model = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageDataJsonFilePath);
+            PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         [JSInvokable]
@@ -68,14 +69,20 @@ namespace rcl.Components.Pages
             var base64 = content.Replace("\"", "");
             byte[] bytes = Convert.FromBase64String(base64);
             var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StaticStrings.HomePageDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(model, StaticStrings.HomePageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageDataJsonFilePath);
         }
 
         public async Task CheckSubscriptionStatus()
@@ -83,7 +90,7 @@ namespace rcl.Components.Pages
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
+                var isSubscriptionActive = await ApiSubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
                 if (!isSubscriptionActive)
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));

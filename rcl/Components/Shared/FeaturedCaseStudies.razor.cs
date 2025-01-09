@@ -2,6 +2,7 @@
 using shared.Models;
 using shared.Helpers;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using Microsoft.AspNetCore.Components;
 
@@ -22,13 +23,13 @@ namespace rcl.Components.Shared
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         private int ItemsCount { get; set; } = 4;
 
         protected override async Task OnInitializedAsync()
         {
-            var serviceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StaticStrings.ServicesPageServicesListDataJsonFilePath);
+            var serviceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageServicesListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.ServicesPageServicesListDataJsonFilePath);
             ServiceItems = VisibilityHelpers.GetVisibleServiceItems(serviceItems, ItemsCount);
         }
     }

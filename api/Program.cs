@@ -5,6 +5,7 @@ using shared.Interfaces;
 using shared.Models.API;
 using shared.ConfigurationOptions;
 
+using api.Endpoints.Public;
 using api.Endpoints.Private;
 
 using System.Text.Json.Serialization;
@@ -28,10 +29,14 @@ builder.Services.AddCors(
             .AllowAnyHeader()
             .AllowCredentials()));
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<ScriptRunner>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 builder.Services.AddScoped<AzureBlobStorageManager>();
+builder.Services.AddScoped<IPageDataService, PageDataService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
@@ -53,6 +58,8 @@ app.UseCors("wasm");
 
 app.MapUserEndpoints();
 app.MapWebsiteEndpoints();
+app.MapPageDataEndpoints();
+app.MapSubscriptionEndpoints();
 
 app.MapGet("/", () => "Hello World!");
 

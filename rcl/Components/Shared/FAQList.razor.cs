@@ -63,7 +63,7 @@ namespace rcl.Components.Shared
         {
             SetJSONPaths();
 
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            //ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -92,7 +92,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             StateHasChanged();
         }
@@ -115,7 +115,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+                    //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
 
             await Task.Delay(1000);
 

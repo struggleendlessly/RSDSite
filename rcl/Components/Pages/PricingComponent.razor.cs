@@ -2,6 +2,7 @@
 using shared.Models;
 using shared.Interfaces;
 using shared.Models.Stripe;
+using shared.Interfaces.Api;
 
 using Microsoft.AspNetCore.Components;
 
@@ -22,7 +23,7 @@ namespace rcl.Components.Pages
         IStripeService StripeService { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public PageModel LocalizationModel { get; set; } = new PageModel();
 
@@ -30,7 +31,7 @@ namespace rcl.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
             ProductsWithPrices = await StripeService.GetProductsWithPricesAsync();
         }
     }

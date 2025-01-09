@@ -13,27 +13,27 @@ namespace shared.Managers
     {
         private readonly NavigationManager _navigationManager;
 
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
-        private readonly IWebsiteService _websiteService;
+        //private readonly AuthenticationStateProvider _authenticationStateProvider;
+        //private readonly IWebsiteService _websiteService;
 
         private List<Website> _userSites;
         private Dictionary<string, string> _userDomains;
-        private readonly ClaimsPrincipal _user;
+        //private readonly ClaimsPrincipal _user;
 
         public StateManager(
             NavigationManager navigationManager, 
-            AuthenticationStateProvider authenticationStateProvider,
-            IWebsiteService websiteService)
+            AuthenticationStateProvider authenticationStateProvider
+            /*IWebsiteService websiteService*/)
         {
             _navigationManager = navigationManager;
-            _authenticationStateProvider = authenticationStateProvider;
-            _websiteService = websiteService;
+            //_authenticationStateProvider = authenticationStateProvider;
+            //_websiteService = websiteService;
 
             _userSites = new List<Website>();
             _userDomains = new Dictionary<string, string>();
 
-            var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
-            _user = authState.User;
+            //var authState = _authenticationStateProvider.GetAuthenticationStateAsync().Result;
+            //_user = authState.User;
         }
 
         public string SiteName
@@ -62,8 +62,8 @@ namespace shared.Managers
                         return _userDomains[domainWithTld];
                     }
                     
-                    siteName = _websiteService.GetWebsiteName(domainWithTld);
-                    _userDomains[domainWithTld] = siteName;
+                    //siteName = _websiteService.GetWebsiteName(domainWithTld);
+                    //_userDomains[domainWithTld] = siteName;
                 }
 
                 return siteName;
@@ -108,20 +108,7 @@ namespace shared.Managers
             return culture ?? StaticStrings.DefaultLanguage;
         }
 
-        public string UserId
-        {
-            get
-            {
-                if (_user.Identity is not null && _user.Identity.IsAuthenticated)
-                {
-                    return _user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+        public User User { get; set; }
 
         public Guid? SiteId
         {
@@ -131,27 +118,13 @@ namespace shared.Managers
             }
         }
 
-        public List<string> UserSites 
-        {
-            get
-            {
-                if (_user.Identity is null || !_user.Identity.IsAuthenticated)
-                {
-                    return new List<string>();
-                }
-
-                if (_userSites.Count == 0)
-                {
-                    _userSites = _websiteService.GetUserSites(UserId);
-                }
-
-                return _userSites.Select(x => x.Name).ToList();
-            }
-        }
+        public List<Website> UserWebsites { get; set; }
 
         public bool CanEditSite()
         {
-            return UserSites.Contains(SiteName);
+            return UserWebsites
+                .Select(x => x.Name)
+                .Contains(SiteName);
         }
 
         public bool IsCustomDomain()

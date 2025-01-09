@@ -1,7 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
@@ -9,6 +8,7 @@ using shared.Models;
 using shared.Managers;
 using shared.Interfaces;
 using shared.Data.Entities;
+using shared.Interfaces.Api;
 
 using System.Text.Json;
 
@@ -23,9 +23,6 @@ namespace rcl.Components.Pages
         AzureBlobStorageManager BlobStorageManager { get; set; }
 
         [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
-
-        [Inject]
         private IConfiguration Configuration { get; set; }
 
         [Inject]
@@ -38,7 +35,7 @@ namespace rcl.Components.Pages
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         [Inject]
         ISubscriptionService SubscriptionService { get; set; }
@@ -73,9 +70,9 @@ namespace rcl.Components.Pages
         {
             await CheckSubscriptionStatus();
 
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
-            PopoversModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            Model = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.ContactUsPageDataJsonFilePath);
+            PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         [JSInvokable]
@@ -92,7 +89,7 @@ namespace rcl.Components.Pages
 
         public async Task Save(PageModel model)
         {
-            await PageDataService.SaveDataAsync(model, StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StaticStrings.ContactUsPageDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(model, StaticStrings.ContactUsPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.ContactUsPageDataJsonFilePath);
         }
 
         public async Task SubmitForm()
@@ -121,7 +118,7 @@ namespace rcl.Components.Pages
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync();
+                var isSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
                 if (!isSubscriptionActive)
                 {
                     NavigationManager.NavigateTo(StateManager.GetPageUrl(StaticRoutesStrings.SubscriptionErrorUrl));

@@ -9,24 +9,22 @@ namespace shared.Managers
     public class SubscriptionService : ISubscriptionService
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IStateManager _stateManager;
         private readonly IMemoryCache _memoryCache;
 
-        public SubscriptionService(ApplicationDbContext dbContext, IStateManager stateManager, IMemoryCache memoryCache)
+        public SubscriptionService(ApplicationDbContext dbContext, IMemoryCache memoryCache)
         {
             _dbContext = dbContext;
-            _stateManager = stateManager;
             _memoryCache = memoryCache;
         }
 
-        public async Task<bool> IsWebsiteSubscriptionActiveAsync()
+        public async Task<bool> IsWebsiteSubscriptionActiveAsync(string siteName)
         {
-            if (_stateManager.SiteName == StaticStrings.MainSiteName)
+            if (siteName == StaticStrings.MainSiteName)
             {
                 return true;
             }
 
-            var key = string.Format(StaticStrings.ActiveWebsiteSubscription, _stateManager.SiteName);
+            var key = string.Format(StaticStrings.ActiveWebsiteSubscription, siteName);
             if (_memoryCache.TryGetValue(key, out bool isSubscriptionActive))
             {
                 return isSubscriptionActive;
@@ -35,7 +33,7 @@ namespace shared.Managers
             var website = await _dbContext.Websites
                 .Include(w => w.Subscriptions)
                     .ThenInclude(s => s.SubscriptionModule)
-                .FirstOrDefaultAsync(w => w.Name == _stateManager.SiteName);
+                .FirstOrDefaultAsync(w => w.Name == siteName);
 
             if (website == null)
             {
@@ -51,14 +49,14 @@ namespace shared.Managers
             return isActive;
         }
 
-        public async Task<bool> IsCustomDomainSubscriptionActiveAsync()
+        public async Task<bool> IsCustomDomainSubscriptionActiveAsync(string siteName)
         {
-            if (_stateManager.SiteName == StaticStrings.MainSiteName)
+            if (siteName == StaticStrings.MainSiteName)
             {
                 return true;
             }
 
-            var key = string.Format(StaticStrings.ActiveCustomDomainSubscription, _stateManager.SiteName);
+            var key = string.Format(StaticStrings.ActiveCustomDomainSubscription, siteName);
             if (_memoryCache.TryGetValue(key, out bool isSubscriptionActive))
             {
                 return isSubscriptionActive;
@@ -67,7 +65,7 @@ namespace shared.Managers
             var website = await _dbContext.Websites
                 .Include(w => w.Subscriptions)
                     .ThenInclude(s => s.SubscriptionModule)
-                .FirstOrDefaultAsync(w => w.Name == _stateManager.SiteName);
+                .FirstOrDefaultAsync(w => w.Name == siteName);
 
             if (website == null)
             {

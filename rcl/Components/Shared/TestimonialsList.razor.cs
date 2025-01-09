@@ -9,6 +9,7 @@ using shared.Extensions;
 using shared.Interfaces;
 
 using System.Text.Json;
+using shared.Interfaces.Api;
 
 namespace rcl.Components.Shared
 {
@@ -23,17 +24,14 @@ namespace rcl.Components.Shared
         [Inject]
         IJSRuntime JS { get; set; }
 
-        [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
-
-        [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
+        //[Inject]
+        //AzureBlobStorageManager BlobStorageManager { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
@@ -43,18 +41,18 @@ namespace rcl.Components.Shared
 
         private bool isAdding = false;
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                dotNetHelper = DotNetObjectReference.Create(this);
-                await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
-            }
-        }
+        //protected override async Task OnAfterRenderAsync(bool firstRender)
+        //{
+        //    if (firstRender)
+        //    {
+        //        dotNetHelper = DotNetObjectReference.Create(this);
+        //        await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+        //    }
+        //}
 
         protected override async Task OnInitializedAsync()
         {
-            ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            ServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -83,7 +81,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
         }
 
         public async Task Remove(string key)
@@ -108,7 +106,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+                    await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
                 }
             }
         }
@@ -153,7 +151,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.HomePageTestimonialsListDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.HomePageTestimonialsListDataJsonFilePath);
 
             await Task.Delay(1000);
 
@@ -163,13 +161,15 @@ namespace rcl.Components.Shared
         [JSInvokable]
         public async Task<string> returnTinyMceImage(JsonElement image)
         {
-            var content = image.GetRawText();
-            var base64 = content.Replace("\"", "");
-            byte[] bytes = Convert.FromBase64String(base64);
-            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
+            //var content = image.GetRawText();
+            //var base64 = content.Replace("\"", "");
+            //byte[] bytes = Convert.FromBase64String(base64);
+            //var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            //using (MemoryStream stream = new MemoryStream(bytes))
+            //return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+
+            return string.Empty;
         }
 
         public void Dispose()

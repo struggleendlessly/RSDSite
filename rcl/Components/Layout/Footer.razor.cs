@@ -3,6 +3,7 @@
 using shared;
 using shared.Models;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 namespace rcl.Components.Layout
 {
@@ -12,7 +13,7 @@ namespace rcl.Components.Layout
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -24,9 +25,9 @@ namespace rcl.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            Model = await PageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StaticStrings.AdminPageSettingsDataJsonFilePath);
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);  
-            SocialNetworks = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);      
+            Model = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);  
+            SocialNetworks = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.AdminPageSocialNetworksDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSocialNetworksDataJsonFilePath);      
             
             SocialNetworksModel.Data = SocialNetworks
                 .SelectMany(x => x.ShortDesc)

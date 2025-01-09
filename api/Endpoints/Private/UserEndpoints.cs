@@ -11,7 +11,7 @@ namespace api.Endpoints.Private
         {
             var group = endpoints.MapGroup(StaticStrings.Route_API_User);
 
-            group.MapGet("/", async (HttpContext httpContext, IUserService userService ) =>
+            group.MapGet("/", async (HttpContext httpContext, IUserService userService) =>
             {
                 var idpName = httpContext.User.FindFirstValue(StaticStrings.MSAL_IDP_ClaimType);
                 var idpUserIdStr = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);

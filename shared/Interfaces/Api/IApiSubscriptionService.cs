@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace shared.Interfaces
+namespace shared.Interfaces.Api
 {
-    public interface ISubscriptionService
+    public interface IApiSubscriptionService
     {
         Task<bool> IsWebsiteSubscriptionActiveAsync(string siteName);
         Task<bool> IsCustomDomainSubscriptionActiveAsync(string siteName);

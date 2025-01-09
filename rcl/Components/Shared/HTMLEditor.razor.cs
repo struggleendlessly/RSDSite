@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using shared;
 using shared.Models;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 namespace rcl.Components.Shared
 {
@@ -46,7 +47,7 @@ namespace rcl.Components.Shared
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public PageModel LocalizationModel { get; set; } = new PageModel();
 
@@ -54,7 +55,7 @@ namespace rcl.Components.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             Value = Model.Data[Key];
         }

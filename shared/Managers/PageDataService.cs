@@ -14,22 +14,20 @@ namespace shared.Managers
     {
         private readonly AzureBlobStorageManager _blobStorageManager;
         private readonly IMemoryCache _memoryCache;
-        private readonly IStateManager _stateManager;
 
-        public PageDataService(AzureBlobStorageManager blobStorageManager, IMemoryCache memoryCache, IStateManager stateManager)
+        public PageDataService(AzureBlobStorageManager blobStorageManager, IMemoryCache memoryCache)
         {
             _blobStorageManager = blobStorageManager;
             _memoryCache = memoryCache;
-            _stateManager = stateManager;
         }
 
-        public async Task<T> GetDataAsync<T>(string memoryCacheKey, string filePath, string? blobContainerName = null)
+        public async Task<T> GetDataAsync<T>(string memoryCacheKey, string siteName, string lang, string filePath, string? blobContainerName = null)
         {
-            var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
+            var key = string.Format(memoryCacheKey, siteName, lang);
             if (!_memoryCache.TryGetValue(key, out T model))
             {
-                var containerName = blobContainerName ?? _stateManager.SiteName;
-                var blobName = string.Format(filePath, _stateManager.Lang);
+                var containerName = blobContainerName ?? siteName;
+                var blobName = string.Format(filePath, lang);
                 var jsonContent = await _blobStorageManager.DownloadFile(containerName, blobName);
                 model = JsonConvert.DeserializeObject<T>(jsonContent);
 
@@ -38,19 +36,19 @@ namespace shared.Managers
 
             if (model is PageModel pageModel)
             {
-                SearchAndReplaceInPageModel(pageModel, "{{{container}}}", _stateManager.SiteName);
+                SearchAndReplaceInPageModel(pageModel, "{{{container}}}", siteName);
             }
 
             return model;
         }
 
-        public async Task<string> GetStringDataAsync(string memoryCacheKey, string filePath, string? blobContainerName = null)
+        public async Task<string> GetStringDataAsync(string memoryCacheKey, string siteName, string lang, string filePath, string? blobContainerName = null)
         {
-            var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
+            var key = string.Format(memoryCacheKey, siteName, lang);
             if (!_memoryCache.TryGetValue(key, out string data))
             {
-                var containerName = blobContainerName ?? _stateManager.SiteName;
-                var blobName = string.Format(filePath, _stateManager.Lang);
+                var containerName = blobContainerName ?? siteName;
+                var blobName = string.Format(filePath, lang);
                 var content = await _blobStorageManager.DownloadFile(containerName, blobName);
                 data = content;
 
@@ -60,22 +58,22 @@ namespace shared.Managers
             return data;
         }
 
-        public async Task SaveDataAsync<T>(T model, string memoryCacheKey, string filePath)
+        public async Task SaveDataAsync<T>(T model, string memoryCacheKey, string siteName, string lang, string filePath)
         {
             T modelCopy = ObjectHelpers.DeepCopy(model);
 
             if (modelCopy is PageModel pageModelCopy)
             {
-                SearchAndReplaceInPageModel(pageModelCopy, _stateManager.SiteName, "{{{container}}}");
+                SearchAndReplaceInPageModel(pageModelCopy, siteName, "{{{container}}}");
             }
 
             var jsonModel = JsonConvert.SerializeObject(modelCopy);
-            var blobName = string.Format(filePath, _stateManager.Lang);
+            var blobName = string.Format(filePath, lang);
 
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonModel)))
-            await _blobStorageManager.UploadFile(_stateManager.SiteName, blobName, stream);
+            await _blobStorageManager.UploadFile(siteName, blobName, stream);
 
-            var key = string.Format(memoryCacheKey, _stateManager.SiteName, _stateManager.Lang);
+            var key = string.Format(memoryCacheKey, siteName, lang);
             _memoryCache.Remove(key);
         }
 
