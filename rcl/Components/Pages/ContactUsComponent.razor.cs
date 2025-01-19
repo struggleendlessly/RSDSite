@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Models;
-using shared.Managers;
 using shared.Interfaces;
 using shared.Data.Entities;
 using shared.Interfaces.Api;
@@ -27,7 +26,7 @@ namespace rcl.Components.Pages
         private IConfiguration Configuration { get; set; }
 
         [Inject]
-        IWebsiteService WebsiteService { get; set; }
+        IApiWebsiteService ApiWebsiteService { get; set; }
 
         [Inject]
         IApiContactUsMessageService ApiContactUsMessageService { get; set; }
@@ -101,7 +100,7 @@ namespace rcl.Components.Pages
 
         public async Task SubmitForm()
         {
-            var currentWebsite = await WebsiteService.GetWebsiteByName(StateManager.SiteName);
+            var currentWebsite = await ApiWebsiteService.GetWebsiteByName(StateManager.SiteName);
             var message = new ContactUsMessage
             {
                 FirstName = Input.FirstName,

@@ -3,6 +3,8 @@ using shared.Interfaces;
 
 using System.Security.Claims;
 
+using Microsoft.AspNetCore.Mvc;
+
 namespace api.Endpoints.Private
 {
     public static class WebsiteEndpoints
@@ -24,6 +26,14 @@ namespace api.Endpoints.Private
                 var websites = await websiteService.GetAllOrCreateAsync(idpName, idpUserIdGuid);
                 return Results.Ok(websites);
             }).RequireAuthorization();
+
+            group.MapGet("/getByName", async (
+                [FromQuery] string siteName,
+                [FromServices] IWebsiteService websiteService) =>
+            {
+                var result = await websiteService.GetWebsiteByName(siteName);
+                return Results.Ok(result);
+            });
         }
     }
 }
