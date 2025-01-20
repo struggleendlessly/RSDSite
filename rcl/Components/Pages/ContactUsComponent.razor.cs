@@ -1,16 +1,17 @@
 ﻿using Microsoft.JSInterop;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Models;
+using shared.Models.API;
 using shared.Interfaces;
 using shared.Data.Entities;
 using shared.Interfaces.Api;
+using shared.ConfigurationOptions;
 
 using System.Text.Json;
-using shared.Models.API;
 
 namespace rcl.Components.Pages
 {
@@ -23,7 +24,7 @@ namespace rcl.Components.Pages
         IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; }
 
         [Inject]
-        private IConfiguration Configuration { get; set; }
+        IOptions<LeafletOptions> LeafletOptions { get; set; }
 
         [Inject]
         IApiWebsiteService ApiWebsiteService { get; set; }
@@ -61,7 +62,7 @@ namespace rcl.Components.Pages
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
-                await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, Configuration["Leaflet:AccessToken"], Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey], Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]);
+                //await JS.InvokeVoidAsync(JSInvokeMethodList.leafletActivate, LeafletOptions.Value.AccessToken, Model.Data[StaticStrings.ContactUsPageDatMapCoordinatesKey], Model.Data[StaticStrings.ContactUsPageDataMapMarkerTextKey]);
                 await JS.InvokeVoidAsync(JSInvokeMethodList.enablePopovers);
             }
         }

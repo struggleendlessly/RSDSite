@@ -15,6 +15,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
+builder.Services.Configure<LeafletOptions>(builder.Configuration.GetSection(LeafletOptions.SectionName));
 
 builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 builder.Services.AddScoped<IStateManager, StateManager>();
