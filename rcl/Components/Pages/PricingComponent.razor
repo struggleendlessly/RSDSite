@@ -6,7 +6,7 @@
         <h1 class="@StaticHtmlStrings.CSSMainTitle_h1">
             @LocalizationModel.Data[StaticStrings.Localization_Pricing_Key]
         </h1>
-        <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
+        <a href="@StaticRoutesStrings.AzureLoginPageUrl" class="btn btn-dark text-white mb-4 px-4 gap-3">
             @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
         </a>
         @foreach (var product in ProductsWithPrices)
@@ -60,7 +60,7 @@
             </div>
         }
 
-        <a href="@StateManager.GetPageUrl(StaticRoutesStrings.LoginPageUrl, false)" class="btn btn-dark text-white mb-4 px-4 gap-3">
+        <a href="@StaticRoutesStrings.AzureLoginPageUrl" class="btn btn-dark text-white mb-4 px-4 gap-3">
             @LocalizationModel.Data[StaticStrings.Localization_Login_Key]
         </a>
     }
