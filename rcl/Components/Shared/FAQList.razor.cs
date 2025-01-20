@@ -1,13 +1,13 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 
 using shared;
 using shared.Enums;
 using shared.Models;
-using shared.Managers;
+using shared.Models.API;
 using shared.Extensions;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using System.Text.Json;
 
@@ -28,16 +28,13 @@ namespace rcl.Components.Shared
         IJSRuntime JS { get; set; }
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
-
-        [Inject]
-        protected IMemoryCache MemoryCache { get; set; }
+        IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; }
 
         [Inject]
         IStateManager StateManager { get; set; }
 
         [Inject]
-        IPageDataService PageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; }
 
         public List<ServiceItem> ServiceItems { get; set; } = new List<ServiceItem>();
 
@@ -63,7 +60,7 @@ namespace rcl.Components.Shared
         {
             SetJSONPaths();
 
-            //ServiceItems = await PageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            ServiceItems = await ApiPageDataService.GetDataAsync<List<ServiceItem>>(StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, StateManager.SiteName, StateManager.Lang, FAQListDataJsonFilePath);
 
             Model.Data = ServiceItems
                 .SelectMany(x => x.ShortDesc)
@@ -92,7 +89,7 @@ namespace rcl.Components.Shared
                 }
             }
 
-            //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, StateManager.SiteName, StateManager.Lang, FAQListDataJsonFilePath);
 
             StateHasChanged();
         }
@@ -115,7 +112,7 @@ namespace rcl.Components.Shared
                 {
                     ServiceItems.Remove(serviceItem);
 
-                    //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+                    await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, StateManager.SiteName, StateManager.Lang, FAQListDataJsonFilePath);
                 }
             }
         }
@@ -154,7 +151,7 @@ namespace rcl.Components.Shared
                 ServiceItems.Add(serviceItem);
             }
 
-            //await PageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, FAQListDataJsonFilePath);
+            await ApiPageDataService.SaveDataAsync(ServiceItems, StaticStrings.ServicesPageFAQListDataJsonMemoryCacheKey + FAQListKeyEnding, StateManager.SiteName, StateManager.Lang, FAQListDataJsonFilePath);
 
             await Task.Delay(1000);
 
@@ -169,8 +166,15 @@ namespace rcl.Components.Shared
             byte[] bytes = Convert.FromBase64String(base64);
             var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
+
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public void SetJSONPaths()
