@@ -1,6 +1,7 @@
 ﻿using shared;
 using shared.Models;
 using shared.Interfaces;
+using shared.Interfaces.Api;
 
 using Microsoft.AspNetCore.Components;
 
@@ -20,14 +21,15 @@ namespace rcl.Components.Shared
         [Parameter]
         public string Key { get; set; } = string.Empty;
 
-        [Inject]
-        IPageDataService PageDataService { get; set; }
+        [Inject] IApiPageDataService ApiPageDataService { get; set; } = default!;
+
+        [Inject] IStateManager StateManager { get; set; } = default!;
 
         public PageModel LocalizationModel { get; set; } = new PageModel();
 
         protected override async Task OnInitializedAsync()
         {     
-            //LocalizationModel = await PageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
         }
 
         private async Task CheckboxChangedAsync(ChangeEventArgs e)

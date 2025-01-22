@@ -122,9 +122,10 @@ namespace shared.Managers
 
         public bool CanEditSite()
         {
-            return UserWebsites
-                .Select(x => x.Name)
-                .Contains(SiteName);
+            return true;
+            //return UserWebsites
+            //    .Select(x => x.Name)
+            //    .Contains(SiteName);
         }
 
         public bool IsCustomDomain()

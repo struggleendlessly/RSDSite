@@ -12,7 +12,7 @@
         <Authorized>
             @if (Model.SEO is not null && Model.SEO.Count > 0)
             {
-                <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
+                @* <h2 class="@StaticHtmlStrings.CSSMainTitle_h2">
                     SEO
                 </h2>
                 <div class="accordion my-5" id="accordionSEO">
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
             }
         </Authorized>
     </AuthorizeView>
