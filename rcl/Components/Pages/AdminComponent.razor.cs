@@ -1,5 +1,4 @@
 ﻿using Microsoft.JSInterop;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 using shared;
 using shared.Models;
-using shared.Managers;
+using shared.Models.API;
 using shared.Interfaces;
 using shared.Data.Entities;
 using shared.Interfaces.Api;
@@ -20,46 +19,40 @@ namespace rcl.Components.Pages
     public partial class AdminComponent
     {
         [Inject]
-        IJSRuntime JS { get; set; }
+        IJSRuntime JS { get; set; } = default!;
 
         [Inject]
-        AzureBlobStorageManager BlobStorageManager { get; set; }
+        IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; } = default!;
 
         [Inject]
-        IContactUsMessageService ContactUsMessageService { get; set; }
+        IApiContactUsMessageService ApiContactUsMessageService { get; set; } = default!;
 
         [Inject]
-        IStateManager StateManager { get; set; }
+        IStateManager StateManager { get; set; } = default!;
 
         [Inject]
-        IApiPageDataService ApiPageDataService { get; set; }
+        IApiPageDataService ApiPageDataService { get; set; } = default!;
 
         [Inject]
-        IWebsiteService WebsiteService { get; set; }
+        IApiWebsiteService ApiWebsiteService { get; set; } = default!;
 
         [Inject]
-        ILogger<AdminComponent> Logger { get; set; }
+        NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        ISiteCreator SiteCreator { get; set; }
+        IApiSubscriptionService ApiSubscriptionService { get; set; } = default!;
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        public IOptions<StripeOptions> StripeOptions { get; set; } = default!;
 
         [Inject]
-        ISubscriptionService SubscriptionService { get; set; }
+        IOptions<DomainValidationOptions> DomainValidationOptions { get; set; } = default!;
 
         [Inject]
-        public IOptions<StripeOptions> stripeOptions { get; set; }
-
-        [Inject]
-        IOptions<DomainValidationOptions> DomainValidationOptions { get; set; }
-
-        [Inject]
-        ICustomDomainService CustomDomainService { get; set; }
+        ICustomDomainService CustomDomainService { get; set; } = default!;
 
         [CascadingParameter]
-        Task<AuthenticationState> AuthenticationStateTask { get; set; }
+        Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
 
         public PageModel Model { get; set; } = new PageModel();
 
@@ -81,9 +74,9 @@ namespace rcl.Components.Pages
         [SupplyParameterFromForm]
         public RenameSiteModel RenameSiteModel { get; set; } = new();
 
-        public string SelectedSite { get; set; }
+        public string SelectedSite { get; set; } = default!;
 
-        public string CustomDomain { get; set; }
+        public string CustomDomain { get; set; } = default!;
         public bool IsCustomDomainEditing { get; set; } = false;
         public bool IsCustomDomainSaving { get; set; } = false;
 
@@ -114,10 +107,10 @@ namespace rcl.Components.Pages
             PopoversModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.PopoversMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.PopoversDataJsonFilePath, StaticStrings.PopoversContainerName);
             SettingsModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.AdminPageSettingsDataJsonMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.AdminPageSettingsDataJsonFilePath);
             LocalizationModel = await ApiPageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, StateManager.SiteName, StateManager.Lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
-            ContactUsMessages = await ContactUsMessageService.GetContactUsMessages(StateManager.SiteName);
+            ContactUsMessages = await ApiContactUsMessageService.GetAllAsync(StateManager.SiteName);
 
             SelectedSite = StateManager.SiteName;
-            CustomDomain = await WebsiteService.GetSiteDomainAsync(StateManager.SiteName);
+            CustomDomain = await ApiWebsiteService.GetSiteDomainAsync(StateManager.SiteName);
 
             if (!string.IsNullOrWhiteSpace(CustomDomain))
             {
@@ -133,8 +126,15 @@ namespace rcl.Components.Pages
             byte[] bytes = Convert.FromBase64String(base64);
             var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
-            using (MemoryStream stream = new MemoryStream(bytes))
-            return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
+
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public async Task Save(PageModel model)
@@ -152,7 +152,7 @@ namespace rcl.Components.Pages
             IsWebsiteCreating = true;
             await Task.Delay(1);
 
-            var existingWebsite = await WebsiteService.GetWebsiteByName(CreateSiteModel.Name);
+            var existingWebsite = await ApiWebsiteService.GetWebsiteAsync(CreateSiteModel.Name);
             if (existingWebsite != null)
             {
                 await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminCreateSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, LocalizationModel.Data[StaticStrings.Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key]);
@@ -160,11 +160,7 @@ namespace rcl.Components.Pages
             }
 
             var newWebsite = new Website { Name = CreateSiteModel.Name };
-            await WebsiteService.CreateAsync(newWebsite, StateManager.User.Id);
-
-            Logger.LogInformation($"A website named {newWebsite.Name} has been created.");
-
-            await SiteCreator.CreateSite(newWebsite.Name);
+            await ApiWebsiteService.CreateAsync(newWebsite);
 
             StateManager.AddUserSite(newWebsite);
 
@@ -185,21 +181,27 @@ namespace rcl.Components.Pages
             IsWebsiteRenaming = true;
             await Task.Delay(1);
 
-            var existingWebsite = await WebsiteService.GetWebsiteByName(RenameSiteModel.NewName);
+            var existingWebsite = await ApiWebsiteService.GetWebsiteAsync(RenameSiteModel.NewName);
             if (existingWebsite != null)
             {
                 await JS.InvokeVoidAsync(JSInvokeMethodList.showAndHideAlert, StaticHtmlStrings.AdminRenameSiteFormAlertId, StaticHtmlStrings.CSSAlertDanger, StaticStrings.Localization_Admin_Settings_CreateOrRenameSite_DuplicateSiteName_Message_Key);
                 return;
             }
 
-            var website = await WebsiteService.GetWebsiteByName(RenameSiteModel.SiteName);
+            var website = await ApiWebsiteService.GetWebsiteAsync(RenameSiteModel.SiteName);
             website.Name = RenameSiteModel.NewName;
 
-            await WebsiteService.UpdateAsync(website);
+            await ApiWebsiteService.UpdateAsync(website);
 
             StateManager.RenameUserSite(website.Id, RenameSiteModel.NewName);
 
-            await BlobStorageManager.RenameContainerAsync(RenameSiteModel.SiteName, RenameSiteModel.NewName);
+            var renameContainerModel = new RenameContainerModel
+            {
+                SourceContainerName = RenameSiteModel.SiteName,
+                DestinationContainerName = RenameSiteModel.NewName
+            };
+
+            await ApiAzureBlobStorageService.RenameContainerAsync(renameContainerModel);
 
             if (StateManager.SiteName == RenameSiteModel.SiteName)
             {
@@ -234,8 +236,8 @@ namespace rcl.Components.Pages
 
         public async Task CheckSubscriptionStatus()
         {
-            IsWebsiteSubscriptionActive = await SubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
-            IsWebsiteCustomDomainSubscriptionActive = await SubscriptionService.IsCustomDomainSubscriptionActiveAsync(StateManager.SiteName);
+            IsWebsiteSubscriptionActive = await ApiSubscriptionService.IsWebsiteSubscriptionActiveAsync(StateManager.SiteName);
+            IsWebsiteCustomDomainSubscriptionActive = await ApiSubscriptionService.IsCustomDomainSubscriptionActiveAsync(StateManager.SiteName);
 
             var authenticationState = await AuthenticationStateTask;
             if (!authenticationState.User.Identity.IsAuthenticated && !IsWebsiteSubscriptionActive)

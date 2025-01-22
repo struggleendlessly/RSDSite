@@ -63,7 +63,7 @@ app.MapUserEndpoints();
 app.MapWebsiteEndpoints();
 app.MapPageDataEndpoints();
 app.MapSubscriptionEndpoints();
-app.MapFileEndpoints();
+app.MapAzureBlobStorageEndpoints();
 app.MapPricingEndpoints();
 app.MapContactUsMessageEndpoints();
 

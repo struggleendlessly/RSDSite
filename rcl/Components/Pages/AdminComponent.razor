@@ -450,8 +450,8 @@
                                     </h5>
                                     <p class="card-text">
                                         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                        <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
-                                                              publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                        <stripe-pricing-table pricing-table-id="@StripeOptions.Value.PricingTable.WebsiteSubscriptionPricingTableId"
+                                                              publishable-key="@StripeOptions.Value.PricingTable.PublishableKey"
                                                               client-reference-id="@StateManager.SiteId">
                                         </stripe-pricing-table>
                                     </p>
@@ -484,8 +484,8 @@
                                         </h5>
                                         <p class="card-text">
                                             <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-                                            <stripe-pricing-table pricing-table-id="@stripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
-                                                                  publishable-key="@stripeOptions.Value.PricingTable.PublishableKey"
+                                            <stripe-pricing-table pricing-table-id="@StripeOptions.Value.PricingTable.CustomDomainSubscriptionPricingTableId"
+                                                                  publishable-key="@StripeOptions.Value.PricingTable.PublishableKey"
                                                                   client-reference-id="@StateManager.SiteId">
                                             </stripe-pricing-table>
                                         </p>

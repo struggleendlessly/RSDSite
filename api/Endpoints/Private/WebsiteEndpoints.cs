@@ -1,5 +1,6 @@
 ﻿using shared;
 using shared.Interfaces;
+using shared.Data.Entities;
 
 using System.Security.Claims;
 
@@ -34,6 +35,34 @@ namespace api.Endpoints.Private
                 var result = await websiteService.GetWebsiteByName(siteName);
                 return Results.Ok(result);
             });
+
+            group.MapGet("/domain", async (
+                [FromQuery] string siteName,
+                [FromServices] IWebsiteService websiteService) =>
+            {
+                var result = await websiteService.GetSiteDomainAsync(siteName);
+                return Results.Ok(result);
+            });
+
+            group.MapPost(string.Empty, async (
+                HttpContext httpContext,
+                Website model,
+                IWebsiteService websiteService) =>
+            {
+                var idpUserIdStr = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var idpUserIdGuid = Guid.Parse(idpUserIdStr);
+
+                var result = await websiteService.CreateAsync(model, idpUserIdGuid);
+                return Results.Ok(result);
+            }).RequireAuthorization();
+
+            group.MapPut(string.Empty, async (
+                Website model,
+                IWebsiteService websiteService) =>
+            {
+                var result = await websiteService.UpdateAsync(model);
+                return Results.Ok(result);
+            }).RequireAuthorization();
         }
     }
 }

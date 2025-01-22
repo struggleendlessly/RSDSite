@@ -60,5 +60,26 @@ namespace shared.Managers.Api
                 throw new HttpRequestException($"Request to {requestUri} failed with status code {response.StatusCode}");
             }
         }
+
+        public async Task<TResult> SendPutRequestAsync<TRequest, TResult>(string endpoint, TRequest model, Dictionary<string, string>? parameters = null)
+        {
+            var queryString = parameters != null
+                ? "?" + string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"))
+                : string.Empty;
+
+            var requestUri = $"{_apiOptions.Url}/{endpoint}{queryString}";
+            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync(requestUri, content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<TResult>(jsonResponse);
+            }
+            else
+            {
+                throw new HttpRequestException($"Request to {requestUri} failed with status code {response.StatusCode}");
+            }
+        }
     }
 }

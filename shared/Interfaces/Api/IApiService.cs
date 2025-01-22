@@ -6,5 +6,6 @@ namespace shared.Interfaces.Api
     {
         Task<T> SendGetRequestAsync<T>(string endpoint, Dictionary<string, string>? parameters = null);
         Task<TResult> SendPostRequestAsync<TRequest, TResult>(string endpoint, TRequest model, Dictionary<string, string>? parameters = null);
+        Task<TResult> SendPutRequestAsync<TRequest, TResult>(string endpoint, TRequest model, Dictionary<string, string>? parameters = null);
     }
 }
