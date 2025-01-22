@@ -4,6 +4,7 @@ namespace shared.Interfaces.Api
 {
     public interface IApiWebsiteService
     {
-        Task<Website> GetWebsiteByName(string siteName);
+        Task<List<Website>> GetAllAsync();
+        Task<Website> GetWebsiteAsync(string siteName);
     }
 }

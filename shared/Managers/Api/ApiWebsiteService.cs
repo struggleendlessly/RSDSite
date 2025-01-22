@@ -12,7 +12,14 @@ namespace shared.Managers.Api
             _apiService = apiService;
         }
 
-        public async Task<Website> GetWebsiteByName(string siteName)
+        public async Task<List<Website>> GetAllAsync()
+        {
+            var endpoint = StaticStrings.Route_API_Website;
+
+            return await _apiService.SendGetRequestAsync<List<Website>>(endpoint);
+        }
+
+        public async Task<Website> GetWebsiteAsync(string siteName)
         {
             var parameters = new Dictionary<string, string>
             {

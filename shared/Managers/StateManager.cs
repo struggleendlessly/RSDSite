@@ -21,9 +21,9 @@ namespace shared.Managers
         //private readonly ClaimsPrincipal _user;
 
         public StateManager(
-            NavigationManager navigationManager, 
-            AuthenticationStateProvider authenticationStateProvider
-            /*IWebsiteService websiteService*/)
+            NavigationManager navigationManager 
+            /*AuthenticationStateProvider authenticationStateProvider
+            IWebsiteService websiteService*/)
         {
             _navigationManager = navigationManager;
             //_authenticationStateProvider = authenticationStateProvider;

@@ -101,7 +101,7 @@ namespace rcl.Components.Pages
 
         public async Task SubmitForm()
         {
-            var currentWebsite = await ApiWebsiteService.GetWebsiteByName(StateManager.SiteName);
+            var currentWebsite = await ApiWebsiteService.GetWebsiteAsync(StateManager.SiteName);
             var message = new ContactUsMessage
             {
                 FirstName = Input.FirstName,

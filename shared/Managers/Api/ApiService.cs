@@ -20,10 +20,13 @@ namespace shared.Managers.Api
             _apiOptions = apiOptions.Value;
         }
 
-        public async Task<T> SendGetRequestAsync<T>(string endpoint, Dictionary<string, string> parameters)
+        public async Task<T> SendGetRequestAsync<T>(string endpoint, Dictionary<string, string>? parameters = null)
         {
-            var queryString = string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"));
-            var requestUri = $"{_apiOptions.Url}/{endpoint}?{queryString}";
+            var queryString = parameters != null
+                ? "?" + string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"))
+                : string.Empty;
+
+            var requestUri = $"{_apiOptions.Url}/{endpoint}{queryString}";
 
             var response = await _httpClient.GetAsync(requestUri);
             if (response.IsSuccessStatusCode)

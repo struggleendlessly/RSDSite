@@ -1,7 +1,9 @@
 ﻿@page "/authentication/{action}"
 
 @using shared
+@using shared.Interfaces
 @using shared.Data.Entities
+@using shared.Interfaces.Api
 
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
@@ -10,12 +12,18 @@
 @code{
     [Parameter] public string? Action { get; set; }
 
-    [Inject]
-    HttpClient Http { get; set; }
+    [Inject] IApiUserService ApiUserService { get; set; } = default!;
+
+    [Inject] IApiWebsiteService ApiWebsiteService { get; set; } = default!;
+
+    [Inject] IStateManager StateManager { get; set; } = default!;
 
     public async Task OnLogInSucceeded()
     {
-        var user = await Http.GetFromJsonAsync<User>(StaticStrings.Route_API_User);
-        var websites = await Http.GetFromJsonAsync<List<Website>>(StaticStrings.Route_API_Website);
+        var user = await ApiUserService.GetOrCreateAsync();
+        var websites = await ApiWebsiteService.GetAllAsync();
+
+        StateManager.User = user;
+        StateManager.UserWebsites = websites;
     }
 }
