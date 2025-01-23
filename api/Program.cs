@@ -39,6 +39,8 @@ builder.Services.AddScoped<IPageDataService, PageDataService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IStripeService, StripeService>();
 builder.Services.AddScoped<IContactUsMessageService, ContactUsMessageService>();
+builder.Services.AddScoped<IDomainChecker, DomainChecker>();
+builder.Services.AddScoped<ICustomDomainService, CustomDomainService>();
 
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.SectionName));
 builder.Services.Configure<AzureBlobStorageOptions>(builder.Configuration.GetSection(AzureBlobStorageOptions.SectionName));
@@ -66,6 +68,7 @@ app.MapSubscriptionEndpoints();
 app.MapAzureBlobStorageEndpoints();
 app.MapPricingEndpoints();
 app.MapContactUsMessageEndpoints();
+app.MapCustomDomainEndpoints();
 
 app.MapGet("/", () => "Hello World!");
 

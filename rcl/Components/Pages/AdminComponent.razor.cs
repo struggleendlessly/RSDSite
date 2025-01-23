@@ -49,7 +49,7 @@ namespace rcl.Components.Pages
         IOptions<DomainValidationOptions> DomainValidationOptions { get; set; } = default!;
 
         [Inject]
-        ICustomDomainService CustomDomainService { get; set; } = default!;
+        IApiCustomDomainService ApiCustomDomainService { get; set; } = default!;
 
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
@@ -114,7 +114,13 @@ namespace rcl.Components.Pages
 
             if (!string.IsNullOrWhiteSpace(CustomDomain))
             {
-                CustomDomainVerificationMessage = await CustomDomainService.CheckCustomDomainVerificationAsync();
+                var checkCustomDomainVerificationModel = new CheckCustomDomainVerificationModel
+                {
+                    SiteName = StateManager.SiteName,
+                    Lang = StateManager.Lang.TwoLetterISOLanguageName
+                };
+
+                CustomDomainVerificationMessage = await ApiCustomDomainService.CheckCustomDomainVerificationAsync(checkCustomDomainVerificationModel);
             }
         }
 
@@ -226,10 +232,23 @@ namespace rcl.Components.Pages
         {
             IsCustomDomainSaving = true;
 
-            await CustomDomainService.SaveCustomDomainAsync(CustomDomain);
+            var saveCustomDomainModel = new SaveCustomDomainModel
+            {
+                SiteName = StateManager.SiteName,
+                CustomDomain = CustomDomain
+            };
+
+            await ApiCustomDomainService.SaveCustomDomainAsync(saveCustomDomainModel);
 
             ToggleCustomDomainEditMode();
-            CustomDomainVerificationMessage = await CustomDomainService.CheckCustomDomainVerificationAsync();
+
+            var checkCustomDomainVerificationModel = new CheckCustomDomainVerificationModel
+            {
+                SiteName = StateManager.SiteName,
+                Lang = StateManager.Lang.TwoLetterISOLanguageName
+            };
+
+            CustomDomainVerificationMessage = await ApiCustomDomainService.CheckCustomDomainVerificationAsync(checkCustomDomainVerificationModel);
 
             IsCustomDomainSaving = false;
         }

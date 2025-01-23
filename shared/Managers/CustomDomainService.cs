@@ -10,30 +10,27 @@ namespace shared.Managers
 {
     public class CustomDomainService : ICustomDomainService
     {    
-        private readonly IStateManager _stateManager;
         private readonly IDomainChecker _domainChecker;
         private readonly IPageDataService _pageDataService;
         private readonly ApplicationDbContext _dbContext;
         private readonly AzureBlobStorageManager _blobStorageManager;
 
         public CustomDomainService(
-            IStateManager stateManager,
             IDomainChecker domainChecker,
             IPageDataService pageDataService,
             ApplicationDbContext dbContext,
             AzureBlobStorageManager blobStorageManager
             )
         {    
-            _stateManager = stateManager;
             _domainChecker = domainChecker;
             _pageDataService = pageDataService;
             _dbContext = dbContext;
             _blobStorageManager = blobStorageManager;
         }
 
-        public async Task SaveCustomDomainAsync(string customDomain)
+        public async Task SaveCustomDomainAsync(string siteName, string customDomain)
         {
-            var website = await _dbContext.Websites.FirstOrDefaultAsync(x => x.Name == _stateManager.SiteName);
+            var website = await _dbContext.Websites.FirstOrDefaultAsync(x => x.Name == siteName);
 
             website.IsNewDomainInProcess = true;
             website.Domain = customDomain;
@@ -62,13 +59,13 @@ namespace shared.Managers
             await _blobStorageManager.UploadFile(StaticStrings.NewDomainsContainerName, newDomainsBlobName, stream);
         }
 
-        public async Task<string> CheckCustomDomainVerificationAsync()
+        public async Task<string> CheckCustomDomainVerificationAsync(string siteName, string lang)
         {
-            var website = await _dbContext.Websites.FirstOrDefaultAsync(x => x.Name == _stateManager.SiteName);
+            var website = await _dbContext.Websites.FirstOrDefaultAsync(x => x.Name == siteName);
             if (website == null || !website.IsNewDomainInProcess)
                 return string.Empty;
 
-            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, _stateManager.SiteName, _stateManager.Lang.TwoLetterISOLanguageName, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
+            var localizationModel = await _pageDataService.GetDataAsync<PageModel>(StaticStrings.LocalizationMemoryCacheKey, siteName, lang, StaticStrings.LocalizationJsonFilePath, StaticStrings.LocalizationContainerName);
 
             var newDomainsBlobName = string.Format(StaticStrings.NewDomainsDataJsonFilePath, DateTime.UtcNow.ToString("MM-dd-yyyy"));
             var jsonContent = await _blobStorageManager.DownloadFile(StaticStrings.NewDomainsContainerName, newDomainsBlobName);

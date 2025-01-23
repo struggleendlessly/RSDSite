@@ -27,6 +27,7 @@ builder.Services.AddScoped<IApiStripeService, ApiStripeService>();
 builder.Services.AddScoped<IApiContactUsMessageService, ApiContactUsMessageService>();
 builder.Services.AddScoped<IApiWebsiteService, ApiWebsiteService>();
 builder.Services.AddScoped<IApiUserService, ApiUserService>();
+builder.Services.AddScoped<IApiCustomDomainService, ApiCustomDomainService>();
 
 var apiUrl = builder.Configuration["Api:Url"];
 var apiScope = builder.Configuration["Api:Scope"];
