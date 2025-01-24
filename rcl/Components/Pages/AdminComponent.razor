@@ -317,12 +317,12 @@
 
                                 <p class="card-text">
                                     <select @bind="SelectedSite" class="form-select" aria-label="Change site">
-                                        @foreach (var website in StateManager.UserWebsites)
+                                        @* @foreach (var website in StateManager.UserWebsites)
                                         {
                                             <option value="@website.Name">
                                                 @website.Name
                                             </option>
-                                        }
+                                        } *@
                                     </select>
                                 </p>
                             </div>
@@ -403,10 +403,10 @@
                                         <ValidationSummary class="text-danger" role="alert" />
                                         <div class="form-floating mb-3">
                                             <select @bind="RenameSiteModel.SiteName" class="form-select" aria-label="Rename site" required>
-                                                @foreach (var website in StateManager.UserWebsites)
+                                                @* @foreach (var website in StateManager.UserWebsites)
                                                 {
                                                     <option value="@website.Name">@website.Name</option>
-                                                }
+                                                } *@
                                             </select>
                                             <ValidationMessage For="() => RenameSiteModel.SiteName" class="invalid-feedback" />
 

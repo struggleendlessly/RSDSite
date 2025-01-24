@@ -1,15 +1,15 @@
 ﻿using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Caching.Memory;
 
 using shared;
 using shared.Models;
-using shared.Managers;
+using shared.Models.API;
 using shared.Extensions;
 using shared.Interfaces;
+using shared.Managers.Api;
+using shared.Interfaces.Api;
 
 using System.Text.Json;
-using shared.Interfaces.Api;
 
 namespace rcl.Components.Shared
 {
@@ -24,8 +24,7 @@ namespace rcl.Components.Shared
         [Inject]
         IJSRuntime JS { get; set; }
 
-        //[Inject]
-        //AzureBlobStorageManager BlobStorageManager { get; set; }
+        [Inject] ApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; } = default!;
 
         [Inject]
         IStateManager StateManager { get; set; }
@@ -41,14 +40,14 @@ namespace rcl.Components.Shared
 
         private bool isAdding = false;
 
-        //protected override async Task OnAfterRenderAsync(bool firstRender)
-        //{
-        //    if (firstRender)
-        //    {
-        //        dotNetHelper = DotNetObjectReference.Create(this);
-        //        await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
-        //    }
-        //}
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                dotNetHelper = DotNetObjectReference.Create(this);
+                await JS.InvokeVoidAsync(JSInvokeMethodList.dotNetHelpersSetDotNetHelper, dotNetHelper);
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -161,15 +160,20 @@ namespace rcl.Components.Shared
         [JSInvokable]
         public async Task<string> returnTinyMceImage(JsonElement image)
         {
-            //var content = image.GetRawText();
-            //var base64 = content.Replace("\"", "");
-            //byte[] bytes = Convert.FromBase64String(base64);
-            //var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
+            var content = image.GetRawText();
+            var base64 = content.Replace("\"", "");
+            byte[] bytes = Convert.FromBase64String(base64);
+            var blobName = $"{StateManager.Lang}/images/{Guid.NewGuid()}.png";
 
-            //using (MemoryStream stream = new MemoryStream(bytes))
-            //return await BlobStorageManager.UploadFile(StateManager.SiteName, blobName, stream);
+            var uploadFileModel = new UploadFileModel()
+            {
+                SiteName = StateManager.SiteName,
+                BlobName = blobName,
+                FileData = bytes
+            };
 
-            return string.Empty;
+            var result = await ApiAzureBlobStorageService.UploadFileAsync(uploadFileModel);
+            return result;
         }
 
         public void Dispose()
