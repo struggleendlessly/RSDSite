@@ -6,7 +6,6 @@ using shared.Models;
 using shared.Models.API;
 using shared.Extensions;
 using shared.Interfaces;
-using shared.Managers.Api;
 using shared.Interfaces.Api;
 
 using System.Text.Json;
@@ -24,7 +23,7 @@ namespace rcl.Components.Shared
         [Inject]
         IJSRuntime JS { get; set; }
 
-        [Inject] ApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; } = default!;
+        [Inject] IApiAzureBlobStorageService ApiAzureBlobStorageService { get; set; } = default!;
 
         [Inject]
         IStateManager StateManager { get; set; }
